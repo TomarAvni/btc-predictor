@@ -1,0 +1,26 @@
+{
+  "cash": 1780.22,
+  "btc_holdings": 0.002102106841316184,
+  "peak_value": 2000.0,
+  "last_price": 104500.0,
+  "daily_start_value": 2000.0,
+  "daily_start_date": "2026-06-14T21:33:10.218734",
+  "positions": [
+    {
+      "id": "9844d316426a",
+      "entry_time": "2026-06-14T21:33:10.218728",
+      "entry_price": 104552.25,
+      "amount_usd": 219.78,
+      "amount_btc": 0.002102106841316184,
+      "side": "LONG",
+      "timeframe": "24h",
+      "stop_loss": 99275.0,
+      "take_profit": 107112.49999999999,
+      "trailing_stop_active": false,
+      "prediction_id": "3524bb3b0c17",
+      "confidence": 72,
+      "reason": "24h prediction: UP +2.5% @ 72% confidence; Multi-timeframe alignment: Moderate (score 1.50); Supporting timeframes: 7d (68%), 30d (55%)"
+    }
+  ],
+  "updated_at": "2026-06-14T21:33:10.219006"
+}

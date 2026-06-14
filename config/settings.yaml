@@ -1,0 +1,65 @@
+app:
+  name: "BTC Price Predictor"
+  log_level: "INFO"
+  log_file: "logs/btc_predictor.log"
+  predictions_file: "predictions.log"
+
+data:
+  base_path: "data"
+  price_path: "data/price"
+  cache_path: "data/cache"
+  models_path: "data/models"
+  history_path: "data/history"
+
+schedule:
+  fast_minutes: 15
+  medium_minutes: 60
+  slow_minutes: 360
+  daily_minutes: 1440
+
+exchanges:
+  primary:
+    id: "binance"
+    symbol: "BTC/USDT"
+    start_date: "2017-08-17"
+  secondary:
+    id: "bitstamp"
+    symbol: "BTC/USD"
+    start_date: "2013-09-01"
+
+halving:
+  events:
+    - date: "2012-11-28"
+      block: 210000
+      reward_after: 25.0
+    - date: "2016-07-09"
+      block: 420000
+      reward_after: 12.5
+    - date: "2020-05-11"
+      block: 630000
+      reward_after: 6.25
+    - date: "2024-04-19"
+      block: 840000
+      reward_after: 3.125
+  avg_cycle_days: 1460
+
+prediction:
+  horizons:
+    - label: "24h"
+      hours: 24
+    - label: "7d"
+      hours: 168
+    - label: "30d"
+      hours: 720
+    - label: "90d"
+      hours: 2160
+
+cache:
+  default_ttl_minutes: 60
+  max_size_mb: 500
+
+logging:
+  level: "INFO"
+  console: true
+  file: "logs/btc_predictor.log"
+  format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
