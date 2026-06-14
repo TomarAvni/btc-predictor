@@ -78,6 +78,132 @@ class OrderSimulator:
 
         return order, position
 
+    def execute_short(
+        self,
+        amount_usd: float,
+        current_price: float,
+        prediction_id: str,
+        timeframe: str,
+        confidence: float,
+        stop_loss: float,
+        take_profit: float,
+        reason: str,
+        timestamp: Optional[datetime] = None,
+    ) -> tuple[Order, Position]:
+        """Execute a simulated short entry (USD collateral, bet on price decline)."""
+        ts = timestamp or datetime.now(timezone.utc)
+
+        # Slippage: short entry at slightly lower price
+        execution_price = current_price * (1 - self.SLIPPAGE_PCT / 100)
+
+        fee = amount_usd * (self.TAKER_FEE_PCT / 100)
+        net_amount_usd = amount_usd - fee
+        amount_btc = net_amount_usd / execution_price
+
+        order = Order(
+            side="SELL",
+            amount_usd=amount_usd,
+            amount_btc=amount_btc,
+            price=execution_price,
+            order_type="MARKET",
+            reason=reason,
+            prediction_id=prediction_id,
+            timeframe=timeframe,
+            confidence=confidence,
+            stop_loss=stop_loss,
+            take_profit=take_profit,
+            timestamp=ts,
+        )
+
+        position = Position(
+            id=order.id,
+            entry_time=ts,
+            entry_price=execution_price,
+            amount_usd=net_amount_usd,
+            amount_btc=amount_btc,
+            side="SHORT",
+            timeframe=timeframe,
+            stop_loss=stop_loss,
+            take_profit=take_profit,
+            prediction_id=prediction_id,
+            confidence=confidence,
+            reason=reason,
+        )
+
+        return order, position
+
+    def execute_close(
+        self,
+        position: Position,
+        current_price: float,
+        reason: str,
+        order_type: str = "MARKET",
+        timestamp: Optional[datetime] = None,
+    ) -> tuple[Order, Trade]:
+        """Close a long or short position with slippage and fees."""
+        if position.side == "LONG":
+            return self.execute_sell(
+                position, current_price, reason, order_type, timestamp
+            )
+        return self._execute_cover_short(
+            position, current_price, reason, order_type, timestamp
+        )
+
+    def _execute_cover_short(
+        self,
+        position: Position,
+        current_price: float,
+        reason: str,
+        order_type: str = "MARKET",
+        timestamp: Optional[datetime] = None,
+    ) -> tuple[Order, Trade]:
+        """Cover a short position (simulated buy-back)."""
+        ts = timestamp or datetime.now(timezone.utc)
+
+        # Slippage: cover at slightly higher price (against us)
+        execution_price = current_price * (1 + self.SLIPPAGE_PCT / 100)
+
+        gross_cost = position.amount_btc * execution_price
+        exit_fee = gross_cost * (self.TAKER_FEE_PCT / 100)
+        entry_fee = position.amount_usd * (self.TAKER_FEE_PCT / 100)
+
+        pnl_usd = position.unrealized_pnl_at(execution_price) - exit_fee
+        pnl_pct = (pnl_usd / position.amount_usd * 100) if position.amount_usd > 0 else 0.0
+
+        order = Order(
+            side="BUY",
+            amount_usd=gross_cost,
+            amount_btc=position.amount_btc,
+            price=execution_price,
+            order_type=order_type,
+            reason=reason,
+            prediction_id=position.prediction_id,
+            timeframe=position.timeframe,
+            confidence=position.confidence,
+            stop_loss=position.stop_loss,
+            take_profit=position.take_profit,
+            timestamp=ts,
+        )
+
+        trade = Trade(
+            id=position.id,
+            entry_time=position.entry_time,
+            exit_time=ts,
+            entry_price=position.entry_price,
+            exit_price=execution_price,
+            amount_usd=position.amount_usd,
+            amount_btc=position.amount_btc,
+            side="SHORT",
+            timeframe=position.timeframe,
+            pnl_usd=pnl_usd,
+            pnl_pct=pnl_pct,
+            exit_reason=reason,
+            prediction_id=position.prediction_id,
+            fees_paid=exit_fee + entry_fee,
+        )
+
+        return order, trade
+
     def execute_sell(
         self,
         position: Position,

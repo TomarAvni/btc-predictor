@@ -106,6 +106,7 @@ class Position:
     @classmethod
     def from_dict(cls, data: dict) -> Position:
         data = data.copy()
+        data.setdefault("side", "LONG")
         if isinstance(data.get("entry_time"), str):
             data["entry_time"] = _ensure_utc(datetime.fromisoformat(data["entry_time"]))
         return cls(**data)
@@ -155,6 +156,7 @@ class Trade:
     @classmethod
     def from_dict(cls, data: dict) -> Trade:
         data = data.copy()
+        data.setdefault("side", "LONG")
         for k in ("entry_time", "exit_time"):
             if isinstance(data.get(k), str):
                 data[k] = _ensure_utc(datetime.fromisoformat(data[k]))

@@ -58,6 +58,7 @@ class TradeJournal:
             "trade_number": self._trade_number,
             "timestamp": ts.isoformat(),
             "action": action,
+            "position_side": position.side,
             "side": order.side,
             "amount_usd": order.amount_usd,
             "amount_btc": order.amount_btc,
@@ -100,6 +101,7 @@ class TradeJournal:
             "trade_number": self._trade_number,
             "timestamp": ts.isoformat(),
             "action": "CLOSE",
+            "position_side": trade.side,
             "side": "SELL" if trade.side == "LONG" else "BUY",
             "amount_usd": trade.amount_usd,
             "amount_btc": trade.amount_btc,
@@ -154,6 +156,10 @@ class TradeJournal:
             f"ACTION: {entry['action']}",
         ]
 
+        position_side = entry.get("position_side")
+        if position_side:
+            lines.append(f"POSITION: {position_side}")
+
         if entry["action"] == "SKIP":
             lines.append(f"REASON: {entry.get('reason', 'N/A')}")
             preds = entry.get("predictions_summary", [])
@@ -170,15 +176,20 @@ class TradeJournal:
             )
             lines.append(f"P&L: ${entry['pnl_usd']:.2f} ({entry['pnl_pct']:.2f}%)")
             lines.append(f"EXIT REASON: {entry['exit_reason']}")
+            if position_side == "SHORT":
+                lines.append("COVER: Simulated short closed (buy-back)")
             lines.append(
                 f"HOLDING TIME: {entry.get('holding_time_hours', 0):.1f} hours"
             )
             lines.append(f"FEES: ${entry.get('fees_paid', 0):.2f}")
         else:
+            side_label = entry.get("position_side", entry.get("action", ""))
             lines.append(
-                f"AMOUNT: ${entry['amount_usd']:.2f} ({entry.get('sizing_tier', '')} position) "
+                f"AMOUNT: ${entry['amount_usd']:.2f} ({entry.get('sizing_tier', '')} {side_label} position) "
                 f"/ {entry['amount_btc']:.8f} BTC @ ${entry['price']:,.2f}"
             )
+            if entry.get("action") == "SHORT":
+                lines.append("STRATEGY: Simulated short (USD collateral, bet on price decline)")
             lines.append(f"TIMEFRAME: {entry.get('timeframe', 'N/A')}")
             lines.append("REASON:")
             for r in entry.get("reasons", []):

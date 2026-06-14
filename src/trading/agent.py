@@ -329,17 +329,32 @@ class TradingAgent:
         prediction_id = uuid.uuid4().hex[:12]
         reason = "; ".join(signal.reasons)
 
-        order, position = self.simulator.execute_buy(
-            amount_usd=amount_usd,
-            current_price=current_price,
-            prediction_id=prediction_id,
-            timeframe=signal.timeframe,
-            confidence=signal.confidence,
-            stop_loss=stop_loss,
-            take_profit=take_profit,
-            reason=reason,
-            timestamp=timestamp,
-        )
+        if signal.direction == "SHORT":
+            order, position = self.simulator.execute_short(
+                amount_usd=amount_usd,
+                current_price=current_price,
+                prediction_id=prediction_id,
+                timeframe=signal.timeframe,
+                confidence=signal.confidence,
+                stop_loss=stop_loss,
+                take_profit=take_profit,
+                reason=reason,
+                timestamp=timestamp,
+            )
+            action_name = "SHORT"
+        else:
+            order, position = self.simulator.execute_buy(
+                amount_usd=amount_usd,
+                current_price=current_price,
+                prediction_id=prediction_id,
+                timeframe=signal.timeframe,
+                confidence=signal.confidence,
+                stop_loss=stop_loss,
+                take_profit=take_profit,
+                reason=reason,
+                timestamp=timestamp,
+            )
+            action_name = "BUY"
 
         # Update portfolio
         self.portfolio.open_position(position)
@@ -347,7 +362,7 @@ class TradingAgent:
 
         # Log to journal
         self.journal.log_entry(
-            action="BUY",
+            action=action_name,
             position=position,
             order=order,
             strategy_reasons=signal.reasons,
@@ -361,7 +376,8 @@ class TradingAgent:
         )
 
         return {
-            "action": "BUY",
+            "action": action_name,
+            "side": position.side,
             "amount_usd": order.amount_usd,
             "amount_btc": order.amount_btc,
             "price": order.price,
@@ -391,7 +407,7 @@ class TradingAgent:
             trigger_price = self.simulator.get_trigger_price(position, "take_profit")
             order_type = "TAKE_PROFIT"
 
-        order, trade = self.simulator.execute_sell(
+        order, trade = self.simulator.execute_close(
             position=position,
             current_price=trigger_price,
             reason=reason,
@@ -416,8 +432,11 @@ class TradingAgent:
             timestamp=timestamp,
         )
 
+        close_action = "COVER" if position.side == "SHORT" else "SELL"
+
         return {
-            "action": "SELL",
+            "action": close_action,
+            "side": position.side,
             "reason": reason,
             "amount_usd": trade.amount_usd,
             "exit_price": trade.exit_price,

@@ -42,8 +42,14 @@ class Portfolio:
 
     @property
     def total_value_usd(self) -> float:
-        """Total portfolio value: cash + BTC at last known price."""
-        return self.cash + self.btc_holdings * self._last_price
+        """Total portfolio value: cash + long BTC value + short collateral + unrealized P&L."""
+        long_value = self.btc_holdings * self._last_price
+        short_value = sum(
+            p.amount_usd + p.unrealized_pnl_at(self._last_price)
+            for p in self.positions
+            if p.side == "SHORT"
+        )
+        return self.cash + long_value + short_value
 
     @property
     def total_pnl(self) -> float:
@@ -74,10 +80,13 @@ class Portfolio:
 
     @property
     def exposure_pct(self) -> float:
-        """Percentage of portfolio currently in positions."""
+        """Percentage of portfolio currently in positions (long + short notional)."""
         if self.total_value_usd == 0:
             return 0.0
-        invested = sum(p.amount_btc * self._last_price for p in self.positions)
+        invested = sum(
+            p.amount_btc * self._last_price if p.side == "LONG" else p.amount_usd
+            for p in self.positions
+        )
         return (invested / self.total_value_usd) * 100
 
     @property
@@ -135,9 +144,10 @@ class Portfolio:
             self._daily_start_date = now
 
     def open_position(self, position: Position) -> None:
-        """Add a new position and deduct cash."""
+        """Add a new position and deduct cash (collateral for shorts)."""
         self.cash -= position.amount_usd
-        self.btc_holdings += position.amount_btc
+        if position.side == "LONG":
+            self.btc_holdings += position.amount_btc
         self.positions.append(position)
         self._save_state()
 
@@ -157,9 +167,12 @@ class Portfolio:
         pnl_usd = pos.unrealized_pnl_at(exit_price)
         pnl_pct = pos.unrealized_pnl_pct(exit_price)
 
-        proceeds = pos.amount_btc * exit_price
-        self.cash += proceeds
-        self.btc_holdings -= pos.amount_btc
+        if pos.side == "LONG":
+            proceeds = pos.amount_btc * exit_price
+            self.cash += proceeds
+            self.btc_holdings -= pos.amount_btc
+        else:
+            self.cash += pos.amount_usd + pnl_usd
         self.positions = [p for p in self.positions if p.id != position_id]
 
         trade = Trade(

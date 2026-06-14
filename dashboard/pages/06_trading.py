@@ -95,7 +95,18 @@ st.markdown("### Portfolio Overview")
 
 if portfolio:
     cash = portfolio.get("cash", 2000)
-    total_value = cash + portfolio.get("btc_holdings", 0) * portfolio.get("last_price", 0)
+    last_price = portfolio.get("last_price", 0)
+    btc = portfolio.get("btc_holdings", 0)
+    long_value = btc * last_price
+    short_value = 0.0
+    for p in portfolio.get("positions", []):
+        if p.get("side", "LONG") == "SHORT":
+            entry_price = p.get("entry_price", 0)
+            amount_btc = p.get("amount_btc", 0)
+            collateral = p.get("amount_usd", 0)
+            unrealized = amount_btc * (entry_price - last_price)
+            short_value += collateral + unrealized
+    total_value = cash + long_value + short_value
     peak = portfolio.get("peak_value", 2000)
     pnl = total_value - 2000
     pnl_pct = (pnl / 2000) * 100
@@ -131,11 +142,16 @@ if portfolio and portfolio.get("positions"):
         entry_price = p.get("entry_price", 0)
         current_price = portfolio.get("last_price", entry_price)
         amount_btc = p.get("amount_btc", 0)
-        unrealized_pnl = (current_price - entry_price) * amount_btc
-        unrealized_pnl_pct = ((current_price - entry_price) / entry_price * 100) if entry_price > 0 else 0
+        side = p.get("side", "LONG")
+        if side == "SHORT":
+            unrealized_pnl = (entry_price - current_price) * amount_btc
+            unrealized_pnl_pct = ((entry_price - current_price) / entry_price * 100) if entry_price > 0 else 0
+        else:
+            unrealized_pnl = (current_price - entry_price) * amount_btc
+            unrealized_pnl_pct = ((current_price - entry_price) / entry_price * 100) if entry_price > 0 else 0
 
         pos_data.append({
-            "Side": p.get("side", "LONG"),
+            "Side": side,
             "Timeframe": p.get("timeframe", "—"),
             "Entry Price": f"${entry_price:,.2f}",
             "Amount (USD)": f"${p.get('amount_usd', 0):.2f}",
