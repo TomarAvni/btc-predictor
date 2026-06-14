@@ -474,15 +474,19 @@ class PriceCollector(BaseCollector):
     def _save_parquet(self, df: pd.DataFrame) -> None:
         df.to_parquet(self.parquet_file, engine="pyarrow", compression="snappy")
 
-    def _save_checkpoint(self, candles: list[list], label: str) -> None:
+    def _checkpoint_tag(self, label: str) -> str:
         tag = label.lower().replace(" ", "_").replace("(", "").replace(")", "")
-        path = self.storage_path / f"_checkpoint_{tag}.parquet"
+        # Slashes in labels like "Phase 2/2" must not become path separators.
+        return tag.replace("/", "_").replace("\\", "_").replace("[", "").replace("]", "")
+
+    def _save_checkpoint(self, candles: list[list], label: str) -> None:
+        path = self.storage_path / f"_checkpoint_{self._checkpoint_tag(label)}.parquet"
         df = self._candles_to_df(candles)
         df.to_parquet(path, engine="pyarrow", compression="snappy")
         logger.debug("Checkpoint: %s candles -> %s", f"{len(df):,}", path.name)
 
     def _cleanup_checkpoints(self, label: str) -> None:
-        tag = label.lower().replace(" ", "_").replace("(", "").replace(")", "")
+        tag = self._checkpoint_tag(label)
         for p in self.storage_path.glob(f"_checkpoint_{tag}*"):
             p.unlink(missing_ok=True)
 
