@@ -54,7 +54,7 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
 
     st.markdown(
         f"""
-        <div style="overflow-x:auto;">
+        <div class="pred-table-wrap">
         <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
         <thead>
             <tr style="border-bottom:1px solid #30363D;color:#8B949E;text-align:left;">

@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 import streamlit as st
 
-from dashboard.styles import GREEN, RED, YELLOW
+from dashboard.config import PREDICTION_HORIZONS
+from dashboard.styles import GREEN, RED, YELLOW, layout_marker
 
 
 def render_metric_card(
@@ -58,6 +61,27 @@ def render_prediction_card(
         """,
         unsafe_allow_html=True,
     )
+
+
+def render_prediction_cards(
+    predictions: list[dict[str, Any]],
+    timeframes: tuple[str, ...] = tuple(PREDICTION_HORIZONS),
+    *,
+    mobile_stack: bool = True,
+) -> None:
+    """Render horizon prediction cards in a responsive row."""
+    if mobile_stack:
+        layout_marker("stack")
+    cols = st.columns(len(timeframes), gap="small")
+    for i, tf in enumerate(timeframes):
+        match = next((p for p in predictions if p["timeframe"] == tf), None)
+        with cols[i]:
+            if match:
+                render_prediction_card(
+                    tf, match["direction"], match["magnitude"], match["confidence"]
+                )
+            else:
+                render_metric_card(tf, "—")
 
 
 def render_performance_card(

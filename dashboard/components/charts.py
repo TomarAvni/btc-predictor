@@ -21,11 +21,24 @@ from dashboard.styles import (
     YELLOW,
 )
 
-_BASE_LAYOUT: dict[str, Any] = PLOTLY_TEMPLATE["layout"]
+_BASE_LAYOUT: dict[str, Any] = {
+    **PLOTLY_TEMPLATE["layout"],
+    "autosize": True,
+    "margin": dict(l=20, r=20, t=40, b=20),
+}
+
+CHART_HEIGHT_DEFAULT = 400
+CHART_HEIGHT_MOBILE = 250
+CHART_HEIGHT_GAUGE = 250
+CHART_HEIGHT_CANDLESTICK = 600
+CHART_HEIGHT_CANDLESTICK_MOBILE = 350
 
 
-def _apply_theme(fig: go.Figure) -> go.Figure:
-    fig.update_layout(**_BASE_LAYOUT)
+def _apply_theme(fig: go.Figure, height: int | None = None) -> go.Figure:
+    layout_updates: dict[str, Any] = dict(_BASE_LAYOUT)
+    if height is not None:
+        layout_updates["height"] = height
+    fig.update_layout(**layout_updates)
     return fig
 
 
@@ -125,12 +138,11 @@ def create_candlestick_chart(
             )
 
     fig.update_layout(
-        height=height,
         xaxis_rangeslider_visible=False,
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="right", x=1),
     )
-    _apply_theme(fig)
+    _apply_theme(fig, height=height)
     return fig
 
 
@@ -159,8 +171,8 @@ def create_line_chart(
             )
         )
 
-    fig.update_layout(title=title, height=height)
-    _apply_theme(fig)
+    fig.update_layout(title=title)
+    _apply_theme(fig, height=height)
     return fig
 
 
@@ -200,8 +212,7 @@ def create_gauge_chart(
             ),
         )
     )
-    fig.update_layout(height=height)
-    _apply_theme(fig)
+    _apply_theme(fig, height=height)
     return fig
 
 
@@ -237,9 +248,8 @@ def create_calibration_curve(
         title="Confidence Calibration",
         xaxis_title="Predicted Confidence (%)",
         yaxis_title="Actual Accuracy (%)",
-        height=height,
     )
-    _apply_theme(fig)
+    _apply_theme(fig, height=height)
     return fig
 
 
@@ -258,8 +268,8 @@ def create_equity_curve(
         fig.add_trace(
             go.Scatter(x=x, y=list(values), mode="lines", name=label, line=dict(color=palette[i % len(palette)], width=2))
         )
-    fig.update_layout(title="Cumulative P&L Simulation", yaxis_title="Portfolio Value ($)", height=height)
-    _apply_theme(fig)
+    fig.update_layout(title="Cumulative P&L Simulation", yaxis_title="Portfolio Value ($)")
+    _apply_theme(fig, height=height)
     return fig
 
 
@@ -283,8 +293,8 @@ def create_heatmap(
             textfont=dict(size=12),
         )
     )
-    fig.update_layout(title=title, height=height)
-    _apply_theme(fig)
+    fig.update_layout(title=title)
+    _apply_theme(fig, height=height)
     return fig
 
 
@@ -304,8 +314,8 @@ def create_bar_chart(
         fig = go.Figure(go.Bar(y=categories, x=values, orientation="h", marker_color=colors))
     else:
         fig = go.Figure(go.Bar(x=categories, y=values, marker_color=colors))
-    fig.update_layout(title=title, height=height)
-    _apply_theme(fig)
+    fig.update_layout(title=title)
+    _apply_theme(fig, height=height)
     return fig
 
 
@@ -329,6 +339,6 @@ def create_scatter_chart(
     fig.add_trace(
         go.Scatter(x=[min_v, max_v], y=[min_v, max_v], mode="lines", line=dict(color=TEXT_DIM, dash="dash"), name="Perfect")
     )
-    fig.update_layout(title=title, xaxis_title=x_label, yaxis_title=y_label, height=height)
-    _apply_theme(fig)
+    fig.update_layout(title=title, xaxis_title=x_label, yaxis_title=y_label)
+    _apply_theme(fig, height=height)
     return fig

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import html
+
 import streamlit as st
 
 from dashboard.styles import GREEN, RED, YELLOW, TEXT_DIM
@@ -47,6 +49,22 @@ def infer_sentiment(value: str, interpretation: str = "") -> str:
     return "neutral"
 
 
+def _badge_html(name: str, value: str, interpretation: str = "", sentiment: str | None = None) -> str:
+    if sentiment is None:
+        sentiment = infer_sentiment(value, interpretation)
+    dot_color = _SENTIMENT_COLORS.get(sentiment, YELLOW)
+    tip = html.escape(interpretation if interpretation else sentiment.title())
+    safe_name = html.escape(name)
+    safe_value = html.escape(value)
+    return f"""
+        <div class="signal-badge" title="{tip}">
+            <span class="dot" style="background:{dot_color};"></span>
+            <span class="name">{safe_name}</span>
+            <span class="val">{safe_value}</span>
+        </div>
+    """
+
+
 def render_signal_badge(
     name: str,
     value: str,
@@ -54,39 +72,25 @@ def render_signal_badge(
     sentiment: str | None = None,
 ) -> None:
     """Render a coloured signal badge."""
-    if sentiment is None:
-        sentiment = infer_sentiment(value, interpretation)
-
-    dot_color = _SENTIMENT_COLORS.get(sentiment, YELLOW)
-    tip = interpretation if interpretation else sentiment.title()
-
-    st.markdown(
-        f"""
-        <div class="signal-badge" title="{tip}">
-            <span class="dot" style="background:{dot_color};"></span>
-            <span class="name">{name}</span>
-            <span class="val">{value}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown(_badge_html(name, value, interpretation, sentiment), unsafe_allow_html=True)
 
 
 def render_signal_grid(signals: dict[str, dict], categories: dict[str, list[str]]) -> None:
-    """Render all signals grouped by category in a responsive grid."""
+    """Render all signals grouped by category in a responsive CSS grid."""
+    sections: list[str] = []
+
     for category, signal_names in categories.items():
         matching = {k: v for k, v in signals.items() if k in signal_names}
         if not matching:
             continue
-        st.markdown(f"**{category}**")
-        cols = st.columns(min(len(matching), 3))
-        for i, (name, info) in enumerate(matching.items()):
-            with cols[i % len(cols)]:
-                render_signal_badge(
-                    name,
-                    info.get("value", "N/A"),
-                    info.get("interpretation", ""),
-                )
+        badges = "".join(
+            _badge_html(name, info.get("value", "N/A"), info.get("interpretation", ""))
+            for name, info in matching.items()
+        )
+        sections.append(
+            f'<p class="signal-grid-category">{html.escape(category)}</p>'
+            f'<div class="signal-grid">{badges}</div>'
+        )
 
     uncategorised = {
         k: v
@@ -94,8 +98,14 @@ def render_signal_grid(signals: dict[str, dict], categories: dict[str, list[str]
         if not any(k in names for names in categories.values())
     }
     if uncategorised:
-        st.markdown("**Other**")
-        cols = st.columns(min(len(uncategorised), 3))
-        for i, (name, info) in enumerate(uncategorised.items()):
-            with cols[i % len(cols)]:
-                render_signal_badge(name, info.get("value", "N/A"), info.get("interpretation", ""))
+        badges = "".join(
+            _badge_html(name, info.get("value", "N/A"), info.get("interpretation", ""))
+            for name, info in uncategorised.items()
+        )
+        sections.append(
+            '<p class="signal-grid-category">Other</p>'
+            f'<div class="signal-grid">{badges}</div>'
+        )
+
+    if sections:
+        st.markdown("".join(sections), unsafe_allow_html=True)

@@ -1,14 +1,15 @@
 """Page 6 — Trading Agent.
 
 Displays portfolio status, trade history, P&L chart, and open positions
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-
 from the demo trading agent.
 """
 
 from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 import json
 from datetime import datetime, timezone
@@ -31,8 +32,10 @@ from dashboard.styles import (
     layout_marker,
 )
 from dashboard.components.metrics_cards import render_metric_card
+from dashboard.components.mobile_nav import render_mobile_nav
 
 inject_css()
+render_mobile_nav()
 
 TRADING_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "trading"
 PORTFOLIO_PATH = TRADING_DIR / "portfolio.json"
