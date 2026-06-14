@@ -70,5 +70,36 @@
     "open_positions": 1,
     "exposure_pct": 11.982913790855774,
     "prediction_id": "aafb5b64e01c"
+  },
+  {
+    "trade_number": 4,
+    "timestamp": "2026-06-14T23:55:59.156626+00:00",
+    "action": "CLOSE",
+    "position_side": "LONG",
+    "side": "SELL",
+    "amount_usd": 238.42134,
+    "amount_btc": 0.0036478377752029094,
+    "entry_price": 65359.633485,
+    "exit_price": 65294.306515000004,
+    "pnl_usd": -0.4764852267166475,
+    "pnl_pct": -0.1998500749625212,
+    "exit_reason": "take_profit",
+    "timeframe": "24h",
+    "holding_time_hours": 0.6666203238888888,
+    "portfolio_cash": 1988.564011154423,
+    "portfolio_total": 1988.564011154423,
+    "fees_paid": 0.47660437781109444
+  },
+  {
+    "trade_number": null,
+    "timestamp": "2026-06-14T23:55:59.156626+00:00",
+    "action": "SKIP",
+    "reason": "No predictions above minimum confidence (55.0%)",
+    "predictions_summary": [
+      "24h: DOWN 0.8% @ 19%",
+      "7d: UP 0.9% @ 10%",
+      "30d: DOWN 6.4% @ 12%",
+      "90d: DOWN 14.3% @ 28%"
+    ]
   }
 ]
