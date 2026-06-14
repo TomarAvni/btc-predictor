@@ -28,6 +28,8 @@ logger = setup_logger(__name__)
 
 TIMEFRAMES = ["24h", "7d", "30d", "90d"]
 ENSEMBLE_WEIGHTS = {"baseline": 0.35, "xgboost": 0.65}
+# Minimum display magnitude per horizon when regressor/heuristic returns ~0
+MIN_MAGNITUDE = {"24h": 0.3, "7d": 0.8, "30d": 2.0, "90d": 4.0}
 
 
 class PredictionEngine:
@@ -168,13 +170,21 @@ class PredictionEngine:
                 self._baseline_models[tf] = baseline
                 loaded_any = True
 
-            if (xgb_path / "direction.pkl").exists():
+            xgb_dir = xgb_path / "direction.pkl"
+            xgb_mag = xgb_path / "magnitude.pkl"
+            if xgb_dir.exists() and xgb_mag.exists():
                 xgb = XGBoostPredictor(timeframe=tf)
                 xgb._model_path = xgb_path
                 xgb.load()
-                if xgb.model_direction is not None:
+                if xgb.model_direction is not None and xgb.model_magnitude is not None:
                     self._xgboost_models[tf] = xgb
                     loaded_any = True
+                elif xgb_dir.exists():
+                    logger.warning(
+                        "XGBoost %s: direction model present but magnitude regressor "
+                        "missing or failed to load — skipping timeframe",
+                        tf,
+                    )
 
         self._using_ml = loaded_any
         if loaded_any:
@@ -252,7 +262,7 @@ class PredictionEngine:
             predictions.append({
                 "timeframe": tf,
                 "direction": direction,
-                "magnitude": round(ens_mag, 1),
+                "magnitude": self._display_magnitude(ens_mag, ens_prob, tf),
                 "confidence": int(round(confidence)),
             })
 
@@ -321,7 +331,10 @@ class PredictionEngine:
 
         predictions = []
         for h in horizons:
-            magnitude = round(h["mag_scale"] * abs(ratio - 0.5) * 2, 1)
+            strength = max(abs(ratio - 0.5) * 2, 0.15)
+            raw_mag = h["mag_scale"] * strength
+            prob = ratio if direction == "UP" else 1.0 - ratio
+            magnitude = PredictionEngine._display_magnitude(raw_mag, prob, h["label"])
             confidence = max(
                 h["conf_base"] + int((ratio - 0.5) * 20), 20
             )
@@ -333,6 +346,22 @@ class PredictionEngine:
             })
 
         return predictions
+
+    @staticmethod
+    def _display_magnitude(
+        raw_magnitude: float,
+        direction_prob: float,
+        timeframe: str,
+    ) -> float:
+        """Return a display-ready magnitude, never rounding a directional call to 0.0%."""
+        mag = abs(raw_magnitude)
+        if round(mag, 1) >= 0.1:
+            return round(mag, 1)
+
+        floor = MIN_MAGNITUDE.get(timeframe, 1.0)
+        strength = max(abs(direction_prob - 0.5) * 2, 0.15)
+        estimated = floor * strength
+        return round(max(mag, estimated), 1)
 
     @staticmethod
     def _build_signal_summary(
