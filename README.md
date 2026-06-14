@@ -65,7 +65,7 @@ streamlit run dashboard/app.py
 
 ## Signal Sources
 
-- **Price**: Full hourly BTC history (2013-present), technical indicators (RSI, MACD, BB, EMAs, ATR)
+- **Price**: Full hourly BTC history (2013-present), technical indicators (RSI, MACD, BB, EMAs, ATR). Post-2017 candles use an exchange fallback chain (Binance → Bitstamp → Kraken); GitHub Actions sets `BTC_PRICE_PRIMARY_EXCHANGE=bitstamp` because Binance returns HTTP 451 on US runners.
 - **Halving Cycle**: Position in 4-year cycle, historical comparison, power law corridor
 - **Derivatives**: Funding rates, open interest, long/short ratio, options put/call ratio, max pain
 - **On-Chain**: Active addresses, hash rate, exchange reserves, mempool, MVRV
@@ -143,7 +143,7 @@ Three workflows run a hands-off pipeline: **Download → Train → Predict**.
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
-| **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history and commits `data/price/` |
+| **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
 | **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick, commits results |
 

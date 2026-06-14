@@ -39,6 +39,8 @@ jobs:
           fi
 
       - name: Predict
+        env:
+          BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
         run: python main.py --predict
 
       - name: Trade
