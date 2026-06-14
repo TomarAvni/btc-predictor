@@ -10,6 +10,7 @@ PRICE_DIR = DATA_DIR / "price"
 MODELS_DIR = DATA_DIR / "models"
 BACKTEST_DIR = DATA_DIR / "backtest"
 VALIDATION_DIR = DATA_DIR / "validation"
+PERFORMANCE_DIR = DATA_DIR / "performance"
 HISTORY_DIR = DATA_DIR / "history"
 CONFIG_PATH = PROJECT_ROOT / "config" / "settings.yaml"
 

@@ -20,6 +20,7 @@ from dashboard.config import (
     BACKTEST_DIR,
     DATA_DIR,
     MODELS_DIR,
+    PERFORMANCE_DIR,
     PREDICTIONS_LOG,
     PRICE_DIR,
     VALIDATION_DIR,
@@ -151,6 +152,17 @@ def load_backtest_results() -> pd.DataFrame:
 @st.cache_data(ttl=600)
 def load_model_metrics() -> dict[str, Any]:
     """Load model training metrics / feature importances."""
+    validation = load_validation_results()
+    if validation.get("feature_importance"):
+        importance_list = validation["feature_importance"]
+        if isinstance(importance_list, list):
+            importance = {
+                item["feature"]: item["importance_pct"]
+                for item in importance_list
+                if isinstance(item, dict) and "feature" in item
+            }
+            return {"feature_importance": importance, **validation}
+
     if not MODELS_DIR.exists():
         return {}
     for p in sorted(MODELS_DIR.glob("*.json")):
@@ -295,6 +307,7 @@ def has_real_data() -> bool:
         PREDICTIONS_LOG.exists()
         or (PRICE_DIR.exists() and any(PRICE_DIR.glob("*.parquet")))
         or (BACKTEST_DIR.exists() and any(BACKTEST_DIR.iterdir()))
+        or has_live_performance()
     )
 
 
@@ -330,4 +343,49 @@ def load_validation_equity_curve() -> list[dict[str, Any]]:
 def get_validation_results() -> dict[str, Any]:
     """Return validation results if available."""
     return load_validation_results()
+
+
+# ── Live performance tracking ─────────────────────────────────────────────
+
+
+@st.cache_data(ttl=60)
+def load_prediction_scores() -> list[dict[str, Any]]:
+    """Load scored live predictions from prediction_scores.jsonl."""
+    path = PERFORMANCE_DIR / "prediction_scores.jsonl"
+    if not path.exists():
+        return []
+
+    records: list[dict[str, Any]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            records.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return records
+
+
+@st.cache_data(ttl=60)
+def load_rolling_accuracy() -> dict[str, Any]:
+    """Load rolling accuracy stats from rolling_accuracy.json."""
+    path = PERFORMANCE_DIR / "rolling_accuracy.json"
+    if not path.exists():
+        return {}
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def get_live_performance_scores() -> list[dict[str, Any]]:
+    """Return live prediction scores if available."""
+    return load_prediction_scores()
+
+
+def has_live_performance() -> bool:
+    """Whether live prediction scoring data exists."""
+    return (PERFORMANCE_DIR / "prediction_scores.jsonl").exists()
 

@@ -25,14 +25,26 @@ from dashboard.components.charts import (
     create_line_chart,
 )
 from dashboard.components.metrics_cards import render_performance_card
-from dashboard.data_loader import get_backtest_results, get_prediction_history, has_real_data
+from dashboard.data_loader import (
+    get_backtest_results,
+    get_live_performance_scores,
+    get_prediction_history,
+    has_live_performance,
+    has_real_data,
+    load_rolling_accuracy,
+)
 from dashboard.styles import BLUE, GREEN, RED, YELLOW, inject_css
 
 inject_css()
 
 st.markdown("# 📊 Performance Tracking")
 
-if not has_real_data():
+live_scores = get_live_performance_scores()
+rolling = load_rolling_accuracy()
+
+if has_live_performance():
+    st.success("Showing live prediction accuracy from scored predictions.")
+elif not has_real_data():
     st.info(
         "Showing simulated backtest data. "
         "Once the predictor has run for a while, this page will blend live results."
@@ -66,8 +78,46 @@ rng = np.random.default_rng(42)
 
 horizons = ["24h", "7d", "30d", "90d"]
 perf: dict[str, pd.DataFrame] = {}
-for h in horizons:
-    perf[h] = _simulate_performance(runs, h, rng)
+
+if live_scores:
+    live_df = pd.DataFrame(live_scores)
+    live_df["timestamp"] = pd.to_datetime(live_df["prediction_timestamp"], utc=True, errors="coerce")
+    for h in horizons:
+        sub = live_df[live_df["timeframe"] == h].copy()
+        if sub.empty:
+            perf[h] = pd.DataFrame()
+            continue
+        perf[h] = pd.DataFrame({
+            "timestamp": sub["timestamp"].dt.strftime("%Y-%m-%d %H:%M UTC"),
+            "direction": sub["predicted_direction"],
+            "magnitude": sub["predicted_magnitude"],
+            "confidence": sub["confidence"],
+            "correct": sub["direction_correct"],
+            "actual_return": sub["actual_return_pct"],
+        })
+else:
+    for h in horizons:
+        perf[h] = _simulate_performance(runs, h, rng)
+
+# ── Live prediction accuracy ──────────────────────────────────────────────
+
+if rolling.get("timeframes"):
+    st.markdown("### Live Prediction Accuracy")
+    st.caption("Direction accuracy from mature predictions scored against actual BTC moves.")
+
+    roll_cols = st.columns(4)
+    for col, h in zip(roll_cols, horizons):
+        tf_stats = rolling["timeframes"].get(h, {})
+        with col:
+            st.markdown(f"**{h}**")
+            for label, key in [("7d", "last_7d"), ("30d", "last_30d"), ("All", "all_time")]:
+                window = tf_stats.get(key, {})
+                acc = window.get("direction_accuracy_pct")
+                n = window.get("n_scored", 0)
+                if acc is not None:
+                    st.metric(f"{label}", f"{acc:.1f}%", help=f"{n} scored predictions")
+                else:
+                    st.metric(f"{label}", "—", help="No scored predictions yet")
 
 # ── Summary cards ─────────────────────────────────────────────────────────
 

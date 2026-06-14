@@ -8,8 +8,9 @@ data:
   base_path: "data"
   price_path: "data/price"
   cache_path: "data/cache"
-  models_path: "data/models"
+  models_path: "data/validation/models"
   history_path: "data/history"
+  performance_path: "data/performance"
 
 schedule:
   fast_minutes: 15

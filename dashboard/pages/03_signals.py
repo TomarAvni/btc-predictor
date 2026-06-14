@@ -27,6 +27,7 @@ from dashboard.data_loader import (
     get_prediction_history,
     get_price_data,
     load_model_metrics,
+    load_validation_results,
 )
 from dashboard.styles import BLUE, GREEN, RED, inject_css
 
@@ -161,8 +162,19 @@ metrics = load_model_metrics()
 importance = metrics.get("feature_importance", {})
 
 if not importance:
+    validation = load_validation_results()
+    raw = validation.get("feature_importance", [])
+    if isinstance(raw, list):
+        importance = {
+            item["feature"]: item["importance_pct"]
+            for item in raw
+            if isinstance(item, dict) and "feature" in item
+        }
+
+if not importance:
     rng = np.random.default_rng(55)
     importance = {s: round(rng.uniform(0.01, 0.15), 3) for s in sorted(all_signals)}
+    st.caption("Using placeholder importances — run validation to see real model features.")
 
 sorted_imp = dict(sorted(importance.items(), key=lambda x: x[1], reverse=True)[:15])
 st.plotly_chart(

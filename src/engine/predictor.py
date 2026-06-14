@@ -1,14 +1,15 @@
 """Prediction engine -- orchestrates collect -> features -> predict -> output.
 
-Phase 1 runs the full data pipeline (price + TA + cycle + temporal) and
-produces a signal summary.  Model-based predictions are stubbed with
-simple heuristics until Phase 2 delivers trained models.
+Loads trained ML models from data/validation/models/ when available and
+falls back to TA heuristics only if models are missing.
 """
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 from src.collectors.cycle import CycleCollector
@@ -16,11 +17,17 @@ from src.collectors.price import PriceCollector
 from src.collectors.technical import TechnicalCollector
 from src.features.engineer import FeatureEngineer
 from src.features.temporal import TemporalFeatures
+from src.models.baseline_model import BaselineModel
+from src.models.xgboost_model import XGBoostPredictor
 from src.output.formatter import PredictionFormatter
 from src.output.text_logger import PredictionLogger
+from src.training.feature_builder import TrainingFeatureBuilder
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
+
+TIMEFRAMES = ["24h", "7d", "30d", "90d"]
+ENSEMBLE_WEIGHTS = {"baseline": 0.35, "xgboost": 0.65}
 
 
 class PredictionEngine:
@@ -37,6 +44,9 @@ class PredictionEngine:
         cfg = config or {}
         storage = cfg.get("data", {}).get("price_path", "data/price")
         pred_file = cfg.get("app", {}).get("predictions_file", "predictions.log")
+        models_path = cfg.get("data", {}).get(
+            "models_path", "data/validation/models"
+        )
 
         self.price = PriceCollector(storage_path=storage)
         self.technical = TechnicalCollector(self.price)
@@ -45,6 +55,13 @@ class PredictionEngine:
         self.engineer = FeatureEngineer()
         self.formatter = PredictionFormatter()
         self.logger = PredictionLogger(output_path=pred_file)
+
+        self.model_dir = Path(models_path)
+        self.feature_builder = TrainingFeatureBuilder(model_dir=self.model_dir)
+        self._baseline_models: dict[str, BaselineModel] = {}
+        self._xgboost_models: dict[str, XGBoostPredictor] = {}
+        self._models_loaded = False
+        self._using_ml = False
 
     # ------------------------------------------------------------------
     # Lifecycle
@@ -64,36 +81,25 @@ class PredictionEngine:
           2. Compute TA indicators
           3. Gather cycle metrics
           4. Build feature matrix
-          5. Generate predictions (Phase 1: heuristic stub)
+          5. Generate predictions (ML models or heuristic fallback)
           6. Format and log output
         """
-        # 1 -- Price update
         logger.info("Running prediction cycle ...")
         price_df = await self.price.collect()
         if price_df.empty:
             logger.error("No price data available; aborting prediction")
             return {}
 
-        # 2 -- TA indicators
         ta_df = await self.technical.collect()
-
-        # 3 -- Cycle position
         cycle_info = self.cycle.get_cycle_position()
-        cycle_df = await self.cycle.collect()
+        await self.cycle.collect()
+        self.temporal.compute(price_df.tail(1000))
 
-        # 4 -- Temporal features
-        temporal_df = self.temporal.compute(price_df.tail(1000))
-
-        # 5 -- Build signals summary
         latest_price = await self.price.get_latest()
         latest_ta = await self.technical.get_latest()
-
         signals = self._build_signal_summary(latest_price, latest_ta, cycle_info)
 
-        # 6 -- Phase 1 heuristic predictions
-        predictions = self._heuristic_predictions(latest_ta, cycle_info)
-
-        # 7 -- Log output
+        predictions = self._generate_predictions(price_df, ta_df)
         self.logger.log_prediction(predictions, signals)
 
         report = self.formatter.format_report(predictions, signals)
@@ -103,6 +109,7 @@ class PredictionEngine:
             "predictions": predictions,
             "signals": signals,
             "cycle": cycle_info,
+            "using_ml": self._using_ml,
         }
 
     # ------------------------------------------------------------------
@@ -120,10 +127,153 @@ class PredictionEngine:
             "first": str(df.index[0]),
             "last": str(df.index[-1]),
             "timespan_days": (df.index[-1] - df.index[0]).days,
+            "ml_models": self._models_available(),
         }
 
     # ------------------------------------------------------------------
-    # Phase 1 heuristic predictions (replaced by ML in Phase 2)
+    # Model loading & prediction
+    # ------------------------------------------------------------------
+
+    def _models_available(self) -> bool:
+        if not self.model_dir.exists():
+            return False
+        for tf in TIMEFRAMES:
+            baseline_path = self.model_dir / f"baseline_{tf}" / "baseline_model.pkl"
+            xgb_path = self.model_dir / f"xgb_{tf}" / "direction.pkl"
+            if baseline_path.exists() or xgb_path.exists():
+                return True
+        return False
+
+    def _load_models(self) -> bool:
+        if self._models_loaded:
+            return self._using_ml
+
+        self._models_loaded = True
+        if not self._models_available():
+            logger.warning(
+                "No trained models in %s — using heuristic predictions",
+                self.model_dir,
+            )
+            self._using_ml = False
+            return False
+
+        loaded_any = False
+        for tf in TIMEFRAMES:
+            baseline_path = self.model_dir / f"baseline_{tf}"
+            xgb_path = self.model_dir / f"xgb_{tf}"
+
+            if (baseline_path / "baseline_model.pkl").exists():
+                baseline = BaselineModel()
+                baseline.load(baseline_path)
+                self._baseline_models[tf] = baseline
+                loaded_any = True
+
+            if (xgb_path / "direction.pkl").exists():
+                xgb = XGBoostPredictor(timeframe=tf)
+                xgb._model_path = xgb_path
+                xgb.load()
+                if xgb.model_direction is not None:
+                    self._xgboost_models[tf] = xgb
+                    loaded_any = True
+
+        self._using_ml = loaded_any
+        if loaded_any:
+            logger.info("Using ML models from %s", self.model_dir)
+        else:
+            logger.warning("Model files found but none loaded — using heuristics")
+        return loaded_any
+
+    def _generate_predictions(
+        self,
+        price_df: pd.DataFrame,
+        ta_df: pd.DataFrame,
+    ) -> list[dict[str, Any]]:
+        if self._load_models():
+            ml_preds = self._ml_predictions(price_df, ta_df)
+            if ml_preds:
+                return ml_preds
+
+        logger.info("Falling back to heuristic predictions")
+        latest_ta = ta_df.iloc[-1].to_dict() if not ta_df.empty else {}
+        cycle_info = self.cycle.get_cycle_position()
+        return self._heuristic_predictions(latest_ta, cycle_info)
+
+    def _ml_predictions(
+        self,
+        price_df: pd.DataFrame,
+        ta_df: pd.DataFrame,
+    ) -> list[dict[str, Any]]:
+        merged = self._build_merged_data(price_df, ta_df)
+        if merged.empty:
+            return []
+
+        features_df = self.feature_builder.build_features(merged)
+        if features_df.empty:
+            return []
+
+        numeric = features_df.select_dtypes(include=[np.number]).fillna(0)
+        latest = numeric.iloc[-1]
+        features_dict = {col: float(latest[col]) for col in numeric.columns}
+
+        predictions: list[dict[str, Any]] = []
+        for tf in TIMEFRAMES:
+            baseline = self._baseline_models.get(tf)
+            xgb = self._xgboost_models.get(tf)
+            if not baseline and not xgb:
+                continue
+
+            if baseline and xgb:
+                bp = baseline.predict(features_dict)
+                xp = xgb.predict(features_dict)
+                ens_prob = (
+                    ENSEMBLE_WEIGHTS["baseline"] * bp["direction_prob"]
+                    + ENSEMBLE_WEIGHTS["xgboost"] * xp["direction_prob"]
+                )
+                ens_mag = (
+                    ENSEMBLE_WEIGHTS["baseline"] * abs(bp["predicted_magnitude"])
+                    + ENSEMBLE_WEIGHTS["xgboost"] * abs(xp["predicted_magnitude"])
+                )
+                raw_conf = abs(ens_prob - 0.5) * 2
+            elif xgb:
+                xp = xgb.predict(features_dict)
+                ens_prob = xp["direction_prob"]
+                ens_mag = abs(xp["predicted_magnitude"])
+                raw_conf = xp.get("raw_confidence", abs(ens_prob - 0.5) * 2)
+            else:
+                bp = baseline.predict(features_dict)
+                ens_prob = bp["direction_prob"]
+                ens_mag = abs(bp["predicted_magnitude"])
+                raw_conf = bp.get("confidence", abs(ens_prob - 0.5) * 2)
+
+            direction = "UP" if ens_prob > 0.5 else "DOWN"
+            confidence = raw_conf * 100 if raw_conf <= 1.0 else raw_conf
+            confidence = max(10.0, min(95.0, confidence))
+
+            predictions.append({
+                "timeframe": tf,
+                "direction": direction,
+                "magnitude": round(ens_mag, 1),
+                "confidence": int(round(confidence)),
+            })
+
+        return predictions
+
+    @staticmethod
+    def _build_merged_data(
+        price_df: pd.DataFrame,
+        ta_df: pd.DataFrame,
+    ) -> pd.DataFrame:
+        merged = price_df.copy()
+        if ta_df.empty:
+            return merged
+
+        ta_cols = [c for c in ta_df.columns if c not in merged.columns]
+        if ta_cols:
+            merged = merged.join(ta_df[ta_cols], how="left")
+        return merged
+
+    # ------------------------------------------------------------------
+    # Heuristic fallback
     # ------------------------------------------------------------------
 
     @staticmethod
@@ -131,11 +281,7 @@ class PredictionEngine:
         ta_signals: dict[str, Any],
         cycle_info: dict[str, Any],
     ) -> list[dict[str, Any]]:
-        """Produce directional predictions from simple TA heuristics.
-
-        This is intentionally naive -- real predictions come from the
-        trained ensemble in Phase 2.
-        """
+        """Produce directional predictions from simple TA heuristics."""
         rsi = ta_signals.get("rsi_14")
         macd = ta_signals.get("macd")
         macd_sig = ta_signals.get("macd_signal")

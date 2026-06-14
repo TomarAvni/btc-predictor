@@ -300,9 +300,10 @@ def create_bar_chart(
     horizontal: bool = False,
 ) -> go.Figure:
     colors = [GREEN if v >= 0 else RED for v in values] if color is None else [color] * len(values)
-    orientation = "h" if horizontal else "v"
-    kwargs = dict(y=categories, x=values, orientation="h") if horizontal else dict(x=categories, y=values)
-    fig = go.Figure(go.Bar(**kwargs, marker_color=colors, orientation=orientation))
+    if horizontal:
+        fig = go.Figure(go.Bar(y=categories, x=values, orientation="h", marker_color=colors))
+    else:
+        fig = go.Figure(go.Bar(x=categories, y=values, marker_color=colors))
     fig.update_layout(title=title, height=height)
     _apply_theme(fig)
     return fig

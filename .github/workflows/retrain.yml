@@ -1,15 +1,15 @@
-name: Predict
+name: Retrain
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '0 3 * * 0'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  predict:
+  retrain:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,30 +29,21 @@ jobs:
       - name: Install
         run: pip install -r requirements.txt
 
-      - name: Check trained models
-        run: |
-          if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
-            echo "::warning::No trained models in data/validation/models/ — running predict with heuristics only"
-            echo "Run Download then Train (or workflow_dispatch Train) to produce ML models."
-          else
-            echo "Trained model artifacts found in data/validation/models/"
-          fi
-
-      - name: Predict
+      - name: Incremental price update
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
-        run: python main.py --predict
-
-      - name: Trade
-        run: python trade.py --live-tick
+        run: python main.py --download
 
       - name: Score mature predictions
         run: python score_predictions.py
+
+      - name: Train and validate
+        run: python validate.py --split 0.8 --output data/validation/ --skip-tft
 
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --staged --quiet || git commit -m "chore: prediction run [skip ci]"
+          git add data/validation/ data/performance/ data/price/
+          git diff --staged --quiet || git commit -m "chore: weekly retrain and performance update [skip ci]"
           git push

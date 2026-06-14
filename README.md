@@ -54,6 +54,7 @@ streamlit run dashboard/app.py
 | `python main.py --download` | Download/resume full hourly BTC price history |
 | `python main.py --predict` | Run one prediction cycle and log results |
 | `python main.py --status` | Show current data status |
+| `python score_predictions.py` | Score mature predictions against actual price moves |
 | `python train.py` | Full training pipeline with walk-forward validation |
 | `python train.py --backtest` | Run backtest on trained model |
 | `python trade.py --backtest` | Run trading agent over historical data |
@@ -145,13 +146,29 @@ Three workflows run a hands-off pipeline: **Download → Train → Predict**.
 |----------|---------|--------------|
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
-| **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick, commits results |
+| **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
+| **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule.
 
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
 
 All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
+
+### Continuous Learning Loop
+
+The system improves over time through a closed feedback loop:
+
+1. **Predict** (`predict.yml`, every 30 min) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions.
+2. **Score** (`score_predictions.py`) — for each prediction whose horizon has elapsed (24h / 7d / 30d / 90d), compares predicted direction and magnitude to the actual BTC move from `data/price/btc_hourly.parquet`. Results append to `data/performance/prediction_scores.jsonl`; rolling stats land in `data/performance/rolling_accuracy.json`.
+3. **Retrain** (`retrain.yml`, weekly Sunday 3am UTC) — downloads fresh candles, scores any newly mature predictions, retrains models via `validate.py`, and commits updated models + performance data.
+4. **Dashboard** — the Performance page shows live rolling accuracy; the Signals page shows feature importance from the latest validation run.
+
+```
+Download → Train (initial) → Predict (every 30m) → Score → Retrain (weekly) → Predict uses new models
+```
+
+Live predict loads trained models from `data/validation/models/` (configured in `config/settings.yaml`). If models are missing, it falls back to TA heuristics and logs a warning.
 
 ### Streamlit Cloud (Dashboard)
 
