@@ -23,15 +23,12 @@ import pandas as pd
 import plotly.graph_objects as go
 
 from dashboard.styles import (
-    BG_DARK,
-    BLUE,
-    CARD_BG,
     GREEN,
     PLOTLY_TEMPLATE,
     RED,
-    TEXT,
     TEXT_DIM,
     inject_css,
+    layout_marker,
 )
 from dashboard.components.metrics_cards import render_metric_card
 
@@ -112,7 +109,8 @@ if portfolio:
     pnl_pct = (pnl / 2000) * 100
     drawdown = (peak - total_value) / peak * 100 if peak > 0 else 0
 
-    c1, c2, c3, c4 = st.columns(4)
+    layout_marker("stack")
+    c1, c2, c3, c4 = st.columns(4, gap="small")
     with c1:
         render_metric_card(
             "Portfolio Value",
@@ -199,6 +197,8 @@ if trades:
         yaxis_title="P&L ($)",
         height=350,
         showlegend=False,
+        autosize=True,
+        margin=dict(l=20, r=20, t=40, b=20),
     )
     fig.add_hline(y=0, line_dash="dash", line_color=TEXT_DIM, opacity=0.5)
     st.plotly_chart(fig, use_container_width=True)
@@ -234,7 +234,8 @@ if trades:
     avg_win = np.mean([t["pnl_usd"] for t in trades if t.get("pnl_usd", 0) > 0]) if winners else 0
     avg_loss = np.mean([t["pnl_usd"] for t in trades if t.get("pnl_usd", 0) <= 0]) if losers else 0
 
-    s1, s2, s3, s4, s5 = st.columns(5)
+    layout_marker("stack")
+    s1, s2, s3, s4, s5 = st.columns(5, gap="small")
     with s1:
         render_metric_card("Total Trades", str(len(trades)))
     with s2:
@@ -250,7 +251,8 @@ if trades:
 
 if backtest and isinstance(backtest, dict):
     st.markdown("### Latest Backtest Results")
-    bc1, bc2, bc3 = st.columns(3)
+    layout_marker("stack")
+    bc1, bc2, bc3 = st.columns(3, gap="small")
     with bc1:
         render_metric_card("Final Value", f"${backtest.get('final_value', 0):,.2f}")
     with bc2:

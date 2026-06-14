@@ -25,6 +25,7 @@ from dashboard.components.charts import (
     create_line_chart,
 )
 from dashboard.components.metrics_cards import render_performance_card
+from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.data_loader import (
     get_backtest_results,
     get_live_performance_scores,
@@ -33,9 +34,10 @@ from dashboard.data_loader import (
     has_real_data,
     load_rolling_accuracy,
 )
-from dashboard.styles import BLUE, GREEN, RED, YELLOW, inject_css
+from dashboard.styles import BLUE, GREEN, RED, YELLOW, inject_css, layout_marker
 
 inject_css()
+render_mobile_nav()
 
 st.markdown("# 📊 Performance Tracking")
 
@@ -105,7 +107,8 @@ if rolling.get("timeframes"):
     st.markdown("### Live Prediction Accuracy")
     st.caption("Direction accuracy from mature predictions scored against actual BTC moves.")
 
-    roll_cols = st.columns(4)
+    layout_marker("stack")
+    roll_cols = st.columns(4, gap="small")
     for col, h in zip(roll_cols, horizons):
         tf_stats = rolling["timeframes"].get(h, {})
         with col:
@@ -148,7 +151,8 @@ tab_horizon = st.selectbox("Horizon for summary", horizons, index=0)
 df_h = perf.get(tab_horizon, pd.DataFrame())
 
 periods = [(7, "Last 7 Days"), (30, "Last 30 Days"), (365, "Last 365 Days"), (None, "All Time")]
-cols = st.columns(4)
+layout_marker("grid-2")
+cols = st.columns(4, gap="small")
 for col, (days, label) in zip(cols, periods):
     with col:
         lbl, acc, cor, tot, best, worst = _summary_for(df_h, days, label)
@@ -271,7 +275,8 @@ if not all_preds.empty:
     max_loss = abs(min(streaks)) if streaks else 0
     curr = streaks[-1] if streaks else 0
 
-    c1, c2, c3 = st.columns(3)
+    layout_marker("stack")
+    c1, c2, c3 = st.columns(3, gap="small")
     with c1:
         st.metric("Current Streak", f"{'W' if curr > 0 else 'L'}{abs(curr)}" if curr != 0 else "—")
     with c2:

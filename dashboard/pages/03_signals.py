@@ -29,9 +29,11 @@ from dashboard.data_loader import (
     load_model_metrics,
     load_validation_results,
 )
+from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.styles import BLUE, GREEN, RED, inject_css
 
 inject_css()
+render_mobile_nav()
 
 st.markdown("# 📡 Signal Deep Dive")
 

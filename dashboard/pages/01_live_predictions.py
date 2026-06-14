@@ -15,14 +15,16 @@ import streamlit as st
 st.set_page_config(page_title="Live Predictions", page_icon="₿", layout="wide")
 
 from dashboard.components.charts import create_gauge_chart
-from dashboard.components.metrics_cards import render_metric_card, render_prediction_card
+from dashboard.components.metrics_cards import render_metric_card, render_prediction_cards
+from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.components.prediction_table import render_prediction_table
-from dashboard.components.signal_badges import infer_sentiment, render_signal_badge, render_signal_grid
+from dashboard.components.signal_badges import infer_sentiment, render_signal_grid
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
 from dashboard.data_loader import get_prediction_history, get_price_data, has_real_data
-from dashboard.styles import BLUE, GREEN, RED, TEXT_DIM, inject_css
+from dashboard.styles import inject_css, layout_marker
 
 inject_css()
+render_mobile_nav()
 
 # ── Auto-refresh ───────────────────────────────────────────────────────────
 
@@ -54,7 +56,8 @@ if not price_df.empty:
     prev_close = price_df["close"].iloc[-2] if len(price_df) > 1 else last_close
     change = (last_close - prev_close) / prev_close * 100
 
-    c1, c2, c3, c4 = st.columns(4)
+    layout_marker("stack")
+    c1, c2, c3, c4 = st.columns(4, gap="small")
     with c1:
         render_metric_card("BTC Price", f"${last_close:,.2f}", f"{change:+.2f}%", "green" if change >= 0 else "red")
     with c2:
@@ -68,17 +71,13 @@ if not price_df.empty:
 
 st.markdown("### Direction Forecasts")
 preds = latest.get("predictions", [])
-cols = st.columns(4)
-for i, tf in enumerate(("24h", "7d", "30d", "90d")):
-    match = next((p for p in preds if p["timeframe"] == tf), None)
-    with cols[i]:
-        if match:
-            render_prediction_card(tf, match["direction"], match["magnitude"], match["confidence"])
+render_prediction_cards(preds)
 
 # ── Confidence gauges per horizon ─────────────────────────────────────────
 
 st.markdown("### Confidence by Horizon")
-gcols = st.columns(4)
+layout_marker("stack")
+gcols = st.columns(4, gap="small")
 for i, tf in enumerate(("24h", "7d", "30d", "90d")):
     match = next((p for p in preds if p["timeframe"] == tf), None)
     with gcols[i]:
@@ -97,7 +96,8 @@ if signals:
     bearish = sum(1 for s in signals.values() if infer_sentiment(s.get("value", ""), s.get("interpretation", "")) == "bearish")
     neutral = len(signals) - bullish - bearish
 
-    sc1, sc2, sc3 = st.columns(3)
+    layout_marker("stack")
+    sc1, sc2, sc3 = st.columns(3, gap="small")
     with sc1:
         render_metric_card("Bullish Signals", str(bullish), delta_color="green")
     with sc2:

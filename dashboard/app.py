@@ -17,18 +17,20 @@ st.set_page_config(
     page_title="BTC Predictor",
     page_icon="₿",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 from dashboard.components.charts import create_gauge_chart
-from dashboard.components.metrics_cards import render_metric_card, render_prediction_card
+from dashboard.components.metrics_cards import render_metric_card, render_prediction_cards
+from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.components.prediction_table import render_prediction_table
 from dashboard.components.signal_badges import render_signal_grid
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
 from dashboard.data_loader import get_prediction_history, get_price_data, has_real_data
-from dashboard.styles import BLUE, GREEN, RED, TEXT_DIM, inject_css
+from dashboard.styles import inject_css, layout_marker
 
 inject_css()
+render_mobile_nav(show_sidebar_hint=True)
 
 # ── Sidebar ────────────────────────────────────────────────────────────────
 
@@ -72,7 +74,8 @@ if not price_df.empty:
     change_pct = (last_close - prev_close) / prev_close * 100
     change_color = "green" if change_pct >= 0 else "red"
 
-    h1, h2, h3 = st.columns([2, 1, 1])
+    layout_marker("stack")
+    h1, h2, h3 = st.columns([2, 1, 1], gap="small")
     with h1:
         render_metric_card("BTC Price", f"${last_close:,.2f}", f"{change_pct:+.2f}% (24h)", change_color)
     with h2:
@@ -85,14 +88,7 @@ if not price_df.empty:
 if latest:
     st.markdown("### Current Predictions")
     preds = latest.get("predictions", [])
-    cols = st.columns(4)
-    for i, tf in enumerate(("24h", "7d", "30d", "90d")):
-        match = next((p for p in preds if p["timeframe"] == tf), None)
-        with cols[i]:
-            if match:
-                render_prediction_card(tf, match["direction"], match["magnitude"], match["confidence"])
-            else:
-                render_metric_card(tf, "—")
+    render_prediction_cards(preds)
 
     # ── Confidence gauge ──────────────────────────────────────────────────
     avg_conf = sum(p["confidence"] for p in preds) / max(len(preds), 1) if preds else 0

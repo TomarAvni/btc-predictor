@@ -18,11 +18,17 @@ import streamlit as st
 
 st.set_page_config(page_title="Market Overview", page_icon="📈", layout="wide")
 
-from dashboard.components.charts import create_candlestick_chart, create_line_chart
+from dashboard.components.charts import (
+    CHART_HEIGHT_CANDLESTICK,
+    create_candlestick_chart,
+    create_line_chart,
+)
+from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.data_loader import get_price_data
-from dashboard.styles import BLUE, GREEN, RED, TEXT_DIM, YELLOW, inject_css
+from dashboard.styles import BLUE, GREEN, RED, TEXT_DIM, YELLOW, inject_css, layout_marker
 
 inject_css()
+render_mobile_nav()
 
 st.markdown("# 📈 Market Overview")
 
@@ -71,7 +77,9 @@ if "macd" not in df.columns:
 # ── Overlay toggles ─────────────────────────────────────────────────────
 
 st.markdown("### BTC Price Chart")
-ov1, ov2, ov3, ov4, ov5 = st.columns(5)
+layout_marker("stack")
+ov1, ov2, ov3 = st.columns(3, gap="small")
+ov4, ov5, _ = st.columns(3, gap="small")
 overlays: list[str] = []
 with ov1:
     if st.checkbox("EMA 9/21", value=False):
@@ -96,7 +104,7 @@ st.plotly_chart(
         show_volume=show_volume,
         show_rsi=show_rsi,
         show_macd=show_macd,
-        height=700,
+        height=CHART_HEIGHT_CANDLESTICK,
     ),
     use_container_width=True,
 )
@@ -116,7 +124,8 @@ latest_halving = HALVING_DATES[-1]
 days_since = (pd.Timestamp.now(tz="UTC") - latest_halving).days
 cycle_pct = days_since / 1460 * 100
 
-c1, c2, c3 = st.columns(3)
+layout_marker("stack")
+c1, c2, c3 = st.columns(3, gap="small")
 with c1:
     st.metric("Days Since Halving", f"{days_since}")
 with c2:

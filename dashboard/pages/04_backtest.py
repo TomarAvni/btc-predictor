@@ -29,9 +29,11 @@ from dashboard.data_loader import (
     get_validation_results,
     load_validation_equity_curve,
 )
-from dashboard.styles import BLUE, GREEN, RED, YELLOW, inject_css
+from dashboard.components.mobile_nav import render_mobile_nav
+from dashboard.styles import BLUE, GREEN, RED, YELLOW, inject_css, layout_marker
 
 inject_css()
+render_mobile_nav()
 
 st.markdown("# 🧪 Backtest & Validation Results")
 
@@ -142,7 +144,8 @@ if validation:
     if trading:
         st.markdown("### Trading Agent (Test Period)")
 
-        tc1, tc2, tc3, tc4 = st.columns(4)
+        layout_marker("stack")
+        tc1, tc2, tc3, tc4 = st.columns(4, gap="small")
         with tc1:
             render_metric_card(
                 "Total Return",
@@ -243,7 +246,8 @@ if bt.empty:
 
 # ── Summary cards ─────────────────────────────────────────────────────────
 
-c1, c2, c3, c4 = st.columns(4)
+layout_marker("stack")
+c1, c2, c3, c4 = st.columns(4, gap="small")
 with c1:
     render_metric_card("Test Periods", str(len(bt)))
 with c2:

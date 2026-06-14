@@ -27,6 +27,12 @@ PLOTLY_TEMPLATE = dict(
 )
 
 
+# Breakpoints (documented for maintenance):
+#   ≤480px  — phone: single-column stacks, smallest typography
+#   ≤768px  — tablet / mobile: reduced padding, stacked layouts, shorter charts
+#   >768px  — desktop: unchanged default layout
+
+
 def inject_css() -> None:
     """Inject custom CSS into the Streamlit app."""
     st.markdown(
@@ -35,9 +41,26 @@ def inject_css() -> None:
         /* ── Global ─────────────────────────────── */
         .stApp {{
             background-color: {BG_DARK};
+            overflow-x: hidden;
+        }}
+        .main .block-container {{
+            padding-top: 1.5rem;
+            padding-bottom: 2rem;
+            max-width: 100%;
         }}
         section[data-testid="stSidebar"] {{
             background-color: #161B22;
+        }}
+        section[data-testid="stSidebar"] .stMarkdown,
+        section[data-testid="stSidebar"] label {{
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }}
+        section[data-testid="stSidebar"] [data-testid="stToggle"] {{
+            min-height: 44px;
+        }}
+        section[data-testid="stSidebar"] [data-testid="stToggle"] label {{
+            font-size: 0.95rem;
         }}
 
         /* ── Metric cards ───────────────────────── */
@@ -154,10 +177,79 @@ def inject_css() -> None:
             margin-bottom: 0.6rem;
         }}
 
-        /* ── Hide Streamlit boiler plate ────────── */
-        #MainMenu {{visibility: hidden;}}
-        header {{visibility: hidden;}}
-        footer {{visibility: hidden;}}
+        /* ── Hide Streamlit boilerplate (desktop) ─ */
+        @media (min-width: 769px) {{
+            #MainMenu {{visibility: hidden;}}
+            header {{visibility: hidden;}}
+            footer {{visibility: hidden;}}
+        }}
+        @media (max-width: 768px) {{
+            footer {{visibility: hidden;}}
+            header {{
+                visibility: visible !important;
+            }}
+            [data-testid="collapsedControl"] {{
+                display: block !important;
+                visibility: visible !important;
+            }}
+        }}
+
+        /* ── Mobile nav fallback ─────────────────── */
+        .mobile-nav {{
+            display: none;
+        }}
+        .mobile-nav + [data-testid="stHorizontalBlock"] {{
+            display: none;
+        }}
+        .mobile-sidebar-hint {{
+            display: none;
+        }}
+        .mobile-nav-label {{
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: {TEXT_DIM};
+            margin-bottom: 0.35rem;
+        }}
+        @media (max-width: 768px) {{
+            .mobile-nav {{
+                display: block;
+                margin-bottom: 0.25rem;
+            }}
+            .mobile-nav + [data-testid="stHorizontalBlock"] {{
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.35rem !important;
+                padding-bottom: 0.35rem;
+                margin-bottom: 0.75rem;
+            }}
+            .mobile-nav + [data-testid="stHorizontalBlock"] [data-testid="column"] {{
+                flex: 0 0 auto !important;
+                min-width: unset !important;
+                width: auto !important;
+            }}
+            .mobile-nav + [data-testid="stHorizontalBlock"] a {{
+                white-space: nowrap;
+                font-size: 0.82rem;
+                padding: 0.35rem 0.65rem;
+                border-radius: 999px;
+                border: 1px solid {BORDER};
+                background: {CARD_BG};
+            }}
+            .mobile-sidebar-hint {{
+                display: block;
+                font-size: 0.85rem;
+                color: {TEXT_DIM};
+                background: {CARD_BG};
+                border: 1px solid {BORDER};
+                border-radius: 8px;
+                padding: 0.55rem 0.75rem;
+                margin: 0 0 1rem 0;
+            }}
+        }}
 
         /* ── Tabs styling ───────────────────────── */
         .stTabs [data-baseweb="tab-list"] {{
@@ -169,7 +261,172 @@ def inject_css() -> None:
         .stTabs [aria-selected="true"] {{
             color: {BLUE};
         }}
+
+        /* ── Signal grid (CSS grid, not st.columns) ─ */
+        .signal-grid {{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }}
+        .signal-grid-category {{
+            margin-top: 0.75rem;
+            margin-bottom: 0.35rem;
+            font-weight: 600;
+        }}
+
+        /* ── Prediction table scroll wrapper ─────── */
+        .pred-table-wrap {{
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }}
+        .pred-table-wrap table {{
+            min-width: 520px;
+        }}
+
+        /* ── Plotly chart containers ─────────────── */
+        [data-testid="stPlotlyChart"] {{
+            width: 100% !important;
+            overflow: hidden;
+        }}
+        [data-testid="stPlotlyChart"] .js-plotly-plot,
+        [data-testid="stPlotlyChart"] .plot-container {{
+            width: 100% !important;
+        }}
+
+        /* ── Touch-friendly controls ─────────────── */
+        button[kind="secondary"],
+        button[kind="primary"],
+        .stCheckbox label,
+        .stRadio label,
+        [data-testid="stSelectbox"] {{
+            min-height: 44px;
+        }}
+
+        /* ── Mobile / tablet (≤768px) ────────────── */
+        @media (max-width: 768px) {{
+            .main .block-container {{
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                padding-top: 1rem;
+            }}
+            h1 {{
+                font-size: 1.45rem !important;
+            }}
+            h2, h3 {{
+                font-size: 1.1rem !important;
+            }}
+            .metric-card {{
+                padding: 0.85rem 1rem;
+                margin-bottom: 0.5rem;
+            }}
+            .metric-card .value {{
+                font-size: 1.45rem;
+            }}
+            .metric-card h4 {{
+                font-size: 0.75rem;
+            }}
+            .pred-card {{
+                width: 100%;
+                box-sizing: border-box;
+                padding: 1rem 0.85rem;
+                margin-bottom: 0.5rem;
+            }}
+            .pred-card .direction {{
+                font-size: 1.35rem;
+            }}
+            .pred-card .magnitude {{
+                font-size: 1rem;
+            }}
+            .signal-grid {{
+                grid-template-columns: repeat(2, 1fr);
+            }}
+            .signal-badge {{
+                min-height: 44px;
+                padding: 0.65rem 0.75rem;
+            }}
+            .signal-badge .name {{
+                white-space: normal;
+                font-size: 0.72rem;
+            }}
+            .pred-table-wrap table {{
+                font-size: 0.78rem;
+            }}
+            .pred-table-wrap th,
+            .pred-table-wrap td {{
+                padding: 0.35rem !important;
+            }}
+            .coming-soon {{
+                padding: 1.5rem 1rem;
+            }}
+            [data-testid="stPlotlyChart"] {{
+                min-height: 250px;
+            }}
+            [data-testid="stPlotlyChart"] .js-plotly-plot {{
+                max-height: 280px;
+            }}
+            .stTabs [data-baseweb="tab-list"] {{
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }}
+            [data-testid="stHorizontalBlock"] {{
+                flex-wrap: wrap !important;
+                gap: 0.5rem !important;
+            }}
+            [data-testid="column"] {{
+                min-width: 0 !important;
+            }}
+            .layout-marker[data-layout="stack"] + [data-testid="stHorizontalBlock"] [data-testid="column"] {{
+                flex: 1 1 100% !important;
+                width: 100% !important;
+            }}
+            .layout-marker[data-layout="grid-2"] + [data-testid="stHorizontalBlock"] [data-testid="column"] {{
+                flex: 1 1 calc(50% - 0.5rem) !important;
+                min-width: calc(50% - 0.5rem) !important;
+            }}
+            [data-testid="stDataFrame"] {{
+                overflow-x: auto;
+            }}
+            [data-testid="stDataFrame"] div[data-testid="stTable"] {{
+                font-size: 0.78rem;
+            }}
+        }}
+
+        /* ── Phone (≤480px) ───────────────────────── */
+        @media (max-width: 480px) {{
+            .main .block-container {{
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }}
+            h1 {{
+                font-size: 1.25rem !important;
+            }}
+            .metric-card .value {{
+                font-size: 1.25rem;
+            }}
+            .signal-grid {{
+                grid-template-columns: 1fr;
+            }}
+            .layout-marker[data-layout="grid-2"] + [data-testid="stHorizontalBlock"] [data-testid="column"] {{
+                flex: 1 1 100% !important;
+                min-width: 100% !important;
+            }}
+            [data-testid="stPlotlyChart"] .js-plotly-plot {{
+                max-height: 250px;
+            }}
+        }}
         </style>
         """,
+        unsafe_allow_html=True,
+    )
+
+
+def layout_marker(layout: str = "stack") -> None:
+    """Insert a CSS marker before the next st.columns row for responsive layout.
+
+    layout: "stack" (single column on mobile) or "grid-2" (2×2 tablet, 1 col phone).
+    """
+    st.markdown(
+        f'<div class="layout-marker" data-layout="{layout}"></div>',
         unsafe_allow_html=True,
     )
