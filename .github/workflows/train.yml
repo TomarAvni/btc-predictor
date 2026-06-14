@@ -1,0 +1,57 @@
+name: Train
+
+on:
+  workflow_run:
+    workflows: ["Download"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.ref }}
+          fetch-depth: 0
+
+      - name: Sync to latest branch state
+        if: github.event_name == 'workflow_run'
+        run: git pull --ff-only origin ${{ github.event.workflow_run.head_branch }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Verify price data
+        run: |
+          if [ -z "$(find data/price -name '*.parquet' -print -quit 2>/dev/null)" ]; then
+            echo "::error::No price data in data/price/. Run the Download workflow first."
+            exit 1
+          fi
+
+      - name: Train and validate
+        run: python validate.py --split 0.8 --output data/validation/ --skip-tft
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/validation/
+          git diff --staged --quiet || git commit -m "chore: validation results [skip ci]"
+          git push

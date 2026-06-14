@@ -56,6 +56,10 @@ def parse_args() -> argparse.Namespace:
         "--no-trading", action="store_true",
         help="Skip the trading agent evaluation",
     )
+    parser.add_argument(
+        "--skip-tft", action="store_true",
+        help="Skip optional TFT training (faster, CPU-only CI runs)",
+    )
     return parser.parse_args()
 
 
@@ -126,6 +130,7 @@ def train_models(
     train_merged: pd.DataFrame,
     train_price: pd.DataFrame,
     output_dir: Path,
+    skip_tft: bool = False,
 ) -> dict[str, Any]:
     """Train all models on the training set and return trained model objects."""
     model_dir = output_dir / "models"
@@ -202,24 +207,27 @@ def train_models(
 
     # Try TFT (optional dependency)
     tft_available = False
-    try:
-        from src.models.tft_model import TFTPredictor
-        tft = TFTPredictor(model_dir=model_dir / "tft", max_epochs=10)
-        # Only train TFT if pytorch_forecasting is available
-        target_col = "return_24h"
-        if target_col in labels_df.columns:
-            tf_valid = labels_df[target_col].notna()
-            tft_features = features_df[tf_valid]
-            tft_labels = labels_df[tf_valid]
-            tft_result = tft.train(tft_features, tft_labels)
-            if "error" not in tft_result:
-                tft_available = True
-                models["tft"] = tft
-                logger.info("TFT model trained successfully")
-            else:
-                logger.info("TFT training skipped: %s", tft_result.get("error"))
-    except Exception as e:
-        logger.info("TFT not available: %s", e)
+    if skip_tft:
+        logger.info("TFT training skipped (--skip-tft)")
+    else:
+        try:
+            from src.models.tft_model import TFTPredictor
+            tft = TFTPredictor(model_dir=model_dir / "tft", max_epochs=10)
+            # Only train TFT if pytorch_forecasting is available
+            target_col = "return_24h"
+            if target_col in labels_df.columns:
+                tf_valid = labels_df[target_col].notna()
+                tft_features = features_df[tf_valid]
+                tft_labels = labels_df[tf_valid]
+                tft_result = tft.train(tft_features, tft_labels)
+                if "error" not in tft_result:
+                    tft_available = True
+                    models["tft"] = tft
+                    logger.info("TFT model trained successfully")
+                else:
+                    logger.info("TFT training skipped: %s", tft_result.get("error"))
+        except Exception as e:
+            logger.info("TFT not available: %s", e)
 
     # Calibrate confidence
     calibrator = ConfidenceCalibrator(model_dir=model_dir)
@@ -776,7 +784,7 @@ def save_results_json(
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
-def main() -> None:
+def main() -> int:
     args = parse_args()
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -825,8 +833,15 @@ def main() -> None:
     print("  Step 3/6: Training models on training set...")
     print(f"{'─'*70}")
     trained = train_models(
-        split_info["train_merged"], split_info["train_price"], output_dir
+        split_info["train_merged"],
+        split_info["train_price"],
+        output_dir,
+        skip_tft=args.skip_tft,
     )
+    if not trained["models"]["baseline"] and not trained["models"]["xgboost"]:
+        raise RuntimeError(
+            "No models were trained. Check that data/price/ has enough hourly candles."
+        )
     print(f"  Models trained: baseline, XGBoost"
           f"{', TFT' if trained['tft_available'] else ''}")
     print(f"  Training metrics: {json.dumps(trained['training_metrics'], indent=4)}")
@@ -909,7 +924,15 @@ def main() -> None:
     # Print the full report
     print("\n")
     print(report)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        raise SystemExit(main())
+    except SystemExit:
+        raise
+    except Exception as exc:
+        logger.exception("Validation failed: %s", exc)
+        print(f"\n[ERROR] Validation failed: {exc}", file=sys.stderr)
+        raise SystemExit(1) from exc

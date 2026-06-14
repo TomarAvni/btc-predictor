@@ -111,7 +111,7 @@ btc-predictor/
 │   ├── config.py            # Dashboard configuration
 │   └── styles.py            # CSS & Plotly theming
 ├── data/                    # Runtime data (price, models, trading state)
-├── .github/workflows/       # GitHub Actions (predict every 30min, manual download)
+├── .github/workflows/       # GitHub Actions (Download → Train → Predict)
 └── .streamlit/config.toml   # Streamlit Cloud theme config
 ```
 
@@ -137,14 +137,21 @@ The dashboard works with demo data out of the box — run the predictor to popul
 
 ## Deployment
 
-### GitHub Actions (Automated Predictions)
+### GitHub Actions (Automated Pipeline)
 
-The repo includes two workflows:
+Three workflows run a hands-off pipeline: **Download → Train → Predict**.
 
-1. **predict.yml** — Runs every 30 minutes via cron. Executes a prediction cycle and a trading tick, then commits updated data files back to the repo.
-2. **download.yml** — Manual trigger only. Downloads the full price history.
+| Workflow | Trigger | What it does |
+|----------|---------|--------------|
+| **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history and commits `data/price/` |
+| **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
+| **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick, commits results |
 
-Both use `[skip ci]` in commit messages to avoid triggering themselves.
+**Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule.
+
+Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
+
+All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
 ### Streamlit Cloud (Dashboard)
 

@@ -18,8 +18,25 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install
         run: pip install -r requirements.txt
+
+      - name: Check trained models
+        run: |
+          if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
+            echo "::warning::No trained models in data/validation/models/ — running predict with heuristics only"
+            echo "Run Download then Train (or workflow_dispatch Train) to produce ML models."
+          else
+            echo "Trained model artifacts found in data/validation/models/"
+          fi
 
       - name: Predict
         run: python main.py --predict
