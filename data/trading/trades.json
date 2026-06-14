@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "9844d316426a",
+    "entry_time": "2026-06-14T21:33:10.218728+00:00",
+    "exit_time": "2026-06-14T23:15:59.323460+00:00",
+    "entry_price": 104552.25,
+    "exit_price": 99225.3625,
+    "amount_usd": 219.78,
+    "amount_btc": 0.002102106841316184,
+    "side": "LONG",
+    "timeframe": "24h",
+    "pnl_usd": -11.197686656671658,
+    "pnl_pct": -5.094952523738129,
+    "exit_reason": "stop_loss",
+    "prediction_id": "3524bb3b0c17",
+    "fees_paid": 0.0
+  }
+]

@@ -25,5 +25,50 @@
     "open_positions": 1,
     "exposure_pct": 10.984111466271377,
     "prediction_id": "3524bb3b0c17"
+  },
+  {
+    "trade_number": 2,
+    "timestamp": "2026-06-14T23:15:59.323460+00:00",
+    "action": "CLOSE",
+    "side": "SELL",
+    "amount_usd": 219.78,
+    "amount_btc": 0.002102106841316184,
+    "entry_price": 104552.25,
+    "exit_price": 99225.3625,
+    "pnl_usd": -11.406268970014992,
+    "pnl_pct": -5.189857571214392,
+    "exit_reason": "stop_loss",
+    "timeframe": "24h",
+    "holding_time_hours": 1.7136402033333333,
+    "portfolio_cash": 1988.8023133433285,
+    "portfolio_total": 1988.8023133433285,
+    "fees_paid": 0.4283623133433283
+  },
+  {
+    "trade_number": 3,
+    "timestamp": "2026-06-14T23:15:59.323460+00:00",
+    "action": "BUY",
+    "side": "BUY",
+    "amount_usd": 238.66,
+    "amount_btc": 0.0036478377752029094,
+    "price": 65359.633485,
+    "timeframe": "24h",
+    "confidence": 65,
+    "reasons": [
+      "24h prediction: UP +0.0% @ 65% confidence",
+      "Multi-timeframe alignment: Strong (score 1.87)",
+      "Supporting timeframes: 7d (52%)"
+    ],
+    "sizing_tier": "Medium",
+    "alignment_score": 1.8699999999999999,
+    "stop_loss": 64673.700300000004,
+    "take_profit": 65326.97,
+    "max_loss_usd": 2.504677661169395,
+    "max_loss_pct_portfolio": 0.12594654134532993,
+    "portfolio_cash": 1750.3809733433286,
+    "portfolio_total": 1988.6831622488758,
+    "open_positions": 1,
+    "exposure_pct": 11.982913790855774,
+    "prediction_id": "aafb5b64e01c"
   }
 ]
