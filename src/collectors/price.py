@@ -54,6 +54,16 @@ class PriceCollector(BaseCollector):
         cls = getattr(ccxt, exchange_id)
         return cls({"enableRateLimit": True})
 
+    @staticmethod
+    async def _close_exchange(exchange: ccxt.Exchange) -> None:
+        """Safely close an exchange connection (sync or async)."""
+        close_fn = getattr(exchange, "close", None)
+        if close_fn is None:
+            return
+        result = close_fn()
+        if result is not None and hasattr(result, "__await__"):
+            await result
+
     async def _fetch_ohlcv_batch(
         self,
         exchange: ccxt.Exchange,
@@ -70,7 +80,7 @@ class PriceCollector(BaseCollector):
             except ccxt.RateLimitExceeded:
                 wait = (2**attempt) * 5
                 logger.warning(
-                    "%s: rate-limited, backing off %ds…", exchange.id, wait
+                    "%s: rate-limited, backing off %ds...", exchange.id, wait
                 )
                 await asyncio.sleep(wait)
             except ccxt.NetworkError as exc:
@@ -116,14 +126,14 @@ class PriceCollector(BaseCollector):
             last_ms = int(existing.index[-1].timestamp() * 1000)
             if last_ms >= binance_start_ms:
                 logger.info(
-                    "Resuming download from %s …", existing.index[-1]
+                    "Resuming download from %s ...", existing.index[-1]
                 )
                 return await self._resume_download(existing, progress_callback)
 
         frames: list[pd.DataFrame] = []
 
         # --- Bitstamp 2013-2017 ---
-        logger.info("Phase 1/2: Bitstamp history (2013-2017) …")
+        logger.info("Phase 1/2: Bitstamp history (2013-2017) ...")
         bitstamp = self._create_exchange("bitstamp")
         try:
             bdf = await self._download_exchange_range(
@@ -133,10 +143,10 @@ class PriceCollector(BaseCollector):
             if not bdf.empty:
                 frames.append(bdf)
         finally:
-            await bitstamp.close()
+            await self._close_exchange(bitstamp)
 
         # --- Binance 2017-present ---
-        logger.info("Phase 2/2: Binance history (2017-present) …")
+        logger.info("Phase 2/2: Binance history (2017-present) ...")
         binance = self._create_exchange("binance")
         try:
             bndf = await self._download_exchange_range(
@@ -146,7 +156,7 @@ class PriceCollector(BaseCollector):
             if not bndf.empty:
                 frames.append(bndf)
         finally:
-            await binance.close()
+            await self._close_exchange(binance)
 
         if not frames:
             logger.error("No price data downloaded from any exchange")
@@ -156,7 +166,7 @@ class PriceCollector(BaseCollector):
         self._save_parquet(combined)
         self._df_cache = combined
         logger.info(
-            "Full history saved: %s candles, %s → %s",
+            "Full history saved: %s candles, %s -> %s",
             f"{len(combined):,}",
             combined.index[0],
             combined.index[-1],
@@ -179,7 +189,7 @@ class PriceCollector(BaseCollector):
                 label="Binance (resume)", progress_callback=progress_callback,
             )
         finally:
-            await binance.close()
+            await self._close_exchange(binance)
 
         if new.empty:
             logger.info("Price history already up to date")
@@ -286,7 +296,7 @@ class PriceCollector(BaseCollector):
                     break
                 await asyncio.sleep(binance.rateLimit / 1000)
         finally:
-            await binance.close()
+            await self._close_exchange(binance)
 
         if not new_candles:
             logger.info("Price history already up to date")
@@ -329,7 +339,7 @@ class PriceCollector(BaseCollector):
         path = self.storage_path / f"_checkpoint_{tag}.parquet"
         df = self._candles_to_df(candles)
         df.to_parquet(path, engine="pyarrow", compression="snappy")
-        logger.debug("Checkpoint: %s candles → %s", f"{len(df):,}", path.name)
+        logger.debug("Checkpoint: %s candles -> %s", f"{len(df):,}", path.name)
 
     def _cleanup_checkpoints(self, label: str) -> None:
         tag = label.lower().replace(" ", "_").replace("(", "").replace(")", "")

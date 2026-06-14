@@ -7,7 +7,7 @@ for full audit trail of all trading activity.
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -52,7 +52,7 @@ class TradeJournal:
     ) -> None:
         """Log a new trade entry."""
         self._trade_number += 1
-        ts = timestamp or datetime.utcnow()
+        ts = timestamp or datetime.now(timezone.utc)
 
         entry = {
             "trade_number": self._trade_number,
@@ -94,7 +94,7 @@ class TradeJournal:
     ) -> None:
         """Log a position exit/close."""
         self._trade_number += 1
-        ts = timestamp or datetime.utcnow()
+        ts = timestamp or datetime.now(timezone.utc)
 
         entry = {
             "trade_number": self._trade_number,
@@ -126,7 +126,7 @@ class TradeJournal:
         timestamp: Optional[datetime] = None,
     ) -> None:
         """Log a decision NOT to trade (for audit trail)."""
-        ts = timestamp or datetime.utcnow()
+        ts = timestamp or datetime.now(timezone.utc)
 
         entry = {
             "trade_number": None,

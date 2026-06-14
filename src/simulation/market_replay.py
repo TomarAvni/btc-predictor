@@ -138,7 +138,7 @@ class MarketReplay:
         result.total_steps = len(timestamps)
 
         logger.info(
-            "Starting simulation: %s → %s (%d steps, %dh interval)",
+            "Starting simulation: %s -> %s (%d steps, %dh interval)",
             start.date(), end.date(), len(timestamps), step_hours,
         )
 

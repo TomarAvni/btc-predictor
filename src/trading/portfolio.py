@@ -7,11 +7,11 @@ Persists state to disk after every mutation.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
 
-from src.trading.order import Position, Trade
+from src.trading.order import Position, Trade, _ensure_utc
 
 DATA_DIR = Path("data/trading")
 PORTFOLIO_PATH = DATA_DIR / "portfolio.json"
@@ -90,7 +90,7 @@ class Portfolio:
 
     def pnl_since(self, days: int) -> float:
         """Sum P&L of trades closed within the last N days."""
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
         return sum(
             t.pnl_usd for t in self.closed_trades if t.exit_time >= cutoff
         )
@@ -129,7 +129,7 @@ class Portfolio:
         if current_value > self.peak_value:
             self.peak_value = current_value
 
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         if self._daily_start_date is None or now.date() > self._daily_start_date.date():
             self._daily_start_value = current_value
             self._daily_start_date = now
@@ -153,7 +153,7 @@ class Portfolio:
         if pos is None:
             return None
 
-        exit_time = timestamp or datetime.utcnow()
+        exit_time = timestamp or datetime.now(timezone.utc)
         pnl_usd = pos.unrealized_pnl_at(exit_price)
         pnl_pct = pos.unrealized_pnl_pct(exit_price)
 
@@ -197,7 +197,7 @@ class Portfolio:
             "daily_start_value": self._daily_start_value,
             "daily_start_date": self._daily_start_date.isoformat() if self._daily_start_date else None,
             "positions": [p.to_dict() for p in self.positions],
-            "updated_at": datetime.utcnow().isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         PORTFOLIO_PATH.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
@@ -215,7 +215,7 @@ class Portfolio:
                 self._last_price = data.get("last_price", 0.0)
                 self._daily_start_value = data.get("daily_start_value", self.STARTING_BALANCE)
                 ds = data.get("daily_start_date")
-                self._daily_start_date = datetime.fromisoformat(ds) if ds else None
+                self._daily_start_date = _ensure_utc(datetime.fromisoformat(ds)) if ds else None
                 self.positions = [
                     Position.from_dict(p) for p in data.get("positions", [])
                 ]

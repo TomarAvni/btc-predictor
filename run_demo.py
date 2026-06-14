@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -67,8 +67,8 @@ def main() -> None:
         print("  [INFO] No validation report found -- check step 2 output above.")
 
     # Step 4: Run trading agent backtest (last 30 days for speed)
-    end_date = datetime.utcnow().strftime("%Y-%m-%d")
-    start_date = (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d")
+    end_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    start_date = (datetime.now(timezone.utc) - timedelta(days=30)).strftime("%Y-%m-%d")
     run(
         [py, "trade.py", "--backtest", "--start", start_date, "--end", end_date],
         f"Step 4/5: Running trading backtest ({start_date} to {end_date})...",

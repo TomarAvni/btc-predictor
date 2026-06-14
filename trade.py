@@ -13,7 +13,7 @@ import argparse
 import asyncio
 import json
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import numpy as np
@@ -267,7 +267,7 @@ async def run_live() -> None:
             else:
                 prev_price = current_price * (1 + np.random.normal(0, 0.002))
                 predictions = generate_synthetic_predictions(
-                    current_price, prev_price, datetime.utcnow()
+                    current_price, prev_price, datetime.now(timezone.utc)
                 )
 
             # Process prediction
@@ -303,7 +303,7 @@ def _get_current_price() -> float:
 def _print_live_status(status: dict, predictions: list[dict]) -> None:
     """Print live trading status to console."""
     portfolio = status["portfolio"]
-    print(f"  [{datetime.utcnow().strftime('%H:%M:%S')}] ", end="")
+    print(f"  [{datetime.now(timezone.utc).strftime('%H:%M:%S')}] ", end="")
     print(
         f"Value: ${portfolio['total_value_usd']:,.2f} | "
         f"P&L: {portfolio['total_pnl_pct']:+.2f}% | "
@@ -333,12 +333,12 @@ async def run_live_tick() -> None:
     except (ImportError, Exception):
         prev_price = current_price * (1 + np.random.normal(0, 0.002))
         predictions = generate_synthetic_predictions(
-            current_price, prev_price, datetime.utcnow()
+            current_price, prev_price, datetime.now(timezone.utc)
         )
 
     result = agent.on_new_prediction(predictions, current_price)
 
-    print(f"[{datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}] Live tick complete")
+    print(f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}] Live tick complete")
     print(f"  Price: ${current_price:,.2f}")
     print(f"  Portfolio: ${result['portfolio_value']:,.2f}")
     print(f"  Actions: {len(result.get('actions', []))}")

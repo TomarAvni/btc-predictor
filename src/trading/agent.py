@@ -8,7 +8,7 @@ and risk management.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Optional
 
 from src.trading.order import Order, Position, Trade
@@ -74,7 +74,7 @@ class TradingAgent:
         Returns:
             Dict summarizing actions taken.
         """
-        ts = timestamp or datetime.utcnow()
+        ts = timestamp or datetime.now(timezone.utc)
         actions_taken: list[dict] = []
 
         # 1. Update price
@@ -119,7 +119,7 @@ class TradingAgent:
         Returns:
             List of actions taken (triggered exits).
         """
-        ts = timestamp or datetime.utcnow()
+        ts = timestamp or datetime.now(timezone.utc)
         candle_high = high or price
         candle_low = low or price
 

@@ -325,7 +325,7 @@ class WalkForwardValidator:
         lines.append("  PER-FOLD RESULTS:")
         for fold in result.folds:
             lines.append(f"    Fold {fold.fold_number}: "
-                        f"train={fold.train_cycles} → val={fold.val_cycle}")
+                        f"train={fold.train_cycles} -> val={fold.val_cycle}")
             for tf, m in fold.metrics.items():
                 lines.append(f"      {tf}: acc={m['direction_accuracy']:.3f}, MAE={m['mae']:.2f}%")
 

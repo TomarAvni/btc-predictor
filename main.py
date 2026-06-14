@@ -34,13 +34,13 @@ def load_config() -> dict:
 
 async def cmd_download(engine: PredictionEngine) -> None:
     """Download (or resume) the full hourly price history."""
-    logger.info("Starting full price history download …")
+    logger.info("Starting full price history download ...")
     df = await engine.price.download_full_history()
     if df.empty:
         logger.error("Download failed -- no data retrieved")
         sys.exit(1)
     logger.info(
-        "Download complete: %s candles (%s → %s)",
+        "Download complete: %s candles (%s -> %s)",
         f"{len(df):,}",
         df.index[0],
         df.index[-1],

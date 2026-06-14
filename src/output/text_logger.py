@@ -142,7 +142,7 @@ class PredictionLogger:
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
             archive = self.output_path.with_suffix(f".{ts}.log")
             self.output_path.rename(archive)
-            logger.info("Rotated predictions log → %s", archive)
+            logger.info("Rotated predictions log -> %s", archive)
 
 
 TextLogger = PredictionLogger

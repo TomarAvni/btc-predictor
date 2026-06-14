@@ -58,12 +58,14 @@ def _configure_root(level: str | None = None, log_file: str | None = None) -> No
     formatter = logging.Formatter(cfg_fmt, datefmt="%Y-%m-%d %H:%M:%S")
 
     if not root.handlers:
-        console = logging.StreamHandler(sys.stdout)
+        console = logging.StreamHandler(
+            open(sys.stdout.fileno(), mode="w", encoding="utf-8", closefd=False)
+        )
         console.setFormatter(formatter)
         root.addHandler(console)
 
         if resolved_file:
             Path(resolved_file).parent.mkdir(parents=True, exist_ok=True)
-            fh = logging.FileHandler(resolved_file)
+            fh = logging.FileHandler(resolved_file, encoding="utf-8")
             fh.setFormatter(formatter)
             root.addHandler(fh)

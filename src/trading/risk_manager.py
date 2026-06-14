@@ -7,7 +7,7 @@ drawdown circuit breakers, and daily loss limits.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from src.trading.order import Position
@@ -57,7 +57,7 @@ class RiskManager:
 
         Returns a RiskCheck indicating approval or rejection with reason.
         """
-        now = timestamp or datetime.utcnow()
+        now = timestamp or datetime.now(timezone.utc)
 
         # Circuit breaker
         if self._circuit_breaker_until and now < self._circuit_breaker_until:
@@ -211,7 +211,7 @@ class RiskManager:
 
     def record_trade(self, timestamp: Optional[datetime] = None) -> None:
         """Record that a trade was made (for time-between-trades check)."""
-        self._last_trade_time = timestamp or datetime.utcnow()
+        self._last_trade_time = timestamp or datetime.now(timezone.utc)
 
     def reset(self) -> None:
         """Reset risk manager state (for backtesting)."""

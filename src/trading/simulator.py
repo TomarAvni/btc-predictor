@@ -7,7 +7,7 @@ triggers on price updates.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 from src.trading.order import Order, Position, Trade
@@ -36,7 +36,7 @@ class OrderSimulator:
         Applies slippage (price moves against us) and fees.
         Returns the Order and resulting Position.
         """
-        ts = timestamp or datetime.utcnow()
+        ts = timestamp or datetime.now(timezone.utc)
 
         # Slippage: buy at slightly higher price
         execution_price = current_price * (1 + self.SLIPPAGE_PCT / 100)
@@ -91,7 +91,7 @@ class OrderSimulator:
         Applies slippage (price moves against us) and fees.
         Returns the Order and resulting Trade record.
         """
-        ts = timestamp or datetime.utcnow()
+        ts = timestamp or datetime.now(timezone.utc)
 
         # Slippage: sell at slightly lower price
         execution_price = current_price * (1 - self.SLIPPAGE_PCT / 100)

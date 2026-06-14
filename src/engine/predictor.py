@@ -52,7 +52,7 @@ class PredictionEngine:
 
     async def initialize(self) -> None:
         """Download full price history (first run or resume)."""
-        logger.info("Initializing -- downloading price history …")
+        logger.info("Initializing -- downloading price history ...")
         await self.price.download_full_history()
         logger.info("Initialization complete")
 
@@ -68,7 +68,7 @@ class PredictionEngine:
           6. Format and log output
         """
         # 1 -- Price update
-        logger.info("Running prediction cycle …")
+        logger.info("Running prediction cycle ...")
         price_df = await self.price.collect()
         if price_df.empty:
             logger.error("No price data available; aborting prediction")

@@ -4,8 +4,15 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass, field, asdict
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Literal
+
+
+def _ensure_utc(dt: datetime) -> datetime:
+    """Ensure a datetime is timezone-aware (assume UTC if naive)."""
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt
 
 
 @dataclass
@@ -24,7 +31,7 @@ class Order:
     stop_loss: float
     take_profit: float
     id: str = field(default_factory=lambda: uuid.uuid4().hex[:12])
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     def to_dict(self) -> dict:
         """Serialize to dictionary for JSON storage."""
@@ -37,7 +44,7 @@ class Order:
         """Deserialize from dictionary."""
         data = data.copy()
         if isinstance(data.get("timestamp"), str):
-            data["timestamp"] = datetime.fromisoformat(data["timestamp"])
+            data["timestamp"] = _ensure_utc(datetime.fromisoformat(data["timestamp"]))
         return cls(**data)
 
 
@@ -46,7 +53,7 @@ class Position:
     """An open trading position."""
 
     id: str = field(default_factory=lambda: uuid.uuid4().hex[:12])
-    entry_time: datetime = field(default_factory=datetime.utcnow)
+    entry_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     entry_price: float = 0.0
     amount_usd: float = 0.0
     amount_btc: float = 0.0
@@ -100,7 +107,7 @@ class Position:
     def from_dict(cls, data: dict) -> Position:
         data = data.copy()
         if isinstance(data.get("entry_time"), str):
-            data["entry_time"] = datetime.fromisoformat(data["entry_time"])
+            data["entry_time"] = _ensure_utc(datetime.fromisoformat(data["entry_time"]))
         return cls(**data)
 
 
@@ -109,8 +116,8 @@ class Trade:
     """A closed (completed) trade."""
 
     id: str = field(default_factory=lambda: uuid.uuid4().hex[:12])
-    entry_time: datetime = field(default_factory=datetime.utcnow)
-    exit_time: datetime = field(default_factory=datetime.utcnow)
+    entry_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    exit_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     entry_price: float = 0.0
     exit_price: float = 0.0
     amount_usd: float = 0.0
@@ -150,5 +157,5 @@ class Trade:
         data = data.copy()
         for k in ("entry_time", "exit_time"):
             if isinstance(data.get(k), str):
-                data[k] = datetime.fromisoformat(data[k])
+                data[k] = _ensure_utc(datetime.fromisoformat(data[k]))
         return cls(**data)

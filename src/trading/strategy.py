@@ -7,7 +7,7 @@ timeframe alignment, and current market conditions.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 
@@ -70,7 +70,7 @@ class TradingStrategy:
         Returns:
             StrategySignal indicating whether to enter and with what parameters.
         """
-        now = timestamp or datetime.utcnow()
+        now = timestamp or datetime.now(timezone.utc)
 
         if not predictions:
             return self._no_trade("No predictions available")
@@ -164,7 +164,7 @@ class TradingStrategy:
         Returns:
             ExitSignal indicating if/why to exit.
         """
-        now = timestamp or datetime.utcnow()
+        now = timestamp or datetime.now(timezone.utc)
 
         # Check time-based expiration
         target_hours = TIMEFRAME_HOURS.get(position.timeframe, 24)
