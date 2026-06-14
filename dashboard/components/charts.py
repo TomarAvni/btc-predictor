@@ -253,6 +253,41 @@ def create_calibration_curve(
     return fig
 
 
+# ── Cumulative P&L ────────────────────────────────────────────────────────
+
+
+def create_cumulative_pnl_chart(
+    values: Sequence[float],
+    height: int = 350,
+) -> go.Figure:
+    """Cumulative P&L line with area fill and zero baseline."""
+    running = values[-1] if values else 0
+    color = GREEN if running >= 0 else RED
+    fill_color = "rgba(0, 210, 106, 0.1)" if running >= 0 else "rgba(255, 75, 75, 0.1)"
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=list(range(len(values))),
+            y=list(values),
+            mode="lines+markers",
+            line=dict(color=color, width=2),
+            marker=dict(size=4),
+            fill="tozeroy",
+            fillcolor=fill_color,
+            name="Cumulative P&L",
+        )
+    )
+    fig.update_layout(
+        title="Cumulative P&L ($)",
+        xaxis_title="Trade #",
+        yaxis_title="P&L ($)",
+        showlegend=False,
+    )
+    _apply_theme(fig, height=height)
+    fig.add_hline(y=0, line_dash="dash", line_color=TEXT_DIM, opacity=0.5)
+    return fig
+
+
 # ── Equity curve ──────────────────────────────────────────────────────────
 
 

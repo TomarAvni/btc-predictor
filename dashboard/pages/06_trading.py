@@ -21,16 +21,9 @@ st.set_page_config(page_title="Trading", page_icon="💹", layout="wide")
 
 import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
 
-from dashboard.styles import (
-    GREEN,
-    PLOTLY_TEMPLATE,
-    RED,
-    TEXT_DIM,
-    inject_css,
-    layout_marker,
-)
+from dashboard.styles import inject_css, layout_marker
+from dashboard.components.charts import create_cumulative_pnl_chart
 from dashboard.components.metrics_cards import render_metric_card
 from dashboard.components.mobile_nav import render_mobile_nav
 
@@ -171,40 +164,12 @@ if trades:
     sorted_trades = sorted(trades, key=lambda t: t.get("exit_time", ""))
     cumulative_pnl = []
     running = 0.0
-    timestamps = []
 
     for t in sorted_trades:
         running += t.get("pnl_usd", 0)
         cumulative_pnl.append(running)
-        exit_time = t.get("exit_time", "")
-        if isinstance(exit_time, str) and exit_time:
-            timestamps.append(exit_time)
-        else:
-            timestamps.append(str(len(timestamps)))
 
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=list(range(len(cumulative_pnl))),
-        y=cumulative_pnl,
-        mode="lines+markers",
-        line=dict(color=GREEN if running >= 0 else RED, width=2),
-        marker=dict(size=4),
-        fill="tozeroy",
-        fillcolor=f"rgba(0, 210, 106, 0.1)" if running >= 0 else "rgba(255, 75, 75, 0.1)",
-        name="Cumulative P&L",
-    ))
-    fig.update_layout(
-        **PLOTLY_TEMPLATE["layout"],
-        title="Cumulative P&L ($)",
-        xaxis_title="Trade #",
-        yaxis_title="P&L ($)",
-        height=350,
-        showlegend=False,
-        autosize=True,
-        margin=dict(l=20, r=20, t=40, b=20),
-    )
-    fig.add_hline(y=0, line_dash="dash", line_color=TEXT_DIM, opacity=0.5)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(create_cumulative_pnl_chart(cumulative_pnl), use_container_width=True)
 
 # ── Trade History ─────────────────────────────────────────────────────────
 
