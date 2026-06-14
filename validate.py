@@ -731,6 +731,17 @@ def generate_report(
     return "\n".join(lines)
 
 
+def _json_default(obj: Any) -> Any:
+    """Convert numpy scalars/arrays to native Python types for json.dumps."""
+    if isinstance(obj, (np.integer, np.floating)):
+        return obj.item()
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
+    if isinstance(obj, np.bool_):
+        return bool(obj)
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
 def save_results_json(
     output_dir: Path,
     split_info: dict,
@@ -772,10 +783,14 @@ def save_results_json(
         equity = trading_metrics.get("equity_curve", [])
         if equity:
             equity_path = output_dir / "equity_curve.json"
-            equity_path.write_text(json.dumps(equity, indent=2), encoding="utf-8")
+            equity_path.write_text(
+                json.dumps(equity, indent=2, default=_json_default), encoding="utf-8"
+            )
 
     results_path = output_dir / "results.json"
-    results_path.write_text(json.dumps(results, indent=2), encoding="utf-8")
+    results_path.write_text(
+        json.dumps(results, indent=2, default=_json_default), encoding="utf-8"
+    )
     logger.info("Results saved to %s", results_path)
 
 
