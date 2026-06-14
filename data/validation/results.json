@@ -1,0 +1,185 @@
+{
+  "generated_at": "2026-06-14T22:54:16.880586+00:00",
+  "split": {
+    "data_start": "2013-09-01T00:00:00+00:00",
+    "data_end": "2017-08-16T23:00:00+00:00",
+    "train_end": "2016-10-31T19:00:00+00:00",
+    "test_start": "2017-01-29T19:00:00+00:00",
+    "gap_days": 90,
+    "train_samples": 27764,
+    "test_samples": 4781
+  },
+  "model_accuracy": {
+    "baseline": {
+      "24h": {
+        "direction_accuracy": 58.4,
+        "mae": 3.19,
+        "mae_pct": 3.25,
+        "n_predictions": 1190
+      },
+      "7d": {
+        "direction_accuracy": 60.2,
+        "mae": 9.98,
+        "mae_pct": 10.29,
+        "n_predictions": 1154
+      },
+      "30d": {
+        "direction_accuracy": 71.9,
+        "mae": 27.53,
+        "mae_pct": 28.82,
+        "n_predictions": 1016
+      },
+      "90d": {
+        "direction_accuracy": 66.6,
+        "mae": 68.78,
+        "mae_pct": 103.63,
+        "n_predictions": 656
+      }
+    },
+    "xgboost": {
+      "24h": {
+        "direction_accuracy": 50.0,
+        "mae": 4.29,
+        "mae_pct": 3.25,
+        "n_predictions": 1190
+      },
+      "7d": {
+        "direction_accuracy": 49.2,
+        "mae": 17.68,
+        "mae_pct": 10.29,
+        "n_predictions": 1154
+      },
+      "30d": {
+        "direction_accuracy": 66.3,
+        "mae": 85.04,
+        "mae_pct": 28.82,
+        "n_predictions": 1016
+      },
+      "90d": {
+        "direction_accuracy": 100.0,
+        "mae": 400.82,
+        "mae_pct": 103.63,
+        "n_predictions": 656
+      }
+    },
+    "ensemble": {
+      "24h": {
+        "direction_accuracy": 50.4,
+        "mae": 3.59,
+        "mae_pct": 3.25,
+        "n_predictions": 1190
+      },
+      "7d": {
+        "direction_accuracy": 49.7,
+        "mae": 14.05,
+        "mae_pct": 10.29,
+        "n_predictions": 1154
+      },
+      "30d": {
+        "direction_accuracy": 66.3,
+        "mae": 60.58,
+        "mae_pct": 28.82,
+        "n_predictions": 1016
+      },
+      "90d": {
+        "direction_accuracy": 100.0,
+        "mae": 236.46,
+        "mae_pct": 103.63,
+        "n_predictions": 656
+      }
+    }
+  },
+  "confidence_calibration": {
+    "50%": {
+      "stated_confidence": 55.0,
+      "actual_accuracy": 56.0,
+      "n_samples": 679,
+      "well_calibrated": true
+    },
+    "60%": {
+      "stated_confidence": 65.0,
+      "actual_accuracy": 78.0,
+      "n_samples": 1544,
+      "well_calibrated": false
+    },
+    "70%": {
+      "stated_confidence": 75.0,
+      "actual_accuracy": 86.4,
+      "n_samples": 22,
+      "well_calibrated": false
+    }
+  },
+  "regime_accuracy": {
+    "bull": 61.8,
+    "bear": 96.4,
+    "sideways": 65.8
+  },
+  "feature_importance": [
+    {
+      "feature": "cycle_pct",
+      "importance_pct": 15.050613403320312
+    },
+    {
+      "feature": "month_sin",
+      "importance_pct": 13.970035552978516
+    },
+    {
+      "feature": "days_since_halving",
+      "importance_pct": 12.610715866088867
+    },
+    {
+      "feature": "month_cos",
+      "importance_pct": 9.68842887878418
+    },
+    {
+      "feature": "volatility_30d",
+      "importance_pct": 8.826316833496094
+    },
+    {
+      "feature": "return_30d",
+      "importance_pct": 7.071933269500732
+    },
+    {
+      "feature": "return_7d",
+      "importance_pct": 4.4586501121521
+    },
+    {
+      "feature": "volatility_7d",
+      "importance_pct": 4.024319171905518
+    },
+    {
+      "feature": "phase_markup",
+      "importance_pct": 2.944239377975464
+    },
+    {
+      "feature": "phase_distribution",
+      "importance_pct": 2.8120336532592773
+    }
+  ],
+  "trading": {
+    "total_return_pct": 0.0,
+    "total_return_usd": 0.0,
+    "current_value": 2000.0,
+    "starting_balance": 2000.0,
+    "daily_returns_count": 2391,
+    "sharpe_ratio": 0.0,
+    "sortino_ratio": 0.0,
+    "max_drawdown_pct": 0.0,
+    "volatility_annual_pct": 0.0,
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0,
+    "win_rate_pct": 0.0,
+    "avg_win_usd": 0.0,
+    "avg_loss_usd": 0.0,
+    "largest_win_usd": 0.0,
+    "largest_loss_usd": 0.0,
+    "profit_factor": 0.0,
+    "expectancy_usd": 0.0,
+    "avg_holding_hours": 0.0,
+    "total_fees_paid": 0.0,
+    "exit_reasons": {},
+    "pnl_by_timeframe": {},
+    "buy_and_hold_return_pct": 379.31
+  }
+}

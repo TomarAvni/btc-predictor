@@ -1,0 +1,5982 @@
+[
+  {
+    "timestamp": "2017-01-29T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 913.58
+  },
+  {
+    "timestamp": "2017-01-29T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 912.01
+  },
+  {
+    "timestamp": "2017-01-30T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 916.2
+  },
+  {
+    "timestamp": "2017-01-30T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 914.15
+  },
+  {
+    "timestamp": "2017-01-30T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 916.21
+  },
+  {
+    "timestamp": "2017-01-30T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 920.46
+  },
+  {
+    "timestamp": "2017-01-30T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 921.05
+  },
+  {
+    "timestamp": "2017-01-30T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 919.99
+  },
+  {
+    "timestamp": "2017-01-31T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 919.32
+  },
+  {
+    "timestamp": "2017-01-31T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 934.15
+  },
+  {
+    "timestamp": "2017-01-31T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 940.2
+  },
+  {
+    "timestamp": "2017-01-31T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 957.03
+  },
+  {
+    "timestamp": "2017-01-31T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 954.26
+  },
+  {
+    "timestamp": "2017-01-31T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 963.99
+  },
+  {
+    "timestamp": "2017-02-01T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 969.95
+  },
+  {
+    "timestamp": "2017-02-01T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 972.57
+  },
+  {
+    "timestamp": "2017-02-01T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 966.95
+  },
+  {
+    "timestamp": "2017-02-01T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 967.9
+  },
+  {
+    "timestamp": "2017-02-01T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 976.29
+  },
+  {
+    "timestamp": "2017-02-01T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 983.67
+  },
+  {
+    "timestamp": "2017-02-02T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 979.53
+  },
+  {
+    "timestamp": "2017-02-02T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 987.53
+  },
+  {
+    "timestamp": "2017-02-02T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 991.02
+  },
+  {
+    "timestamp": "2017-02-02T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 993.38
+  },
+  {
+    "timestamp": "2017-02-02T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1000.99
+  },
+  {
+    "timestamp": "2017-02-02T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1009.17
+  },
+  {
+    "timestamp": "2017-02-03T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1017.2
+  },
+  {
+    "timestamp": "2017-02-03T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1015.99
+  },
+  {
+    "timestamp": "2017-02-03T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1005.32
+  },
+  {
+    "timestamp": "2017-02-03T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1015.8
+  },
+  {
+    "timestamp": "2017-02-03T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1010.55
+  },
+  {
+    "timestamp": "2017-02-03T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1016.99
+  },
+  {
+    "timestamp": "2017-02-04T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1009.55
+  },
+  {
+    "timestamp": "2017-02-04T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1014.5
+  },
+  {
+    "timestamp": "2017-02-04T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1009.38
+  },
+  {
+    "timestamp": "2017-02-04T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1013.34
+  },
+  {
+    "timestamp": "2017-02-04T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1035.01
+  },
+  {
+    "timestamp": "2017-02-04T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1033.18
+  },
+  {
+    "timestamp": "2017-02-05T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1025.01
+  },
+  {
+    "timestamp": "2017-02-05T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1028.01
+  },
+  {
+    "timestamp": "2017-02-05T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1022.22
+  },
+  {
+    "timestamp": "2017-02-05T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1014.6
+  },
+  {
+    "timestamp": "2017-02-05T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1009.38
+  },
+  {
+    "timestamp": "2017-02-05T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1011.07
+  },
+  {
+    "timestamp": "2017-02-06T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1018.47
+  },
+  {
+    "timestamp": "2017-02-06T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1019.55
+  },
+  {
+    "timestamp": "2017-02-06T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1022.99
+  },
+  {
+    "timestamp": "2017-02-06T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1021.92
+  },
+  {
+    "timestamp": "2017-02-06T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1021.99
+  },
+  {
+    "timestamp": "2017-02-06T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1023.99
+  },
+  {
+    "timestamp": "2017-02-07T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1028.33
+  },
+  {
+    "timestamp": "2017-02-07T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1045.99
+  },
+  {
+    "timestamp": "2017-02-07T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1047.03
+  },
+  {
+    "timestamp": "2017-02-07T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1047.98
+  },
+  {
+    "timestamp": "2017-02-07T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1047.06
+  },
+  {
+    "timestamp": "2017-02-07T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1052.48
+  },
+  {
+    "timestamp": "2017-02-08T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1067.41
+  },
+  {
+    "timestamp": "2017-02-08T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1061.0
+  },
+  {
+    "timestamp": "2017-02-08T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1040.99
+  },
+  {
+    "timestamp": "2017-02-08T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1053.08
+  },
+  {
+    "timestamp": "2017-02-08T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1059.65
+  },
+  {
+    "timestamp": "2017-02-08T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1050.4
+  },
+  {
+    "timestamp": "2017-02-09T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1068.44
+  },
+  {
+    "timestamp": "2017-02-09T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1059.0
+  },
+  {
+    "timestamp": "2017-02-09T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1065.1
+  },
+  {
+    "timestamp": "2017-02-09T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 979.04
+  },
+  {
+    "timestamp": "2017-02-09T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 959.0
+  },
+  {
+    "timestamp": "2017-02-09T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 986.0
+  },
+  {
+    "timestamp": "2017-02-10T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 977.36
+  },
+  {
+    "timestamp": "2017-02-10T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 973.0
+  },
+  {
+    "timestamp": "2017-02-10T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 976.82
+  },
+  {
+    "timestamp": "2017-02-10T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 980.01
+  },
+  {
+    "timestamp": "2017-02-10T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 987.37
+  },
+  {
+    "timestamp": "2017-02-10T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 996.08
+  },
+  {
+    "timestamp": "2017-02-11T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1000.0
+  },
+  {
+    "timestamp": "2017-02-11T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1006.64
+  },
+  {
+    "timestamp": "2017-02-11T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1006.0
+  },
+  {
+    "timestamp": "2017-02-11T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1006.74
+  },
+  {
+    "timestamp": "2017-02-11T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1012.78
+  },
+  {
+    "timestamp": "2017-02-11T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1012.4
+  },
+  {
+    "timestamp": "2017-02-12T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1007.17
+  },
+  {
+    "timestamp": "2017-02-12T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1003.74
+  },
+  {
+    "timestamp": "2017-02-12T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1005.63
+  },
+  {
+    "timestamp": "2017-02-12T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1003.02
+  },
+  {
+    "timestamp": "2017-02-12T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 998.02
+  },
+  {
+    "timestamp": "2017-02-12T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1000.73
+  },
+  {
+    "timestamp": "2017-02-13T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1006.17
+  },
+  {
+    "timestamp": "2017-02-13T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1005.72
+  },
+  {
+    "timestamp": "2017-02-13T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 992.09
+  },
+  {
+    "timestamp": "2017-02-13T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 996.77
+  },
+  {
+    "timestamp": "2017-02-13T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 995.9
+  },
+  {
+    "timestamp": "2017-02-13T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1000.79
+  },
+  {
+    "timestamp": "2017-02-14T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 997.09
+  },
+  {
+    "timestamp": "2017-02-14T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1003.75
+  },
+  {
+    "timestamp": "2017-02-14T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 995.47
+  },
+  {
+    "timestamp": "2017-02-14T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1010.71
+  },
+  {
+    "timestamp": "2017-02-14T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1007.19
+  },
+  {
+    "timestamp": "2017-02-14T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1008.88
+  },
+  {
+    "timestamp": "2017-02-15T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1006.48
+  },
+  {
+    "timestamp": "2017-02-15T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1006.29
+  },
+  {
+    "timestamp": "2017-02-15T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1007.03
+  },
+  {
+    "timestamp": "2017-02-15T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1009.98
+  },
+  {
+    "timestamp": "2017-02-15T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1009.99
+  },
+  {
+    "timestamp": "2017-02-15T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1011.53
+  },
+  {
+    "timestamp": "2017-02-16T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1020.47
+  },
+  {
+    "timestamp": "2017-02-16T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1020.11
+  },
+  {
+    "timestamp": "2017-02-16T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1023.99
+  },
+  {
+    "timestamp": "2017-02-16T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1033.96
+  },
+  {
+    "timestamp": "2017-02-16T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1036.83
+  },
+  {
+    "timestamp": "2017-02-16T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1032.7
+  },
+  {
+    "timestamp": "2017-02-17T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1036.32
+  },
+  {
+    "timestamp": "2017-02-17T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1039.6
+  },
+  {
+    "timestamp": "2017-02-17T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1042.39
+  },
+  {
+    "timestamp": "2017-02-17T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1056.8
+  },
+  {
+    "timestamp": "2017-02-17T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1056.46
+  },
+  {
+    "timestamp": "2017-02-17T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1055.46
+  },
+  {
+    "timestamp": "2017-02-18T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1060.24
+  },
+  {
+    "timestamp": "2017-02-18T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1065.02
+  },
+  {
+    "timestamp": "2017-02-18T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1060.5
+  },
+  {
+    "timestamp": "2017-02-18T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1065.06
+  },
+  {
+    "timestamp": "2017-02-18T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1059.0
+  },
+  {
+    "timestamp": "2017-02-18T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1056.4
+  },
+  {
+    "timestamp": "2017-02-19T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1050.66
+  },
+  {
+    "timestamp": "2017-02-19T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1059.89
+  },
+  {
+    "timestamp": "2017-02-19T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1053.35
+  },
+  {
+    "timestamp": "2017-02-19T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1051.0
+  },
+  {
+    "timestamp": "2017-02-19T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1049.15
+  },
+  {
+    "timestamp": "2017-02-19T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1051.8
+  },
+  {
+    "timestamp": "2017-02-20T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1045.42
+  },
+  {
+    "timestamp": "2017-02-20T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1058.15
+  },
+  {
+    "timestamp": "2017-02-20T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1053.79
+  },
+  {
+    "timestamp": "2017-02-20T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1062.5
+  },
+  {
+    "timestamp": "2017-02-20T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1062.36
+  },
+  {
+    "timestamp": "2017-02-20T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1084.0
+  },
+  {
+    "timestamp": "2017-02-21T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1078.4
+  },
+  {
+    "timestamp": "2017-02-21T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1084.78
+  },
+  {
+    "timestamp": "2017-02-21T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1113.9
+  },
+  {
+    "timestamp": "2017-02-21T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1101.16
+  },
+  {
+    "timestamp": "2017-02-21T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1115.05
+  },
+  {
+    "timestamp": "2017-02-21T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1124.62
+  },
+  {
+    "timestamp": "2017-02-22T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1114.73
+  },
+  {
+    "timestamp": "2017-02-22T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1110.7
+  },
+  {
+    "timestamp": "2017-02-22T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1120.0
+  },
+  {
+    "timestamp": "2017-02-22T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1131.22
+  },
+  {
+    "timestamp": "2017-02-22T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1139.79
+  },
+  {
+    "timestamp": "2017-02-22T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1130.01
+  },
+  {
+    "timestamp": "2017-02-23T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1126.77
+  },
+  {
+    "timestamp": "2017-02-23T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1133.15
+  },
+  {
+    "timestamp": "2017-02-23T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1150.92
+  },
+  {
+    "timestamp": "2017-02-23T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1155.12
+  },
+  {
+    "timestamp": "2017-02-23T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1161.86
+  },
+  {
+    "timestamp": "2017-02-23T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1188.11
+  },
+  {
+    "timestamp": "2017-02-24T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1199.99
+  },
+  {
+    "timestamp": "2017-02-24T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1169.35
+  },
+  {
+    "timestamp": "2017-02-24T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1167.14
+  },
+  {
+    "timestamp": "2017-02-24T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1197.0
+  },
+  {
+    "timestamp": "2017-02-24T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1183.2
+  },
+  {
+    "timestamp": "2017-02-24T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1180.14
+  },
+  {
+    "timestamp": "2017-02-25T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1182.12
+  },
+  {
+    "timestamp": "2017-02-25T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1180.48
+  },
+  {
+    "timestamp": "2017-02-25T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1182.52
+  },
+  {
+    "timestamp": "2017-02-25T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1159.98
+  },
+  {
+    "timestamp": "2017-02-25T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1150.0
+  },
+  {
+    "timestamp": "2017-02-25T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1152.2
+  },
+  {
+    "timestamp": "2017-02-26T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1140.3
+  },
+  {
+    "timestamp": "2017-02-26T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1170.0
+  },
+  {
+    "timestamp": "2017-02-26T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1170.27
+  },
+  {
+    "timestamp": "2017-02-26T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1168.37
+  },
+  {
+    "timestamp": "2017-02-26T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1176.3
+  },
+  {
+    "timestamp": "2017-02-26T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1179.05
+  },
+  {
+    "timestamp": "2017-02-27T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1185.05
+  },
+  {
+    "timestamp": "2017-02-27T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1185.44
+  },
+  {
+    "timestamp": "2017-02-27T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1182.1
+  },
+  {
+    "timestamp": "2017-02-27T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1182.05
+  },
+  {
+    "timestamp": "2017-02-27T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1190.33
+  },
+  {
+    "timestamp": "2017-02-27T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1194.64
+  },
+  {
+    "timestamp": "2017-02-28T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1187.75
+  },
+  {
+    "timestamp": "2017-02-28T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1191.26
+  },
+  {
+    "timestamp": "2017-02-28T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1185.52
+  },
+  {
+    "timestamp": "2017-02-28T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1187.15
+  },
+  {
+    "timestamp": "2017-02-28T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1199.0
+  },
+  {
+    "timestamp": "2017-02-28T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1191.21
+  },
+  {
+    "timestamp": "2017-03-01T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1191.85
+  },
+  {
+    "timestamp": "2017-03-01T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1190.0
+  },
+  {
+    "timestamp": "2017-03-01T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1202.23
+  },
+  {
+    "timestamp": "2017-03-01T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1215.41
+  },
+  {
+    "timestamp": "2017-03-01T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1221.12
+  },
+  {
+    "timestamp": "2017-03-01T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1226.39
+  },
+  {
+    "timestamp": "2017-03-02T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1221.33
+  },
+  {
+    "timestamp": "2017-03-02T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1224.0
+  },
+  {
+    "timestamp": "2017-03-02T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1234.0
+  },
+  {
+    "timestamp": "2017-03-02T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1251.15
+  },
+  {
+    "timestamp": "2017-03-02T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1267.37
+  },
+  {
+    "timestamp": "2017-03-02T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1257.6
+  },
+  {
+    "timestamp": "2017-03-03T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1264.4
+  },
+  {
+    "timestamp": "2017-03-03T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1266.51
+  },
+  {
+    "timestamp": "2017-03-03T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1290.99
+  },
+  {
+    "timestamp": "2017-03-03T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1273.92
+  },
+  {
+    "timestamp": "2017-03-03T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1266.06
+  },
+  {
+    "timestamp": "2017-03-03T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1285.33
+  },
+  {
+    "timestamp": "2017-03-04T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1279.99
+  },
+  {
+    "timestamp": "2017-03-04T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1276.43
+  },
+  {
+    "timestamp": "2017-03-04T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1268.21
+  },
+  {
+    "timestamp": "2017-03-04T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1248.55
+  },
+  {
+    "timestamp": "2017-03-04T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1258.99
+  },
+  {
+    "timestamp": "2017-03-04T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1260.0
+  },
+  {
+    "timestamp": "2017-03-05T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1250.85
+  },
+  {
+    "timestamp": "2017-03-05T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1242.53
+  },
+  {
+    "timestamp": "2017-03-05T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1249.99
+  },
+  {
+    "timestamp": "2017-03-05T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1264.76
+  },
+  {
+    "timestamp": "2017-03-05T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1265.19
+  },
+  {
+    "timestamp": "2017-03-05T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1273.0
+  },
+  {
+    "timestamp": "2017-03-06T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1267.0
+  },
+  {
+    "timestamp": "2017-03-06T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1273.0
+  },
+  {
+    "timestamp": "2017-03-06T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1279.55
+  },
+  {
+    "timestamp": "2017-03-06T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1279.01
+  },
+  {
+    "timestamp": "2017-03-06T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1277.75
+  },
+  {
+    "timestamp": "2017-03-06T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1278.49
+  },
+  {
+    "timestamp": "2017-03-07T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1278.28
+  },
+  {
+    "timestamp": "2017-03-07T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1275.1
+  },
+  {
+    "timestamp": "2017-03-07T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1210.02
+  },
+  {
+    "timestamp": "2017-03-07T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1232.32
+  },
+  {
+    "timestamp": "2017-03-07T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1253.24
+  },
+  {
+    "timestamp": "2017-03-07T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1233.05
+  },
+  {
+    "timestamp": "2017-03-08T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1209.99
+  },
+  {
+    "timestamp": "2017-03-08T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1185.43
+  },
+  {
+    "timestamp": "2017-03-08T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1206.63
+  },
+  {
+    "timestamp": "2017-03-08T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1187.14
+  },
+  {
+    "timestamp": "2017-03-08T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1177.64
+  },
+  {
+    "timestamp": "2017-03-08T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1150.05
+  },
+  {
+    "timestamp": "2017-03-09T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1152.16
+  },
+  {
+    "timestamp": "2017-03-09T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1176.01
+  },
+  {
+    "timestamp": "2017-03-09T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1170.5
+  },
+  {
+    "timestamp": "2017-03-09T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1192.0
+  },
+  {
+    "timestamp": "2017-03-09T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1198.95
+  },
+  {
+    "timestamp": "2017-03-09T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1190.89
+  },
+  {
+    "timestamp": "2017-03-10T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1199.05
+  },
+  {
+    "timestamp": "2017-03-10T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1189.1
+  },
+  {
+    "timestamp": "2017-03-10T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1195.6
+  },
+  {
+    "timestamp": "2017-03-10T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1239.73
+  },
+  {
+    "timestamp": "2017-03-10T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1270.0
+  },
+  {
+    "timestamp": "2017-03-10T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1116.97
+  },
+  {
+    "timestamp": "2017-03-11T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1142.21
+  },
+  {
+    "timestamp": "2017-03-11T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1178.0
+  },
+  {
+    "timestamp": "2017-03-11T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1178.69
+  },
+  {
+    "timestamp": "2017-03-11T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1184.74
+  },
+  {
+    "timestamp": "2017-03-11T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1177.11
+  },
+  {
+    "timestamp": "2017-03-11T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1176.55
+  },
+  {
+    "timestamp": "2017-03-12T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1178.49
+  },
+  {
+    "timestamp": "2017-03-12T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1176.98
+  },
+  {
+    "timestamp": "2017-03-12T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1174.71
+  },
+  {
+    "timestamp": "2017-03-12T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1210.05
+  },
+  {
+    "timestamp": "2017-03-12T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1230.4
+  },
+  {
+    "timestamp": "2017-03-12T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1226.62
+  },
+  {
+    "timestamp": "2017-03-13T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1236.0
+  },
+  {
+    "timestamp": "2017-03-13T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1223.19
+  },
+  {
+    "timestamp": "2017-03-13T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1238.98
+  },
+  {
+    "timestamp": "2017-03-13T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1240.37
+  },
+  {
+    "timestamp": "2017-03-13T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1240.42
+  },
+  {
+    "timestamp": "2017-03-13T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1242.46
+  },
+  {
+    "timestamp": "2017-03-14T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1240.0
+  },
+  {
+    "timestamp": "2017-03-14T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1230.5
+  },
+  {
+    "timestamp": "2017-03-14T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1244.03
+  },
+  {
+    "timestamp": "2017-03-14T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1246.93
+  },
+  {
+    "timestamp": "2017-03-14T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1249.88
+  },
+  {
+    "timestamp": "2017-03-14T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1245.86
+  },
+  {
+    "timestamp": "2017-03-15T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1246.09
+  },
+  {
+    "timestamp": "2017-03-15T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1253.99
+  },
+  {
+    "timestamp": "2017-03-15T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1253.22
+  },
+  {
+    "timestamp": "2017-03-15T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1256.2
+  },
+  {
+    "timestamp": "2017-03-15T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1249.81
+  },
+  {
+    "timestamp": "2017-03-15T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1257.32
+  },
+  {
+    "timestamp": "2017-03-16T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1248.59
+  },
+  {
+    "timestamp": "2017-03-16T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1239.0
+  },
+  {
+    "timestamp": "2017-03-16T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1228.78
+  },
+  {
+    "timestamp": "2017-03-16T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1218.99
+  },
+  {
+    "timestamp": "2017-03-16T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1187.2
+  },
+  {
+    "timestamp": "2017-03-16T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1172.62
+  },
+  {
+    "timestamp": "2017-03-17T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1123.65
+  },
+  {
+    "timestamp": "2017-03-17T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1107.47
+  },
+  {
+    "timestamp": "2017-03-17T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1149.0
+  },
+  {
+    "timestamp": "2017-03-17T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1158.84
+  },
+  {
+    "timestamp": "2017-03-17T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1123.46
+  },
+  {
+    "timestamp": "2017-03-17T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1071.02
+  },
+  {
+    "timestamp": "2017-03-18T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1060.14
+  },
+  {
+    "timestamp": "2017-03-18T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1074.66
+  },
+  {
+    "timestamp": "2017-03-18T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1086.37
+  },
+  {
+    "timestamp": "2017-03-18T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 971.68
+  },
+  {
+    "timestamp": "2017-03-18T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 979.9
+  },
+  {
+    "timestamp": "2017-03-18T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 969.4
+  },
+  {
+    "timestamp": "2017-03-19T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 998.93
+  },
+  {
+    "timestamp": "2017-03-19T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1005.47
+  },
+  {
+    "timestamp": "2017-03-19T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 990.96
+  },
+  {
+    "timestamp": "2017-03-19T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1021.4
+  },
+  {
+    "timestamp": "2017-03-19T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1053.0
+  },
+  {
+    "timestamp": "2017-03-19T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1017.97
+  },
+  {
+    "timestamp": "2017-03-20T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1034.28
+  },
+  {
+    "timestamp": "2017-03-20T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1023.11
+  },
+  {
+    "timestamp": "2017-03-20T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1046.6
+  },
+  {
+    "timestamp": "2017-03-20T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1043.31
+  },
+  {
+    "timestamp": "2017-03-20T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1034.94
+  },
+  {
+    "timestamp": "2017-03-20T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1035.96
+  },
+  {
+    "timestamp": "2017-03-21T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1063.0
+  },
+  {
+    "timestamp": "2017-03-21T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1076.47
+  },
+  {
+    "timestamp": "2017-03-21T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1085.13
+  },
+  {
+    "timestamp": "2017-03-21T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1087.33
+  },
+  {
+    "timestamp": "2017-03-21T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1110.57
+  },
+  {
+    "timestamp": "2017-03-21T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1114.39
+  },
+  {
+    "timestamp": "2017-03-22T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1093.96
+  },
+  {
+    "timestamp": "2017-03-22T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1057.0
+  },
+  {
+    "timestamp": "2017-03-22T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1067.66
+  },
+  {
+    "timestamp": "2017-03-22T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1016.98
+  },
+  {
+    "timestamp": "2017-03-22T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1012.07
+  },
+  {
+    "timestamp": "2017-03-22T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1037.56
+  },
+  {
+    "timestamp": "2017-03-23T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1034.98
+  },
+  {
+    "timestamp": "2017-03-23T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1037.9
+  },
+  {
+    "timestamp": "2017-03-23T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1045.3
+  },
+  {
+    "timestamp": "2017-03-23T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1044.13
+  },
+  {
+    "timestamp": "2017-03-23T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1039.24
+  },
+  {
+    "timestamp": "2017-03-23T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1029.65
+  },
+  {
+    "timestamp": "2017-03-24T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1012.99
+  },
+  {
+    "timestamp": "2017-03-24T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1012.7
+  },
+  {
+    "timestamp": "2017-03-24T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 994.34
+  },
+  {
+    "timestamp": "2017-03-24T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 989.97
+  },
+  {
+    "timestamp": "2017-03-24T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 975.85
+  },
+  {
+    "timestamp": "2017-03-24T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 929.06
+  },
+  {
+    "timestamp": "2017-03-25T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 919.75
+  },
+  {
+    "timestamp": "2017-03-25T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 928.15
+  },
+  {
+    "timestamp": "2017-03-25T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 908.65
+  },
+  {
+    "timestamp": "2017-03-25T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 930.8
+  },
+  {
+    "timestamp": "2017-03-25T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 942.01
+  },
+  {
+    "timestamp": "2017-03-25T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 956.02
+  },
+  {
+    "timestamp": "2017-03-26T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 955.01
+  },
+  {
+    "timestamp": "2017-03-26T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 944.22
+  },
+  {
+    "timestamp": "2017-03-26T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 963.98
+  },
+  {
+    "timestamp": "2017-03-26T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 992.28
+  },
+  {
+    "timestamp": "2017-03-26T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 977.88
+  },
+  {
+    "timestamp": "2017-03-26T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 960.0
+  },
+  {
+    "timestamp": "2017-03-27T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 965.06
+  },
+  {
+    "timestamp": "2017-03-27T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 991.6
+  },
+  {
+    "timestamp": "2017-03-27T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 988.96
+  },
+  {
+    "timestamp": "2017-03-27T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1030.96
+  },
+  {
+    "timestamp": "2017-03-27T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1013.01
+  },
+  {
+    "timestamp": "2017-03-27T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1039.92
+  },
+  {
+    "timestamp": "2017-03-28T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1032.34
+  },
+  {
+    "timestamp": "2017-03-28T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1043.0
+  },
+  {
+    "timestamp": "2017-03-28T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1062.52
+  },
+  {
+    "timestamp": "2017-03-28T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1059.81
+  },
+  {
+    "timestamp": "2017-03-28T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1025.59
+  },
+  {
+    "timestamp": "2017-03-28T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1043.99
+  },
+  {
+    "timestamp": "2017-03-29T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1010.8
+  },
+  {
+    "timestamp": "2017-03-29T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1014.27
+  },
+  {
+    "timestamp": "2017-03-29T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1050.0
+  },
+  {
+    "timestamp": "2017-03-29T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1041.99
+  },
+  {
+    "timestamp": "2017-03-29T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1035.89
+  },
+  {
+    "timestamp": "2017-03-29T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1035.96
+  },
+  {
+    "timestamp": "2017-03-30T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1034.67
+  },
+  {
+    "timestamp": "2017-03-30T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1044.32
+  },
+  {
+    "timestamp": "2017-03-30T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1034.0
+  },
+  {
+    "timestamp": "2017-03-30T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1021.04
+  },
+  {
+    "timestamp": "2017-03-30T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1028.02
+  },
+  {
+    "timestamp": "2017-03-30T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1033.7
+  },
+  {
+    "timestamp": "2017-03-31T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1043.0
+  },
+  {
+    "timestamp": "2017-03-31T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1040.71
+  },
+  {
+    "timestamp": "2017-03-31T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1038.6
+  },
+  {
+    "timestamp": "2017-03-31T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1079.0
+  },
+  {
+    "timestamp": "2017-03-31T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1069.99
+  },
+  {
+    "timestamp": "2017-03-31T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1070.31
+  },
+  {
+    "timestamp": "2017-04-01T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1069.15
+  },
+  {
+    "timestamp": "2017-04-01T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1085.62
+  },
+  {
+    "timestamp": "2017-04-01T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1091.1
+  },
+  {
+    "timestamp": "2017-04-01T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1073.65
+  },
+  {
+    "timestamp": "2017-04-01T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1072.73
+  },
+  {
+    "timestamp": "2017-04-01T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1083.94
+  },
+  {
+    "timestamp": "2017-04-02T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1074.77
+  },
+  {
+    "timestamp": "2017-04-02T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1080.42
+  },
+  {
+    "timestamp": "2017-04-02T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1076.95
+  },
+  {
+    "timestamp": "2017-04-02T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1089.0
+  },
+  {
+    "timestamp": "2017-04-02T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1095.01
+  },
+  {
+    "timestamp": "2017-04-02T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1078.01
+  },
+  {
+    "timestamp": "2017-04-03T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1120.5
+  },
+  {
+    "timestamp": "2017-04-03T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1117.0
+  },
+  {
+    "timestamp": "2017-04-03T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1132.92
+  },
+  {
+    "timestamp": "2017-04-03T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1135.9
+  },
+  {
+    "timestamp": "2017-04-03T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1146.21
+  },
+  {
+    "timestamp": "2017-04-03T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1144.77
+  },
+  {
+    "timestamp": "2017-04-04T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1145.8
+  },
+  {
+    "timestamp": "2017-04-04T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1148.67
+  },
+  {
+    "timestamp": "2017-04-04T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1146.03
+  },
+  {
+    "timestamp": "2017-04-04T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1131.13
+  },
+  {
+    "timestamp": "2017-04-04T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1140.0
+  },
+  {
+    "timestamp": "2017-04-04T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1143.0
+  },
+  {
+    "timestamp": "2017-04-05T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1139.79
+  },
+  {
+    "timestamp": "2017-04-05T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1122.72
+  },
+  {
+    "timestamp": "2017-04-05T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1128.23
+  },
+  {
+    "timestamp": "2017-04-05T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1120.14
+  },
+  {
+    "timestamp": "2017-04-05T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1131.2
+  },
+  {
+    "timestamp": "2017-04-05T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1134.58
+  },
+  {
+    "timestamp": "2017-04-06T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1154.25
+  },
+  {
+    "timestamp": "2017-04-06T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1154.5
+  },
+  {
+    "timestamp": "2017-04-06T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1177.0
+  },
+  {
+    "timestamp": "2017-04-06T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1168.31
+  },
+  {
+    "timestamp": "2017-04-06T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1184.78
+  },
+  {
+    "timestamp": "2017-04-06T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1190.85
+  },
+  {
+    "timestamp": "2017-04-07T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1177.25
+  },
+  {
+    "timestamp": "2017-04-07T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1191.22
+  },
+  {
+    "timestamp": "2017-04-07T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1188.08
+  },
+  {
+    "timestamp": "2017-04-07T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1193.0
+  },
+  {
+    "timestamp": "2017-04-07T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1195.01
+  },
+  {
+    "timestamp": "2017-04-07T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1190.66
+  },
+  {
+    "timestamp": "2017-04-08T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1197.03
+  },
+  {
+    "timestamp": "2017-04-08T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1194.61
+  },
+  {
+    "timestamp": "2017-04-08T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1191.35
+  },
+  {
+    "timestamp": "2017-04-08T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1186.18
+  },
+  {
+    "timestamp": "2017-04-08T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1178.89
+  },
+  {
+    "timestamp": "2017-04-08T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1184.03
+  },
+  {
+    "timestamp": "2017-04-09T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1186.04
+  },
+  {
+    "timestamp": "2017-04-09T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1184.5
+  },
+  {
+    "timestamp": "2017-04-09T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1174.45
+  },
+  {
+    "timestamp": "2017-04-09T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1198.56
+  },
+  {
+    "timestamp": "2017-04-09T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1211.96
+  },
+  {
+    "timestamp": "2017-04-09T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1206.2
+  },
+  {
+    "timestamp": "2017-04-10T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1212.29
+  },
+  {
+    "timestamp": "2017-04-10T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1202.01
+  },
+  {
+    "timestamp": "2017-04-10T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1211.0
+  },
+  {
+    "timestamp": "2017-04-10T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1208.05
+  },
+  {
+    "timestamp": "2017-04-10T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1207.57
+  },
+  {
+    "timestamp": "2017-04-10T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1209.25
+  },
+  {
+    "timestamp": "2017-04-11T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1203.86
+  },
+  {
+    "timestamp": "2017-04-11T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1204.03
+  },
+  {
+    "timestamp": "2017-04-11T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1210.63
+  },
+  {
+    "timestamp": "2017-04-11T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1219.03
+  },
+  {
+    "timestamp": "2017-04-11T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1217.54
+  },
+  {
+    "timestamp": "2017-04-11T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1218.99
+  },
+  {
+    "timestamp": "2017-04-12T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1222.01
+  },
+  {
+    "timestamp": "2017-04-12T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1213.0
+  },
+  {
+    "timestamp": "2017-04-12T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1219.62
+  },
+  {
+    "timestamp": "2017-04-12T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1219.0
+  },
+  {
+    "timestamp": "2017-04-12T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1217.1
+  },
+  {
+    "timestamp": "2017-04-12T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1212.17
+  },
+  {
+    "timestamp": "2017-04-13T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1213.8
+  },
+  {
+    "timestamp": "2017-04-13T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1193.0
+  },
+  {
+    "timestamp": "2017-04-13T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1197.78
+  },
+  {
+    "timestamp": "2017-04-13T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1174.98
+  },
+  {
+    "timestamp": "2017-04-13T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1169.99
+  },
+  {
+    "timestamp": "2017-04-13T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1172.91
+  },
+  {
+    "timestamp": "2017-04-14T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1184.04
+  },
+  {
+    "timestamp": "2017-04-14T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1185.22
+  },
+  {
+    "timestamp": "2017-04-14T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1150.58
+  },
+  {
+    "timestamp": "2017-04-14T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1176.1
+  },
+  {
+    "timestamp": "2017-04-14T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1167.35
+  },
+  {
+    "timestamp": "2017-04-14T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1170.34
+  },
+  {
+    "timestamp": "2017-04-15T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1174.35
+  },
+  {
+    "timestamp": "2017-04-15T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1176.95
+  },
+  {
+    "timestamp": "2017-04-15T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1181.03
+  },
+  {
+    "timestamp": "2017-04-15T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1185.0
+  },
+  {
+    "timestamp": "2017-04-15T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1181.61
+  },
+  {
+    "timestamp": "2017-04-15T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1173.45
+  },
+  {
+    "timestamp": "2017-04-16T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1175.48
+  },
+  {
+    "timestamp": "2017-04-16T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1173.44
+  },
+  {
+    "timestamp": "2017-04-16T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1164.04
+  },
+  {
+    "timestamp": "2017-04-16T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1168.0
+  },
+  {
+    "timestamp": "2017-04-16T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1172.0
+  },
+  {
+    "timestamp": "2017-04-16T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1162.31
+  },
+  {
+    "timestamp": "2017-04-17T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1166.52
+  },
+  {
+    "timestamp": "2017-04-17T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1168.66
+  },
+  {
+    "timestamp": "2017-04-17T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1167.02
+  },
+  {
+    "timestamp": "2017-04-17T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1187.77
+  },
+  {
+    "timestamp": "2017-04-17T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1185.65
+  },
+  {
+    "timestamp": "2017-04-17T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1176.54
+  },
+  {
+    "timestamp": "2017-04-18T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1192.65
+  },
+  {
+    "timestamp": "2017-04-18T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1207.88
+  },
+  {
+    "timestamp": "2017-04-18T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1208.22
+  },
+  {
+    "timestamp": "2017-04-18T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1202.25
+  },
+  {
+    "timestamp": "2017-04-18T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1202.04
+  },
+  {
+    "timestamp": "2017-04-18T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1202.58
+  },
+  {
+    "timestamp": "2017-04-19T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1204.98
+  },
+  {
+    "timestamp": "2017-04-19T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1194.08
+  },
+  {
+    "timestamp": "2017-04-19T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1202.01
+  },
+  {
+    "timestamp": "2017-04-19T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1202.0
+  },
+  {
+    "timestamp": "2017-04-19T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1205.5
+  },
+  {
+    "timestamp": "2017-04-19T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1203.98
+  },
+  {
+    "timestamp": "2017-04-20T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1207.08
+  },
+  {
+    "timestamp": "2017-04-20T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1212.62
+  },
+  {
+    "timestamp": "2017-04-20T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1220.8
+  },
+  {
+    "timestamp": "2017-04-20T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1229.91
+  },
+  {
+    "timestamp": "2017-04-20T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1227.33
+  },
+  {
+    "timestamp": "2017-04-20T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1234.19
+  },
+  {
+    "timestamp": "2017-04-21T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1235.64
+  },
+  {
+    "timestamp": "2017-04-21T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1243.67
+  },
+  {
+    "timestamp": "2017-04-21T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1249.56
+  },
+  {
+    "timestamp": "2017-04-21T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1239.52
+  },
+  {
+    "timestamp": "2017-04-21T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1238.85
+  },
+  {
+    "timestamp": "2017-04-21T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1243.61
+  },
+  {
+    "timestamp": "2017-04-22T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1241.45
+  },
+  {
+    "timestamp": "2017-04-22T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1244.99
+  },
+  {
+    "timestamp": "2017-04-22T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1234.0
+  },
+  {
+    "timestamp": "2017-04-22T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1227.72
+  },
+  {
+    "timestamp": "2017-04-22T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1240.78
+  },
+  {
+    "timestamp": "2017-04-22T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1233.2
+  },
+  {
+    "timestamp": "2017-04-23T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1224.67
+  },
+  {
+    "timestamp": "2017-04-23T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1237.6
+  },
+  {
+    "timestamp": "2017-04-23T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1233.74
+  },
+  {
+    "timestamp": "2017-04-23T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1240.2
+  },
+  {
+    "timestamp": "2017-04-23T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1239.5
+  },
+  {
+    "timestamp": "2017-04-23T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1241.99
+  },
+  {
+    "timestamp": "2017-04-24T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1236.04
+  },
+  {
+    "timestamp": "2017-04-24T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1241.81
+  },
+  {
+    "timestamp": "2017-04-24T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1241.99
+  },
+  {
+    "timestamp": "2017-04-24T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1244.57
+  },
+  {
+    "timestamp": "2017-04-24T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1252.31
+  },
+  {
+    "timestamp": "2017-04-24T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1253.58
+  },
+  {
+    "timestamp": "2017-04-25T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1255.0
+  },
+  {
+    "timestamp": "2017-04-25T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1256.55
+  },
+  {
+    "timestamp": "2017-04-25T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1270.0
+  },
+  {
+    "timestamp": "2017-04-25T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1269.4
+  },
+  {
+    "timestamp": "2017-04-25T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1276.23
+  },
+  {
+    "timestamp": "2017-04-25T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1269.0
+  },
+  {
+    "timestamp": "2017-04-26T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1273.88
+  },
+  {
+    "timestamp": "2017-04-26T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1283.68
+  },
+  {
+    "timestamp": "2017-04-26T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1283.34
+  },
+  {
+    "timestamp": "2017-04-26T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1307.8
+  },
+  {
+    "timestamp": "2017-04-26T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1300.82
+  },
+  {
+    "timestamp": "2017-04-26T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1287.99
+  },
+  {
+    "timestamp": "2017-04-27T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1295.63
+  },
+  {
+    "timestamp": "2017-04-27T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1308.65
+  },
+  {
+    "timestamp": "2017-04-27T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1304.9
+  },
+  {
+    "timestamp": "2017-04-27T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1330.98
+  },
+  {
+    "timestamp": "2017-04-27T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1327.28
+  },
+  {
+    "timestamp": "2017-04-27T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1331.53
+  },
+  {
+    "timestamp": "2017-04-28T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1333.45
+  },
+  {
+    "timestamp": "2017-04-28T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1333.0
+  },
+  {
+    "timestamp": "2017-04-28T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1309.01
+  },
+  {
+    "timestamp": "2017-04-28T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1328.65
+  },
+  {
+    "timestamp": "2017-04-28T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1314.05
+  },
+  {
+    "timestamp": "2017-04-28T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1330.7
+  },
+  {
+    "timestamp": "2017-04-29T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1328.29
+  },
+  {
+    "timestamp": "2017-04-29T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1327.25
+  },
+  {
+    "timestamp": "2017-04-29T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1319.0
+  },
+  {
+    "timestamp": "2017-04-29T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1330.12
+  },
+  {
+    "timestamp": "2017-04-29T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1336.03
+  },
+  {
+    "timestamp": "2017-04-29T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1333.0
+  },
+  {
+    "timestamp": "2017-04-30T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1324.5
+  },
+  {
+    "timestamp": "2017-04-30T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1326.01
+  },
+  {
+    "timestamp": "2017-04-30T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1329.99
+  },
+  {
+    "timestamp": "2017-04-30T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1322.71
+  },
+  {
+    "timestamp": "2017-04-30T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1334.83
+  },
+  {
+    "timestamp": "2017-04-30T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1350.21
+  },
+  {
+    "timestamp": "2017-05-01T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1361.13
+  },
+  {
+    "timestamp": "2017-05-01T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1360.0
+  },
+  {
+    "timestamp": "2017-05-01T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1361.97
+  },
+  {
+    "timestamp": "2017-05-01T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1387.84
+  },
+  {
+    "timestamp": "2017-05-01T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1407.9
+  },
+  {
+    "timestamp": "2017-05-01T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1390.86
+  },
+  {
+    "timestamp": "2017-05-02T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1414.04
+  },
+  {
+    "timestamp": "2017-05-02T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1419.1
+  },
+  {
+    "timestamp": "2017-05-02T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1465.21
+  },
+  {
+    "timestamp": "2017-05-02T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1450.86
+  },
+  {
+    "timestamp": "2017-05-02T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1433.07
+  },
+  {
+    "timestamp": "2017-05-02T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1447.75
+  },
+  {
+    "timestamp": "2017-05-03T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1457.12
+  },
+  {
+    "timestamp": "2017-05-03T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1446.17
+  },
+  {
+    "timestamp": "2017-05-03T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1477.95
+  },
+  {
+    "timestamp": "2017-05-03T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1480.0
+  },
+  {
+    "timestamp": "2017-05-03T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1491.54
+  },
+  {
+    "timestamp": "2017-05-03T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1503.22
+  },
+  {
+    "timestamp": "2017-05-04T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1504.73
+  },
+  {
+    "timestamp": "2017-05-04T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1528.09
+  },
+  {
+    "timestamp": "2017-05-04T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1550.23
+  },
+  {
+    "timestamp": "2017-05-04T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1586.55
+  },
+  {
+    "timestamp": "2017-05-04T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1539.64
+  },
+  {
+    "timestamp": "2017-05-04T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1537.23
+  },
+  {
+    "timestamp": "2017-05-05T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1560.96
+  },
+  {
+    "timestamp": "2017-05-05T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1569.01
+  },
+  {
+    "timestamp": "2017-05-05T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1567.99
+  },
+  {
+    "timestamp": "2017-05-05T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1545.0
+  },
+  {
+    "timestamp": "2017-05-05T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1517.84
+  },
+  {
+    "timestamp": "2017-05-05T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1514.9
+  },
+  {
+    "timestamp": "2017-05-06T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1535.21
+  },
+  {
+    "timestamp": "2017-05-06T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1520.0
+  },
+  {
+    "timestamp": "2017-05-06T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1561.73
+  },
+  {
+    "timestamp": "2017-05-06T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1521.15
+  },
+  {
+    "timestamp": "2017-05-06T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1558.04
+  },
+  {
+    "timestamp": "2017-05-06T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1558.02
+  },
+  {
+    "timestamp": "2017-05-07T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1557.42
+  },
+  {
+    "timestamp": "2017-05-07T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1535.28
+  },
+  {
+    "timestamp": "2017-05-07T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1537.31
+  },
+  {
+    "timestamp": "2017-05-07T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1540.22
+  },
+  {
+    "timestamp": "2017-05-07T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1530.57
+  },
+  {
+    "timestamp": "2017-05-07T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1554.01
+  },
+  {
+    "timestamp": "2017-05-08T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1570.12
+  },
+  {
+    "timestamp": "2017-05-08T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1590.37
+  },
+  {
+    "timestamp": "2017-05-08T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1576.59
+  },
+  {
+    "timestamp": "2017-05-08T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1573.94
+  },
+  {
+    "timestamp": "2017-05-08T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1604.39
+  },
+  {
+    "timestamp": "2017-05-08T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1649.54
+  },
+  {
+    "timestamp": "2017-05-09T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1658.69
+  },
+  {
+    "timestamp": "2017-05-09T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1698.39
+  },
+  {
+    "timestamp": "2017-05-09T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1735.0
+  },
+  {
+    "timestamp": "2017-05-09T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1722.53
+  },
+  {
+    "timestamp": "2017-05-09T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1744.35
+  },
+  {
+    "timestamp": "2017-05-09T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1720.28
+  },
+  {
+    "timestamp": "2017-05-10T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1696.12
+  },
+  {
+    "timestamp": "2017-05-10T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1727.01
+  },
+  {
+    "timestamp": "2017-05-10T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1740.01
+  },
+  {
+    "timestamp": "2017-05-10T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1788.44
+  },
+  {
+    "timestamp": "2017-05-10T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1771.12
+  },
+  {
+    "timestamp": "2017-05-10T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1772.58
+  },
+  {
+    "timestamp": "2017-05-11T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1769.11
+  },
+  {
+    "timestamp": "2017-05-11T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1851.44
+  },
+  {
+    "timestamp": "2017-05-11T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1861.96
+  },
+  {
+    "timestamp": "2017-05-11T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1861.0
+  },
+  {
+    "timestamp": "2017-05-11T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1836.09
+  },
+  {
+    "timestamp": "2017-05-11T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1828.45
+  },
+  {
+    "timestamp": "2017-05-12T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1795.6
+  },
+  {
+    "timestamp": "2017-05-12T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1781.99
+  },
+  {
+    "timestamp": "2017-05-12T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1810.84
+  },
+  {
+    "timestamp": "2017-05-12T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1751.38
+  },
+  {
+    "timestamp": "2017-05-12T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1680.0
+  },
+  {
+    "timestamp": "2017-05-12T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1691.51
+  },
+  {
+    "timestamp": "2017-05-13T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1642.22
+  },
+  {
+    "timestamp": "2017-05-13T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1678.92
+  },
+  {
+    "timestamp": "2017-05-13T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1731.96
+  },
+  {
+    "timestamp": "2017-05-13T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1710.3
+  },
+  {
+    "timestamp": "2017-05-13T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1720.91
+  },
+  {
+    "timestamp": "2017-05-13T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1776.89
+  },
+  {
+    "timestamp": "2017-05-14T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1775.68
+  },
+  {
+    "timestamp": "2017-05-14T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1807.5
+  },
+  {
+    "timestamp": "2017-05-14T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1777.52
+  },
+  {
+    "timestamp": "2017-05-14T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1772.0
+  },
+  {
+    "timestamp": "2017-05-14T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1757.0
+  },
+  {
+    "timestamp": "2017-05-14T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1784.0
+  },
+  {
+    "timestamp": "2017-05-15T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1750.5
+  },
+  {
+    "timestamp": "2017-05-15T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1741.0
+  },
+  {
+    "timestamp": "2017-05-15T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1756.69
+  },
+  {
+    "timestamp": "2017-05-15T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1706.95
+  },
+  {
+    "timestamp": "2017-05-15T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1691.9
+  },
+  {
+    "timestamp": "2017-05-15T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1705.48
+  },
+  {
+    "timestamp": "2017-05-16T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1667.43
+  },
+  {
+    "timestamp": "2017-05-16T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1687.98
+  },
+  {
+    "timestamp": "2017-05-16T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1718.47
+  },
+  {
+    "timestamp": "2017-05-16T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1739.01
+  },
+  {
+    "timestamp": "2017-05-16T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1730.67
+  },
+  {
+    "timestamp": "2017-05-16T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1700.01
+  },
+  {
+    "timestamp": "2017-05-17T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1709.32
+  },
+  {
+    "timestamp": "2017-05-17T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1761.0
+  },
+  {
+    "timestamp": "2017-05-17T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1786.69
+  },
+  {
+    "timestamp": "2017-05-17T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1829.98
+  },
+  {
+    "timestamp": "2017-05-17T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1795.0
+  },
+  {
+    "timestamp": "2017-05-17T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1782.99
+  },
+  {
+    "timestamp": "2017-05-18T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1768.12
+  },
+  {
+    "timestamp": "2017-05-18T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1815.03
+  },
+  {
+    "timestamp": "2017-05-18T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1799.28
+  },
+  {
+    "timestamp": "2017-05-18T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1855.99
+  },
+  {
+    "timestamp": "2017-05-18T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1858.91
+  },
+  {
+    "timestamp": "2017-05-18T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1878.99
+  },
+  {
+    "timestamp": "2017-05-19T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1898.68
+  },
+  {
+    "timestamp": "2017-05-19T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1920.41
+  },
+  {
+    "timestamp": "2017-05-19T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1932.73
+  },
+  {
+    "timestamp": "2017-05-19T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1948.99
+  },
+  {
+    "timestamp": "2017-05-19T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1925.0
+  },
+  {
+    "timestamp": "2017-05-19T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1958.0
+  },
+  {
+    "timestamp": "2017-05-20T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1971.23
+  },
+  {
+    "timestamp": "2017-05-20T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1980.0
+  },
+  {
+    "timestamp": "2017-05-20T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1949.96
+  },
+  {
+    "timestamp": "2017-05-20T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1957.08
+  },
+  {
+    "timestamp": "2017-05-20T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1974.98
+  },
+  {
+    "timestamp": "2017-05-20T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2013.99
+  },
+  {
+    "timestamp": "2017-05-21T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2045.0
+  },
+  {
+    "timestamp": "2017-05-21T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2030.01
+  },
+  {
+    "timestamp": "2017-05-21T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2056.86
+  },
+  {
+    "timestamp": "2017-05-21T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2004.44
+  },
+  {
+    "timestamp": "2017-05-21T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2008.69
+  },
+  {
+    "timestamp": "2017-05-21T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2017.55
+  },
+  {
+    "timestamp": "2017-05-22T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2050.0
+  },
+  {
+    "timestamp": "2017-05-22T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2132.38
+  },
+  {
+    "timestamp": "2017-05-22T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2094.0
+  },
+  {
+    "timestamp": "2017-05-22T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2172.4
+  },
+  {
+    "timestamp": "2017-05-22T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2138.01
+  },
+  {
+    "timestamp": "2017-05-22T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2099.97
+  },
+  {
+    "timestamp": "2017-05-23T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2154.8
+  },
+  {
+    "timestamp": "2017-05-23T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2168.93
+  },
+  {
+    "timestamp": "2017-05-23T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2192.17
+  },
+  {
+    "timestamp": "2017-05-23T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2250.0
+  },
+  {
+    "timestamp": "2017-05-23T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2239.99
+  },
+  {
+    "timestamp": "2017-05-23T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2264.23
+  },
+  {
+    "timestamp": "2017-05-24T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2309.57
+  },
+  {
+    "timestamp": "2017-05-24T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2326.0
+  },
+  {
+    "timestamp": "2017-05-24T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2383.22
+  },
+  {
+    "timestamp": "2017-05-24T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2418.0
+  },
+  {
+    "timestamp": "2017-05-24T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2470.0
+  },
+  {
+    "timestamp": "2017-05-24T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2420.29
+  },
+  {
+    "timestamp": "2017-05-25T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2560.33
+  },
+  {
+    "timestamp": "2017-05-25T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2590.0
+  },
+  {
+    "timestamp": "2017-05-25T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2709.66
+  },
+  {
+    "timestamp": "2017-05-25T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2686.98
+  },
+  {
+    "timestamp": "2017-05-25T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2369.87
+  },
+  {
+    "timestamp": "2017-05-25T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2292.53
+  },
+  {
+    "timestamp": "2017-05-26T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2340.01
+  },
+  {
+    "timestamp": "2017-05-26T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2463.82
+  },
+  {
+    "timestamp": "2017-05-26T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2553.58
+  },
+  {
+    "timestamp": "2017-05-26T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2416.09
+  },
+  {
+    "timestamp": "2017-05-26T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2287.92
+  },
+  {
+    "timestamp": "2017-05-26T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2279.82
+  },
+  {
+    "timestamp": "2017-05-27T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2252.72
+  },
+  {
+    "timestamp": "2017-05-27T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2128.93
+  },
+  {
+    "timestamp": "2017-05-27T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2035.0
+  },
+  {
+    "timestamp": "2017-05-27T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2087.2
+  },
+  {
+    "timestamp": "2017-05-27T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2133.0
+  },
+  {
+    "timestamp": "2017-05-27T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2042.0
+  },
+  {
+    "timestamp": "2017-05-28T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2210.0
+  },
+  {
+    "timestamp": "2017-05-28T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2288.77
+  },
+  {
+    "timestamp": "2017-05-28T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2241.73
+  },
+  {
+    "timestamp": "2017-05-28T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2143.01
+  },
+  {
+    "timestamp": "2017-05-28T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2155.44
+  },
+  {
+    "timestamp": "2017-05-28T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2178.81
+  },
+  {
+    "timestamp": "2017-05-29T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2179.08
+  },
+  {
+    "timestamp": "2017-05-29T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2186.36
+  },
+  {
+    "timestamp": "2017-05-29T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2244.38
+  },
+  {
+    "timestamp": "2017-05-29T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2259.94
+  },
+  {
+    "timestamp": "2017-05-29T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2317.65
+  },
+  {
+    "timestamp": "2017-05-29T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2292.1
+  },
+  {
+    "timestamp": "2017-05-30T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2306.34
+  },
+  {
+    "timestamp": "2017-05-30T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2315.01
+  },
+  {
+    "timestamp": "2017-05-30T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2306.72
+  },
+  {
+    "timestamp": "2017-05-30T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2233.33
+  },
+  {
+    "timestamp": "2017-05-30T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2251.0
+  },
+  {
+    "timestamp": "2017-05-30T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2203.51
+  },
+  {
+    "timestamp": "2017-05-31T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2170.86
+  },
+  {
+    "timestamp": "2017-05-31T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2220.07
+  },
+  {
+    "timestamp": "2017-05-31T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2252.44
+  },
+  {
+    "timestamp": "2017-05-31T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2306.61
+  },
+  {
+    "timestamp": "2017-05-31T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2304.63
+  },
+  {
+    "timestamp": "2017-05-31T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2298.01
+  },
+  {
+    "timestamp": "2017-06-01T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2368.12
+  },
+  {
+    "timestamp": "2017-06-01T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2391.89
+  },
+  {
+    "timestamp": "2017-06-01T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2427.01
+  },
+  {
+    "timestamp": "2017-06-01T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2402.65
+  },
+  {
+    "timestamp": "2017-06-01T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2390.0
+  },
+  {
+    "timestamp": "2017-06-01T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2413.63
+  },
+  {
+    "timestamp": "2017-06-02T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2440.42
+  },
+  {
+    "timestamp": "2017-06-02T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2441.89
+  },
+  {
+    "timestamp": "2017-06-02T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2439.97
+  },
+  {
+    "timestamp": "2017-06-02T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2429.59
+  },
+  {
+    "timestamp": "2017-06-02T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2418.78
+  },
+  {
+    "timestamp": "2017-06-02T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2488.94
+  },
+  {
+    "timestamp": "2017-06-03T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2461.79
+  },
+  {
+    "timestamp": "2017-06-03T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2487.11
+  },
+  {
+    "timestamp": "2017-06-03T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2523.99
+  },
+  {
+    "timestamp": "2017-06-03T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2568.86
+  },
+  {
+    "timestamp": "2017-06-03T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2571.87
+  },
+  {
+    "timestamp": "2017-06-03T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2540.94
+  },
+  {
+    "timestamp": "2017-06-04T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2513.91
+  },
+  {
+    "timestamp": "2017-06-04T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2525.0
+  },
+  {
+    "timestamp": "2017-06-04T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2547.97
+  },
+  {
+    "timestamp": "2017-06-04T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2527.11
+  },
+  {
+    "timestamp": "2017-06-04T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2484.64
+  },
+  {
+    "timestamp": "2017-06-04T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2530.27
+  },
+  {
+    "timestamp": "2017-06-05T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2583.67
+  },
+  {
+    "timestamp": "2017-06-05T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2573.5
+  },
+  {
+    "timestamp": "2017-06-05T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2594.0
+  },
+  {
+    "timestamp": "2017-06-05T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2618.86
+  },
+  {
+    "timestamp": "2017-06-05T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2634.99
+  },
+  {
+    "timestamp": "2017-06-05T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2698.0
+  },
+  {
+    "timestamp": "2017-06-06T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2811.6
+  },
+  {
+    "timestamp": "2017-06-06T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2835.67
+  },
+  {
+    "timestamp": "2017-06-06T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2865.0
+  },
+  {
+    "timestamp": "2017-06-06T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2839.7
+  },
+  {
+    "timestamp": "2017-06-06T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2860.57
+  },
+  {
+    "timestamp": "2017-06-06T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2880.74
+  },
+  {
+    "timestamp": "2017-06-07T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2859.41
+  },
+  {
+    "timestamp": "2017-06-07T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2834.21
+  },
+  {
+    "timestamp": "2017-06-07T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2849.79
+  },
+  {
+    "timestamp": "2017-06-07T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2800.0
+  },
+  {
+    "timestamp": "2017-06-07T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2778.01
+  },
+  {
+    "timestamp": "2017-06-07T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2683.03
+  },
+  {
+    "timestamp": "2017-06-08T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2728.76
+  },
+  {
+    "timestamp": "2017-06-08T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2776.12
+  },
+  {
+    "timestamp": "2017-06-08T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2754.0
+  },
+  {
+    "timestamp": "2017-06-08T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2736.62
+  },
+  {
+    "timestamp": "2017-06-08T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2758.0
+  },
+  {
+    "timestamp": "2017-06-08T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2806.0
+  },
+  {
+    "timestamp": "2017-06-09T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2805.0
+  },
+  {
+    "timestamp": "2017-06-09T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2805.83
+  },
+  {
+    "timestamp": "2017-06-09T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2812.0
+  },
+  {
+    "timestamp": "2017-06-09T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2852.0
+  },
+  {
+    "timestamp": "2017-06-09T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2844.0
+  },
+  {
+    "timestamp": "2017-06-09T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2822.32
+  },
+  {
+    "timestamp": "2017-06-10T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2830.28
+  },
+  {
+    "timestamp": "2017-06-10T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2815.27
+  },
+  {
+    "timestamp": "2017-06-10T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2894.85
+  },
+  {
+    "timestamp": "2017-06-10T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2864.0
+  },
+  {
+    "timestamp": "2017-06-10T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2879.0
+  },
+  {
+    "timestamp": "2017-06-10T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2899.99
+  },
+  {
+    "timestamp": "2017-06-11T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2876.0
+  },
+  {
+    "timestamp": "2017-06-11T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2887.0
+  },
+  {
+    "timestamp": "2017-06-11T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2873.0
+  },
+  {
+    "timestamp": "2017-06-11T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2943.9
+  },
+  {
+    "timestamp": "2017-06-11T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2940.48
+  },
+  {
+    "timestamp": "2017-06-11T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2954.22
+  },
+  {
+    "timestamp": "2017-06-12T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2955.41
+  },
+  {
+    "timestamp": "2017-06-12T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2944.44
+  },
+  {
+    "timestamp": "2017-06-12T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2748.8
+  },
+  {
+    "timestamp": "2017-06-12T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2775.99
+  },
+  {
+    "timestamp": "2017-06-12T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2550.01
+  },
+  {
+    "timestamp": "2017-06-12T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2667.06
+  },
+  {
+    "timestamp": "2017-06-13T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2677.38
+  },
+  {
+    "timestamp": "2017-06-13T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2752.79
+  },
+  {
+    "timestamp": "2017-06-13T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2716.19
+  },
+  {
+    "timestamp": "2017-06-13T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2737.05
+  },
+  {
+    "timestamp": "2017-06-13T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2709.77
+  },
+  {
+    "timestamp": "2017-06-13T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2703.02
+  },
+  {
+    "timestamp": "2017-06-14T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2748.17
+  },
+  {
+    "timestamp": "2017-06-14T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2731.0
+  },
+  {
+    "timestamp": "2017-06-14T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2726.01
+  },
+  {
+    "timestamp": "2017-06-14T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2617.95
+  },
+  {
+    "timestamp": "2017-06-14T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2540.73
+  },
+  {
+    "timestamp": "2017-06-14T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2450.0
+  },
+  {
+    "timestamp": "2017-06-15T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2476.14
+  },
+  {
+    "timestamp": "2017-06-15T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2420.0
+  },
+  {
+    "timestamp": "2017-06-15T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2299.23
+  },
+  {
+    "timestamp": "2017-06-15T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2245.76
+  },
+  {
+    "timestamp": "2017-06-15T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2326.49
+  },
+  {
+    "timestamp": "2017-06-15T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2424.91
+  },
+  {
+    "timestamp": "2017-06-16T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2378.5
+  },
+  {
+    "timestamp": "2017-06-16T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2450.07
+  },
+  {
+    "timestamp": "2017-06-16T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2461.02
+  },
+  {
+    "timestamp": "2017-06-16T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2457.96
+  },
+  {
+    "timestamp": "2017-06-16T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2518.53
+  },
+  {
+    "timestamp": "2017-06-16T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2484.68
+  },
+  {
+    "timestamp": "2017-06-17T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2475.29
+  },
+  {
+    "timestamp": "2017-06-17T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2503.15
+  },
+  {
+    "timestamp": "2017-06-17T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2571.99
+  },
+  {
+    "timestamp": "2017-06-17T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2605.4
+  },
+  {
+    "timestamp": "2017-06-17T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2651.91
+  },
+  {
+    "timestamp": "2017-06-17T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2630.0
+  },
+  {
+    "timestamp": "2017-06-18T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2652.0
+  },
+  {
+    "timestamp": "2017-06-18T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2517.01
+  },
+  {
+    "timestamp": "2017-06-18T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2566.44
+  },
+  {
+    "timestamp": "2017-06-18T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2562.77
+  },
+  {
+    "timestamp": "2017-06-18T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2494.28
+  },
+  {
+    "timestamp": "2017-06-18T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2516.98
+  },
+  {
+    "timestamp": "2017-06-19T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2558.96
+  },
+  {
+    "timestamp": "2017-06-19T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2568.49
+  },
+  {
+    "timestamp": "2017-06-19T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2527.84
+  },
+  {
+    "timestamp": "2017-06-19T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2548.0
+  },
+  {
+    "timestamp": "2017-06-19T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2557.52
+  },
+  {
+    "timestamp": "2017-06-19T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2598.0
+  },
+  {
+    "timestamp": "2017-06-20T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2619.24
+  },
+  {
+    "timestamp": "2017-06-20T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2606.48
+  },
+  {
+    "timestamp": "2017-06-20T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2621.01
+  },
+  {
+    "timestamp": "2017-06-20T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2658.29
+  },
+  {
+    "timestamp": "2017-06-20T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2768.0
+  },
+  {
+    "timestamp": "2017-06-20T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2740.0
+  },
+  {
+    "timestamp": "2017-06-21T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2760.03
+  },
+  {
+    "timestamp": "2017-06-21T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2723.86
+  },
+  {
+    "timestamp": "2017-06-21T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2735.24
+  },
+  {
+    "timestamp": "2017-06-21T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2709.9
+  },
+  {
+    "timestamp": "2017-06-21T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2681.7
+  },
+  {
+    "timestamp": "2017-06-21T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2657.04
+  },
+  {
+    "timestamp": "2017-06-22T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2660.04
+  },
+  {
+    "timestamp": "2017-06-22T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2654.64
+  },
+  {
+    "timestamp": "2017-06-22T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2680.01
+  },
+  {
+    "timestamp": "2017-06-22T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2734.48
+  },
+  {
+    "timestamp": "2017-06-22T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2716.6
+  },
+  {
+    "timestamp": "2017-06-22T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2713.48
+  },
+  {
+    "timestamp": "2017-06-23T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2729.73
+  },
+  {
+    "timestamp": "2017-06-23T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2712.0
+  },
+  {
+    "timestamp": "2017-06-23T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2718.0
+  },
+  {
+    "timestamp": "2017-06-23T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2727.75
+  },
+  {
+    "timestamp": "2017-06-23T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2725.0
+  },
+  {
+    "timestamp": "2017-06-23T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2685.05
+  },
+  {
+    "timestamp": "2017-06-24T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2699.36
+  },
+  {
+    "timestamp": "2017-06-24T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2706.14
+  },
+  {
+    "timestamp": "2017-06-24T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2707.24
+  },
+  {
+    "timestamp": "2017-06-24T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2662.48
+  },
+  {
+    "timestamp": "2017-06-24T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2528.21
+  },
+  {
+    "timestamp": "2017-06-24T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2557.66
+  },
+  {
+    "timestamp": "2017-06-25T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2541.98
+  },
+  {
+    "timestamp": "2017-06-25T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2570.63
+  },
+  {
+    "timestamp": "2017-06-25T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2624.73
+  },
+  {
+    "timestamp": "2017-06-25T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2562.31
+  },
+  {
+    "timestamp": "2017-06-25T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2496.64
+  },
+  {
+    "timestamp": "2017-06-25T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2502.03
+  },
+  {
+    "timestamp": "2017-06-26T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2549.22
+  },
+  {
+    "timestamp": "2017-06-26T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2495.0
+  },
+  {
+    "timestamp": "2017-06-26T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2500.0
+  },
+  {
+    "timestamp": "2017-06-26T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2420.3
+  },
+  {
+    "timestamp": "2017-06-26T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2345.05
+  },
+  {
+    "timestamp": "2017-06-26T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2421.22
+  },
+  {
+    "timestamp": "2017-06-27T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2443.91
+  },
+  {
+    "timestamp": "2017-06-27T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2374.86
+  },
+  {
+    "timestamp": "2017-06-27T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2379.99
+  },
+  {
+    "timestamp": "2017-06-27T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2349.42
+  },
+  {
+    "timestamp": "2017-06-27T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2412.99
+  },
+  {
+    "timestamp": "2017-06-27T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2565.0
+  },
+  {
+    "timestamp": "2017-06-28T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2533.19
+  },
+  {
+    "timestamp": "2017-06-28T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2520.14
+  },
+  {
+    "timestamp": "2017-06-28T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2538.0
+  },
+  {
+    "timestamp": "2017-06-28T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2551.69
+  },
+  {
+    "timestamp": "2017-06-28T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2559.33
+  },
+  {
+    "timestamp": "2017-06-28T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2559.9
+  },
+  {
+    "timestamp": "2017-06-29T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2567.99
+  },
+  {
+    "timestamp": "2017-06-29T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2560.1
+  },
+  {
+    "timestamp": "2017-06-29T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2542.25
+  },
+  {
+    "timestamp": "2017-06-29T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2554.14
+  },
+  {
+    "timestamp": "2017-06-29T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2573.99
+  },
+  {
+    "timestamp": "2017-06-29T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2541.59
+  },
+  {
+    "timestamp": "2017-06-30T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2535.0
+  },
+  {
+    "timestamp": "2017-06-30T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2516.2
+  },
+  {
+    "timestamp": "2017-06-30T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2552.51
+  },
+  {
+    "timestamp": "2017-06-30T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2525.76
+  },
+  {
+    "timestamp": "2017-06-30T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2519.89
+  },
+  {
+    "timestamp": "2017-06-30T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2465.49
+  },
+  {
+    "timestamp": "2017-07-01T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2445.57
+  },
+  {
+    "timestamp": "2017-07-01T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2505.53
+  },
+  {
+    "timestamp": "2017-07-01T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2500.0
+  },
+  {
+    "timestamp": "2017-07-01T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2466.35
+  },
+  {
+    "timestamp": "2017-07-01T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2439.99
+  },
+  {
+    "timestamp": "2017-07-01T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2412.41
+  },
+  {
+    "timestamp": "2017-07-02T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2400.0
+  },
+  {
+    "timestamp": "2017-07-02T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2434.14
+  },
+  {
+    "timestamp": "2017-07-02T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2451.76
+  },
+  {
+    "timestamp": "2017-07-02T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2466.0
+  },
+  {
+    "timestamp": "2017-07-02T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2489.98
+  },
+  {
+    "timestamp": "2017-07-02T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2504.37
+  },
+  {
+    "timestamp": "2017-07-03T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2489.94
+  },
+  {
+    "timestamp": "2017-07-03T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2478.47
+  },
+  {
+    "timestamp": "2017-07-03T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2507.99
+  },
+  {
+    "timestamp": "2017-07-03T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2573.99
+  },
+  {
+    "timestamp": "2017-07-03T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2553.98
+  },
+  {
+    "timestamp": "2017-07-03T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2550.47
+  },
+  {
+    "timestamp": "2017-07-04T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2604.75
+  },
+  {
+    "timestamp": "2017-07-04T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2629.99
+  },
+  {
+    "timestamp": "2017-07-04T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2611.42
+  },
+  {
+    "timestamp": "2017-07-04T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2580.81
+  },
+  {
+    "timestamp": "2017-07-04T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2564.55
+  },
+  {
+    "timestamp": "2017-07-04T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2596.12
+  },
+  {
+    "timestamp": "2017-07-05T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2550.96
+  },
+  {
+    "timestamp": "2017-07-05T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2538.11
+  },
+  {
+    "timestamp": "2017-07-05T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2559.91
+  },
+  {
+    "timestamp": "2017-07-05T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2575.04
+  },
+  {
+    "timestamp": "2017-07-05T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2618.15
+  },
+  {
+    "timestamp": "2017-07-05T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2602.9
+  },
+  {
+    "timestamp": "2017-07-06T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2607.0
+  },
+  {
+    "timestamp": "2017-07-06T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2597.0
+  },
+  {
+    "timestamp": "2017-07-06T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2589.85
+  },
+  {
+    "timestamp": "2017-07-06T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2588.0
+  },
+  {
+    "timestamp": "2017-07-06T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2603.78
+  },
+  {
+    "timestamp": "2017-07-06T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2600.39
+  },
+  {
+    "timestamp": "2017-07-07T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2578.01
+  },
+  {
+    "timestamp": "2017-07-07T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2554.96
+  },
+  {
+    "timestamp": "2017-07-07T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2539.99
+  },
+  {
+    "timestamp": "2017-07-07T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2522.69
+  },
+  {
+    "timestamp": "2017-07-07T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2528.95
+  },
+  {
+    "timestamp": "2017-07-07T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2501.46
+  },
+  {
+    "timestamp": "2017-07-08T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2493.64
+  },
+  {
+    "timestamp": "2017-07-08T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2498.33
+  },
+  {
+    "timestamp": "2017-07-08T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2510.3
+  },
+  {
+    "timestamp": "2017-07-08T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2527.81
+  },
+  {
+    "timestamp": "2017-07-08T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2545.49
+  },
+  {
+    "timestamp": "2017-07-08T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2550.07
+  },
+  {
+    "timestamp": "2017-07-09T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2558.91
+  },
+  {
+    "timestamp": "2017-07-09T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2542.58
+  },
+  {
+    "timestamp": "2017-07-09T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2534.79
+  },
+  {
+    "timestamp": "2017-07-09T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2551.53
+  },
+  {
+    "timestamp": "2017-07-09T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2538.6
+  },
+  {
+    "timestamp": "2017-07-09T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2502.28
+  },
+  {
+    "timestamp": "2017-07-10T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2502.74
+  },
+  {
+    "timestamp": "2017-07-10T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2520.72
+  },
+  {
+    "timestamp": "2017-07-10T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2489.94
+  },
+  {
+    "timestamp": "2017-07-10T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2394.0
+  },
+  {
+    "timestamp": "2017-07-10T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2407.0
+  },
+  {
+    "timestamp": "2017-07-10T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2323.45
+  },
+  {
+    "timestamp": "2017-07-11T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2314.0
+  },
+  {
+    "timestamp": "2017-07-11T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2338.9
+  },
+  {
+    "timestamp": "2017-07-11T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2352.76
+  },
+  {
+    "timestamp": "2017-07-11T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2347.0
+  },
+  {
+    "timestamp": "2017-07-11T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2315.65
+  },
+  {
+    "timestamp": "2017-07-11T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2305.98
+  },
+  {
+    "timestamp": "2017-07-12T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2273.47
+  },
+  {
+    "timestamp": "2017-07-12T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2318.23
+  },
+  {
+    "timestamp": "2017-07-12T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2373.67
+  },
+  {
+    "timestamp": "2017-07-12T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2374.6
+  },
+  {
+    "timestamp": "2017-07-12T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2385.22
+  },
+  {
+    "timestamp": "2017-07-12T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2388.0
+  },
+  {
+    "timestamp": "2017-07-13T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2415.75
+  },
+  {
+    "timestamp": "2017-07-13T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2371.64
+  },
+  {
+    "timestamp": "2017-07-13T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2394.59
+  },
+  {
+    "timestamp": "2017-07-13T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2344.93
+  },
+  {
+    "timestamp": "2017-07-13T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2347.23
+  },
+  {
+    "timestamp": "2017-07-13T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2339.99
+  },
+  {
+    "timestamp": "2017-07-14T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2319.0
+  },
+  {
+    "timestamp": "2017-07-14T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2349.0
+  },
+  {
+    "timestamp": "2017-07-14T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2330.0
+  },
+  {
+    "timestamp": "2017-07-14T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2259.0
+  },
+  {
+    "timestamp": "2017-07-14T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2199.9
+  },
+  {
+    "timestamp": "2017-07-14T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2213.37
+  },
+  {
+    "timestamp": "2017-07-15T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2094.17
+  },
+  {
+    "timestamp": "2017-07-15T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2047.98
+  },
+  {
+    "timestamp": "2017-07-15T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2060.18
+  },
+  {
+    "timestamp": "2017-07-15T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2023.26
+  },
+  {
+    "timestamp": "2017-07-15T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2078.0
+  },
+  {
+    "timestamp": "2017-07-15T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1970.51
+  },
+  {
+    "timestamp": "2017-07-16T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2018.96
+  },
+  {
+    "timestamp": "2017-07-16T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1982.4
+  },
+  {
+    "timestamp": "2017-07-16T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1873.22
+  },
+  {
+    "timestamp": "2017-07-16T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1908.61
+  },
+  {
+    "timestamp": "2017-07-16T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1866.02
+  },
+  {
+    "timestamp": "2017-07-16T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1917.63
+  },
+  {
+    "timestamp": "2017-07-17T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 1961.26
+  },
+  {
+    "timestamp": "2017-07-17T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2066.53
+  },
+  {
+    "timestamp": "2017-07-17T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2014.46
+  },
+  {
+    "timestamp": "2017-07-17T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2046.03
+  },
+  {
+    "timestamp": "2017-07-17T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2123.24
+  },
+  {
+    "timestamp": "2017-07-17T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2226.0
+  },
+  {
+    "timestamp": "2017-07-18T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2182.99
+  },
+  {
+    "timestamp": "2017-07-18T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2266.91
+  },
+  {
+    "timestamp": "2017-07-18T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2300.0
+  },
+  {
+    "timestamp": "2017-07-18T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2351.69
+  },
+  {
+    "timestamp": "2017-07-18T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2359.95
+  },
+  {
+    "timestamp": "2017-07-18T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2303.71
+  },
+  {
+    "timestamp": "2017-07-19T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2347.97
+  },
+  {
+    "timestamp": "2017-07-19T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2377.1
+  },
+  {
+    "timestamp": "2017-07-19T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2347.99
+  },
+  {
+    "timestamp": "2017-07-19T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2315.9
+  },
+  {
+    "timestamp": "2017-07-19T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2234.99
+  },
+  {
+    "timestamp": "2017-07-19T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2265.21
+  },
+  {
+    "timestamp": "2017-07-20T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2324.99
+  },
+  {
+    "timestamp": "2017-07-20T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2317.41
+  },
+  {
+    "timestamp": "2017-07-20T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2463.98
+  },
+  {
+    "timestamp": "2017-07-20T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2619.17
+  },
+  {
+    "timestamp": "2017-07-20T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2648.87
+  },
+  {
+    "timestamp": "2017-07-20T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2875.03
+  },
+  {
+    "timestamp": "2017-07-21T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2718.61
+  },
+  {
+    "timestamp": "2017-07-21T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2754.67
+  },
+  {
+    "timestamp": "2017-07-21T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2757.99
+  },
+  {
+    "timestamp": "2017-07-21T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2717.97
+  },
+  {
+    "timestamp": "2017-07-21T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2629.0
+  },
+  {
+    "timestamp": "2017-07-21T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2670.0
+  },
+  {
+    "timestamp": "2017-07-22T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2710.29
+  },
+  {
+    "timestamp": "2017-07-22T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2766.99
+  },
+  {
+    "timestamp": "2017-07-22T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2818.18
+  },
+  {
+    "timestamp": "2017-07-22T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2787.9
+  },
+  {
+    "timestamp": "2017-07-22T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2810.86
+  },
+  {
+    "timestamp": "2017-07-22T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2832.71
+  },
+  {
+    "timestamp": "2017-07-23T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2821.31
+  },
+  {
+    "timestamp": "2017-07-23T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2708.84
+  },
+  {
+    "timestamp": "2017-07-23T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2677.78
+  },
+  {
+    "timestamp": "2017-07-23T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2779.7
+  },
+  {
+    "timestamp": "2017-07-23T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2761.85
+  },
+  {
+    "timestamp": "2017-07-23T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2749.02
+  },
+  {
+    "timestamp": "2017-07-24T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2760.8
+  },
+  {
+    "timestamp": "2017-07-24T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2733.0
+  },
+  {
+    "timestamp": "2017-07-24T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2762.99
+  },
+  {
+    "timestamp": "2017-07-24T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2762.99
+  },
+  {
+    "timestamp": "2017-07-24T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2772.73
+  },
+  {
+    "timestamp": "2017-07-24T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2759.98
+  },
+  {
+    "timestamp": "2017-07-25T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2751.0
+  },
+  {
+    "timestamp": "2017-07-25T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2669.11
+  },
+  {
+    "timestamp": "2017-07-25T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2570.23
+  },
+  {
+    "timestamp": "2017-07-25T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2580.21
+  },
+  {
+    "timestamp": "2017-07-25T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2489.99
+  },
+  {
+    "timestamp": "2017-07-25T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2564.82
+  },
+  {
+    "timestamp": "2017-07-26T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2513.6
+  },
+  {
+    "timestamp": "2017-07-26T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2488.0
+  },
+  {
+    "timestamp": "2017-07-26T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2538.92
+  },
+  {
+    "timestamp": "2017-07-26T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2436.7
+  },
+  {
+    "timestamp": "2017-07-26T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2471.42
+  },
+  {
+    "timestamp": "2017-07-26T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2524.99
+  },
+  {
+    "timestamp": "2017-07-27T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2546.91
+  },
+  {
+    "timestamp": "2017-07-27T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2540.89
+  },
+  {
+    "timestamp": "2017-07-27T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2577.02
+  },
+  {
+    "timestamp": "2017-07-27T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2541.06
+  },
+  {
+    "timestamp": "2017-07-27T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2565.11
+  },
+  {
+    "timestamp": "2017-07-27T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2666.33
+  },
+  {
+    "timestamp": "2017-07-28T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2681.49
+  },
+  {
+    "timestamp": "2017-07-28T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2736.0
+  },
+  {
+    "timestamp": "2017-07-28T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2815.0
+  },
+  {
+    "timestamp": "2017-07-28T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2742.9
+  },
+  {
+    "timestamp": "2017-07-28T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2751.9
+  },
+  {
+    "timestamp": "2017-07-28T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2777.01
+  },
+  {
+    "timestamp": "2017-07-29T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2705.0
+  },
+  {
+    "timestamp": "2017-07-29T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2741.5
+  },
+  {
+    "timestamp": "2017-07-29T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2672.79
+  },
+  {
+    "timestamp": "2017-07-29T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2707.06
+  },
+  {
+    "timestamp": "2017-07-29T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2736.58
+  },
+  {
+    "timestamp": "2017-07-29T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2680.56
+  },
+  {
+    "timestamp": "2017-07-30T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2679.72
+  },
+  {
+    "timestamp": "2017-07-30T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2620.67
+  },
+  {
+    "timestamp": "2017-07-30T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2648.38
+  },
+  {
+    "timestamp": "2017-07-30T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2720.25
+  },
+  {
+    "timestamp": "2017-07-30T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2718.07
+  },
+  {
+    "timestamp": "2017-07-30T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2742.37
+  },
+  {
+    "timestamp": "2017-07-31T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2710.11
+  },
+  {
+    "timestamp": "2017-07-31T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2719.97
+  },
+  {
+    "timestamp": "2017-07-31T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2768.99
+  },
+  {
+    "timestamp": "2017-07-31T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2761.41
+  },
+  {
+    "timestamp": "2017-07-31T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2837.44
+  },
+  {
+    "timestamp": "2017-07-31T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2855.81
+  },
+  {
+    "timestamp": "2017-08-01T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2862.93
+  },
+  {
+    "timestamp": "2017-08-01T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2754.0
+  },
+  {
+    "timestamp": "2017-08-01T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2754.9
+  },
+  {
+    "timestamp": "2017-08-01T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2676.0
+  },
+  {
+    "timestamp": "2017-08-01T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2775.38
+  },
+  {
+    "timestamp": "2017-08-01T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2731.0
+  },
+  {
+    "timestamp": "2017-08-02T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2734.76
+  },
+  {
+    "timestamp": "2017-08-02T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2710.0
+  },
+  {
+    "timestamp": "2017-08-02T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2752.01
+  },
+  {
+    "timestamp": "2017-08-02T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2698.05
+  },
+  {
+    "timestamp": "2017-08-02T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2707.87
+  },
+  {
+    "timestamp": "2017-08-02T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2703.51
+  },
+  {
+    "timestamp": "2017-08-03T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2720.1
+  },
+  {
+    "timestamp": "2017-08-03T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2720.0
+  },
+  {
+    "timestamp": "2017-08-03T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2736.69
+  },
+  {
+    "timestamp": "2017-08-03T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2768.0
+  },
+  {
+    "timestamp": "2017-08-03T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2789.99
+  },
+  {
+    "timestamp": "2017-08-03T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2793.37
+  },
+  {
+    "timestamp": "2017-08-04T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2786.43
+  },
+  {
+    "timestamp": "2017-08-04T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2814.0
+  },
+  {
+    "timestamp": "2017-08-04T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2841.98
+  },
+  {
+    "timestamp": "2017-08-04T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2868.15
+  },
+  {
+    "timestamp": "2017-08-04T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2826.57
+  },
+  {
+    "timestamp": "2017-08-04T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 2855.0
+  },
+  {
+    "timestamp": "2017-08-05T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3109.0
+  },
+  {
+    "timestamp": "2017-08-05T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3120.12
+  },
+  {
+    "timestamp": "2017-08-05T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3145.93
+  },
+  {
+    "timestamp": "2017-08-05T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3192.37
+  },
+  {
+    "timestamp": "2017-08-05T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3256.0
+  },
+  {
+    "timestamp": "2017-08-05T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3263.62
+  },
+  {
+    "timestamp": "2017-08-06T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3222.2
+  },
+  {
+    "timestamp": "2017-08-06T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3177.88
+  },
+  {
+    "timestamp": "2017-08-06T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3182.79
+  },
+  {
+    "timestamp": "2017-08-06T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3241.5
+  },
+  {
+    "timestamp": "2017-08-06T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3261.49
+  },
+  {
+    "timestamp": "2017-08-06T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3222.75
+  },
+  {
+    "timestamp": "2017-08-07T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3247.41
+  },
+  {
+    "timestamp": "2017-08-07T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3242.25
+  },
+  {
+    "timestamp": "2017-08-07T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3355.3
+  },
+  {
+    "timestamp": "2017-08-07T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3380.0
+  },
+  {
+    "timestamp": "2017-08-07T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3356.0
+  },
+  {
+    "timestamp": "2017-08-07T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3387.55
+  },
+  {
+    "timestamp": "2017-08-08T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3445.49
+  },
+  {
+    "timestamp": "2017-08-08T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3456.58
+  },
+  {
+    "timestamp": "2017-08-08T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3440.2
+  },
+  {
+    "timestamp": "2017-08-08T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3380.0
+  },
+  {
+    "timestamp": "2017-08-08T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3431.98
+  },
+  {
+    "timestamp": "2017-08-08T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3412.41
+  },
+  {
+    "timestamp": "2017-08-09T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3384.67
+  },
+  {
+    "timestamp": "2017-08-09T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3407.1
+  },
+  {
+    "timestamp": "2017-08-09T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3309.97
+  },
+  {
+    "timestamp": "2017-08-09T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3285.05
+  },
+  {
+    "timestamp": "2017-08-09T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3331.01
+  },
+  {
+    "timestamp": "2017-08-09T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3342.99
+  },
+  {
+    "timestamp": "2017-08-10T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3327.59
+  },
+  {
+    "timestamp": "2017-08-10T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3397.0
+  },
+  {
+    "timestamp": "2017-08-10T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3401.99
+  },
+  {
+    "timestamp": "2017-08-10T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3441.0
+  },
+  {
+    "timestamp": "2017-08-10T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3410.0
+  },
+  {
+    "timestamp": "2017-08-10T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3413.03
+  },
+  {
+    "timestamp": "2017-08-11T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3419.93
+  },
+  {
+    "timestamp": "2017-08-11T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3480.01
+  },
+  {
+    "timestamp": "2017-08-11T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3492.98
+  },
+  {
+    "timestamp": "2017-08-11T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3535.09
+  },
+  {
+    "timestamp": "2017-08-11T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3539.0
+  },
+  {
+    "timestamp": "2017-08-11T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3645.06
+  },
+  {
+    "timestamp": "2017-08-12T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3662.51
+  },
+  {
+    "timestamp": "2017-08-12T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3775.0
+  },
+  {
+    "timestamp": "2017-08-12T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3758.94
+  },
+  {
+    "timestamp": "2017-08-12T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3845.97
+  },
+  {
+    "timestamp": "2017-08-12T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3872.0
+  },
+  {
+    "timestamp": "2017-08-12T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3855.1
+  },
+  {
+    "timestamp": "2017-08-13T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4027.7
+  },
+  {
+    "timestamp": "2017-08-13T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4134.53
+  },
+  {
+    "timestamp": "2017-08-13T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3966.99
+  },
+  {
+    "timestamp": "2017-08-13T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4033.0
+  },
+  {
+    "timestamp": "2017-08-13T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3961.43
+  },
+  {
+    "timestamp": "2017-08-13T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4053.87
+  },
+  {
+    "timestamp": "2017-08-14T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3976.06
+  },
+  {
+    "timestamp": "2017-08-14T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4063.0
+  },
+  {
+    "timestamp": "2017-08-14T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4148.28
+  },
+  {
+    "timestamp": "2017-08-14T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4242.67
+  },
+  {
+    "timestamp": "2017-08-14T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4212.99
+  },
+  {
+    "timestamp": "2017-08-14T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4306.23
+  },
+  {
+    "timestamp": "2017-08-15T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4380.11
+  },
+  {
+    "timestamp": "2017-08-15T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4282.0
+  },
+  {
+    "timestamp": "2017-08-15T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4120.0
+  },
+  {
+    "timestamp": "2017-08-15T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 3985.34
+  },
+  {
+    "timestamp": "2017-08-15T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4044.57
+  },
+  {
+    "timestamp": "2017-08-15T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4155.67
+  },
+  {
+    "timestamp": "2017-08-16T03:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4069.46
+  },
+  {
+    "timestamp": "2017-08-16T07:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4056.99
+  },
+  {
+    "timestamp": "2017-08-16T11:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4074.85
+  },
+  {
+    "timestamp": "2017-08-16T15:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4308.63
+  },
+  {
+    "timestamp": "2017-08-16T19:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4299.0
+  },
+  {
+    "timestamp": "2017-08-16T23:00:00+00:00",
+    "portfolio_value": 2000.0,
+    "btc_price": 4378.84
+  }
+]
