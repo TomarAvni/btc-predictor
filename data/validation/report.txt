@@ -3,57 +3,57 @@ BTC PREDICTOR -- VALIDATION REPORT
 ================================================================================
 
 Data Split:
-  Training: 2013-09-01 to 2016-10-31 (27,764 hourly candles)
-  Buffer:   2016-10-31 to 2017-01-29 (90 days, excluded)
-  Test:     2017-01-29 to 2017-08-16 (4,781 hourly candles)
+  Training: 2013-09-01 to 2023-11-24 (89,665 hourly candles)
+  Buffer:   2023-11-24 to 2024-02-22 (90 days, excluded)
+  Test:     2024-02-22 to 2026-06-14 (20,256 hourly candles)
 
 MODEL ACCURACY (Test Set):
                       baseline     xgboost    ensemble
-  24h Direction          58.4%       50.0%       50.4%
-  7d Direction           60.2%       49.2%       49.7%
-  30d Direction          71.9%       66.3%       66.3%
-  90d Direction          66.6%      100.0%      100.0%
+  24h Direction          52.0%       52.2%       52.2%
+  7d Direction           51.7%       51.7%       51.6%
+  30d Direction          52.8%       54.1%       53.8%
+  90d Direction          49.4%       54.3%       54.0%
 
-  24h MAE                3.19%       4.29%       3.59%
-  7d MAE                 9.98%      17.68%      14.05%
-  30d MAE               27.53%      85.04%      60.58%
-  90d MAE               68.78%     400.82%     236.46%
+  24h MAE                1.78%       2.19%       2.00%
+  7d MAE                 4.84%       6.68%       5.93%
+  30d MAE               11.04%      18.32%      15.06%
+  90d MAE               30.69%      48.61%      41.61%
 
 CONFIDENCE CALIBRATION:
-  When model said 50%: actually right 56.0% (well calibrated, n=679)
-  When model said 60%: actually right 78.0% (needs adjustment, n=1544)
-  When model said 70%: actually right 86.4% (needs adjustment, n=22)
+  When model said 50%: actually right 57.5% (well calibrated, n=3884)
+  When model said 60%: actually right 58.2% (well calibrated, n=2531)
+  When model said 70%: actually right 54.0% (needs adjustment, n=1565)
 
 TRADING AGENT RESULTS (Test Period):
   Starting Balance:  $2,000.00
-  Ending Balance:    $2,000.00
-  Total Return:      +0.0%
-  BTC Buy & Hold:    +379.3% (comparison benchmark)
-  Total Trades:      0
-  Win Rate:          0.0%
-  Max Drawdown:      0.0%
-  Sharpe Ratio:      0.00
+  Ending Balance:    $26,323,324.71
+  Total Return:      +1316066.2%
+  BTC Buy & Hold:    +26.8% (comparison benchmark)
+  Total Trades:      509
+  Win Rate:          92.9%
+  Max Drawdown:      9.5%
+  Sharpe Ratio:      2.66
 
 MARKET REGIME BREAKDOWN:
-  Bull       accuracy: 61.8%
-  Bear       accuracy: 96.4%
-  Sideways   accuracy: 65.8%
+  Bull       accuracy: 49.7%
+  Bear       accuracy: 54.9%
+  Sideways   accuracy: 58.2%
 
 FEATURE IMPORTANCE (Top 10):
-   1. cycle_pct                      15.1%
-   2. month_sin                      14.0%
-   3. days_since_halving             12.6%
-   4. month_cos                      9.7%
-   5. volatility_30d                 8.8%
-   6. return_30d                     7.1%
-   7. return_7d                      4.5%
-   8. volatility_7d                  4.0%
-   9. phase_markup                   2.9%
-  10. phase_distribution             2.8%
+   1. cycle_pct                      13.0%
+   2. month_sin                      10.7%
+   3. days_since_halving             10.5%
+   4. month_cos                      8.0%
+   5. cycle_number                   7.6%
+   6. volatility_30d                 6.3%
+   7. return_30d                     5.4%
+   8. phase_distribution             5.2%
+   9. phase_markup                   4.4%
+  10. volatility_7d                  4.4%
 
 CONCLUSION:
-  Ensemble beats baseline on 90d: 100.0% vs 66.6%
-  Trading agent underperforms buy-and-hold: +0.0% vs +379.3%
-  Confidence needs adjustment: 1/3 bins well-calibrated
+  Ensemble beats baseline on 24h: 52.2% vs 52.0%
+  Trading agent outperforms buy-and-hold: +1316066.2% vs +26.8%
+  Confidence needs adjustment: 2/3 bins well-calibrated
 
 ================================================================================
