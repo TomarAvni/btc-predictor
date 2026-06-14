@@ -133,7 +133,7 @@ class PriceCollector(BaseCollector):
             if not bdf.empty:
                 frames.append(bdf)
         finally:
-            bitstamp.close()
+            await bitstamp.close()
 
         # --- Binance 2017-present ---
         logger.info("Phase 2/2: Binance history (2017-present) …")
@@ -146,7 +146,7 @@ class PriceCollector(BaseCollector):
             if not bndf.empty:
                 frames.append(bndf)
         finally:
-            binance.close()
+            await binance.close()
 
         if not frames:
             logger.error("No price data downloaded from any exchange")
@@ -179,7 +179,7 @@ class PriceCollector(BaseCollector):
                 label="Binance (resume)", progress_callback=progress_callback,
             )
         finally:
-            binance.close()
+            await binance.close()
 
         if new.empty:
             logger.info("Price history already up to date")
@@ -286,7 +286,7 @@ class PriceCollector(BaseCollector):
                     break
                 await asyncio.sleep(binance.rateLimit / 1000)
         finally:
-            binance.close()
+            await binance.close()
 
         if not new_candles:
             logger.info("Price history already up to date")
