@@ -161,7 +161,7 @@ def load_model_metrics() -> dict[str, Any]:
                 for item in importance_list
                 if isinstance(item, dict) and "feature" in item
             }
-            return {"feature_importance": importance, **validation}
+            return {**validation, "feature_importance": importance}
 
     if not MODELS_DIR.exists():
         return {}

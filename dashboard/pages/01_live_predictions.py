@@ -5,10 +5,8 @@ what the home page shows.
 """
 
 from __future__ import annotations
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+import _bootstrap  # noqa: F401 — repo root on sys.path for Streamlit Cloud
 
 import streamlit as st
 
