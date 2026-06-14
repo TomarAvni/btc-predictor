@@ -114,7 +114,7 @@ if portfolio:
         render_metric_card(
             "Max Drawdown",
             f"{drawdown:.2f}%",
-            color="red" if drawdown > 5 else "green",
+            delta_color="red" if drawdown > 5 else "green",
         )
 
 # ── Open Positions ────────────────────────────────────────────────────────
@@ -218,13 +218,13 @@ if trades:
     with s1:
         render_metric_card("Total Trades", str(len(trades)))
     with s2:
-        render_metric_card("Win Rate", f"{win_rate:.1f}%", color="green" if win_rate > 50 else "red")
+        render_metric_card("Win Rate", f"{win_rate:.1f}%", delta_color="green" if win_rate > 50 else "red")
     with s3:
-        render_metric_card("Total P&L", f"${total_pnl:+.2f}", color="green" if total_pnl >= 0 else "red")
+        render_metric_card("Total P&L", f"${total_pnl:+.2f}", delta_color="green" if total_pnl >= 0 else "red")
     with s4:
-        render_metric_card("Avg Win", f"${avg_win:+.2f}", color="green")
+        render_metric_card("Avg Win", f"${avg_win:+.2f}", delta_color="green")
     with s5:
-        render_metric_card("Avg Loss", f"${avg_loss:.2f}", color="red")
+        render_metric_card("Avg Loss", f"${avg_loss:.2f}", delta_color="red")
 
 # ── Backtest Results ──────────────────────────────────────────────────────
 
