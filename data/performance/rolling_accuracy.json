@@ -1,6 +1,52 @@
 {
-  "updated_at": "2026-06-15T07:44:47.752246+00:00",
+  "updated_at": "2026-06-15T11:03:00.733173+00:00",
   "timeframes": {
+    "6h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "12h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
     "24h": {
       "last_7d": {
         "direction_accuracy_pct": null,
