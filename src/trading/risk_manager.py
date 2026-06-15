@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from src.trading.order import Position
+from src.trading.simulator import OrderSimulator
 
 
 @dataclass
@@ -37,6 +38,14 @@ class RiskManager:
 
     MIN_STOP_LOSS_PCT: float = 1.0  # Minimum SL to avoid noise exits
     TRAILING_STOP_ACTIVATION_PCT: float = 50.0  # Activate trailing after 50% of target
+
+    # Total cost of opening and closing a position (slippage + fees on both
+    # legs), sourced from the simulator so it stays correct if the cost model
+    # changes. With the defaults this is ~0.30% of notional.
+    ROUND_TRIP_COST_PCT: float = OrderSimulator.ROUND_TRIP_COST_PCT
+    # Floor for the take-profit distance: a TP hit must clear the round-trip
+    # cost with a small margin so a "win" is reliably net-positive.
+    MIN_TP_PCT: float = ROUND_TRIP_COST_PCT + 0.05
 
     def __init__(self) -> None:
         self._circuit_breaker_until: Optional[datetime] = None
@@ -155,10 +164,19 @@ class RiskManager:
         predicted_magnitude_pct: float,
         side: str = "LONG",
     ) -> float:
-        """Calculate take profit at predicted magnitude."""
+        """Calculate take profit, padded so a TP hit is net-positive.
+
+        The raw predicted magnitude is padded by the full round-trip cost so
+        that reaching the take-profit reliably clears fees + slippage instead
+        of booking a "win" that is actually a net loss. A ``MIN_TP_PCT`` floor
+        guarantees even tiny-magnitude predictions get an economically sound
+        target. This pads the *target* only -- it does not suppress or reduce
+        the frequency of small-magnitude trades.
+        """
+        tp_pct = max(predicted_magnitude_pct + self.ROUND_TRIP_COST_PCT, self.MIN_TP_PCT)
         if side == "LONG":
-            return entry_price * (1 + predicted_magnitude_pct / 100)
-        return entry_price * (1 - predicted_magnitude_pct / 100)
+            return entry_price * (1 + tp_pct / 100)
+        return entry_price * (1 - tp_pct / 100)
 
     def check_single_trade_risk(
         self,
@@ -187,11 +205,17 @@ class RiskManager:
 
         # Activate trailing stop once 50% of target is reached
         if pnl_pct >= target_pct * (self.TRAILING_STOP_ACTIVATION_PCT / 100):
-            # Move stop to breakeven (entry price)
+            # Move stop to a TRUE net-breakeven level, not the raw entry price:
+            # exiting at entry still pays exit slippage + fee (~half the round
+            # trip), so the stop must clear the full round-trip cost to be at
+            # worst flat after fees.
+            cost_frac = self.ROUND_TRIP_COST_PCT / 100
             if position.side == "LONG":
-                new_stop = max(position.entry_price, position.stop_loss)
+                breakeven = position.entry_price * (1 + cost_frac)
+                new_stop = max(breakeven, position.stop_loss)
             else:
-                new_stop = min(position.entry_price, position.stop_loss)
+                breakeven = position.entry_price * (1 - cost_frac)
+                new_stop = min(breakeven, position.stop_loss)
             if new_stop != position.stop_loss:
                 return new_stop
 

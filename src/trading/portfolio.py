@@ -157,22 +157,35 @@ class Portfolio:
         exit_price: float,
         exit_reason: str,
         timestamp: Optional[datetime] = None,
+        pnl_usd: Optional[float] = None,
+        pnl_pct: Optional[float] = None,
+        fees_paid: float = 0.0,
     ) -> Optional[Trade]:
-        """Close a position and record the trade."""
+        """Close a position and record the trade.
+
+        ``pnl_usd`` / ``pnl_pct`` / ``fees_paid`` should be supplied by the
+        caller (the ``OrderSimulator``) so the persisted record reflects the
+        fee- and slippage-accurate economics. When omitted they fall back to
+        the gross (pre-fee) P&L derived from ``exit_price``, preserving the
+        legacy behaviour for direct callers.
+        """
         pos = next((p for p in self.positions if p.id == position_id), None)
         if pos is None:
             return None
 
         exit_time = timestamp or datetime.now(timezone.utc)
-        pnl_usd = pos.unrealized_pnl_at(exit_price)
-        pnl_pct = pos.unrealized_pnl_pct(exit_price)
+        if pnl_usd is None:
+            pnl_usd = pos.unrealized_pnl_at(exit_price)
+        if pnl_pct is None:
+            pnl_pct = pos.unrealized_pnl_pct(exit_price)
 
+        # Cash returns the original collateral/cost basis plus the net P&L.
+        # ``pnl_usd`` already nets out the exit fee (and the entry fee was
+        # deducted from ``amount_usd`` when the position opened), so this is
+        # fee-consistent and never double-counts fees.
+        self.cash += pos.amount_usd + pnl_usd
         if pos.side == "LONG":
-            proceeds = pos.amount_btc * exit_price
-            self.cash += proceeds
             self.btc_holdings -= pos.amount_btc
-        else:
-            self.cash += pos.amount_usd + pnl_usd
         self.positions = [p for p in self.positions if p.id != position_id]
 
         trade = Trade(
@@ -189,6 +202,7 @@ class Portfolio:
             pnl_pct=pnl_pct,
             exit_reason=exit_reason,
             prediction_id=pos.prediction_id,
+            fees_paid=fees_paid,
             used_ml=pos.used_ml,
         )
         self.closed_trades.append(trade)

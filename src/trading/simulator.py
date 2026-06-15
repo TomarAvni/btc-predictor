@@ -19,6 +19,25 @@ class OrderSimulator:
     SLIPPAGE_PCT: float = 0.05  # 0.05% slippage per trade
     TAKER_FEE_PCT: float = 0.10  # 0.10% taker fee (Binance-realistic)
 
+    # Single source of truth for total cost of a full open+close cycle.
+    # Each leg pays slippage + fee, and there are two legs (entry + exit),
+    # so a round trip costs 2 * (slippage + fee) of notional. With the
+    # defaults above this is ~0.30%; the favorable move needed just to break
+    # even is roughly half that (~0.15%). Anything downstream that needs the
+    # round-trip cost should derive it from here rather than hardcoding it.
+    ROUND_TRIP_COST_PCT: float = 2 * (SLIPPAGE_PCT + TAKER_FEE_PCT)
+
+    def entry_fill_price(self, current_price: float, side: str) -> float:
+        """Slippage-adjusted entry execution price.
+
+        Mirrors the slippage applied inside ``execute_buy`` /
+        ``execute_short`` so callers can compute SL/TP levels against the
+        real fill price instead of the pre-slippage quote.
+        """
+        if side == "SHORT":
+            return current_price * (1 - self.SLIPPAGE_PCT / 100)
+        return current_price * (1 + self.SLIPPAGE_PCT / 100)
+
     def execute_buy(
         self,
         amount_usd: float,
@@ -39,7 +58,7 @@ class OrderSimulator:
         ts = timestamp or datetime.now(timezone.utc)
 
         # Slippage: buy at slightly higher price
-        execution_price = current_price * (1 + self.SLIPPAGE_PCT / 100)
+        execution_price = self.entry_fill_price(current_price, "LONG")
 
         # Fee deducted from the amount
         fee = amount_usd * (self.TAKER_FEE_PCT / 100)
@@ -94,7 +113,7 @@ class OrderSimulator:
         ts = timestamp or datetime.now(timezone.utc)
 
         # Slippage: short entry at slightly lower price
-        execution_price = current_price * (1 - self.SLIPPAGE_PCT / 100)
+        execution_price = self.entry_fill_price(current_price, "SHORT")
 
         fee = amount_usd * (self.TAKER_FEE_PCT / 100)
         net_amount_usd = amount_usd - fee

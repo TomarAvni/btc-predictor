@@ -368,20 +368,23 @@ class TradingAgent:
             )
             return None
 
-        # Calculate SL and TP
+        # Calculate SL and TP from the slippage-adjusted fill price so the
+        # levels match the price the order actually executes at (the simulator
+        # applies entry slippage), not the pre-slippage quote.
+        fill_price = self.simulator.entry_fill_price(current_price, signal.direction)
         stop_loss = self.risk_manager.calculate_stop_loss(
-            entry_price=current_price,
+            entry_price=fill_price,
             predicted_magnitude_pct=signal.magnitude,
             side=signal.direction,
         )
         take_profit = self.risk_manager.calculate_take_profit(
-            entry_price=current_price,
+            entry_price=fill_price,
             predicted_magnitude_pct=signal.magnitude,
             side=signal.direction,
         )
 
         # Verify single-trade risk
-        sl_distance_pct = abs(current_price - stop_loss) / current_price * 100
+        sl_distance_pct = abs(fill_price - stop_loss) / fill_price * 100
         if not self.risk_manager.check_single_trade_risk(
             amount_usd, sl_distance_pct, self.portfolio.total_value_usd
         ):
@@ -487,12 +490,17 @@ class TradingAgent:
             timestamp=timestamp,
         )
 
-        # Update portfolio (close the position)
+        # Update portfolio (close the position). Pass the simulator's
+        # fee-accurate net P&L and fees so the persisted Trade in trades.json
+        # matches the journal/simulator instead of recomputing gross P&L.
         self.portfolio.close_position(
             position_id=position.id,
             exit_price=trade.exit_price,
             exit_reason=reason,
             timestamp=timestamp,
+            pnl_usd=trade.pnl_usd,
+            pnl_pct=trade.pnl_pct,
+            fees_paid=trade.fees_paid,
         )
 
         # Log exit
