@@ -34,6 +34,12 @@ inject_css()
 render_mobile_nav()
 
 st.markdown("# 📡 Signal Deep Dive")
+st.caption(
+    "Explore one market signal at a time: how it has moved, how it correlates "
+    "with BTC price, how well its bullish/bearish leanings have lined up with "
+    "subsequent moves, and how much the model actually relies on it "
+    "(**feature importance**). Pick a signal below to begin."
+)
 
 # ── Gather available signal names ─────────────────────────────────────────
 
@@ -89,7 +95,7 @@ else:
     chart_df.columns = [signal_name]
     st.plotly_chart(
         create_line_chart(chart_df, title=f"{signal_name} over time", colors=[BLUE]),
-        use_container_width=True,
+        width="stretch",
     )
 
 # ── Correlation with price ───────────────────────────────────────────────
@@ -107,7 +113,7 @@ if not sig_df.empty and not price_df.empty and not sig_df["value"].isna().all():
                 x_label=signal_name,
                 y_label="BTC Price ($)",
             ),
-            use_container_width=True,
+            width="stretch",
         )
         corr = merged["value"].corr(merged["close"])
         st.metric("Pearson Correlation", f"{corr:.3f}")
@@ -186,5 +192,5 @@ st.plotly_chart(
         horizontal=True,
         height=450,
     ),
-    use_container_width=True,
+    width="stretch",
 )

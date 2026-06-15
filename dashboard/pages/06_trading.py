@@ -69,6 +69,26 @@ trades = load_trades()
 backtest = load_backtest()
 
 st.markdown("# 💹 Trading Agent")
+st.caption(
+    "A **demo (paper-money)** trading agent that acts on the predictions — "
+    "**no real funds are involved**. It starts from a **$2,000 virtual** balance."
+)
+
+with st.expander("ℹ️ How the demo agent works"):
+    st.markdown(
+        """
+        - When a prediction is confident enough, the agent opens a simulated
+          position; if confidence is too low it **SKIPs** (no trade).
+        - **Portfolio Value** = cash + the current value of any open positions.
+          **P&L** is profit/loss vs. the $2,000 starting balance, and
+          **Max Drawdown** is the largest drop from a peak.
+        - **Open Positions** shows live trades with their **unrealized P&L**
+          (paper gains/losses that move with price until the position closes).
+        - **Win Rate** is the share of closed trades that finished in profit.
+        - Everything here is **simulated** to test the strategy safely — it is
+          **not financial advice**.
+        """
+    )
 
 if portfolio is None and not trades and backtest is None:
     st.info(
@@ -153,7 +173,7 @@ if portfolio and portfolio.get("positions"):
             "Take Profit": f"${p.get('take_profit', 0):,.2f}",
         })
 
-    st.dataframe(pd.DataFrame(pos_data), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(pos_data), width="stretch", hide_index=True)
 
 # ── P&L Chart ─────────────────────────────────────────────────────────────
 
@@ -168,7 +188,7 @@ if trades:
         running += t.get("pnl_usd", 0)
         cumulative_pnl.append(running)
 
-    st.plotly_chart(create_cumulative_pnl_chart(cumulative_pnl), use_container_width=True)
+    st.plotly_chart(create_cumulative_pnl_chart(cumulative_pnl), width="stretch")
 
 # ── Trade History ─────────────────────────────────────────────────────────
 
@@ -190,7 +210,7 @@ if trades:
             "Reason": t.get("exit_reason", "—"),
         })
 
-    st.dataframe(pd.DataFrame(trade_rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(trade_rows), width="stretch", hide_index=True)
 
     # Summary stats
     st.markdown("### Performance Summary")

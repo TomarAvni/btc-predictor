@@ -43,6 +43,12 @@ latest = runs[-1] if runs else None
 price_df = get_price_data()
 
 st.markdown("# 📡 Live Predictions")
+st.caption(
+    "A detailed view of the latest prediction run: the UP/DOWN call and "
+    "confidence for each horizon, plus the market signals behind it. "
+    "**Confidence** is the model's conviction (not a probability of profit), "
+    "and **magnitude** is the size of the expected move."
+)
 
 if not latest:
     st.warning("No predictions available yet. Run `python main.py --predict` to get started.")
@@ -75,13 +81,14 @@ render_prediction_cards(preds)
 # ── Confidence gauges per horizon ─────────────────────────────────────────
 
 st.markdown("### Confidence by Horizon")
+st.caption("How sure the model is for each timeframe. Green ≥60% (strong), amber 40–60%, red <40% (weak).")
 layout_marker("stack")
 gcols = st.columns(4, gap="small")
 for i, tf in enumerate(("24h", "7d", "30d", "90d")):
     match = next((p for p in preds if p["timeframe"] == tf), None)
     with gcols[i]:
         val = match["confidence"] if match else 0
-        st.plotly_chart(create_gauge_chart(val, title=tf), use_container_width=True)
+        st.plotly_chart(create_gauge_chart(val, title=tf), width="stretch")
 
 # ── Signal breakdown ──────────────────────────────────────────────────────
 

@@ -38,6 +38,24 @@ inject_css()
 render_mobile_nav()
 
 st.markdown("# 📊 Performance Tracking")
+st.caption("How well the predictions have actually held up over time.")
+
+with st.expander("ℹ️ How to read this page"):
+    st.markdown(
+        """
+        - **Direction accuracy** — how often the UP/DOWN call was right. 50% is a
+          coin flip; the model aims for a small, consistent edge (~52–54%).
+        - **Confidence calibration** — whether confidence means what it says. If
+          the model is "70% confident", those calls should be right ~70% of the
+          time. Points near the diagonal line = well calibrated.
+        - **Cumulative P&L (simulated)** — a what-if of following every signal; it
+          illustrates the strategy, it is not the live demo portfolio (see the
+          **Trading** page for that).
+        - **Maturing data:** predictions are only scored once their horizon
+          completes (a 90-day call takes 90 days). Until enough have matured,
+          some sections show **simulated/demo** numbers, clearly labelled.
+        """
+    )
 
 live_scores = get_live_performance_scores()
 rolling = load_rolling_accuracy()
@@ -174,7 +192,7 @@ if rolling_data:
     roll_df.index = pd.RangeIndex(max_len)
     st.plotly_chart(
         create_line_chart(roll_df, title="Rolling 10-Run Accuracy", colors=[BLUE, GREEN, RED, YELLOW]),
-        use_container_width=True,
+        width="stretch",
     )
 
 # ── Calibration curve ────────────────────────────────────────────────────
@@ -193,7 +211,7 @@ if not all_preds.empty:
             predicted.append((lo + hi) / 2)
             actual.append(bucket["correct"].mean() * 100)
     if predicted:
-        st.plotly_chart(create_calibration_curve(predicted, actual), use_container_width=True)
+        st.plotly_chart(create_calibration_curve(predicted, actual), width="stretch")
     else:
         st.caption("Not enough data for calibration curve.")
 
@@ -216,7 +234,7 @@ for h in horizons:
     equity[h] = portfolio
 
 if equity:
-    st.plotly_chart(create_equity_curve(equity), use_container_width=True)
+    st.plotly_chart(create_equity_curve(equity), width="stretch")
 
 # ── Performance by regime ────────────────────────────────────────────────
 
@@ -231,7 +249,7 @@ if not bt.empty and "regime" in bt.columns and "direction_accuracy" in bt.column
             title="Average Accuracy by Regime",
             color=BLUE,
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
 # ── Monthly performance table ─────────────────────────────────────────────
@@ -253,7 +271,7 @@ if not all_preds.empty:
         )
         .reset_index()
     )
-    st.dataframe(monthly, use_container_width=True, hide_index=True)
+    st.dataframe(monthly, width="stretch", hide_index=True)
 
 # ── Win / loss streak ────────────────────────────────────────────────────
 

@@ -29,6 +29,12 @@ inject_css()
 render_mobile_nav()
 
 st.markdown("# 📈 Market Overview")
+st.caption(
+    "Interactive BTC price charts and big-picture context. Toggle indicators "
+    "on the candlestick chart, compare past **halving cycles**, and see where "
+    "price sits within its long-term **power-law corridor**. Use the timeframe "
+    "buttons to zoom from one day to the full history."
+)
 
 price_df = get_price_data()
 
@@ -104,7 +110,7 @@ st.plotly_chart(
         show_macd=show_macd,
         height=CHART_HEIGHT_CANDLESTICK,
     ),
-    use_container_width=True,
+    width="stretch",
 )
 
 # ── Halving cycle overlay ───────────────────────────────────────────────
@@ -152,7 +158,7 @@ if cycle_data:
             title="Normalised Price by Halving Cycle (1x = halving price)",
             colors=[BLUE, GREEN, RED, YELLOW],
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
 # ── Power law chart ──────────────────────────────────────────────────────
@@ -183,7 +189,7 @@ if valid.sum() > 100:
             colors=[BLUE, YELLOW, GREEN, RED],
             height=450,
         ),
-        use_container_width=True,
+        width="stretch",
     )
 else:
     st.caption("Not enough data for power law analysis.")

@@ -34,6 +34,23 @@ inject_css()
 render_mobile_nav()
 
 st.markdown("# 🧪 Backtest & Validation Results")
+st.caption("How the model performs on historical data it didn't train on.")
+
+with st.expander("ℹ️ What am I looking at?"):
+    st.markdown(
+        """
+        - **80/20 validation** — the model trains on older data and is tested on
+          the most recent slice it has never seen, with a gap in between to avoid
+          "peeking". This is the most honest read on real-world skill.
+        - **Walk-forward backtest** — the model is repeatedly retrained and tested
+          across many historical windows, simulating how it would have done over time.
+        - **Equity curve / drawdown** — a simulated portfolio following the signals;
+          drawdown is the worst peak-to-trough drop.
+        - **Confusion matrix** — correct vs. incorrect UP/DOWN calls.
+        - Numbers here are **historical simulations**, not the live demo portfolio,
+          and past performance doesn't guarantee future results.
+        """
+    )
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Validation Results Section (from validate.py)
@@ -73,7 +90,7 @@ if validation:
                 })
         if rows:
             acc_df = pd.DataFrame(rows)
-            st.dataframe(acc_df, use_container_width=True, hide_index=True)
+            st.dataframe(acc_df, width="stretch", hide_index=True)
 
             # Bar chart: accuracy by model per timeframe
             for tf in ["24h", "7d", "30d", "90d"]:
@@ -97,7 +114,7 @@ if validation:
                         title="Average Direction Accuracy by Model",
                         color=BLUE,
                     ),
-                    use_container_width=True,
+                    width="stretch",
                 )
 
     # ── Confidence Calibration ─────────────────────────────────────────────
@@ -118,7 +135,7 @@ if validation:
             stated_confs.append(data.get("stated_confidence", 0))
             actual_accs.append(data.get("actual_accuracy", 0))
 
-        st.dataframe(pd.DataFrame(cal_rows), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(cal_rows), width="stretch", hide_index=True)
 
         if stated_confs and actual_accs:
             cal_chart_df = pd.DataFrame({
@@ -132,7 +149,7 @@ if validation:
                     x_label="Stated Confidence (%)",
                     y_label="Actual Accuracy (%)",
                 ),
-                use_container_width=True,
+                width="stretch",
             )
     else:
         st.caption("No calibration data available yet.")
@@ -174,7 +191,7 @@ if validation:
                     title="Trading Agent Equity Curve (Test Period)",
                     colors=[GREEN],
                 ),
-                use_container_width=True,
+                width="stretch",
             )
 
             # BTC price overlay for comparison
@@ -192,7 +209,7 @@ if validation:
                             title="Agent vs Buy & Hold (normalized to $2000 start)",
                             colors=[GREEN, BLUE],
                         ),
-                        use_container_width=True,
+                        width="stretch",
                     )
 
     # ── Market Regime Breakdown ────────────────────────────────────────────
@@ -207,7 +224,7 @@ if validation:
                 title="Direction Accuracy by Market Regime",
                 color=YELLOW,
             ),
-            use_container_width=True,
+            width="stretch",
         )
 
     # ── Feature Importance ─────────────────────────────────────────────────
@@ -222,7 +239,7 @@ if validation:
                 title="Feature Importance (%)",
                 color=GREEN,
             ),
-            use_container_width=True,
+            width="stretch",
         )
 
     st.divider()
@@ -269,7 +286,7 @@ for _, row in bt.iterrows():
 eq_df = pd.DataFrame({"Portfolio ($)": portfolio[1:]}, index=range(len(portfolio) - 1))
 st.plotly_chart(
     create_line_chart(eq_df, title="Simulated Portfolio Value", colors=[GREEN]),
-    use_container_width=True,
+    width="stretch",
 )
 
 # ── Drawdown ─────────────────────────────────────────────────────────────
@@ -281,7 +298,7 @@ drawdown = (pd.Series(portfolio[1:]) - peak) / peak * 100
 dd_df = pd.DataFrame({"Drawdown (%)": drawdown.values}, index=range(len(drawdown)))
 st.plotly_chart(
     create_line_chart(dd_df, title="Drawdown from Peak", colors=[RED]),
-    use_container_width=True,
+    width="stretch",
 )
 
 max_dd = drawdown.min()
@@ -300,7 +317,7 @@ if "regime" in bt.columns:
             title="Direction Accuracy by Regime",
             color=BLUE,
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
     regime_counts = bt["regime"].value_counts()
@@ -311,7 +328,7 @@ if "regime" in bt.columns:
             title="Number of Periods per Regime",
             color=YELLOW,
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
 # ── Prediction scatter ───────────────────────────────────────────────────
@@ -327,7 +344,7 @@ if "avg_predicted_return" in bt.columns and "avg_actual_return" in bt.columns:
             x_label="Predicted Return (%)",
             y_label="Actual Return (%)",
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
 # ── Confusion matrix (direction) ─────────────────────────────────────────
@@ -351,7 +368,7 @@ for horizon in ["24h", "7d", "30d", "90d"]:
             title=f"Confusion Matrix — {horizon}",
             height=300,
         ),
-        use_container_width=True,
+        width="stretch",
     )
 
 # ── Model comparison placeholder ─────────────────────────────────────────
@@ -362,5 +379,5 @@ model_names = ["Baseline", "XGBoost", "LSTM", "Ensemble"]
 model_accs = [50.2, 57.8, 55.1, 59.4]
 st.plotly_chart(
     create_bar_chart(model_names, model_accs, title="Direction Accuracy by Model", color=BLUE),
-    use_container_width=True,
+    width="stretch",
 )

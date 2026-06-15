@@ -29,6 +29,7 @@ pyyaml>=6.0.0
 plotly>=5.22.0
 streamlit>=1.38.0
 streamlit-autorefresh>=1.0.1
+requests>=2.32.0  # live BTC price monitor (Bitstamp / CoinGecko public APIs)
 
 # Utilities
 python-dateutil>=2.9.0
