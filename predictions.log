@@ -466,3 +466,97 @@ SIGNAL SUMMARY:
 
 NOTE: Confidence decreases with longer timeframes.
 ================================================================================
+
+================================================================================
+[2026-06-15 19:06 UTC] -- Prediction Run #20
+================================================================================
+
+PREDICTIONS:
+  6h    | UP    | +0.2%    | Confidence: 71%
+  12h   | UP    | +0.3%    | Confidence: 68%
+  18h   | UP    | +0.4%    | Confidence: 66%
+  24h   | DOWN  | -0.4%    | Confidence: 19%
+  30h   | UP    | +0.6%    | Confidence: 64%
+  36h   | UP    | +0.6%    | Confidence: 63%
+  42h   | UP    | +0.7%    | Confidence: 62%
+  48h   | UP    | +0.8%    | Confidence: 61%
+  54h   | UP    | +0.8%    | Confidence: 61%
+  60h   | UP    | +0.9%    | Confidence: 60%
+  66h   | UP    | +0.9%    | Confidence: 60%
+  72h   | UP    | +1.0%    | Confidence: 60%
+  78h   | UP    | +1.0%    | Confidence: 59%
+  84h   | UP    | +1.1%    | Confidence: 59%
+  90h   | UP    | +1.1%    | Confidence: 58%
+  96h   | UP    | +1.2%    | Confidence: 58%
+  102h  | UP    | +1.2%    | Confidence: 58%
+  108h  | UP    | +1.3%    | Confidence: 58%
+  114h  | UP    | +1.3%    | Confidence: 57%
+  120h  | UP    | +1.3%    | Confidence: 57%
+  126h  | UP    | +1.4%    | Confidence: 57%
+  132h  | UP    | +1.4%    | Confidence: 57%
+  138h  | UP    | +1.5%    | Confidence: 57%
+  144h  | UP    | +1.5%    | Confidence: 56%
+  150h  | UP    | +1.5%    | Confidence: 56%
+  156h  | UP    | +1.6%    | Confidence: 56%
+  162h  | UP    | +1.6%    | Confidence: 56%
+  168h  | DOWN  | -0.6%    | Confidence: 30%
+  30d   | DOWN  | -5.6%    | Confidence: 10%
+
+SIGNAL SUMMARY:
+  Price             : $66,830.50
+  RSI (14)          : 67.1 -- Neutral
+  MACD              : 567.15 -- Bullish crossover
+  ADX               : 46.6 -- Strong trend
+  Volume Ratio      : 0.10 -- Below average
+  EMA 50/200        : Golden cross
+  Cycle Phase       : Euphoria Zone -- 54% through cycle
+
+NOTE: Confidence decreases with longer timeframes.
+================================================================================
+
+================================================================================
+[2026-06-15 19:06 UTC] -- Prediction Run #21
+================================================================================
+
+PREDICTIONS:
+  6h    | UP    | +0.2%    | Confidence: 71%
+  12h   | UP    | +0.3%    | Confidence: 68%
+  18h   | UP    | +0.4%    | Confidence: 66%
+  24h   | DOWN  | -0.4%    | Confidence: 19%
+  30h   | UP    | +0.6%    | Confidence: 64%
+  36h   | UP    | +0.6%    | Confidence: 63%
+  42h   | UP    | +0.7%    | Confidence: 62%
+  48h   | UP    | +0.8%    | Confidence: 61%
+  54h   | UP    | +0.8%    | Confidence: 61%
+  60h   | UP    | +0.9%    | Confidence: 60%
+  66h   | UP    | +0.9%    | Confidence: 60%
+  72h   | UP    | +1.0%    | Confidence: 60%
+  78h   | UP    | +1.0%    | Confidence: 59%
+  84h   | UP    | +1.1%    | Confidence: 59%
+  90h   | UP    | +1.1%    | Confidence: 58%
+  96h   | UP    | +1.2%    | Confidence: 58%
+  102h  | UP    | +1.2%    | Confidence: 58%
+  108h  | UP    | +1.3%    | Confidence: 58%
+  114h  | UP    | +1.3%    | Confidence: 57%
+  120h  | UP    | +1.3%    | Confidence: 57%
+  126h  | UP    | +1.4%    | Confidence: 57%
+  132h  | UP    | +1.4%    | Confidence: 57%
+  138h  | UP    | +1.5%    | Confidence: 57%
+  144h  | UP    | +1.5%    | Confidence: 56%
+  150h  | UP    | +1.5%    | Confidence: 56%
+  156h  | UP    | +1.6%    | Confidence: 56%
+  162h  | UP    | +1.6%    | Confidence: 56%
+  168h  | DOWN  | -0.6%    | Confidence: 30%
+  30d   | DOWN  | -5.6%    | Confidence: 10%
+
+SIGNAL SUMMARY:
+  Price             : $66,830.50
+  RSI (14)          : 67.1 -- Neutral
+  MACD              : 567.15 -- Bullish crossover
+  ADX               : 46.6 -- Strong trend
+  Volume Ratio      : 0.10 -- Below average
+  EMA 50/200        : Golden cross
+  Cycle Phase       : Euphoria Zone -- 54% through cycle
+
+NOTE: Confidence decreases with longer timeframes.
+================================================================================
