@@ -24,11 +24,21 @@ import pandas as pd
 
 from src import DATA_DIR
 from src.models.baseline_model import BaselineModel
+from src.models.calibration import (
+    ProbabilityCalibrator,
+    directional_confidence,
+    expected_calibration_error,
+)
 from src.models.confidence import ConfidenceCalibrator
 from src.models.xgboost_model import XGBoostPredictor
 from src.simulation.data_loader import HistoricalDataLoader
 from src.simulation.labeler import ForwardReturnLabeler
 from src.training.feature_builder import TrainingFeatureBuilder
+from src.training.wf_evaluation import (
+    fit_calibrator_from_oof,
+    run_walk_forward,
+    tune_xgboost,
+)
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -59,6 +69,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--skip-tft", action="store_true",
         help="Skip optional TFT training (faster, CPU-only CI runs)",
+    )
+    parser.add_argument(
+        "--no-walk-forward", action="store_true",
+        help="Skip purged walk-forward validation + calibration fitting",
+    )
+    parser.add_argument(
+        "--wf-splits", type=int, default=5,
+        help="Number of purged walk-forward folds (default: 5)",
+    )
+    parser.add_argument(
+        "--embargo-hours", type=int, default=0,
+        help="Extra embargo gap (hours) beyond the per-horizon label purge",
+    )
+    parser.add_argument(
+        "--wf-min-train-frac", type=float, default=0.4,
+        help="Fraction of the series reserved before the first walk-forward test block",
+    )
+    parser.add_argument(
+        "--tune", action="store_true",
+        help="Run a modest time-series-aware XGBoost grid search (24h horizon) and report",
     )
     return parser.parse_args()
 
@@ -305,6 +335,7 @@ def evaluate_on_test(
                     "timeframe": tf,
                     "pred_direction": pred_dir,
                     "pred_magnitude": pred["predicted_magnitude"],
+                    "direction_prob": pred["direction_prob"],
                     "confidence": pred.get("confidence", 0.5),
                     "actual_return": float(actual_return),
                     "actual_direction": actual_direction,
@@ -320,6 +351,7 @@ def evaluate_on_test(
                     "timeframe": tf,
                     "pred_direction": pred_dir,
                     "pred_magnitude": pred["predicted_magnitude"],
+                    "direction_prob": pred["direction_prob"],
                     "confidence": pred.get("raw_confidence", 0.5),
                     "actual_return": float(actual_return),
                     "actual_direction": actual_direction,
@@ -340,6 +372,7 @@ def evaluate_on_test(
                     "timeframe": tf,
                     "pred_direction": ens_dir,
                     "pred_magnitude": ens_mag,
+                    "direction_prob": ens_prob,
                     "confidence": abs(ens_prob - 0.5) * 2,
                     "actual_return": float(actual_return),
                     "actual_direction": actual_direction,
@@ -382,22 +415,33 @@ def compute_metrics(results: dict[str, list[dict]]) -> dict[str, Any]:
 
 
 def compute_calibration(results: dict[str, list[dict]]) -> dict[str, Any]:
-    """Compute confidence calibration data."""
+    """Compute confidence calibration data (single-split holdout).
+
+    Confidence here is the *directional* confidence ``max(P, 1-P)`` -- i.e. the
+    probability the model assigns to the side it actually predicted. This is the
+    quantity that should match realized accuracy, and is the correct semantics
+    for the downstream Kelly sizing. (The old code binned ``|P-0.5|*2``, a margin
+    that almost never exceeds 0.5, so every bin below 50% was empty.)
+    """
     calibration: dict[str, Any] = {}
 
-    # Use ensemble or best available model
     model_key = "ensemble" if results.get("ensemble") else "xgboost"
     preds = results.get(model_key, [])
     if not preds:
         return calibration
 
     df = pd.DataFrame(preds)
-    df["confidence_pct"] = df["confidence"] * 100
+    if "direction_prob" not in df.columns:
+        return calibration
+
+    p = df["direction_prob"].astype(float).to_numpy()
+    df["confidence_pct"] = np.maximum(p, 1.0 - p) * 100
 
     bins = [50, 60, 70, 80, 90, 100]
     for i in range(len(bins) - 1):
         low, high = bins[i], bins[i + 1]
-        mask = (df["confidence_pct"] >= low) & (df["confidence_pct"] < high)
+        upper = high + 0.001 if high == 100 else high
+        mask = (df["confidence_pct"] >= low) & (df["confidence_pct"] < upper)
         bin_df = df[mask]
         if len(bin_df) >= 10:
             actual_acc = float(bin_df["correct"].mean() * 100)
@@ -467,6 +511,167 @@ def get_feature_importance(models: dict[str, dict]) -> list[tuple[str, float]]:
 
     sorted_imp = sorted(importances.items(), key=lambda x: x[1], reverse=True)
     return sorted_imp[:10]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Purged Walk-Forward Validation + Calibration (out-of-sample, honest)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+def run_walk_forward_section(
+    price_df: pd.DataFrame,
+    merged_df: pd.DataFrame,
+    output_dir: Path,
+    n_splits: int,
+    embargo_hours: int,
+    min_train_frac: float,
+    tune: bool,
+) -> dict[str, Any]:
+    """Run purged walk-forward CV across the full series, fit + persist the
+    isotonic calibrator on out-of-fold predictions, and (optionally) tune.
+
+    This is the methodologically-correct estimate of live performance: every
+    prediction is strictly out-of-sample relative to its training window, with
+    a per-horizon purge (+ optional embargo) removing label overlap at the seam.
+    """
+    model_dir = output_dir / "models"
+    model_dir.mkdir(parents=True, exist_ok=True)
+
+    feature_builder = TrainingFeatureBuilder(model_dir=model_dir)
+    labeler = ForwardReturnLabeler()
+
+    features_df = feature_builder.build_features(merged_df)
+    labels_df = labeler.compute_labels(price_df)
+
+    common_idx = features_df.index.intersection(labels_df.index)
+    features_df = features_df.loc[common_idx].sort_index()
+    labels_df = labels_df.loc[common_idx].sort_index()
+
+    numeric = features_df.select_dtypes(include=[np.number]).fillna(0)
+
+    logger.info(
+        "Walk-forward: %d samples × %d features, %d folds, embargo=%dh",
+        len(numeric), numeric.shape[1], n_splits, embargo_hours,
+    )
+
+    wf_results = run_walk_forward(
+        features=numeric,
+        labels=labels_df,
+        timeframes=TIMEFRAMES,
+        horizon_hours=HORIZON_HOURS,
+        n_splits=n_splits,
+        embargo_hours=embargo_hours,
+        min_train_frac=min_train_frac,
+    )
+
+    calibrator, calib_report = fit_calibrator_from_oof(wf_results, model_dir)
+
+    summary: dict[str, Any] = {}
+    for tf, res in wf_results.items():
+        summary[tf] = {
+            "accuracy": round(res["accuracy"] * 100, 1),
+            "baseline_accuracy": (
+                round(res["baseline_accuracy"] * 100, 1)
+                if res["baseline_accuracy"] is not None else None
+            ),
+            "auc": round(res["auc"], 4) if res["auc"] is not None else None,
+            "up_rate": round(res["up_rate"] * 100, 1),
+            "n": res["n"],
+            "n_folds": res["n_folds"],
+            "fold_accuracies": [round(a * 100, 1) for a in res["fold_accuracies"]],
+            "confusion": res["confusion"],
+        }
+
+    tune_result = None
+    if tune:
+        logger.info("Running XGBoost hyperparameter search (24h horizon)...")
+        tune_result = tune_xgboost(
+            features=numeric,
+            labels=labels_df,
+            timeframe="24h",
+            horizon_hours=HORIZON_HOURS["24h"],
+            n_splits=max(3, n_splits - 1),
+            embargo_hours=embargo_hours,
+            min_train_frac=min_train_frac,
+        )
+
+    return {
+        "summary": summary,
+        "calibration": calib_report,
+        "tuning": tune_result,
+        "calibrated_horizons": calibrator.fitted_horizons,
+    }
+
+
+def generate_wf_report(wf_section: dict[str, Any]) -> list[str]:
+    """Render the walk-forward + calibration section of the text report."""
+    lines: list[str] = []
+    summary = wf_section.get("summary", {})
+    calib = wf_section.get("calibration", {})
+
+    lines.append("PURGED WALK-FORWARD VALIDATION (out-of-sample, XGBoost):")
+    if not summary:
+        lines.append("  No walk-forward folds produced (insufficient data).")
+        lines.append("")
+        return lines
+
+    lines.append(
+        f"  {'Horizon':<10s}{'WF Acc':>9s}{'Baseline':>10s}{'AUC':>8s}"
+        f"{'Up-rate':>9s}{'Folds':>7s}{'N':>9s}"
+    )
+    for tf in TIMEFRAMES:
+        if tf not in summary:
+            continue
+        s = summary[tf]
+        auc = f"{s['auc']:.3f}" if s["auc"] is not None else "N/A"
+        base = f"{s['baseline_accuracy']:.1f}%" if s["baseline_accuracy"] is not None else "N/A"
+        lines.append(
+            f"  {tf:<10s}{s['accuracy']:>8.1f}%{base:>10s}{auc:>8s}"
+            f"{s['up_rate']:>8.1f}%{s['n_folds']:>7d}{s['n']:>9d}"
+        )
+    lines.append("")
+    lines.append("  Per-fold WF accuracy (chronological):")
+    for tf in TIMEFRAMES:
+        if tf in summary and summary[tf]["fold_accuracies"]:
+            accs = ", ".join(f"{a:.1f}%" for a in summary[tf]["fold_accuracies"])
+            lines.append(f"    {tf:<6s} {accs}")
+    lines.append("")
+    lines.append("  NOTE: longer-horizon accuracy is inflated by overlapping labels")
+    lines.append("  and BTC's upward drift (high up-rate); treat 30d/90d AUC, not raw")
+    lines.append("  accuracy, as the edge signal, and watch the LAST fold for decay.")
+    lines.append("")
+
+    lines.append("PROBABILITY CALIBRATION (isotonic, fit on OOF predictions):")
+    if calib:
+        lines.append(f"  {'Horizon':<10s}{'ECE before':>12s}{'ECE after':>12s}{'AUC':>8s}")
+        for tf in TIMEFRAMES:
+            if tf not in calib:
+                continue
+            c = calib[tf]
+            auc = f"{c['auc']:.3f}" if c["auc"] is not None else "N/A"
+            lines.append(
+                f"  {tf:<10s}{c['ece_before_pp']:>10.2f}pp{c['ece_after_pp']:>10.2f}pp{auc:>8s}"
+            )
+        lines.append("")
+        lines.append("  (ECE = Expected Calibration Error in percentage points; lower is better)")
+        lines.append("  ECE-after is measured in-sample to the isotonic fit, so it is a")
+        lines.append("  slightly optimistic floor; the before/after gap is the honest signal")
+        lines.append("  that the raw model probabilities were over-confident.")
+    else:
+        lines.append("  Calibration not fit (insufficient out-of-fold data).")
+    lines.append("")
+
+    tuning = wf_section.get("tuning")
+    if tuning and "best" in tuning:
+        best = tuning["best"]
+        lines.append("HYPERPARAMETER SEARCH (24h, purged walk-forward):")
+        lines.append(
+            f"  Best: {best['params']} -> logloss={best['mean_logloss']}, "
+            f"acc={best['mean_accuracy']}%"
+        )
+        lines.append("")
+
+    return lines
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -580,6 +785,7 @@ def generate_report(
     regime_accuracy: dict[str, float],
     feature_importance: list[tuple[str, float]],
     trading_metrics: Optional[dict[str, Any]],
+    wf_section: Optional[dict[str, Any]] = None,
 ) -> str:
     """Generate the human-readable validation report."""
     lines = [
@@ -636,8 +842,12 @@ def generate_report(
 
     lines.append("")
 
-    # Confidence calibration
-    lines.append("CONFIDENCE CALIBRATION:")
+    # Purged walk-forward + calibration (the honest, out-of-sample numbers)
+    if wf_section:
+        lines.extend(generate_wf_report(wf_section))
+
+    # Confidence calibration (single 80/20 holdout)
+    lines.append("CONFIDENCE CALIBRATION (single 80/20 holdout, directional):")
     if calibration:
         for conf_level, data in calibration.items():
             status = "well calibrated" if data["well_calibrated"] else "needs adjustment"
@@ -750,6 +960,7 @@ def save_results_json(
     regime_accuracy: dict[str, float],
     feature_importance: list[tuple[str, float]],
     trading_metrics: Optional[dict[str, Any]],
+    wf_section: Optional[dict[str, Any]] = None,
 ) -> None:
     """Save machine-readable results to JSON."""
     results = {
@@ -771,6 +982,12 @@ def save_results_json(
             for feat, imp in feature_importance
         ],
     }
+
+    if wf_section:
+        results["walk_forward"] = wf_section.get("summary", {})
+        results["walk_forward_calibration"] = wf_section.get("calibration", {})
+        if wf_section.get("tuning"):
+            results["hyperparameter_search"] = wf_section["tuning"]
 
     if trading_metrics:
         # Remove equity curve from JSON summary (it can be large)
@@ -876,6 +1093,39 @@ def main() -> int:
     regime_accuracy = compute_regime_accuracy(results, split_info["test_price"])
     feature_importance = get_feature_importance(trained["models"])
 
+    # Step 4b: Purged walk-forward validation + calibration (honest OOS numbers)
+    wf_section = None
+    if not args.no_walk_forward:
+        print(f"\n{'─'*70}")
+        print("  Step 4b: Purged walk-forward validation + calibration...")
+        print(f"{'─'*70}")
+        try:
+            wf_section = run_walk_forward_section(
+                price_df, merged_df, output_dir,
+                n_splits=args.wf_splits,
+                embargo_hours=args.embargo_hours,
+                min_train_frac=args.wf_min_train_frac,
+                tune=args.tune,
+            )
+            for tf in TIMEFRAMES:
+                s = wf_section["summary"].get(tf)
+                if s:
+                    c = wf_section["calibration"].get(tf, {})
+                    print(
+                        f"    {tf}: WF acc={s['accuracy']:.1f}% "
+                        f"(baseline={s['baseline_accuracy']}), "
+                        f"AUC={s['auc']}, "
+                        f"ECE {c.get('ece_before_pp','?')}->{c.get('ece_after_pp','?')}pp"
+                    )
+            print(f"    Calibrator fit for: {wf_section['calibrated_horizons']}")
+        except Exception as e:
+            logger.exception("Walk-forward validation failed: %s", e)
+            print(f"  [WARN] Walk-forward validation failed (non-fatal): {e}")
+    else:
+        print(f"\n{'─'*70}")
+        print("  Step 4b: Walk-forward validation skipped (--no-walk-forward)")
+        print(f"{'─'*70}")
+
     for model_name, model_metrics in metrics.items():
         print(f"\n  {model_name.upper()}:")
         for tf, tf_metrics in model_metrics.items():
@@ -916,7 +1166,7 @@ def main() -> int:
 
     report = generate_report(
         split_info, metrics, calibration, regime_accuracy,
-        feature_importance, trading_metrics,
+        feature_importance, trading_metrics, wf_section,
     )
 
     # Save report
@@ -927,7 +1177,7 @@ def main() -> int:
     # Save JSON results
     save_results_json(
         output_dir, split_info, metrics, calibration,
-        regime_accuracy, feature_importance, trading_metrics,
+        regime_accuracy, feature_importance, trading_metrics, wf_section,
     )
 
     elapsed = time.time() - start_time

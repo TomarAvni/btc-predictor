@@ -6,6 +6,7 @@ falls back to TA heuristics only if models are missing.
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +19,7 @@ from src.collectors.technical import TechnicalCollector
 from src.features.engineer import FeatureEngineer
 from src.features.temporal import TemporalFeatures
 from src.models.baseline_model import BaselineModel
+from src.models.calibration import ProbabilityCalibrator
 from src.models.xgboost_model import XGBoostPredictor
 from src.output.formatter import PredictionFormatter
 from src.output.text_logger import PredictionLogger
@@ -64,6 +66,14 @@ class PredictionEngine:
         self._xgboost_models: dict[str, XGBoostPredictor] = {}
         self._models_loaded = False
         self._using_ml = False
+        # Calibrated confidence: maps raw P(up) -> calibrated P(up) so the
+        # emitted confidence is an honest P(correct direction). Disabled if the
+        # artifact is missing or BTC_DISABLE_CALIBRATED_CONFIDENCE is set.
+        self._calibrator = ProbabilityCalibrator(model_dir=self.model_dir).load()
+        self._use_calibration = (
+            os.environ.get("BTC_DISABLE_CALIBRATED_CONFIDENCE", "").lower()
+            not in ("1", "true", "yes")
+        )
 
     # ------------------------------------------------------------------
     # Lifecycle
@@ -256,8 +266,14 @@ class PredictionEngine:
                 raw_conf = bp.get("confidence", abs(ens_prob - 0.5) * 2)
 
             direction = "UP" if ens_prob > 0.5 else "DOWN"
-            confidence = raw_conf * 100 if raw_conf <= 1.0 else raw_conf
-            confidence = max(10.0, min(95.0, confidence))
+
+            if self._use_calibration and self._calibrator.has_horizon(tf):
+                # Honest confidence = calibrated P(correct direction), in [50, 95].
+                confidence = self._calibrator.confidence(ens_prob, tf)
+            else:
+                # Legacy fallback: margin-derived pseudo-confidence.
+                confidence = raw_conf * 100 if raw_conf <= 1.0 else raw_conf
+                confidence = max(10.0, min(95.0, confidence))
 
             predictions.append({
                 "timeframe": tf,
