@@ -263,19 +263,21 @@ async def run_live() -> None:
             current_price = _get_current_price()
 
             if engine:
-                result = await engine.run_prediction()
-                predictions = result.get("predictions", [])
-                used_ml = bool(result.get("using_ml", False))
+                engine_result = await engine.run_prediction()
+                predictions = engine_result.get("predictions", [])
+                used_ml = bool(engine_result.get("using_ml", False))
+                run_number = int(engine_result.get("run_number", 0))
             else:
                 prev_price = current_price * (1 + np.random.normal(0, 0.002))
                 predictions = generate_synthetic_predictions(
                     current_price, prev_price, datetime.now(timezone.utc)
                 )
                 used_ml = False
+                run_number = 0
 
             # Process prediction
             result = agent.on_new_prediction(
-                predictions, current_price, used_ml=used_ml
+                predictions, current_price, used_ml=used_ml, run_number=run_number
             )
 
             # Display status
@@ -331,12 +333,14 @@ async def run_live_tick() -> None:
     current_price = _get_current_price()
 
     used_ml = False
+    run_number = 0
     try:
         from src.engine.predictor import PredictionEngine
         engine = PredictionEngine()
-        result = await engine.run_prediction()
-        predictions = result.get("predictions", [])
-        used_ml = bool(result.get("using_ml", False))
+        engine_result = await engine.run_prediction()
+        predictions = engine_result.get("predictions", [])
+        used_ml = bool(engine_result.get("using_ml", False))
+        run_number = int(engine_result.get("run_number", 0))
     except (ImportError, Exception):
         prev_price = current_price * (1 + np.random.normal(0, 0.002))
         predictions = generate_synthetic_predictions(
@@ -344,7 +348,9 @@ async def run_live_tick() -> None:
         )
         used_ml = False
 
-    result = agent.on_new_prediction(predictions, current_price, used_ml=used_ml)
+    result = agent.on_new_prediction(
+        predictions, current_price, used_ml=used_ml, run_number=run_number
+    )
 
     if not used_ml:
         print("[GATE] No real ML model used for this prediction — "
@@ -356,6 +362,16 @@ async def run_live_tick() -> None:
     print(f"  Actions: {len(result.get('actions', []))}")
     for action in result.get("actions", []):
         print(f"    {action['action']} ${action.get('amount_usd', 0):.2f}")
+
+    # Persist PerformanceTracker snapshot so Sharpe/drawdown survive restarts.
+    try:
+        perf = agent.get_performance_summary()
+        perf["snapshot_at"] = datetime.now(timezone.utc).isoformat()
+        snap_path = Path("data/trading/performance_snapshot.json")
+        snap_path.parent.mkdir(parents=True, exist_ok=True)
+        snap_path.write_text(json.dumps(perf, indent=2, default=str), encoding="utf-8")
+    except Exception as exc:  # noqa: BLE001
+        print(f"[WARN] Could not save performance snapshot: {exc}")
 
 
 def show_status() -> None:

@@ -7,6 +7,7 @@ falls back to TA heuristics only if models are missing.
 from __future__ import annotations
 
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -22,16 +23,17 @@ from src.models.baseline_model import BaselineModel
 from src.models.calibration import ProbabilityCalibrator
 from src.models.xgboost_model import XGBoostPredictor
 from src.output.formatter import PredictionFormatter
+from src.output.jsonl_logger import PredictionJSONLLogger
 from src.output.text_logger import PredictionLogger
 from src.training.feature_builder import TrainingFeatureBuilder
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-TIMEFRAMES = ["24h", "7d", "30d", "90d"]
+TIMEFRAMES = ["6h", "12h", "24h", "7d", "30d", "90d"]
 ENSEMBLE_WEIGHTS = {"baseline": 0.35, "xgboost": 0.65}
 # Minimum display magnitude per horizon when regressor/heuristic returns ~0
-MIN_MAGNITUDE = {"24h": 0.3, "7d": 0.8, "30d": 2.0, "90d": 4.0}
+MIN_MAGNITUDE = {"6h": 0.1, "12h": 0.2, "24h": 0.3, "7d": 0.8, "30d": 2.0, "90d": 4.0}
 
 
 class PredictionEngine:
@@ -59,6 +61,7 @@ class PredictionEngine:
         self.engineer = FeatureEngineer()
         self.formatter = PredictionFormatter()
         self.logger = PredictionLogger(output_path=pred_file)
+        self.jsonl_logger = PredictionJSONLLogger()
 
         self.model_dir = Path(models_path)
         self.feature_builder = TrainingFeatureBuilder(model_dir=self.model_dir)
@@ -111,8 +114,27 @@ class PredictionEngine:
         latest_ta = await self.technical.get_latest()
         signals = self._build_signal_summary(latest_price, latest_ta, cycle_info)
 
-        predictions = self._generate_predictions(price_df, ta_df)
+        predictions, features_dict, model_source = self._generate_predictions(
+            price_df, ta_df
+        )
         self.logger.log_prediction(predictions, signals)
+        run_number = self.logger._run_counter
+
+        # Build a flat signals summary for JSONL (value + interpretation per signal).
+        signals_flat = {
+            k: f"{v.get('value', '')} -- {v.get('interpretation', '')}".strip(" --")
+            for k, v in signals.items()
+        }
+        self.jsonl_logger.log(
+            run_number=run_number,
+            timestamp=datetime.now(timezone.utc),
+            btc_price=float(latest_price.get("close", 0)),
+            used_ml=self._using_ml,
+            model_source=model_source,
+            predictions=predictions,
+            features=features_dict,
+            signals_summary=signals_flat,
+        )
 
         report = self.formatter.format_report(predictions, signals)
         print(report)
@@ -122,6 +144,7 @@ class PredictionEngine:
             "signals": signals,
             "cycle": cycle_info,
             "using_ml": self._using_ml,
+            "run_number": run_number,
         }
 
     # ------------------------------------------------------------------
@@ -207,29 +230,36 @@ class PredictionEngine:
         self,
         price_df: pd.DataFrame,
         ta_df: pd.DataFrame,
-    ) -> list[dict[str, Any]]:
+    ) -> tuple[list[dict[str, Any]], dict[str, float], str]:
+        """Return (predictions, features_dict, model_source)."""
         if self._load_models():
-            ml_preds = self._ml_predictions(price_df, ta_df)
+            ml_preds, features_dict = self._ml_predictions(price_df, ta_df)
             if ml_preds:
-                return ml_preds
+                return ml_preds, features_dict, "ensemble"
 
         logger.info("Falling back to heuristic predictions")
         latest_ta = ta_df.iloc[-1].to_dict() if not ta_df.empty else {}
         cycle_info = self.cycle.get_cycle_position()
-        return self._heuristic_predictions(latest_ta, cycle_info)
+        return self._heuristic_predictions(latest_ta, cycle_info), {}, "heuristic"
 
     def _ml_predictions(
         self,
         price_df: pd.DataFrame,
         ta_df: pd.DataFrame,
-    ) -> list[dict[str, Any]]:
+    ) -> tuple[list[dict[str, Any]], dict[str, float]]:
+        """Return (predictions, features_dict).
+
+        Each prediction dict includes the standard display fields plus
+        ``direction_prob`` (raw ensemble P(UP)) and ``calibrated`` (bool)
+        for post-hoc calibration analysis.
+        """
         merged = self._build_merged_data(price_df, ta_df)
         if merged.empty:
-            return []
+            return [], {}
 
         features_df = self.feature_builder.build_features(merged)
         if features_df.empty:
-            return []
+            return [], {}
 
         numeric = features_df.select_dtypes(include=[np.number]).fillna(0)
         latest = numeric.iloc[-1]
@@ -267,7 +297,8 @@ class PredictionEngine:
 
             direction = "UP" if ens_prob > 0.5 else "DOWN"
 
-            if self._use_calibration and self._calibrator.has_horizon(tf):
+            is_calibrated = self._use_calibration and self._calibrator.has_horizon(tf)
+            if is_calibrated:
                 # Honest confidence = calibrated P(correct direction), in [50, 95].
                 confidence = self._calibrator.confidence(ens_prob, tf)
             else:
@@ -278,11 +309,13 @@ class PredictionEngine:
             predictions.append({
                 "timeframe": tf,
                 "direction": direction,
+                "direction_prob": round(float(ens_prob), 4),
                 "magnitude": self._display_magnitude(ens_mag, ens_prob, tf),
                 "confidence": int(round(confidence)),
+                "calibrated": is_calibrated,
             })
 
-        return predictions
+        return predictions, features_dict
 
     @staticmethod
     def _build_merged_data(
@@ -339,6 +372,8 @@ class PredictionEngine:
         direction = "UP" if ratio >= 0.5 else "DOWN"
 
         horizons = [
+            {"label": "6h", "mag_scale": 0.3, "conf_base": 60},
+            {"label": "12h", "mag_scale": 0.6, "conf_base": 62},
             {"label": "24h", "mag_scale": 1.0, "conf_base": 65},
             {"label": "7d", "mag_scale": 3.0, "conf_base": 52},
             {"label": "30d", "mag_scale": 8.0, "conf_base": 40},

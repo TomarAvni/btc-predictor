@@ -49,6 +49,8 @@ class TradeJournal:
         open_position_count: int,
         exposure_pct: float,
         timestamp: Optional[datetime] = None,
+        run_number: Optional[int] = None,
+        used_ml: Optional[bool] = None,
     ) -> None:
         """Log a new trade entry."""
         self._trade_number += 1
@@ -79,6 +81,8 @@ class TradeJournal:
             "open_positions": open_position_count,
             "exposure_pct": exposure_pct,
             "prediction_id": order.prediction_id,
+            "run_number": run_number,
+            "used_ml": used_ml,
         }
 
         self._entries.append(entry)
@@ -126,6 +130,7 @@ class TradeJournal:
         reason: str,
         predictions: list[dict],
         timestamp: Optional[datetime] = None,
+        run_number: Optional[int] = None,
     ) -> None:
         """Log a decision NOT to trade (for audit trail)."""
         ts = timestamp or datetime.now(timezone.utc)
@@ -135,6 +140,7 @@ class TradeJournal:
             "timestamp": ts.isoformat(),
             "action": "SKIP",
             "reason": reason,
+            "run_number": run_number,
             "predictions_summary": [
                 f"{p['timeframe']}: {p['direction']} {p['magnitude']}% @ {p['confidence']}%"
                 for p in predictions

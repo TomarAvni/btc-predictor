@@ -65,6 +65,7 @@ class Position:
     prediction_id: str = ""
     confidence: float = 0.0
     reason: str = ""
+    used_ml: bool | None = None
 
     @property
     def unrealized_pnl(self) -> float:
@@ -100,6 +101,7 @@ class Position:
             "prediction_id": self.prediction_id,
             "confidence": self.confidence,
             "reason": self.reason,
+            "used_ml": self.used_ml,
         }
         return d
 
@@ -107,6 +109,7 @@ class Position:
     def from_dict(cls, data: dict) -> Position:
         data = data.copy()
         data.setdefault("side", "LONG")
+        data.setdefault("used_ml", None)
         if isinstance(data.get("entry_time"), str):
             data["entry_time"] = _ensure_utc(datetime.fromisoformat(data["entry_time"]))
         return cls(**data)
@@ -130,6 +133,7 @@ class Trade:
     exit_reason: str = ""
     prediction_id: str = ""
     fees_paid: float = 0.0
+    used_ml: bool | None = None
 
     @property
     def is_winner(self) -> bool:
@@ -151,12 +155,14 @@ class Trade:
             "exit_reason": self.exit_reason,
             "prediction_id": self.prediction_id,
             "fees_paid": self.fees_paid,
+            "used_ml": self.used_ml,
         }
 
     @classmethod
     def from_dict(cls, data: dict) -> Trade:
         data = data.copy()
         data.setdefault("side", "LONG")
+        data.setdefault("used_ml", None)
         for k in ("entry_time", "exit_time"):
             if isinstance(data.get(k), str):
                 data[k] = _ensure_utc(datetime.fromisoformat(data[k]))

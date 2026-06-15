@@ -189,6 +189,7 @@ class Portfolio:
             pnl_pct=pnl_pct,
             exit_reason=exit_reason,
             prediction_id=pos.prediction_id,
+            used_ml=pos.used_ml,
         )
         self.closed_trades.append(trade)
         self._save_state()

@@ -66,6 +66,7 @@ class TradingAgent:
         current_price: float,
         timestamp: Optional[datetime] = None,
         used_ml: bool = True,
+        run_number: int = 0,
     ) -> dict[str, Any]:
         """Process a new set of predictions from the ML engine.
 
@@ -81,6 +82,8 @@ class TradingAgent:
                 (False = heuristic/synthetic fallback). When False, the
                 pre-trade safety gate blocks any new entry. Defaults to
                 True so backtests with synthetic predictions still trade.
+            run_number: Prediction run counter from PredictionEngine, used to
+                link journal entries back to the originating prediction run.
 
         Returns:
             Dict summarizing actions taken.
@@ -98,7 +101,9 @@ class TradingAgent:
         actions_taken.extend(exit_actions)
 
         # 3. Evaluate new entry
-        entry_action = self._evaluate_entry(predictions, current_price, ts, used_ml)
+        entry_action = self._evaluate_entry(
+            predictions, current_price, ts, used_ml, run_number
+        )
         if entry_action:
             actions_taken.append(entry_action)
 
@@ -275,6 +280,7 @@ class TradingAgent:
         current_price: float,
         timestamp: datetime,
         used_ml: bool = True,
+        run_number: int = 0,
     ) -> Optional[dict]:
         """Evaluate whether to open a new position."""
         signal = self.strategy.evaluate_entry(
@@ -289,6 +295,7 @@ class TradingAgent:
                 reason=signal.reasons[0] if signal.reasons else "No entry signal",
                 predictions=predictions,
                 timestamp=timestamp,
+                run_number=run_number,
             )
             return None
 
@@ -302,6 +309,7 @@ class TradingAgent:
                 reason=gate_reason,
                 predictions=predictions,
                 timestamp=timestamp,
+                run_number=run_number,
             )
             return None
 
@@ -319,6 +327,7 @@ class TradingAgent:
                 reason=f"Position sizing rejected: {sizing.adjustments}",
                 predictions=predictions,
                 timestamp=timestamp,
+                run_number=run_number,
             )
             return None
 
@@ -339,12 +348,23 @@ class TradingAgent:
                 reason=f"Risk rejected: {risk_check.reason}",
                 predictions=predictions,
                 timestamp=timestamp,
+                run_number=run_number,
             )
             return None
 
         # Adjust amount if risk manager suggested lower
         amount_usd = min(sizing.amount_usd, risk_check.max_position_usd)
         if amount_usd < self.position_sizer.MIN_POSITION_USD:
+            self.journal.log_skip(
+                reason=(
+                    f"position_too_small: adjusted amount ${amount_usd:.2f} "
+                    f"< MIN ${self.position_sizer.MIN_POSITION_USD:.2f} "
+                    f"after risk cap"
+                ),
+                predictions=predictions,
+                timestamp=timestamp,
+                run_number=run_number,
+            )
             return None
 
         # Calculate SL and TP
@@ -402,6 +422,9 @@ class TradingAgent:
             )
             action_name = "BUY"
 
+        # Stamp used_ml on the position so it propagates to the closed Trade record.
+        position.used_ml = used_ml
+
         # Update portfolio
         self.portfolio.open_position(position)
         self.risk_manager.record_trade(timestamp)
@@ -419,6 +442,8 @@ class TradingAgent:
             open_position_count=self.portfolio.open_position_count,
             exposure_pct=self.portfolio.exposure_pct,
             timestamp=timestamp,
+            run_number=run_number,
+            used_ml=used_ml,
         )
 
         return {

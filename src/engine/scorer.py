@@ -19,12 +19,13 @@ from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-TIMEFRAMES = ["24h", "7d", "30d", "90d"]
-HORIZON_HOURS = {"24h": 24, "7d": 168, "30d": 720, "90d": 2160}
+TIMEFRAMES = ["6h", "12h", "24h", "7d", "30d", "90d"]
+HORIZON_HOURS = {"6h": 6, "12h": 12, "24h": 24, "7d": 168, "30d": 720, "90d": 2160}
 
 PERFORMANCE_DIR = DATA_DIR / "performance"
 SCORES_PATH = PERFORMANCE_DIR / "prediction_scores.jsonl"
 ROLLING_PATH = PERFORMANCE_DIR / "rolling_accuracy.json"
+CALIBRATION_LIVE_PATH = PERFORMANCE_DIR / "calibration_live.json"
 PRICE_PATH = DATA_DIR / "price" / "btc_hourly.parquet"
 
 _PRED_LINE = re.compile(
@@ -332,11 +333,93 @@ def update_rolling_accuracy(path: Path | None = None) -> dict[str, Any]:
     return rolling
 
 
+def compute_calibration_bins(
+    scores: list[dict[str, Any]] | None = None,
+    n_bins: int = 10,
+) -> dict[str, Any]:
+    """Compute per-confidence-bucket accuracy for live calibration analysis.
+
+    Buckets scored predictions into *n_bins* equal-width confidence bands and
+    calculates direction accuracy per bucket plus an overall ECE (Expected
+    Calibration Error).  This lets the dashboard compare live calibration
+    against backtest calibration without re-running offline metrics.
+
+    Args:
+        scores: Pre-loaded score records; defaults to loading from disk.
+        n_bins: Number of equal-width buckets across the 0-100 confidence range.
+
+    Returns:
+        Dict with keys ``n_total``, ``ece``, ``bins``, ``updated_at``.
+    """
+    records = scores if scores is not None else load_prediction_scores()
+
+    bin_width = 100.0 / n_bins
+    bins: list[dict[str, Any]] = []
+    for i in range(n_bins):
+        lo = i * bin_width
+        hi = lo + bin_width
+        in_bucket = [r for r in records if lo <= r.get("confidence", 0) < hi]
+        if in_bucket:
+            n = len(in_bucket)
+            n_correct = sum(1 for r in in_bucket if r.get("direction_correct"))
+            acc = n_correct / n
+            mean_conf = sum(r["confidence"] for r in in_bucket) / n
+        else:
+            n = 0
+            n_correct = 0
+            acc = None
+            mean_conf = (lo + hi) / 2.0
+        bins.append({
+            "confidence_lo": round(lo, 1),
+            "confidence_hi": round(hi, 1),
+            "mean_confidence": round(mean_conf, 1),
+            "accuracy_pct": round(acc * 100, 1) if acc is not None else None,
+            "n": n,
+            "n_correct": n_correct,
+        })
+
+    total = len(records)
+    ece: float | None = None
+    if total > 0:
+        ece = sum(
+            (b["n"] / total)
+            * abs(
+                (b["accuracy_pct"] or 0.0) / 100.0
+                - b["mean_confidence"] / 100.0
+            )
+            for b in bins
+            if b["n"] > 0
+        )
+        ece = round(ece, 4)
+
+    return {
+        "n_total": total,
+        "ece": ece,
+        "bins": bins,
+    }
+
+
+def update_calibration_live(path: Path | None = None) -> dict[str, Any]:
+    """Recompute and persist live calibration bins to *calibration_live.json*."""
+    PERFORMANCE_DIR.mkdir(parents=True, exist_ok=True)
+    result = compute_calibration_bins()
+    result["updated_at"] = pd.Timestamp.now(tz="UTC").isoformat()
+    out_path = path or CALIBRATION_LIVE_PATH
+    out_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    logger.info("Live calibration bins updated -> %s", out_path)
+    return result
+
+
 def run_scorer() -> dict[str, Any]:
-    """Score mature predictions and refresh rolling accuracy."""
+    """Score mature predictions and refresh rolling accuracy and calibration bins."""
     new_scores = score_mature_predictions()
     rolling = update_rolling_accuracy()
-    return {"new_scores": len(new_scores), "rolling_accuracy": rolling}
+    calibration = update_calibration_live()
+    return {
+        "new_scores": len(new_scores),
+        "rolling_accuracy": rolling,
+        "calibration_ece": calibration.get("ece"),
+    }
 
 
 def main() -> int:
@@ -350,6 +433,9 @@ def main() -> int:
             print(f"  {tf}: {acc:.1f}% accuracy ({n} scored)")
         else:
             print(f"  {tf}: no scored predictions yet")
+    ece = result.get("calibration_ece")
+    if ece is not None:
+        print(f"Live ECE: {ece:.4f}")
     return 0
 
 
