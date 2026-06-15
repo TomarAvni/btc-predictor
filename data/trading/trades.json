@@ -13,7 +13,8 @@
     "pnl_pct": -5.094952523738129,
     "exit_reason": "stop_loss",
     "prediction_id": "3524bb3b0c17",
-    "fees_paid": 0.0
+    "fees_paid": 0.0,
+    "used_ml": null
   },
   {
     "id": "2c6b32823518",
@@ -29,6 +30,7 @@
     "pnl_pct": -0.099950024987498,
     "exit_reason": "take_profit",
     "prediction_id": "aafb5b64e01c",
-    "fees_paid": 0.0
+    "fees_paid": 0.0,
+    "used_ml": null
   }
 ]

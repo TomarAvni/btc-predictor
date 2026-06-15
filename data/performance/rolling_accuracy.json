@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-15T18:24:23.748791+00:00",
+  "updated_at": "2026-06-15T18:46:22.839903+00:00",
   "timeframes": {
     "6h": {
       "last_7d": {
@@ -47,6 +47,29 @@
         "mean_actual_return_pct": null
       }
     },
+    "18h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
     "24h": {
       "last_7d": {
         "direction_accuracy_pct": null,
@@ -70,7 +93,536 @@
         "mean_actual_return_pct": null
       }
     },
-    "7d": {
+    "30h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "36h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "42h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "48h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "54h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "60h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "66h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "72h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "78h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "84h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "90h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "96h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "102h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "108h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "114h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "120h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "126h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "132h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "138h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "144h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "150h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "156h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "162h": {
+      "last_7d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "last_30d": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      },
+      "all_time": {
+        "direction_accuracy_pct": null,
+        "n_scored": 0,
+        "n_correct": 0,
+        "mean_magnitude_error": null,
+        "mean_actual_return_pct": null
+      }
+    },
+    "168h": {
       "last_7d": {
         "direction_accuracy_pct": null,
         "n_scored": 0,
@@ -94,29 +646,6 @@
       }
     },
     "30d": {
-      "last_7d": {
-        "direction_accuracy_pct": null,
-        "n_scored": 0,
-        "n_correct": 0,
-        "mean_magnitude_error": null,
-        "mean_actual_return_pct": null
-      },
-      "last_30d": {
-        "direction_accuracy_pct": null,
-        "n_scored": 0,
-        "n_correct": 0,
-        "mean_magnitude_error": null,
-        "mean_actual_return_pct": null
-      },
-      "all_time": {
-        "direction_accuracy_pct": null,
-        "n_scored": 0,
-        "n_correct": 0,
-        "mean_magnitude_error": null,
-        "mean_actual_return_pct": null
-      }
-    },
-    "90d": {
       "last_7d": {
         "direction_accuracy_pct": null,
         "n_scored": 0,
