@@ -27,6 +27,7 @@ from src.trading.risk_manager import RiskManager
 from src.trading.simulator import OrderSimulator
 from src.trading.strategy import TradingStrategy
 from src.trading.trade_journal import TradeJournal
+from src.utils.timez import now_israel_str
 
 
 def create_agent() -> TradingAgent:
@@ -264,14 +265,18 @@ async def run_live() -> None:
             if engine:
                 result = await engine.run_prediction()
                 predictions = result.get("predictions", [])
+                used_ml = bool(result.get("using_ml", False))
             else:
                 prev_price = current_price * (1 + np.random.normal(0, 0.002))
                 predictions = generate_synthetic_predictions(
                     current_price, prev_price, datetime.now(timezone.utc)
                 )
+                used_ml = False
 
             # Process prediction
-            result = agent.on_new_prediction(predictions, current_price)
+            result = agent.on_new_prediction(
+                predictions, current_price, used_ml=used_ml
+            )
 
             # Display status
             status = agent.get_status()
@@ -303,7 +308,7 @@ def _get_current_price() -> float:
 def _print_live_status(status: dict, predictions: list[dict]) -> None:
     """Print live trading status to console."""
     portfolio = status["portfolio"]
-    print(f"  [{datetime.now(timezone.utc).strftime('%H:%M:%S')}] ", end="")
+    print(f"  [{now_israel_str(fmt='%H:%M:%S')}] ", end="")
     print(
         f"Value: ${portfolio['total_value_usd']:,.2f} | "
         f"P&L: {portfolio['total_pnl_pct']:+.2f}% | "
@@ -325,20 +330,27 @@ async def run_live_tick() -> None:
     agent = create_agent()
     current_price = _get_current_price()
 
+    used_ml = False
     try:
         from src.engine.predictor import PredictionEngine
         engine = PredictionEngine()
         result = await engine.run_prediction()
         predictions = result.get("predictions", [])
+        used_ml = bool(result.get("using_ml", False))
     except (ImportError, Exception):
         prev_price = current_price * (1 + np.random.normal(0, 0.002))
         predictions = generate_synthetic_predictions(
             current_price, prev_price, datetime.now(timezone.utc)
         )
+        used_ml = False
 
-    result = agent.on_new_prediction(predictions, current_price)
+    result = agent.on_new_prediction(predictions, current_price, used_ml=used_ml)
 
-    print(f"[{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}] Live tick complete")
+    if not used_ml:
+        print("[GATE] No real ML model used for this prediction — "
+              "trades are blocked by the pre-trade safety gate.")
+
+    print(f"[{now_israel_str()}] Live tick complete")
     print(f"  Price: ${current_price:,.2f}")
     print(f"  Portfolio: ${result['portfolio_value']:,.2f}")
     print(f"  Actions: {len(result.get('actions', []))}")

@@ -23,6 +23,7 @@ from dashboard.styles import inject_css, layout_marker
 from dashboard.components.charts import create_cumulative_pnl_chart
 from dashboard.components.metrics_cards import render_metric_card
 from dashboard.components.mobile_nav import render_mobile_nav
+from src.utils.timez import utc_str_to_israel
 
 inject_css()
 render_mobile_nav()
@@ -144,6 +145,7 @@ if portfolio and portfolio.get("positions"):
         pos_data.append({
             "Side": side,
             "Timeframe": p.get("timeframe", "—"),
+            "Entry Time (Israel)": utc_str_to_israel(p.get("entry_time"), fallback="—"),
             "Entry Price": f"${entry_price:,.2f}",
             "Amount (USD)": f"${p.get('amount_usd', 0):.2f}",
             "Unrealized P&L": f"${unrealized_pnl:.2f} ({unrealized_pnl_pct:+.1f}%)",
@@ -178,7 +180,7 @@ if trades:
         pnl_usd = t.get("pnl_usd", 0)
         pnl_pct_val = t.get("pnl_pct", 0)
         trade_rows.append({
-            "Exit Time": t.get("exit_time", "—")[:19] if isinstance(t.get("exit_time"), str) else "—",
+            "Exit Time (Israel)": utc_str_to_israel(t.get("exit_time"), fallback="—"),
             "Side": t.get("side", "LONG"),
             "Timeframe": t.get("timeframe", "—"),
             "Entry": f"${t.get('entry_price', 0):,.2f}",

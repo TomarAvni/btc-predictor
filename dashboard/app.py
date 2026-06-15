@@ -25,6 +25,7 @@ from dashboard.components.signal_badges import render_signal_grid
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
 from dashboard.data_loader import get_prediction_history, get_price_data, has_real_data
 from dashboard.styles import inject_css, layout_marker
+from src.utils.timez import now_israel_str, utc_str_to_israel
 
 inject_css()
 render_mobile_nav(show_sidebar_hint=True)
@@ -34,6 +35,7 @@ render_mobile_nav(show_sidebar_hint=True)
 with st.sidebar:
     st.markdown("## ₿ BTC Predictor")
     st.caption("ML-powered price movement predictions")
+    st.caption(f"🕐 {now_israel_str()} (Israel time)")
     st.divider()
 
     auto_refresh = st.toggle("Auto-refresh (60 s)", value=False)
@@ -76,7 +78,10 @@ if not price_df.empty:
     with h1:
         render_metric_card("BTC Price", f"${last_close:,.2f}", f"{change_pct:+.2f}% (24h)", change_color)
     with h2:
-        render_metric_card("Last Prediction", latest["timestamp"] if latest else "—")
+        render_metric_card(
+            "Last Prediction",
+            utc_str_to_israel(latest["timestamp"]) if latest else "—",
+        )
     with h3:
         render_metric_card("Total Runs", str(len(runs)))
 

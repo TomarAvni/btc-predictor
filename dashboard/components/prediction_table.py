@@ -8,6 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from dashboard.styles import GREEN, RED, YELLOW
+from src.utils.timez import utc_str_to_israel
 
 
 def _direction_badge(d: str) -> str:
@@ -34,7 +35,7 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
     rows_html: list[str] = []
 
     for run in recent:
-        ts = run.get("timestamp", "?")
+        ts = utc_str_to_israel(run.get("timestamp", "?"), fallback="?")
         run_num = run.get("run_number", "?")
         preds = run.get("predictions", [])
 
@@ -59,7 +60,7 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
         <thead>
             <tr style="border-bottom:1px solid #30363D;color:#8B949E;text-align:left;">
                 <th style="padding:0.5rem;">Run</th>
-                <th style="padding:0.5rem;">Time</th>
+                <th style="padding:0.5rem;">Time (Israel)</th>
                 <th style="padding:0.5rem;">24h</th>
                 <th style="padding:0.5rem;">7d</th>
                 <th style="padding:0.5rem;">30d</th>

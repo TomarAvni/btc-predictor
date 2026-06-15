@@ -33,3 +33,4 @@ streamlit-autorefresh>=1.0.1
 # Utilities
 python-dateutil>=2.9.0
 tqdm>=4.66.0
+tzdata>=2024.1  # IANA timezone DB for zoneinfo (Israel time display)

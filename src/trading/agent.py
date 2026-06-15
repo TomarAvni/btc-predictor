@@ -35,6 +35,12 @@ class TradingAgent:
       8. Persist state
     """
 
+    # --- Pre-trade safety gate (Change 2) ---------------------------------
+    # No trade (long or short) may open unless a REAL ML model produced the
+    # prediction AND the predicted magnitude is meaningfully non-zero.
+    # magnitude is expressed in percent, so 0.05 == 0.05%.
+    MIN_MAGNITUDE_PCT: float = 0.05
+
     def __init__(
         self,
         portfolio: Optional[Portfolio] = None,
@@ -59,6 +65,7 @@ class TradingAgent:
         predictions: list[dict],
         current_price: float,
         timestamp: Optional[datetime] = None,
+        used_ml: bool = True,
     ) -> dict[str, Any]:
         """Process a new set of predictions from the ML engine.
 
@@ -70,6 +77,10 @@ class TradingAgent:
                 - confidence: 0-100
             current_price: Current BTC/USD price.
             timestamp: Override timestamp (for backtesting).
+            used_ml: Whether a real ML model produced these predictions
+                (False = heuristic/synthetic fallback). When False, the
+                pre-trade safety gate blocks any new entry. Defaults to
+                True so backtests with synthetic predictions still trade.
 
         Returns:
             Dict summarizing actions taken.
@@ -87,7 +98,7 @@ class TradingAgent:
         actions_taken.extend(exit_actions)
 
         # 3. Evaluate new entry
-        entry_action = self._evaluate_entry(predictions, current_price, ts)
+        entry_action = self._evaluate_entry(predictions, current_price, ts, used_ml)
         if entry_action:
             actions_taken.append(entry_action)
 
@@ -237,11 +248,33 @@ class TradingAgent:
 
         return actions
 
+    def _pretrade_gate_reason(self, signal, used_ml: bool) -> Optional[str]:
+        """Return a skip reason if the pre-trade safety gate blocks a trade.
+
+        Both conditions must hold to allow a trade:
+          (a) a real ML model produced the prediction (``used_ml`` is True), and
+          (b) the predicted magnitude is meaningfully non-zero.
+
+        Returns None when the trade is allowed.
+        """
+        if not used_ml:
+            return (
+                "Safety gate: no ML model loaded (heuristic/fallback "
+                "prediction) — trading disabled until models are ready"
+            )
+        if abs(signal.magnitude) <= self.MIN_MAGNITUDE_PCT:
+            return (
+                f"Safety gate: predicted magnitude {signal.magnitude:.4f}% "
+                f"<= minimum {self.MIN_MAGNITUDE_PCT}% (no actionable move)"
+            )
+        return None
+
     def _evaluate_entry(
         self,
         predictions: list[dict],
         current_price: float,
         timestamp: datetime,
+        used_ml: bool = True,
     ) -> Optional[dict]:
         """Evaluate whether to open a new position."""
         signal = self.strategy.evaluate_entry(
@@ -254,6 +287,19 @@ class TradingAgent:
         if not signal.should_enter:
             self.journal.log_skip(
                 reason=signal.reasons[0] if signal.reasons else "No entry signal",
+                predictions=predictions,
+                timestamp=timestamp,
+            )
+            return None
+
+        # Pre-trade safety gate (Change 2): block trades that were not
+        # produced by a real ML model, or whose magnitude is ~zero. This
+        # prevents the overnight failure mode where heuristic / 0.0%-magnitude
+        # predictions fired losing trades before ML models were ready.
+        gate_reason = self._pretrade_gate_reason(signal, used_ml)
+        if gate_reason:
+            self.journal.log_skip(
+                reason=gate_reason,
                 predictions=predictions,
                 timestamp=timestamp,
             )

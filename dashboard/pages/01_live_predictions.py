@@ -20,6 +20,7 @@ from dashboard.components.signal_badges import infer_sentiment, render_signal_gr
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
 from dashboard.data_loader import get_prediction_history, get_price_data, has_real_data
 from dashboard.styles import inject_css, layout_marker
+from src.utils.timez import utc_str_to_israel
 
 inject_css()
 render_mobile_nav()
@@ -63,7 +64,7 @@ if not price_df.empty:
     with c3:
         render_metric_card("24h Low", f"${price_df['low'].iloc[-24:].min():,.2f}")
     with c4:
-        render_metric_card("Last Update", latest["timestamp"])
+        render_metric_card("Last Update", utc_str_to_israel(latest["timestamp"]))
 
 # ── Prediction cards ──────────────────────────────────────────────────────
 
