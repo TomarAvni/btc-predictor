@@ -196,3 +196,47 @@ SIGNAL SUMMARY:
 
 NOTE: Confidence decreases with longer timeframes.
 ================================================================================
+
+================================================================================
+[2026-06-15 07:44 UTC] -- Prediction Run #10
+================================================================================
+
+PREDICTIONS:
+  24h   | DOWN  | -0.7%    | Confidence: 19%
+  7d    | DOWN  | -1.0%    | Confidence: 19%
+  30d   | DOWN  | -5.7%    | Confidence: 10%
+  90d   | DOWN  | -13.0%   | Confidence: 33%
+
+SIGNAL SUMMARY:
+  Price             : $65,692.34
+  RSI (14)          : 66.2 -- Neutral
+  MACD              : 431.43 -- Bullish crossover
+  ADX               : 42.8 -- Strong trend
+  Volume Ratio      : 0.91 -- Normal
+  EMA 50/200        : Golden cross
+  Cycle Phase       : Euphoria Zone -- 54% through cycle
+
+NOTE: Confidence decreases with longer timeframes.
+================================================================================
+
+================================================================================
+[2026-06-15 07:44 UTC] -- Prediction Run #11
+================================================================================
+
+PREDICTIONS:
+  24h   | DOWN  | -0.7%    | Confidence: 19%
+  7d    | DOWN  | -1.0%    | Confidence: 19%
+  30d   | DOWN  | -5.7%    | Confidence: 10%
+  90d   | DOWN  | -13.0%   | Confidence: 33%
+
+SIGNAL SUMMARY:
+  Price             : $65,692.34
+  RSI (14)          : 66.2 -- Neutral
+  MACD              : 431.43 -- Bullish crossover
+  ADX               : 42.8 -- Strong trend
+  Volume Ratio      : 0.91 -- Normal
+  EMA 50/200        : Golden cross
+  Cycle Phase       : Euphoria Zone -- 54% through cycle
+
+NOTE: Confidence decreases with longer timeframes.
+================================================================================
