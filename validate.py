@@ -43,8 +43,8 @@ from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-TIMEFRAMES = ["24h", "7d", "30d", "90d"]
-HORIZON_HOURS = {"24h": 24, "7d": 168, "30d": 720, "90d": 2160}
+TIMEFRAMES = ["6h", "12h", "24h", "7d", "30d", "90d"]
+HORIZON_HOURS = {"6h": 6, "12h": 12, "24h": 24, "7d": 168, "30d": 720, "90d": 2160}
 GAP_DAYS = 90
 
 

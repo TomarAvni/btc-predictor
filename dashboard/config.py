@@ -14,7 +14,7 @@ PERFORMANCE_DIR = DATA_DIR / "performance"
 HISTORY_DIR = DATA_DIR / "history"
 CONFIG_PATH = PROJECT_ROOT / "config" / "settings.yaml"
 
-PREDICTION_HORIZONS = ["24h", "7d", "30d", "90d"]
+PREDICTION_HORIZONS = ["6h", "12h", "24h", "7d", "30d", "90d"]
 
 SIGNAL_CATEGORIES = {
     "Cycle": ["Halving Cycle", "Cycle Phase"],

@@ -83,8 +83,8 @@ render_prediction_cards(preds)
 st.markdown("### Confidence by Horizon")
 st.caption("How sure the model is for each timeframe. Green ≥60% (strong), amber 40–60%, red <40% (weak).")
 layout_marker("stack")
-gcols = st.columns(4, gap="small")
-for i, tf in enumerate(("24h", "7d", "30d", "90d")):
+gcols = st.columns(6, gap="small")
+for i, tf in enumerate(("6h", "12h", "24h", "7d", "30d", "90d")):
     match = next((p for p in preds if p["timeframe"] == tf), None)
     with gcols[i]:
         val = match["confidence"] if match else 0

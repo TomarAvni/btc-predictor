@@ -82,7 +82,7 @@ with st.expander("ℹ️ How this works (start here)", expanded=False):
         1. **Predict** — every ~30 minutes the model looks at price action and
            ~30 market signals (on-chain, sentiment, macro, technicals, derivatives)
            and outputs a **direction** (UP/DOWN), an expected **magnitude** (%),
-           and a **confidence** (%) for several horizons (24h, 7d, 30d, 90d).
+           and a **confidence** (%) for several horizons (6h, 12h, 24h, 7d, 30d, 90d).
         2. **Demo-trade** — if confidence clears a threshold, a **paper-trading**
            agent opens a simulated position in a **$2,000 virtual portfolio**.
            If confidence is too low it returns **SKIP** (no trade).

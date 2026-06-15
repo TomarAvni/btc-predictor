@@ -94,7 +94,7 @@ runs = get_prediction_history()
 bt = get_backtest_results()
 rng = np.random.default_rng(42)
 
-horizons = ["24h", "7d", "30d", "90d"]
+horizons = ["6h", "12h", "24h", "7d", "30d", "90d"]
 perf: dict[str, pd.DataFrame] = {}
 
 if live_scores:
@@ -124,7 +124,7 @@ if rolling.get("timeframes"):
     st.caption("Direction accuracy from mature predictions scored against actual BTC moves.")
 
     layout_marker("stack")
-    roll_cols = st.columns(4, gap="small")
+    roll_cols = st.columns(len(horizons), gap="small")
     for col, h in zip(roll_cols, horizons):
         tf_stats = rolling["timeframes"].get(h, {})
         with col:

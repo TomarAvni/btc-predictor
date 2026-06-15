@@ -16,6 +16,8 @@ from src.utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 HORIZONS = {
+    "6h": 6,
+    "12h": 12,
     "24h": 24,
     "7d": 168,
     "30d": 720,
@@ -34,7 +36,7 @@ class ForwardReturnLabeler:
     """Creates training labels from historical price data.
 
     For each hourly timestamp, computes:
-    - Forward returns at 24h, 7d, 30d, 90d
+    - Forward returns at 6h, 12h, 24h, 7d, 30d, 90d
     - Direction (UP/DOWN) for each horizon
     - Magnitude bucket (small/medium/large/extreme) for each horizon
     """

@@ -40,7 +40,7 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
         preds = run.get("predictions", [])
 
         cells = [f"<td style='white-space:nowrap;'>#{run_num}</td>", f"<td>{ts}</td>"]
-        for tf in ("24h", "7d", "30d", "90d"):
+        for tf in ("6h", "12h", "24h", "7d", "30d", "90d"):
             match = next((p for p in preds if p["timeframe"] == tf), None)
             if match:
                 badge = _direction_badge(match["direction"])
@@ -61,6 +61,8 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
             <tr style="border-bottom:1px solid #30363D;color:#8B949E;text-align:left;">
                 <th style="padding:0.5rem;">Run</th>
                 <th style="padding:0.5rem;">Time (Israel)</th>
+                <th style="padding:0.5rem;">6h</th>
+                <th style="padding:0.5rem;">12h</th>
                 <th style="padding:0.5rem;">24h</th>
                 <th style="padding:0.5rem;">7d</th>
                 <th style="padding:0.5rem;">30d</th>
