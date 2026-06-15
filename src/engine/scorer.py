@@ -15,12 +15,10 @@ from typing import Any
 import pandas as pd
 
 from src import DATA_DIR, PREDICTIONS_LOG
+from src.horizons import HORIZON_HOURS, TIMEFRAMES
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
-
-TIMEFRAMES = ["6h", "12h", "24h", "7d", "30d", "90d"]
-HORIZON_HOURS = {"6h": 6, "12h": 12, "24h": 24, "7d": 168, "30d": 720, "90d": 2160}
 
 PERFORMANCE_DIR = DATA_DIR / "performance"
 SCORES_PATH = PERFORMANCE_DIR / "prediction_scores.jsonl"

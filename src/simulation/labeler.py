@@ -11,18 +11,14 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
+from src.horizons import HORIZON_HOURS
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-HORIZONS = {
-    "6h": 6,
-    "12h": 12,
-    "24h": 24,
-    "7d": 168,
-    "30d": 720,
-    "90d": 2160,
-}
+# Forward-return horizons keyed by label -> window length in hours
+# (single source of truth: src/horizons.py).
+HORIZONS = dict(HORIZON_HOURS)
 
 MAGNITUDE_BUCKETS = {
     "small": (0, 2),
@@ -36,7 +32,7 @@ class ForwardReturnLabeler:
     """Creates training labels from historical price data.
 
     For each hourly timestamp, computes:
-    - Forward returns at 6h, 12h, 24h, 7d, 30d, 90d
+    - Forward returns at every 6h step from 6h to 168h (7d), plus 30d
     - Direction (UP/DOWN) for each horizon
     - Magnitude bucket (small/medium/large/extreme) for each horizon
     """

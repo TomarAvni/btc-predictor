@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-from dashboard.components.charts import create_gauge_chart
+from dashboard.components.charts import create_gauge_chart, create_horizon_curve_chart
 from dashboard.components.metrics_cards import render_metric_card, render_prediction_cards
 from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.components.prediction_table import render_prediction_table
@@ -82,7 +82,8 @@ with st.expander("ℹ️ How this works (start here)", expanded=False):
         1. **Predict** — every ~30 minutes the model looks at price action and
            ~30 market signals (on-chain, sentiment, macro, technicals, derivatives)
            and outputs a **direction** (UP/DOWN), an expected **magnitude** (%),
-           and a **confidence** (%) for several horizons (6h, 12h, 24h, 7d, 30d, 90d).
+           and a **confidence** (%) along a continuous horizon curve from 6h to
+           168h (7 days) in 6-hour steps, plus a long-range 30d point.
         2. **Demo-trade** — if confidence clears a threshold, a **paper-trading**
            agent opens a simulated position in a **$2,000 virtual portfolio**.
            If confidence is too low it returns **SKIP** (no trade).
@@ -128,12 +129,20 @@ if not price_df.empty:
 if latest:
     st.markdown("### Current Predictions")
     st.caption(
-        "Each card is one **horizon**. **Direction** = the model's UP/DOWN call, "
+        "Headline horizons at a glance. **Direction** = the model's UP/DOWN call, "
         "**magnitude** = how big a move it expects, and **confidence** = how sure "
         "it is (higher = stronger conviction, not a guarantee)."
     )
     preds = latest.get("predictions", [])
     render_prediction_cards(preds)
+
+    # ── Full horizon curve ─────────────────────────────────────────────────
+    st.markdown("### Prediction Curve")
+    st.caption(
+        "Expected move (bars) and confidence (line) across every horizon from "
+        "6h to 168h (7d) in 6-hour steps, plus the long-range 30d point."
+    )
+    st.plotly_chart(create_horizon_curve_chart(preds), width="stretch")
 
     # ── Confidence gauge ──────────────────────────────────────────────────
     avg_conf = sum(p["confidence"] for p in preds) / max(len(preds), 1) if preds else 0

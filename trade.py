@@ -138,9 +138,8 @@ def generate_synthetic_predictions(
     predictions = []
     for timeframe, base_conf, mag_scale in [
         ("24h", 60, 1.5),
-        ("7d", 55, 4.0),
+        ("168h", 55, 4.0),
         ("30d", 48, 10.0),
-        ("90d", 42, 18.0),
     ]:
         conf_noise = np.random.uniform(-10, 15)
         confidence = max(30, min(92, base_conf + conf_noise))

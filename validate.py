@@ -1,7 +1,7 @@
 """80/20 Chronological Train-Test Validation Pipeline.
 
 Loads all available historical data, splits at 80% chronologically with a
-90-day gap buffer, trains all models on the training set, evaluates on the
+30-day gap buffer, trains all models on the training set, evaluates on the
 holdout, runs the trading agent through the test period, and produces a
 comprehensive validation report.
 
@@ -23,6 +23,7 @@ import numpy as np
 import pandas as pd
 
 from src import DATA_DIR
+from src.horizons import HORIZON_HOURS, TIMEFRAMES
 from src.models.baseline_model import BaselineModel
 from src.models.calibration import (
     ProbabilityCalibrator,
@@ -43,9 +44,9 @@ from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-TIMEFRAMES = ["6h", "12h", "24h", "7d", "30d", "90d"]
-HORIZON_HOURS = {"6h": 6, "12h": 12, "24h": 24, "7d": 168, "30d": 720, "90d": 2160}
-GAP_DAYS = 90
+# TIMEFRAMES / HORIZON_HOURS are the single source of truth (src/horizons.py).
+# The train/test gap buffer matches the longest horizon to prevent label leakage.
+GAP_DAYS = max(HORIZON_HOURS.values()) // 24
 
 
 def parse_args() -> argparse.Namespace:
@@ -637,7 +638,7 @@ def generate_wf_report(wf_section: dict[str, Any]) -> list[str]:
             lines.append(f"    {tf:<6s} {accs}")
     lines.append("")
     lines.append("  NOTE: longer-horizon accuracy is inflated by overlapping labels")
-    lines.append("  and BTC's upward drift (high up-rate); treat 30d/90d AUC, not raw")
+    lines.append("  and BTC's upward drift (high up-rate); treat 30d AUC, not raw")
     lines.append("  accuracy, as the edge signal, and watch the LAST fold for decay.")
     lines.append("")
 
@@ -1028,7 +1029,7 @@ def main() -> int:
 ║          BTC PREDICTOR -- 80/20 VALIDATION PIPELINE                    ║
 ╠══════════════════════════════════════════════════════════════════════════╣
 ║  1. Load all historical data                                           ║
-║  2. Split 80/20 chronologically (with 90-day gap buffer)               ║
+║  2. Split 80/20 chronologically (with 30-day gap buffer)               ║
 ║  3. Train models on training set                                       ║
 ║  4. Evaluate on holdout test set                                       ║
 ║  5. Run trading agent on test period                                   ║
@@ -1055,7 +1056,7 @@ def main() -> int:
     print(f"  Training: {split_info['data_start'].strftime('%Y-%m-%d')} to "
           f"{split_info['train_end'].strftime('%Y-%m-%d')} "
           f"({split_info['train_n']:,} candles)")
-    print(f"  Buffer:   {GAP_DAYS} days excluded (prevents 90d label leakage)")
+    print(f"  Buffer:   {GAP_DAYS} days excluded (prevents 30d label leakage)")
     print(f"  Test:     {split_info['test_start'].strftime('%Y-%m-%d')} to "
           f"{split_info['data_end'].strftime('%Y-%m-%d')} "
           f"({split_info['test_n']:,} candles)")

@@ -16,6 +16,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression, Ridge
 
 from src import DATA_DIR
+from src.horizons import HORIZON_HOURS, TIMEFRAMES
 from src.models.baseline_model import BaselineModel
 from src.models.xgboost_model import XGBoostPredictor
 from src.models.tft_model import TFTPredictor
@@ -24,7 +25,32 @@ from src.utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 MODEL_DIR = DATA_DIR / "models"
-TIMEFRAMES = ["24h", "7d", "30d", "90d"]
+
+
+def _default_weights(timeframe: str) -> dict[str, float]:
+    """Per-horizon base ensemble weights, scaled by horizon length.
+
+    Short horizons lean on XGBoost (tabular signal), longer horizons give the
+    sequence model (TFT) more say.  Used until the meta-learner is trained.
+    """
+    hrs = HORIZON_HOURS.get(timeframe, 24)
+    if hrs <= 48:
+        return {"baseline": 0.15, "xgboost": 0.55, "tft": 0.30}
+    if hrs <= 168:
+        return {"baseline": 0.10, "xgboost": 0.45, "tft": 0.45}
+    return {"baseline": 0.10, "xgboost": 0.40, "tft": 0.50}
+
+
+def _confidence_cap(timeframe: str) -> int:
+    """Max confidence per horizon (decays with horizon length).
+
+    Anchored to the historical caps (24h ~ 90, 168h ~ 79, 30d ~ 70).
+    """
+    import math
+
+    hrs = HORIZON_HOURS.get(timeframe, 24)
+    cap = 108.7 - 5.88 * math.log(max(hrs, 1))
+    return int(round(max(60, min(90, cap))))
 
 
 class EnsemblePredictor:
@@ -52,10 +78,7 @@ class EnsemblePredictor:
         self._meta_direction: dict[str, LogisticRegression] = {}
         self._meta_magnitude: dict[str, Ridge] = {}
         self._weights: dict[str, dict[str, float]] = {
-            "24h": {"baseline": 0.15, "xgboost": 0.55, "tft": 0.30},
-            "7d": {"baseline": 0.10, "xgboost": 0.45, "tft": 0.45},
-            "30d": {"baseline": 0.10, "xgboost": 0.40, "tft": 0.50},
-            "90d": {"baseline": 0.10, "xgboost": 0.50, "tft": 0.40},
+            tf: _default_weights(tf) for tf in TIMEFRAMES
         }
         self._is_fitted = False
 
@@ -284,8 +307,7 @@ class EnsemblePredictor:
         confidence *= vol_multipliers.get(volatility_regime, 1.0)
 
         # Timeframe decay
-        tf_caps = {"24h": 90, "7d": 80, "30d": 70, "90d": 60}
-        max_conf = tf_caps.get(timeframe, 75)
+        max_conf = _confidence_cap(timeframe)
         confidence = min(confidence, max_conf)
 
         return max(10.0, min(95.0, confidence))

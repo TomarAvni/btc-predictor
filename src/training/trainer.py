@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 
 from src import DATA_DIR
+from src.horizons import TIMEFRAMES
 from src.simulation.data_loader import HistoricalDataLoader
 from src.simulation.labeler import ForwardReturnLabeler
 from src.training.feature_builder import TrainingFeatureBuilder
@@ -23,7 +24,6 @@ from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-TIMEFRAMES = ["24h", "7d", "30d", "90d"]
 MODEL_DIR = DATA_DIR / "models"
 
 

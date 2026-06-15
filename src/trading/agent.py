@@ -72,7 +72,8 @@ class TradingAgent:
 
         Args:
             predictions: List of prediction dicts, each containing:
-                - timeframe: "24h", "7d", "30d", "90d"
+                - timeframe: horizon label (e.g. "6h", "24h", "168h", "30d";
+                  see src/horizons.py for the full set)
                 - direction: "UP" or "DOWN"
                 - magnitude: expected % move
                 - confidence: 0-100

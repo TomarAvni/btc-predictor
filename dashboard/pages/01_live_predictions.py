@@ -12,12 +12,12 @@ import streamlit as st
 
 st.set_page_config(page_title="Live Predictions", page_icon="₿", layout="wide")
 
-from dashboard.components.charts import create_gauge_chart
+from dashboard.components.charts import create_gauge_chart, create_horizon_curve_chart
 from dashboard.components.metrics_cards import render_metric_card, render_prediction_cards
 from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.components.prediction_table import render_prediction_table
 from dashboard.components.signal_badges import infer_sentiment, render_signal_grid
-from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
+from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES, SUMMARY_HORIZONS
 from dashboard.data_loader import get_prediction_history, get_price_data, has_real_data
 from dashboard.styles import inject_css, layout_marker
 from src.utils.timez import utc_str_to_israel
@@ -78,13 +78,22 @@ st.markdown("### Direction Forecasts")
 preds = latest.get("predictions", [])
 render_prediction_cards(preds)
 
-# ── Confidence gauges per horizon ─────────────────────────────────────────
+# ── Full horizon curve ────────────────────────────────────────────────────
+
+st.markdown("### Prediction Curve")
+st.caption(
+    "Expected move (bars) and confidence (line) across every horizon from 6h "
+    "to 168h (7d) in 6-hour steps, plus the long-range 30d point."
+)
+st.plotly_chart(create_horizon_curve_chart(preds), width="stretch")
+
+# ── Confidence gauges per headline horizon ────────────────────────────────
 
 st.markdown("### Confidence by Horizon")
-st.caption("How sure the model is for each timeframe. Green ≥60% (strong), amber 40–60%, red <40% (weak).")
+st.caption("How sure the model is for the headline horizons. Green ≥60% (strong), amber 40–60%, red <40% (weak).")
 layout_marker("stack")
-gcols = st.columns(6, gap="small")
-for i, tf in enumerate(("6h", "12h", "24h", "7d", "30d", "90d")):
+gcols = st.columns(len(SUMMARY_HORIZONS), gap="small")
+for i, tf in enumerate(SUMMARY_HORIZONS):
     match = next((p for p in preds if p["timeframe"] == tf), None)
     with gcols[i]:
         val = match["confidence"] if match else 0

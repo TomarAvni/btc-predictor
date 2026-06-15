@@ -7,6 +7,7 @@ from typing import Any
 import pandas as pd
 import streamlit as st
 
+from dashboard.config import SUMMARY_HORIZONS
 from dashboard.styles import GREEN, RED, YELLOW
 from src.utils.timez import utc_str_to_israel
 
@@ -40,7 +41,7 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
         preds = run.get("predictions", [])
 
         cells = [f"<td style='white-space:nowrap;'>#{run_num}</td>", f"<td>{ts}</td>"]
-        for tf in ("6h", "12h", "24h", "7d", "30d", "90d"):
+        for tf in SUMMARY_HORIZONS:
             match = next((p for p in preds if p["timeframe"] == tf), None)
             if match:
                 badge = _direction_badge(match["direction"])
@@ -53,6 +54,9 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
 
         rows_html.append(f"<tr>{''.join(cells)}</tr>")
 
+    horizon_headers = "".join(
+        f'<th style="padding:0.5rem;">{tf}</th>' for tf in SUMMARY_HORIZONS
+    )
     st.markdown(
         f"""
         <div class="pred-table-wrap">
@@ -61,12 +65,7 @@ def render_prediction_table(runs: list[dict[str, Any]], max_rows: int = 10) -> N
             <tr style="border-bottom:1px solid #30363D;color:#8B949E;text-align:left;">
                 <th style="padding:0.5rem;">Run</th>
                 <th style="padding:0.5rem;">Time (Israel)</th>
-                <th style="padding:0.5rem;">6h</th>
-                <th style="padding:0.5rem;">12h</th>
-                <th style="padding:0.5rem;">24h</th>
-                <th style="padding:0.5rem;">7d</th>
-                <th style="padding:0.5rem;">30d</th>
-                <th style="padding:0.5rem;">90d</th>
+                {horizon_headers}
             </tr>
         </thead>
         <tbody>{''.join(rows_html)}</tbody>

@@ -19,6 +19,7 @@ from src.collectors.price import PriceCollector
 from src.collectors.technical import TechnicalCollector
 from src.features.engineer import FeatureEngineer
 from src.features.temporal import TemporalFeatures
+from src.horizons import HORIZON_HOURS, LEGACY_MODEL_ALIASES, TIMEFRAMES
 from src.models.baseline_model import BaselineModel
 from src.models.calibration import ProbabilityCalibrator
 from src.models.xgboost_model import XGBoostPredictor
@@ -30,10 +31,18 @@ from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-TIMEFRAMES = ["6h", "12h", "24h", "7d", "30d", "90d"]
 ENSEMBLE_WEIGHTS = {"baseline": 0.35, "xgboost": 0.65}
-# Minimum display magnitude per horizon when regressor/heuristic returns ~0
-MIN_MAGNITUDE = {"6h": 0.1, "12h": 0.2, "24h": 0.3, "7d": 0.8, "30d": 2.0, "90d": 4.0}
+
+
+def _min_magnitude(timeframe: str) -> float:
+    """Minimum display magnitude (%) per horizon when the model returns ~0.
+
+    Scales with the horizon length so a longer horizon never shows an
+    implausibly tiny floor.  The power fit is anchored to the historical
+    values (24h ~ 0.3%, 168h ~ 0.8%, 30d ~ 2.0%).
+    """
+    hrs = HORIZON_HOURS.get(timeframe, 24)
+    return round(0.0495 * hrs ** 0.558, 2)
 
 
 class PredictionEngine:
@@ -169,12 +178,30 @@ class PredictionEngine:
     # Model loading & prediction
     # ------------------------------------------------------------------
 
+    def _resolve_model_dir(self, timeframe: str, prefix: str) -> Path:
+        """Return the model directory for *timeframe*, honoring legacy aliases.
+
+        Prefers ``<prefix>_<timeframe>``; if that directory is absent it falls
+        back to a legacy-aliased horizon (e.g. the old ``7d`` artifact serves
+        the new ``168h`` point) so already-trained models are reused without
+        being moved on disk.
+        """
+        primary = self.model_dir / f"{prefix}_{timeframe}"
+        if primary.exists():
+            return primary
+        legacy = LEGACY_MODEL_ALIASES.get(timeframe)
+        if legacy:
+            alt = self.model_dir / f"{prefix}_{legacy}"
+            if alt.exists():
+                return alt
+        return primary
+
     def _models_available(self) -> bool:
         if not self.model_dir.exists():
             return False
         for tf in TIMEFRAMES:
-            baseline_path = self.model_dir / f"baseline_{tf}" / "baseline_model.pkl"
-            xgb_path = self.model_dir / f"xgb_{tf}" / "direction.pkl"
+            baseline_path = self._resolve_model_dir(tf, "baseline") / "baseline_model.pkl"
+            xgb_path = self._resolve_model_dir(tf, "xgb") / "direction.pkl"
             if baseline_path.exists() or xgb_path.exists():
                 return True
         return False
@@ -194,8 +221,8 @@ class PredictionEngine:
 
         loaded_any = False
         for tf in TIMEFRAMES:
-            baseline_path = self.model_dir / f"baseline_{tf}"
-            xgb_path = self.model_dir / f"xgb_{tf}"
+            baseline_path = self._resolve_model_dir(tf, "baseline")
+            xgb_path = self._resolve_model_dir(tf, "xgb")
 
             if (baseline_path / "baseline_model.pkl").exists():
                 baseline = BaselineModel()
@@ -231,16 +258,40 @@ class PredictionEngine:
         price_df: pd.DataFrame,
         ta_df: pd.DataFrame,
     ) -> tuple[list[dict[str, Any]], dict[str, float], str]:
-        """Return (predictions, features_dict, model_source)."""
+        """Return (predictions, features_dict, model_source).
+
+        Produces a value for *every* horizon in :data:`TIMEFRAMES`.  Horizons
+        with a trained ML model use it; horizons whose model is not yet trained
+        fall back cleanly to the heuristic estimate so the full curve is always
+        populated and a missing ``xgb_<h>`` artifact never crashes a run.
+        """
+        latest_ta = ta_df.iloc[-1].to_dict() if not ta_df.empty else {}
+        cycle_info = self.cycle.get_cycle_position()
+        heuristic = self._heuristic_predictions(latest_ta, cycle_info)
+
         if self._load_models():
             ml_preds, features_dict = self._ml_predictions(price_df, ta_df)
             if ml_preds:
-                return ml_preds, features_dict, "ensemble"
+                ml_by_tf = {p["timeframe"]: p for p in ml_preds}
+                merged: list[dict[str, Any]] = []
+                for h in heuristic:
+                    tf = h["timeframe"]
+                    if tf in ml_by_tf:
+                        merged.append(ml_by_tf[tf])
+                    else:
+                        filled = dict(h)
+                        filled["model_source"] = "heuristic"
+                        merged.append(filled)
+                n_ml = len(ml_by_tf)
+                source = (
+                    "ensemble"
+                    if n_ml == len(merged)
+                    else f"hybrid ({n_ml}/{len(merged)} ML)"
+                )
+                return merged, features_dict, source
 
         logger.info("Falling back to heuristic predictions")
-        latest_ta = ta_df.iloc[-1].to_dict() if not ta_df.empty else {}
-        cycle_info = self.cycle.get_cycle_position()
-        return self._heuristic_predictions(latest_ta, cycle_info), {}, "heuristic"
+        return heuristic, {}, "heuristic"
 
     def _ml_predictions(
         self,
@@ -371,32 +422,46 @@ class PredictionEngine:
         ratio = bullish_signals / max(total_signals, 1)
         direction = "UP" if ratio >= 0.5 else "DOWN"
 
-        horizons = [
-            {"label": "6h", "mag_scale": 0.3, "conf_base": 60},
-            {"label": "12h", "mag_scale": 0.6, "conf_base": 62},
-            {"label": "24h", "mag_scale": 1.0, "conf_base": 65},
-            {"label": "7d", "mag_scale": 3.0, "conf_base": 52},
-            {"label": "30d", "mag_scale": 8.0, "conf_base": 40},
-            {"label": "90d", "mag_scale": 15.0, "conf_base": 30},
-        ]
-
         predictions = []
-        for h in horizons:
+        for tf in TIMEFRAMES:
             strength = max(abs(ratio - 0.5) * 2, 0.15)
-            raw_mag = h["mag_scale"] * strength
+            raw_mag = PredictionEngine._heuristic_mag_scale(tf) * strength
             prob = ratio if direction == "UP" else 1.0 - ratio
-            magnitude = PredictionEngine._display_magnitude(raw_mag, prob, h["label"])
+            magnitude = PredictionEngine._display_magnitude(raw_mag, prob, tf)
             confidence = max(
-                h["conf_base"] + int((ratio - 0.5) * 20), 20
+                PredictionEngine._heuristic_conf_base(tf) + int((ratio - 0.5) * 20), 20
             )
             predictions.append({
-                "timeframe": h["label"],
+                "timeframe": tf,
                 "direction": direction,
                 "magnitude": magnitude,
                 "confidence": confidence,
             })
 
         return predictions
+
+    @staticmethod
+    def _heuristic_mag_scale(timeframe: str) -> float:
+        """Expected move scale (multiplier) per horizon for the TA fallback.
+
+        Power fit anchored to the original hand-tuned scales
+        (24h ~ 1.0, 168h ~ 3.0, 30d ~ 8.0); grows with the horizon length.
+        """
+        hrs = HORIZON_HOURS.get(timeframe, 24)
+        return 0.1437 * hrs ** 0.611
+
+    @staticmethod
+    def _heuristic_conf_base(timeframe: str) -> int:
+        """Baseline confidence per horizon for the TA fallback.
+
+        Monotonically decays with the horizon length (shorter horizons carry
+        more conviction); clamped to a sane [30, 70] band.
+        """
+        import math
+
+        hrs = HORIZON_HOURS.get(timeframe, 24)
+        base = 66 - 3.2 * math.log2(max(hrs, 1) / 6)
+        return int(round(max(30, min(70, base))))
 
     @staticmethod
     def _display_magnitude(
@@ -409,7 +474,7 @@ class PredictionEngine:
         if round(mag, 1) >= 0.1:
             return round(mag, 1)
 
-        floor = MIN_MAGNITUDE.get(timeframe, 1.0)
+        floor = _min_magnitude(timeframe)
         strength = max(abs(direction_prob - 0.5) * 2, 0.15)
         estimated = floor * strength
         return round(max(mag, estimated), 1)

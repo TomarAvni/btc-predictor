@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from src import DATA_DIR
+from src.horizons import TIMEFRAMES
 from src.models.confidence import ConfidenceCalibrator
 from src.simulation.data_loader import HistoricalDataLoader
 from src.simulation.labeler import ForwardReturnLabeler
@@ -24,8 +25,6 @@ from src.training.metrics import MetricsTracker
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
-
-TIMEFRAMES = ["24h", "7d", "30d", "90d"]
 
 
 @dataclass

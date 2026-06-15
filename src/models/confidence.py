@@ -17,11 +17,35 @@ from sklearn.isotonic import IsotonicRegression
 from sklearn.linear_model import LogisticRegression
 
 from src import DATA_DIR
+from src.horizons import HORIZON_HOURS
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
 MODEL_DIR = DATA_DIR / "models"
+
+
+def _confidence_cap(horizon_label: str) -> float:
+    """Max calibrated confidence per horizon (decays with horizon length).
+
+    Anchored to the historical caps (24h ~ 92, 168h ~ 81, 30d ~ 72).
+    """
+    import math
+
+    hrs = HORIZON_HOURS.get(horizon_label, 24)
+    cap = 110.7 - 5.88 * math.log(max(hrs, 1))
+    return max(62.0, min(92.0, cap))
+
+
+def _horizon_penalty(horizon_label: str) -> float:
+    """Heuristic-confidence penalty per horizon (larger for longer horizons).
+
+    Anchored to the historical penalties (24h ~ 0, 168h ~ -5, 30d ~ -12).
+    """
+    import math
+
+    hrs = HORIZON_HOURS.get(horizon_label, 24)
+    return -3.53 * math.log(max(hrs, 24) / 24)
 
 
 class ConfidenceCalibrator:
@@ -139,8 +163,7 @@ class ConfidenceCalibrator:
         confidence *= vol_multipliers.get(volatility_regime, 1.0)
 
         # Timeframe cap
-        tf_caps = {"24h": 92, "7d": 82, "30d": 72, "90d": 62}
-        max_confidence = tf_caps.get(horizon_label, 80)
+        max_confidence = _confidence_cap(horizon_label)
         confidence = min(confidence, max_confidence)
 
         return max(10.0, min(95.0, confidence))
@@ -263,6 +286,5 @@ class ConfidenceCalibrator:
     def _heuristic_confidence(self, magnitude: float, horizon_label: str) -> float:
         """Simple confidence estimate when no calibrator is available."""
         base = 50.0 + min(magnitude * 3, 20.0)
-        penalties = {"24h": 0, "7d": -5, "30d": -12, "90d": -20}
-        base += penalties.get(horizon_label, -10)
+        base += _horizon_penalty(horizon_label)
         return base

@@ -22,6 +22,7 @@ from dashboard.components.charts import (
     create_scatter_chart,
 )
 from dashboard.components.metrics_cards import render_metric_card
+from dashboard.config import SUMMARY_HORIZONS
 from dashboard.data_loader import (
     get_backtest_results,
     get_validation_results,
@@ -93,7 +94,7 @@ if validation:
             st.dataframe(acc_df, width="stretch", hide_index=True)
 
             # Bar chart: accuracy by model per timeframe
-            for tf in ["24h", "7d", "30d", "90d"]:
+            for tf in SUMMARY_HORIZONS:
                 tf_data = acc_df[acc_df["Timeframe"] == tf]
                 if not tf_data.empty:
                     pass  # Shown in table above
@@ -352,7 +353,7 @@ if "avg_predicted_return" in bt.columns and "avg_actual_return" in bt.columns:
 st.markdown("### Direction Confusion Matrix")
 
 rng = np.random.default_rng(11)
-for horizon in ["24h", "7d", "30d", "90d"]:
+for horizon in SUMMARY_HORIZONS:
     tp = rng.integers(30, 60)
     fp = rng.integers(10, 30)
     fn = rng.integers(10, 30)

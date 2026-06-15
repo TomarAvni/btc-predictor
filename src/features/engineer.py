@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+from src.horizons import HORIZON_HOUR_VALUES
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -22,7 +23,7 @@ class FeatureEngineer:
     """
 
     def __init__(self, prediction_horizons: list[int] | None = None) -> None:
-        self.prediction_horizons = prediction_horizons or [24, 168, 720, 2160]
+        self.prediction_horizons = prediction_horizons or list(HORIZON_HOUR_VALUES)
 
     def build_features(
         self,

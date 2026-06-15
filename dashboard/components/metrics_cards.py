@@ -6,7 +6,7 @@ from typing import Any
 
 import streamlit as st
 
-from dashboard.config import PREDICTION_HORIZONS
+from dashboard.config import SUMMARY_HORIZONS
 from dashboard.styles import GREEN, RED, YELLOW, layout_marker
 
 
@@ -65,11 +65,16 @@ def render_prediction_card(
 
 def render_prediction_cards(
     predictions: list[dict[str, Any]],
-    timeframes: tuple[str, ...] = tuple(PREDICTION_HORIZONS),
+    timeframes: tuple[str, ...] = tuple(SUMMARY_HORIZONS),
     *,
     mobile_stack: bool = True,
 ) -> None:
-    """Render horizon prediction cards in a responsive row."""
+    """Render headline-horizon prediction cards in a responsive row.
+
+    Defaults to the compact :data:`SUMMARY_HORIZONS` set; the full continuous
+    curve is shown via :func:`create_horizon_curve_chart` instead of one card
+    per horizon.
+    """
     if mobile_stack:
         layout_marker("stack")
     cols = st.columns(len(timeframes), gap="small")

@@ -1,7 +1,7 @@
 """Temporal Fusion Transformer model for multi-horizon BTC forecasting.
 
 Uses pytorch-forecasting's TemporalFusionTransformer for sequential
-prediction across all 4 horizons simultaneously. Provides quantile
+prediction across all horizons simultaneously. Provides quantile
 outputs for uncertainty estimation and attention weights for interpretability.
 """
 
@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from src import DATA_DIR
+from src.horizons import HORIZON_HOUR_VALUES
 from src.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -23,7 +24,7 @@ MODEL_DIR = DATA_DIR / "models" / "tft"
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
 SEQUENCE_LENGTH = 168  # 7 days of hourly data as input
-PREDICTION_HORIZONS = [24, 168, 720, 2160]
+PREDICTION_HORIZONS = list(HORIZON_HOUR_VALUES)
 
 TIME_VARYING_KNOWN = [
     "hour_sin", "hour_cos", "day_sin", "day_cos", "month_sin", "month_cos",
@@ -47,7 +48,7 @@ class TFTPredictor:
     - LSTM encoder processes historical sequence
     - Multi-head attention over encoder outputs
     - Quantile outputs (10th, 50th, 90th) for uncertainty estimation
-    - Predicts all 4 horizons (24h, 7d, 30d, 90d) simultaneously
+    - Predicts all configured horizons (see src/horizons.py) simultaneously
     """
 
     def __init__(

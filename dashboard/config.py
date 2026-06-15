@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+from src.horizons import KEY_HORIZONS, TIMEFRAMES
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 PREDICTIONS_LOG = PROJECT_ROOT / "predictions.log"
@@ -14,7 +16,10 @@ PERFORMANCE_DIR = DATA_DIR / "performance"
 HISTORY_DIR = DATA_DIR / "history"
 CONFIG_PATH = PROJECT_ROOT / "config" / "settings.yaml"
 
-PREDICTION_HORIZONS = ["6h", "12h", "24h", "7d", "30d", "90d"]
+# Full continuous horizon curve (single source of truth: src/horizons.py).
+PREDICTION_HORIZONS = list(TIMEFRAMES)
+# Compact "headline" horizons for summary cards / gauges / table columns.
+SUMMARY_HORIZONS = list(KEY_HORIZONS)
 
 SIGNAL_CATEGORIES = {
     "Cycle": ["Halving Cycle", "Cycle Phase"],

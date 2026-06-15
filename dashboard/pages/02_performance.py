@@ -24,6 +24,7 @@ from dashboard.components.charts import (
 )
 from dashboard.components.metrics_cards import render_performance_card
 from dashboard.components.mobile_nav import render_mobile_nav
+from dashboard.config import SUMMARY_HORIZONS
 from dashboard.data_loader import (
     get_backtest_results,
     get_live_performance_scores,
@@ -52,7 +53,7 @@ with st.expander("ℹ️ How to read this page"):
           illustrates the strategy, it is not the live demo portfolio (see the
           **Trading** page for that).
         - **Maturing data:** predictions are only scored once their horizon
-          completes (a 90-day call takes 90 days). Until enough have matured,
+          completes (a 30-day call takes 30 days). Until enough have matured,
           some sections show **simulated/demo** numbers, clearly labelled.
         """
     )
@@ -94,7 +95,7 @@ runs = get_prediction_history()
 bt = get_backtest_results()
 rng = np.random.default_rng(42)
 
-horizons = ["6h", "12h", "24h", "7d", "30d", "90d"]
+horizons = list(SUMMARY_HORIZONS)
 perf: dict[str, pd.DataFrame] = {}
 
 if live_scores:

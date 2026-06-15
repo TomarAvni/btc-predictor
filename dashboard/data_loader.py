@@ -25,6 +25,7 @@ from dashboard.config import (
     PRICE_DIR,
     VALIDATION_DIR,
 )
+from src.horizons import HORIZON_HOURS, TIMEFRAMES
 
 # ── Prediction-log parser ──────────────────────────────────────────────────
 
@@ -237,19 +238,21 @@ def _demo_predictions(n: int = 50) -> list[dict[str, Any]]:
     for i in range(n):
         ts = base_ts + timedelta(days=i)
         preds = []
-        for tf, mag_s, conf_b in [
-            ("24h", 1.5, 65),
-            ("7d", 4.0, 52),
-            ("30d", 8.0, 40),
-            ("90d", 16.0, 30),
-        ]:
-            d = rng.choice(["UP", "DOWN"])
+        # Coherent demo direction per run, with magnitude/confidence scaled
+        # along the full horizon curve (longer horizon -> bigger move, lower
+        # confidence) so the curve chart renders sensibly in demo mode.
+        run_bias = rng.uniform(0.35, 0.65)
+        for tf in TIMEFRAMES:
+            hrs = HORIZON_HOURS[tf]
+            mag_s = 0.6 + 0.35 * hrs ** 0.6
+            conf_b = int(round(max(35, 66 - 3.0 * np.log2(max(hrs, 1) / 6))))
+            d = "UP" if rng.uniform(0, 1) < run_bias else "DOWN"
             preds.append(
                 {
                     "timeframe": tf,
                     "direction": d,
                     "magnitude": round(rng.uniform(0.3, mag_s), 1),
-                    "confidence": int(rng.integers(conf_b - 15, conf_b + 15)),
+                    "confidence": int(rng.integers(conf_b - 12, conf_b + 12)),
                 }
             )
 

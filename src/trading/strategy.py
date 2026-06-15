@@ -10,13 +10,12 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
+from src.horizons import HORIZON_HOURS
 
-TIMEFRAME_HOURS = {
-    "24h": 24,
-    "7d": 168,
-    "30d": 720,
-    "90d": 2160,
-}
+
+# Horizon label -> hours, sourced from the single source of truth
+# (src/horizons.py) so the trading layer always matches the engine.
+TIMEFRAME_HOURS = dict(HORIZON_HOURS)
 
 
 @dataclass

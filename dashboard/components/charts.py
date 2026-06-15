@@ -176,6 +176,77 @@ def create_line_chart(
     return fig
 
 
+# ── Horizon curve (predicted move + confidence vs horizon) ────────────────
+
+
+def create_horizon_curve_chart(
+    predictions: list[dict[str, Any]],
+    height: int = 400,
+) -> go.Figure:
+    """Plot the continuous prediction curve across all horizons.
+
+    Renders signed expected move (%) as bars on the primary axis and model
+    confidence (%) as a line on the secondary axis, ordered by horizon length.
+    Horizons are placed on an evenly-spaced categorical x-axis so the 6h..168h
+    curve stays readable alongside the long-range 30d point.
+    """
+    from src.horizons import HORIZON_HOURS, TIMEFRAMES
+
+    order = {tf: i for i, tf in enumerate(TIMEFRAMES)}
+    pts = [p for p in predictions if p.get("timeframe") in order]
+    pts.sort(key=lambda p: order[p["timeframe"]])
+
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    if not pts:
+        _apply_theme(fig, height=height)
+        return fig
+
+    labels = [p["timeframe"] for p in pts]
+    signed_move = [
+        (abs(p["magnitude"]) if str(p["direction"]).upper() == "UP" else -abs(p["magnitude"]))
+        for p in pts
+    ]
+    confidence = [p.get("confidence", 0) for p in pts]
+    bar_colors = [GREEN if v >= 0 else RED for v in signed_move]
+
+    fig.add_trace(
+        go.Bar(
+            x=labels,
+            y=signed_move,
+            name="Expected move (%)",
+            marker_color=bar_colors,
+            opacity=0.55,
+            hovertemplate="%{x}: %{y:+.2f}%<extra></extra>",
+        ),
+        secondary_y=False,
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=labels,
+            y=confidence,
+            name="Confidence (%)",
+            mode="lines+markers",
+            line=dict(color=BLUE, width=2),
+            marker=dict(size=5),
+            hovertemplate="%{x}: %{y:.0f}%<extra></extra>",
+        ),
+        secondary_y=True,
+    )
+
+    fig.add_hline(y=0, line_dash="dash", line_color=TEXT_DIM, opacity=0.5, secondary_y=False)
+    fig.update_layout(
+        title="Prediction Curve by Horizon",
+        showlegend=True,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        xaxis_title="Horizon",
+    )
+    fig.update_yaxes(title_text="Expected move (%)", secondary_y=False)
+    fig.update_yaxes(title_text="Confidence (%)", range=[0, 100], secondary_y=True)
+    _apply_theme(fig, height=height)
+    return fig
+
+
 # ── Gauge (confidence meter) ──────────────────────────────────────────────
 
 

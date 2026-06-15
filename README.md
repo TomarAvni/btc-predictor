@@ -4,15 +4,18 @@ An ML-powered Bitcoin price movement prediction system that combines multiple si
 
 ## What It Does
 
-Outputs predictions like:
+Outputs a continuous prediction curve — every 6 hours from 6h to 168h (7 days),
+plus a long-range 30d point (see `src/horizons.py`, the single source of truth):
 ```
 [2026-06-15 00:30 UTC] -- Prediction Run #42
 
 PREDICTIONS:
+  6h    | UP    | +0.4%   | Confidence: 66%
   24h   | UP    | +1.8%   | Confidence: 68%
-  7d    | UP    | +4.2%   | Confidence: 55%
+  72h   | UP    | +3.1%   | Confidence: 58%
+  168h  | UP    | +4.2%   | Confidence: 55%
   30d   | DOWN  | -6.5%   | Confidence: 42%
-  90d   | UP    | +18.3%  | Confidence: 35%
+  ...   (every 6h step in between)
 ```
 
 And manages a virtual $2,000 trading portfolio based on model predictions.
@@ -160,7 +163,7 @@ All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 The system improves over time through a closed feedback loop:
 
 1. **Predict** (`predict.yml`, every 30 min) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions.
-2. **Score** (`score_predictions.py`) — for each prediction whose horizon has elapsed (24h / 7d / 30d / 90d), compares predicted direction and magnitude to the actual BTC move from `data/price/btc_hourly.parquet`. Results append to `data/performance/prediction_scores.jsonl`; rolling stats land in `data/performance/rolling_accuracy.json`.
+2. **Score** (`score_predictions.py`) — for each prediction whose horizon has elapsed (any 6h-step point up to 168h, plus 30d), compares predicted direction and magnitude to the actual BTC move from `data/price/btc_hourly.parquet`. Results append to `data/performance/prediction_scores.jsonl`; rolling stats land in `data/performance/rolling_accuracy.json`.
 3. **Retrain** (`retrain.yml`, weekly Sunday 3am UTC) — downloads fresh candles, scores any newly mature predictions, retrains models via `validate.py`, and commits updated models + performance data.
 4. **Dashboard** — the Performance page shows live rolling accuracy; the Signals page shows feature importance from the latest validation run.
 
