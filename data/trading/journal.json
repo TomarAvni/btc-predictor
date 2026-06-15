@@ -101,5 +101,17 @@
       "30d: DOWN 6.4% @ 12%",
       "90d: DOWN 14.3% @ 28%"
     ]
+  },
+  {
+    "trade_number": null,
+    "timestamp": "2026-06-15T02:16:55.827443+00:00",
+    "action": "SKIP",
+    "reason": "No predictions above minimum confidence (55.0%)",
+    "predictions_summary": [
+      "24h: DOWN 0.7% @ 22%",
+      "7d: DOWN 0.8% @ 15%",
+      "30d: DOWN 5.5% @ 10%",
+      "90d: DOWN 13.1% @ 32%"
+    ]
   }
 ]
