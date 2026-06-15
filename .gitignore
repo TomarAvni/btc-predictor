@@ -12,3 +12,4 @@ data/models/*.joblib
 *.log
 !predictions.log
 .DS_Store
+*.parquet
