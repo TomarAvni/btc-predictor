@@ -262,5 +262,54 @@
       "168h: DOWN 0.6% @ 19%",
       "30d: DOWN 5.9% @ 10%"
     ]
+  },
+  {
+    "trade_number": 14,
+    "timestamp": "2026-06-15T23:23:56.477580+00:00",
+    "action": "CLOSE",
+    "position_side": "LONG",
+    "side": "SELL",
+    "amount_usd": 250.29945,
+    "amount_btc": 0.003743415997465091,
+    "entry_price": 66863.91524999999,
+    "exit_price": 66162.17845945124,
+    "pnl_usd": -2.8745652850222143,
+    "pnl_pct": -1.1484504999999856,
+    "exit_reason": "stop_loss",
+    "timeframe": "6h",
+    "holding_time_hours": 4.2827077905555555,
+    "portfolio_cash": 1735.380005869401,
+    "portfolio_total": 1983.1046229995923,
+    "fees_paid": 0.4979720072722501
+  },
+  {
+    "trade_number": 15,
+    "timestamp": "2026-06-15T23:23:56.477580+00:00",
+    "action": "BUY",
+    "position_side": "LONG",
+    "side": "BUY",
+    "amount_usd": 237.97,
+    "amount_btc": 0.003591778721683717,
+    "price": 66187.827375,
+    "timeframe": "6h",
+    "confidence": 66,
+    "reasons": [
+      "6h prediction: UP +0.1% @ 66% confidence",
+      "Multi-timeframe alignment: Strong (score 13.85)",
+      "Supporting timeframes: 12h (63%), 18h (61%), 30h (59%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)"
+    ],
+    "sizing_tier": "Medium",
+    "alignment_score": 13.849999999999996,
+    "stop_loss": 65525.94910124999,
+    "take_profit": 66452.5786845,
+    "max_loss_usd": 2.3797000000000024,
+    "max_loss_pct_portfolio": 0.1200059012189375,
+    "portfolio_cash": 1497.6479758694009,
+    "portfolio_total": 1982.985816387898,
+    "open_positions": 2,
+    "exposure_pct": 24.47510398246634,
+    "prediction_id": "a59c0408939f",
+    "run_number": 25,
+    "used_ml": true
   }
 ]
