@@ -1,0 +1,74 @@
+name: Pipeline Watchdog
+
+on:
+  schedule:
+    # Independent guard for missed/delayed Predict schedules.
+    - cron: '13,28,43,58 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: pipeline-watchdog
+  cancel-in-progress: false
+
+jobs:
+  predict-freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Predict if stale
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflowId = "predict.yml";
+            const ref = "master";
+            const staleAfterMs = 3 * 60 * 60 * 1000;
+            const now = Date.now();
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const { data } = await github.rest.actions.listWorkflowRuns({
+              owner,
+              repo,
+              workflow_id: workflowId,
+              branch: ref,
+              per_page: 20,
+            });
+
+            const runs = data.workflow_runs || [];
+            const freshActiveRun = runs.find((run) => {
+              if (run.status === "completed") {
+                return false;
+              }
+              return now - new Date(run.updated_at).getTime() <= staleAfterMs;
+            });
+
+            if (freshActiveRun) {
+              core.info(
+                `Predict is already ${freshActiveRun.status}; last update ${freshActiveRun.updated_at}.`
+              );
+              return;
+            }
+
+            const lastSuccess = runs.find((run) => run.conclusion === "success");
+            if (lastSuccess) {
+              const ageMs = now - new Date(lastSuccess.updated_at).getTime();
+              if (ageMs <= staleAfterMs) {
+                core.info(`Predict is fresh; last success ${lastSuccess.updated_at}.`);
+                return;
+              }
+
+              core.warning(`Predict stale; last success ${lastSuccess.updated_at}.`);
+            } else {
+              core.warning("Predict has no recent successful runs.");
+            }
+
+            await github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo,
+              workflow_id: workflowId,
+              ref,
+            });
+            core.info("Dispatched Predict workflow.");
