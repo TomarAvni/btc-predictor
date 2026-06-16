@@ -100,5 +100,22 @@
     "prediction_id": "08e6c7f3bb98",
     "fees_paid": 0.4761155121357601,
     "used_ml": true
+  },
+  {
+    "id": "2b8ec0d64c48",
+    "entry_time": "2026-06-16T08:32:08.263697+00:00",
+    "exit_time": "2026-06-16T18:20:39.957297+00:00",
+    "entry_price": 66546.26650499999,
+    "exit_price": 65963.2019,
+    "amount_usd": 237.83193,
+    "amount_btc": 0.0035739334825362497,
+    "side": "LONG",
+    "timeframe": "6h",
+    "pnl_usd": -2.319582210176918,
+    "pnl_pct": -0.9753031101319819,
+    "exit_reason": "time_expired",
+    "prediction_id": "7de79bd3ea45",
+    "fees_paid": 0.4735800258857088,
+    "used_ml": true
   }
 ]
