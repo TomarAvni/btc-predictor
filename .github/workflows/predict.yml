@@ -43,6 +43,10 @@ jobs:
       - name: Predict
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
+          # X/Twitter sentiment module. When these secrets are unset the module
+          # runs in mock mode (fixtures) so the pipeline never breaks.
+          TWITTERAPI_KEY: ${{ secrets.TWITTERAPI_KEY }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: python main.py --predict
 
       - name: Trade

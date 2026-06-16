@@ -55,6 +55,32 @@ prediction:
     - label: "30d"
       hours: 720
 
+collectors:
+  twitter:
+    # API key is read from the TWITTERAPI_KEY env var (never stored here).
+    # When the key is absent the collector runs in MOCK MODE using
+    # tests/fixtures/sample_tweets.json so the whole pipeline works offline.
+    api_base: "https://api.twitterapi.io"
+    cadence_minutes: 10          # ingestion / forecast cadence
+    max_tweets_per_run: 1000     # per-run pull cap
+    monthly_tweet_cap: 4320000   # hard budget guard (~10-min cadence, nano profile)
+    keywords: ["$BTC", "#Bitcoin", "bitcoin"]
+    whitelist_handles:           # trusted accounts, boosted weight
+      - "BitcoinMagazine"
+      - "saylor"
+      - "WatcherGuru"
+      - "cointelegraph"
+      - "DocumentingBTC"
+    min_followers: 500           # spam/bot floor
+    languages: ["en"]
+    whitelist_weight: 3.0        # influence multiplier for whitelist handles
+  llm_reader:
+    # LLM key read from LLM_API_KEY env var; absent -> deterministic mock reader.
+    model: "gpt-5-nano"
+    api_base: "https://api.openai.com/v1"
+    batch_size: 40
+    min_relevance: 0.15          # drop off-topic tweets from aggregation
+
 cache:
   default_ttl_minutes: 60
   max_size_mb: 500

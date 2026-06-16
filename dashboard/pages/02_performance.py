@@ -139,6 +139,40 @@ if rolling.get("timeframes"):
                 else:
                     st.metric(f"{label}", "—", help="No scored predictions yet")
 
+# ── Track comparison (numbers vs tweets vs blended) ───────────────────────
+
+by_model = rolling.get("by_model") if isinstance(rolling, dict) else None
+if by_model:
+    st.markdown("### Model Track Comparison")
+    st.caption(
+        "Head-to-head direction accuracy per track: the numbers model vs the "
+        "X/Twitter tracks (llm_direct, llm_calibrated) and the blended model. "
+        "ECE = calibration error (lower is better)."
+    )
+
+    _track_labels = {
+        "numbers": "Numbers",
+        "llm_direct": "Tweets (LLM-direct)",
+        "llm_calibrated": "Tweets (calibrated)",
+        "blended": "Blended",
+    }
+    rows: list[dict] = []
+    for track, stats in by_model.items():
+        tfs = stats.get("timeframes", {})
+        row = {"Track": _track_labels.get(track, track)}
+        for h in horizons:
+            acc = tfs.get(h, {}).get("all_time", {}).get("direction_accuracy_pct")
+            row[h] = f"{acc:.1f}%" if acc is not None else "—"
+        ece = (stats.get("calibration") or {}).get("ece")
+        row["ECE"] = f"{ece:.3f}" if ece is not None else "—"
+        row["n"] = stats.get("n_scored", 0)
+        rows.append(row)
+
+    if rows:
+        st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+    else:
+        st.caption("No per-track scores yet — tracks appear once predictions mature.")
+
 # ── Summary cards ─────────────────────────────────────────────────────────
 
 st.markdown("### Summary")
