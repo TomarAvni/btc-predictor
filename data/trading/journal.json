@@ -545,5 +545,35 @@
     "prediction_id": "b6d8b357b5c1",
     "run_number": 35,
     "used_ml": true
+  },
+  {
+    "trade_number": 25,
+    "timestamp": "2026-06-16T21:30:59.408225+00:00",
+    "action": "SHORT",
+    "position_side": "SHORT",
+    "side": "SELL",
+    "amount_usd": 130.69,
+    "amount_btc": 0.0019892349119412555,
+    "price": 65632.92712,
+    "timeframe": "6h",
+    "confidence": 61,
+    "reasons": [
+      "6h prediction: DOWN +0.2% @ 61% confidence",
+      "Multi-timeframe alignment: Strong (score 13.23)",
+      "Supporting timeframes: 12h (58%), 18h (56%), 30h (54%), 36h (53%), 42h (52%), 48h (51%), 54h (51%), 60h (50%), 66h (50%), 72h (50%)"
+    ],
+    "sizing_tier": "Small",
+    "alignment_score": 13.230000000000008,
+    "stop_loss": 66289.25639119999,
+    "take_profit": 65304.762484399995,
+    "max_loss_usd": 1.3068999999999933,
+    "max_loss_pct_portfolio": 0.06600331554245649,
+    "portfolio_cash": 1482.7166898597036,
+    "portfolio_total": 1980.0520462632408,
+    "open_positions": 3,
+    "exposure_pct": 25.09084395921224,
+    "prediction_id": "9285f5a47f17",
+    "run_number": 37,
+    "used_ml": true
   }
 ]
