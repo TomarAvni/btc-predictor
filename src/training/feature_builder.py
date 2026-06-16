@@ -40,11 +40,16 @@ TA_COLUMNS = [
 PLACEHOLDER_COLUMNS = [
     "exchange_netflow", "mvrv_zscore", "nupl",
     "sopr", "funding_rate_avg", "open_interest_change",
-    "fear_greed_index", "social_volume",
+    "fear_greed_index",
     "etf_net_flow", "grayscale_premium",
     "put_call_ratio", "max_pain_distance",
     "dxy_change", "sp500_correlation",
 ]
+
+# Tweet-derived feature columns (supersede the old "social_volume" placeholder).
+# Sourced from the merged dataset when data/history/twitter_llm_signal.parquet
+# exists; otherwise added as NaN placeholders so the schema stays stable.
+from src.features.tweet_aggregator import SIGNAL_COLUMNS as TWEET_FEATURE_COLUMNS
 
 
 class TrainingFeatureBuilder:
@@ -69,6 +74,7 @@ class TrainingFeatureBuilder:
         self,
         price_df: pd.DataFrame,
         include_placeholders: bool = True,
+        include_tweets: bool = False,
     ) -> pd.DataFrame:
         """Build the full feature matrix from price + available signals.
 
@@ -77,6 +83,9 @@ class TrainingFeatureBuilder:
                       May also contain pre-computed TA columns from the
                       TechnicalCollector or merged dataset.
             include_placeholders: Whether to add NaN columns for future signals.
+            include_tweets: Whether to add the X/Twitter sentiment feature
+                columns. Default False keeps the ``numbers`` model pure; the
+                ``llm_calibrated`` / ``blended`` tracks opt in by passing True.
 
         Returns:
             DataFrame with one row per timestamp and all feature columns.
@@ -92,6 +101,8 @@ class TrainingFeatureBuilder:
         features = self._add_ta_features(features, price_df)
         features = self._add_cycle_features(features)
         features = self._add_temporal_features(features)
+        if include_tweets:
+            features = self._add_tweet_features(features, price_df)
 
         if include_placeholders:
             features = self._add_placeholder_columns(features, price_df)
@@ -259,6 +270,22 @@ class TrainingFeatureBuilder:
         features["month_sin"] = np.sin(2 * np.pi * features.index.month / 12)
         features["month_cos"] = np.cos(2 * np.pi * features.index.month / 12)
 
+        return features
+
+    def _add_tweet_features(
+        self, features: pd.DataFrame, price_df: pd.DataFrame
+    ) -> pd.DataFrame:
+        """Copy tweet-sentiment columns from the merged dataset when present.
+
+        When the tweet signal history is absent the columns are added as NaN so
+        the feature schema is identical with and without the Twitter module
+        (placeholders are filled with 0 at scale/transform time).
+        """
+        for col in TWEET_FEATURE_COLUMNS:
+            if col in price_df.columns:
+                features[col] = price_df[col]
+            elif col not in features.columns:
+                features[col] = np.nan
         return features
 
     def _add_placeholder_columns(

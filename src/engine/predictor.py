@@ -57,11 +57,19 @@ class PredictionEngine:
 
     def __init__(self, config: dict | None = None) -> None:
         cfg = config or {}
+        self.config = cfg
         storage = cfg.get("data", {}).get("price_path", "data/price")
         pred_file = cfg.get("app", {}).get("predictions_file", "predictions.log")
         models_path = cfg.get("data", {}).get(
             "models_path", "data/validation/models"
         )
+        # Second prediction module (X/Twitter sentiment). Off by setting
+        # BTC_DISABLE_SENTIMENT_MODULE; otherwise runs (mock mode without keys).
+        self._enable_sentiment = (
+            os.environ.get("BTC_DISABLE_SENTIMENT_MODULE", "").lower()
+            not in ("1", "true", "yes")
+        )
+        self._sentiment_manager = None
 
         self.price = PriceCollector(storage_path=storage)
         self.technical = TechnicalCollector(self.price)
@@ -145,6 +153,10 @@ class PredictionEngine:
             signals_summary=signals_flat,
         )
 
+        # Second module: produce + log the tweet-sentiment tracks (llm_direct now;
+        # llm_calibrated / blended once those models are trained). Never fatal.
+        await self._log_sentiment_tracks(run_number, float(latest_price.get("close", 0)))
+
         report = self.formatter.format_report(predictions, signals)
         print(report)
 
@@ -155,6 +167,43 @@ class PredictionEngine:
             "using_ml": self._using_ml,
             "run_number": run_number,
         }
+
+    async def _log_sentiment_tracks(self, run_number: int, btc_price: float) -> None:
+        """Run the sentiment manager and log its tracks as separate JSONL lines.
+
+        Each track is logged with its own ``model_source`` (e.g. ``llm_direct``)
+        so the scorer compares it head-to-head against the ``numbers`` track.
+        Any failure here is swallowed so the core predict path is unaffected.
+        """
+        if not self._enable_sentiment:
+            return
+        try:
+            if self._sentiment_manager is None:
+                from src.engine.sentiment_manager import SentimentManager
+
+                self._sentiment_manager = SentimentManager(config=self.config)
+
+            result = await self._sentiment_manager.run_tick()
+            preds = result.get("predictions") or []
+            if not preds:
+                return
+            self.jsonl_logger.log(
+                run_number=run_number,
+                timestamp=datetime.now(timezone.utc),
+                btc_price=btc_price,
+                used_ml=not result.get("mock", True),
+                model_source=result.get("model_source", "llm_direct"),
+                predictions=preds,
+                features={},
+                signals_summary={"sentiment_state": result.get("state", {})},
+            )
+            logger.info(
+                "Sentiment track '%s' logged (%d tweets, %d extractions)",
+                result.get("model_source"), result.get("n_tweets", 0),
+                result.get("n_extractions", 0),
+            )
+        except Exception as exc:  # pragma: no cover - never block core predict
+            logger.warning("Sentiment module skipped: %s", exc)
 
     # ------------------------------------------------------------------
     # Status
@@ -305,6 +354,7 @@ class PredictionEngine:
         for post-hoc calibration analysis.
         """
         merged = self._build_merged_data(price_df, ta_df)
+        merged = self._merge_tweet_signal(merged)
         if merged.empty:
             return [], {}
 
@@ -381,6 +431,31 @@ class PredictionEngine:
         if ta_cols:
             merged = merged.join(ta_df[ta_cols], how="left")
         return merged
+
+    @staticmethod
+    def _merge_tweet_signal(merged: pd.DataFrame) -> pd.DataFrame:
+        """Forward-fill the tweet-sentiment signal onto the price grid.
+
+        Closes the train/serve parity gap: training merges signal history from
+        ``data/history/``, so live predict must too. No-op when the signal file
+        is absent (columns are added by the feature builder as placeholders).
+        """
+        if merged.empty:
+            return merged
+        try:
+            from src.engine.sentiment_memory import SentimentMemory
+
+            signal = SentimentMemory().load_signal()
+            if signal is None or signal.empty:
+                return merged
+            new_cols = [c for c in signal.columns if c not in merged.columns]
+            if not new_cols:
+                return merged
+            reindexed = signal[new_cols].reindex(merged.index, method="ffill")
+            return merged.join(reindexed, how="left")
+        except Exception as exc:  # pragma: no cover - defensive
+            logger.warning("Tweet signal merge skipped: %s", exc)
+            return merged
 
     # ------------------------------------------------------------------
     # Heuristic fallback
