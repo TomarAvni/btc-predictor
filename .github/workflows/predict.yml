@@ -2,25 +2,41 @@
 
 on:
   schedule:
-    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
-    # under load, which was leaving the predictor idle for hours.
+    # Redundant, staggered attempts. GitHub can delay or drop individual
+    # schedule events; the freshness gate below keeps backup attempts cheap.
     - cron: '7,37 * * * *'
+    - cron: '22,52 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: predict-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   predict:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check prediction freshness
+        id: freshness
+        run: |
+          python3 -m src.utils.prediction_freshness \
+            --event-name "${{ github.event_name }}" \
+            --threshold-minutes 25 \
+            --output "$GITHUB_OUTPUT"
+
       - uses: actions/setup-python@v5
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         with:
           python-version: '3.11'
 
       - name: Cache pip
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
@@ -29,9 +45,11 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: pip install -r requirements.txt
 
       - name: Check trained models
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: |
           if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
             echo "::warning::No trained models in data/validation/models/ â€” running predict with heuristics only"
@@ -41,17 +59,21 @@ jobs:
           fi
 
       - name: Predict
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
         run: python main.py --predict
 
       - name: Trade
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: python trade.py --live-tick
 
       - name: Score mature predictions
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: python score_predictions.py
 
       - name: Commit
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
