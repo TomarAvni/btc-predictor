@@ -1,0 +1,52 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    # Independent from Predict's twice-hourly schedule; recovers if cron events
+    # are dropped and no prediction has landed for the stale threshold.
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        run: python -m src.utils.prediction_freshness --max-age-hours 3 --github-output "$GITHUB_OUTPUT"
+
+      - name: Dispatch Predict recovery run
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          active_count=$(
+            {
+              gh run list --workflow predict.yml --branch master --status queued --limit 20 --json databaseId --jq 'length'
+              gh run list --workflow predict.yml --branch master --status in_progress --limit 20 --json databaseId --jq 'length'
+              gh run list --workflow predict.yml --branch master --status waiting --limit 20 --json databaseId --jq 'length'
+              gh run list --workflow predict.yml --branch master --status pending --limit 20 --json databaseId --jq 'length'
+            } | awk '{ total += $1 } END { print total + 0 }'
+          )
+
+          if [ "$active_count" -gt 0 ]; then
+            echo "Predict is already queued or running; skipping recovery dispatch."
+            exit 0
+          fi
+
+          echo "Prediction pipeline stale: ${{ steps.freshness.outputs.reason }}"
+          gh workflow run predict.yml --ref master
+
+      - name: Report fresh prediction pipeline
+        if: steps.freshness.outputs.stale != 'true'
+        run: echo "Prediction pipeline is fresh: ${{ steps.freshness.outputs.reason }}"
