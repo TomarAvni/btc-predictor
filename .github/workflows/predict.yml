@@ -2,7 +2,7 @@
 
 on:
   schedule:
-    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
+    # Offset from :00/:30 -- GitHub drops/delays schedules at the top of the hour
     # under load, which was leaving the predictor idle for hours.
     - cron: '7,37 * * * *'
   workflow_dispatch:
@@ -10,11 +10,22 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: predict-master
+  cancel-in-progress: true
+
 jobs:
   predict:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync to latest master
+        run: |
+          git fetch origin master
+          git reset --hard origin/master
 
       - uses: actions/setup-python@v5
         with:
@@ -34,18 +45,15 @@ jobs:
       - name: Check trained models
         run: |
           if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
-            echo "::warning::No trained models in data/validation/models/ â€” running predict with heuristics only"
+            echo "::warning::No trained models in data/validation/models/ -- running predict with heuristics only"
             echo "Run Download then Train (or workflow_dispatch Train) to produce ML models."
           else
             echo "Trained model artifacts found in data/validation/models/"
           fi
 
-      - name: Predict
+      - name: Predict and trade
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
-        run: python main.py --predict
-
-      - name: Trade
         run: python trade.py --live-tick
 
       - name: Score mature predictions
@@ -55,7 +63,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git restore data/cache || true
+          git add predictions.log data/predictions/ data/performance/ data/price/ data/trading/
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
