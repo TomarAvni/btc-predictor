@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-16T06:02:30.070679+00:00",
+  "updated_at": "2026-06-16T08:32:10.259956+00:00",
   "timeframes": {
     "6h": {
       "last_7d": {
@@ -26,25 +26,25 @@
     },
     "12h": {
       "last_7d": {
-        "direction_accuracy_pct": null,
-        "n_scored": 0,
+        "direction_accuracy_pct": 0.0,
+        "n_scored": 4,
         "n_correct": 0,
-        "mean_magnitude_error": null,
-        "mean_actual_return_pct": null
+        "mean_magnitude_error": 0.09,
+        "mean_actual_return_pct": -0.21
       },
       "last_30d": {
-        "direction_accuracy_pct": null,
-        "n_scored": 0,
+        "direction_accuracy_pct": 0.0,
+        "n_scored": 4,
         "n_correct": 0,
-        "mean_magnitude_error": null,
-        "mean_actual_return_pct": null
+        "mean_magnitude_error": 0.09,
+        "mean_actual_return_pct": -0.21
       },
       "all_time": {
-        "direction_accuracy_pct": null,
-        "n_scored": 0,
+        "direction_accuracy_pct": 0.0,
+        "n_scored": 4,
         "n_correct": 0,
-        "mean_magnitude_error": null,
-        "mean_actual_return_pct": null
+        "mean_magnitude_error": 0.09,
+        "mean_actual_return_pct": -0.21
       }
     },
     "18h": {
@@ -72,25 +72,25 @@
     },
     "24h": {
       "last_7d": {
-        "direction_accuracy_pct": 22.2,
-        "n_scored": 9,
+        "direction_accuracy_pct": 18.2,
+        "n_scored": 11,
         "n_correct": 2,
-        "mean_magnitude_error": -0.06,
-        "mean_actual_return_pct": 0.66
+        "mean_magnitude_error": -0.17,
+        "mean_actual_return_pct": 0.79
       },
       "last_30d": {
-        "direction_accuracy_pct": 22.2,
-        "n_scored": 9,
+        "direction_accuracy_pct": 18.2,
+        "n_scored": 11,
         "n_correct": 2,
-        "mean_magnitude_error": -0.06,
-        "mean_actual_return_pct": 0.66
+        "mean_magnitude_error": -0.17,
+        "mean_actual_return_pct": 0.79
       },
       "all_time": {
-        "direction_accuracy_pct": 22.2,
-        "n_scored": 9,
+        "direction_accuracy_pct": 18.2,
+        "n_scored": 11,
         "n_correct": 2,
-        "mean_magnitude_error": -0.06,
-        "mean_actual_return_pct": 0.66
+        "mean_magnitude_error": -0.17,
+        "mean_actual_return_pct": 0.79
       }
     },
     "30h": {

@@ -66,5 +66,39 @@
     "prediction_id": "30c0ee9d7ace",
     "fees_paid": 0.49786810309565216,
     "used_ml": true
+  },
+  {
+    "id": "56e322b95fad",
+    "entry_time": "2026-06-15T23:23:56.477580+00:00",
+    "exit_time": "2026-06-16T08:32:08.263697+00:00",
+    "entry_price": 66187.827375,
+    "exit_price": 66419.35239515775,
+    "amount_usd": 237.73203,
+    "amount_btc": 0.003591778721683717,
+    "side": "LONG",
+    "timeframe": "6h",
+    "pnl_usd": 0.5930230242991001,
+    "pnl_pct": 0.24945020000001686,
+    "exit_reason": "take_profit",
+    "prediction_id": "a59c0408939f",
+    "fees_paid": 0.47629564664094004,
+    "used_ml": true
+  },
+  {
+    "id": "4e0525ab90d4",
+    "entry_time": "2026-06-16T02:12:39.124624+00:00",
+    "exit_time": "2026-06-16T08:32:08.263697+00:00",
+    "entry_price": 66118.16256,
+    "exit_price": 66349.44389263488,
+    "amount_usd": 237.64212,
+    "amount_btc": 0.0035942033292946977,
+    "side": "LONG",
+    "timeframe": "6h",
+    "pnl_usd": 0.5927987436242574,
+    "pnl_pct": 0.24945020000000734,
+    "exit_reason": "take_profit",
+    "prediction_id": "08e6c7f3bb98",
+    "fees_paid": 0.4761155121357601,
+    "used_ml": true
   }
 ]

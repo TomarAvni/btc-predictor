@@ -1,43 +1,27 @@
 {
-  "cash": 1507.3169603019574,
-  "btc_holdings": 0.007185982050978415,
+  "cash": 1746.0450020698806,
+  "btc_holdings": 0.0035739334825362497,
   "peak_value": 2000.0,
-  "last_price": 66085.12,
+  "last_price": 66513.01,
   "daily_start_value": 1982.4749827163128,
   "daily_start_date": "2026-06-16T02:12:39.124637+00:00",
   "positions": [
     {
-      "id": "56e322b95fad",
-      "entry_time": "2026-06-15T23:23:56.477580+00:00",
-      "entry_price": 66187.827375,
-      "amount_usd": 237.73203,
-      "amount_btc": 0.003591778721683717,
+      "id": "2b8ec0d64c48",
+      "entry_time": "2026-06-16T08:32:08.263697+00:00",
+      "entry_price": 66546.26650499999,
+      "amount_usd": 237.83193,
+      "amount_btc": 0.0035739334825362497,
       "side": "LONG",
       "timeframe": "6h",
-      "stop_loss": 65525.94910124999,
-      "take_profit": 66452.5786845,
+      "stop_loss": 65880.80383995,
+      "take_profit": 66812.45157101999,
       "trailing_stop_active": false,
-      "prediction_id": "a59c0408939f",
+      "prediction_id": "7de79bd3ea45",
       "confidence": 66,
-      "reason": "6h prediction: UP +0.1% @ 66% confidence; Multi-timeframe alignment: Strong (score 13.85); Supporting timeframes: 12h (63%), 18h (61%), 30h (59%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
-      "used_ml": true
-    },
-    {
-      "id": "4e0525ab90d4",
-      "entry_time": "2026-06-16T02:12:39.124624+00:00",
-      "entry_price": 66118.16256,
-      "amount_usd": 237.64212,
-      "amount_btc": 0.0035942033292946977,
-      "side": "LONG",
-      "timeframe": "6h",
-      "stop_loss": 65456.980934399995,
-      "take_profit": 66382.63521024,
-      "trailing_stop_active": false,
-      "prediction_id": "08e6c7f3bb98",
-      "confidence": 66,
-      "reason": "6h prediction: UP +0.1% @ 66% confidence; Multi-timeframe alignment: Strong (score 13.75); Supporting timeframes: 12h (63%), 18h (61%), 30h (59%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
+      "reason": "6h prediction: UP +0.1% @ 66% confidence; Multi-timeframe alignment: Strong (score 13.69); Supporting timeframes: 12h (63%), 18h (61%), 30h (59%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
       "used_ml": true
     }
   ],
-  "updated_at": "2026-06-16T02:12:39.125919+00:00"
+  "updated_at": "2026-06-16T08:32:08.266326+00:00"
 }
