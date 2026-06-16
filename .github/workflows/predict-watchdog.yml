@@ -1,10 +1,9 @@
-﻿name: Predict
+name: Predict Watchdog
 
 on:
   schedule:
-    # Offset from :00/:30 because GitHub drops/delays schedules at the top of the hour
-    # under load, which was leaving the predictor idle for hours.
-    - cron: '7,37 * * * *'
+    # Independent hourly safety net for missed/delayed Predict schedules.
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,17 +14,23 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  predict:
+  watchdog:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check prediction freshness
+        id: freshness
+        run: python3 -m src.utils.prediction_freshness --max-age-hours 3 --github-output
+
       - uses: actions/setup-python@v5
+        if: steps.freshness.outputs.stale == 'true'
         with:
           python-version: '3.11'
 
       - name: Cache pip
+        if: steps.freshness.outputs.stale == 'true'
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
@@ -34,9 +39,11 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install
+        if: steps.freshness.outputs.stale == 'true'
         run: pip install -r requirements.txt
 
       - name: Check trained models
+        if: steps.freshness.outputs.stale == 'true'
         run: |
           if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
             echo "::warning::No trained models in data/validation/models/ - running predict with heuristics only"
@@ -46,17 +53,21 @@ jobs:
           fi
 
       - name: Predict
+        if: steps.freshness.outputs.stale == 'true'
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
         run: python main.py --predict
 
       - name: Trade
+        if: steps.freshness.outputs.stale == 'true'
         run: python trade.py --live-tick
 
       - name: Score mature predictions
+        if: steps.freshness.outputs.stale == 'true'
         run: python score_predictions.py
 
       - name: Commit
+        if: steps.freshness.outputs.stale == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -65,9 +76,7 @@ jobs:
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "chore: prediction run [skip ci]"
-          # Resilient push: re-sync and retry so concurrent runs / data-file
-          # conflicts self-heal instead of failing the whole prediction run.
+          git commit -m "chore: watchdog prediction run [skip ci]"
           for attempt in 1 2 3 4 5; do
             git fetch origin master || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
             if ! git rebase -X theirs origin/master; then
@@ -83,5 +92,5 @@ jobs:
             echo "Push rejected (concurrent update); re-syncing and retrying (attempt $attempt)."
             sleep $((RANDOM % 5 + 3))
           done
-          echo "::error::Could not push prediction results after 5 attempts."
+          echo "::error::Could not push watchdog prediction results after 5 attempts."
           exit 1
