@@ -38,12 +38,16 @@ jobs:
       - name: Install
         run: pip install -r requirements.txt
 
-      - name: Verify price data
+      - name: Ensure price data
+        env:
+          BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
         run: |
           if [ -z "$(find data/price -name '*.parquet' -print -quit 2>/dev/null)" ]; then
-            echo "::error::No price data in data/price/. Run the Download workflow first."
-            exit 1
+            echo "No price data in data/price/; downloading full history."
+          else
+            echo "Refreshing existing price history before training."
           fi
+          python main.py --download
 
       - name: Train and validate
         run: python validate.py --split 0.8 --output data/validation/ --skip-tft
@@ -52,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/validation/
+          git add data/validation/ data/price/
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0

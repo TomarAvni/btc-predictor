@@ -13,3 +13,4 @@ data/models/*.joblib
 !predictions.log
 .DS_Store
 *.parquet
+!data/price/*.parquet
