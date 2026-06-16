@@ -63,7 +63,7 @@ class TestPredictionFreshness(unittest.TestCase):
             jsonl = Path(tmp) / "predictions.jsonl"
             log = Path(tmp) / "predictions.log"
             jsonl.write_text(
-                '{"timestamp": "2026-06-15T11:10:00Z"}\n",
+                '{"timestamp": "2026-06-15T11:10:00Z"}\n',
                 encoding="utf-8",
             )
             log.write_text(
@@ -92,7 +92,7 @@ class TestPredictionFreshness(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.jsonl"
             path.write_text(
-                '{"timestamp": "2026-06-15T11:15:00Z"}\n",
+                '{"timestamp": "2026-06-15T11:15:00Z"}\n',
                 encoding="utf-8",
             )
 
@@ -110,7 +110,7 @@ class TestPredictionFreshness(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.jsonl"
             path.write_text(
-                '{"timestamp": "2026-06-15T11:00:00Z"}\n",
+                '{"timestamp": "2026-06-15T11:00:00Z"}\n',
                 encoding="utf-8",
             )
 
@@ -128,7 +128,7 @@ class TestPredictionFreshness(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.jsonl"
             path.write_text(
-                '{"timestamp": "2026-06-15T11:29:00Z"}\n",
+                '{"timestamp": "2026-06-15T11:29:00Z"}\n',
                 encoding="utf-8",
             )
 
