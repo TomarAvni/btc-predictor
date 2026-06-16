@@ -1,27 +1,11 @@
 {
-  "cash": 1482.7166898597036,
-  "btc_holdings": 0.003588676796538999,
+  "cash": 1718.174217979824,
+  "btc_holdings": 0.0,
   "peak_value": 2000.0,
-  "last_price": 65665.76,
+  "last_price": 65709.77,
   "daily_start_value": 1982.4749827163128,
   "daily_start_date": "2026-06-16T02:12:39.124637+00:00",
   "positions": [
-    {
-      "id": "6fe1117369f6",
-      "entry_time": "2026-06-16T13:16:41.136242+00:00",
-      "entry_price": 66231.11901,
-      "amount_usd": 237.68207999999998,
-      "amount_btc": 0.003588676796538999,
-      "side": "LONG",
-      "timeframe": "6h",
-      "stop_loss": 65568.8078199,
-      "take_profit": 66496.04348604,
-      "trailing_stop_active": false,
-      "prediction_id": "8532bbc365ed",
-      "confidence": 66,
-      "reason": "6h prediction: UP +0.1% @ 66% confidence; Multi-timeframe alignment: Strong (score 13.93); Supporting timeframes: 12h (63%), 18h (61%), 30h (59%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
-      "used_ml": true
-    },
     {
       "id": "3db907aad662",
       "entry_time": "2026-06-16T18:20:39.957297+00:00",
@@ -55,5 +39,5 @@
       "used_ml": true
     }
   ],
-  "updated_at": "2026-06-16T21:30:59.408588+00:00"
+  "updated_at": "2026-06-16T23:08:34.557311+00:00"
 }
