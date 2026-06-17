@@ -1,0 +1,62 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: predict-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Check prediction freshness
+        id: freshness
+        continue-on-error: true
+        run: python -m src.utils.prediction_freshness --max-age-hours 3
+
+      - name: Check for active Predict runs
+        id: active
+        if: steps.freshness.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          active_count="$(
+            gh run list \
+              --workflow Predict \
+              --branch master \
+              --limit 20 \
+              --json status \
+              --jq '[.[] | select(.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "requested" or .status == "pending")] | length'
+          )"
+          echo "active_count=$active_count"
+          if [ "$active_count" -gt 0 ]; then
+            echo "has_active=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_active=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Dispatch recovery Predict run
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.has_active == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run predict.yml --ref master
+
+      - name: Report fresh pipeline
+        if: steps.freshness.outcome == 'success'
+        run: echo "Prediction pipeline is fresh; no recovery run needed."
+
+      - name: Report active Predict run
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.has_active == 'true'
+        run: echo "Prediction pipeline is stale, but a Predict run is already active."
