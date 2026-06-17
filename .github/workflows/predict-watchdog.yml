@@ -31,14 +31,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
-          in_progress=$(gh api "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
+          in_progress=$(gh api --method GET "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
             -f status=in_progress \
-            -f branch=master \
+            -f branch="$DEFAULT_BRANCH" \
             --jq '.total_count')
-          queued=$(gh api "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
+          queued=$(gh api --method GET "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
             -f status=queued \
-            -f branch=master \
+            -f branch="$DEFAULT_BRANCH" \
             --jq '.total_count')
 
           if [ "$in_progress" -gt 0 ] || [ "$queued" -gt 0 ]; then
@@ -47,4 +48,4 @@ jobs:
           fi
 
           echo "Prediction log is stale; dispatching Predict workflow."
-          gh workflow run predict.yml --ref master
+          gh workflow run predict.yml --ref "$DEFAULT_BRANCH"
