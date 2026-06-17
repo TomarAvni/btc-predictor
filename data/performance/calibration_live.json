@@ -1,6 +1,6 @@
 {
-  "n_total": 63,
-  "ece": 0.4674,
+  "n_total": 65,
+  "ece": 0.4807,
   "bins": [
     {
       "confidence_lo": 0.0,
@@ -13,10 +13,10 @@
     {
       "confidence_lo": 10.0,
       "confidence_hi": 20.0,
-      "mean_confidence": 17.7,
-      "accuracy_pct": 53.3,
-      "n": 15,
-      "n_correct": 8
+      "mean_confidence": 16.8,
+      "accuracy_pct": 58.8,
+      "n": 17,
+      "n_correct": 10
     },
     {
       "confidence_lo": 20.0,
@@ -83,5 +83,5 @@
       "n_correct": 0
     }
   ],
-  "updated_at": "2026-06-16T23:08:36.476257+00:00"
+  "updated_at": "2026-06-17T00:26:27.462655+00:00"
 }
