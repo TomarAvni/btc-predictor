@@ -1,0 +1,57 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: predict-pipeline
+  cancel-in-progress: false
+
+jobs:
+  recover-stale-predict:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        run: |
+          if python -m src.utils.prediction_freshness --max-age-hours 3; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Dispatch Predict if inactive
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          active_runs=0
+          for status in queued in_progress waiting pending requested; do
+            count="$(gh api --method GET "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
+              -f branch=master \
+              -f status="$status" \
+              --jq '.total_count')"
+            active_runs=$((active_runs + count))
+          done
+
+          if [ "$active_runs" -gt 0 ]; then
+            echo "Predict already has $active_runs active run(s); not dispatching another."
+            exit 0
+          fi
+
+          gh workflow run predict.yml --ref master
+          echo "Prediction output is stale; dispatched Predict."
