@@ -1,0 +1,60 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    - cron: '12 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  recover-stale-predict:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        run: |
+          if python -m src.utils.prediction_freshness --max-age-hours 3; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check active Predict runs
+        id: active-runs
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          queued=$(gh api --method GET "repos/${{ github.repository }}/actions/workflows/predict.yml/runs" \
+            -f branch=master \
+            -f status=queued \
+            --jq '.total_count')
+          running=$(gh api --method GET "repos/${{ github.repository }}/actions/workflows/predict.yml/runs" \
+            -f branch=master \
+            -f status=in_progress \
+            --jq '.total_count')
+          active=$((queued + running))
+          echo "active=$active" >> "$GITHUB_OUTPUT"
+          echo "Predict active runs: queued=$queued running=$running"
+
+      - name: Dispatch Predict
+        if: steps.freshness.outputs.stale == 'true' && steps.active-runs.outputs.active == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run predict.yml --ref master
+
+      - name: Report no recovery needed
+        if: steps.freshness.outputs.stale != 'true' || steps.active-runs.outputs.active != '0'
+        run: echo "Predict is fresh or already active; no watchdog dispatch needed."
