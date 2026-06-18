@@ -1,0 +1,52 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    # Run away from the top of the hour to avoid GitHub's busiest cron slots.
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        continue-on-error: true
+        run: python -m src.utils.prediction_freshness --max-age-hours 3
+
+      - name: Dispatch Predict if stale
+        if: steps.freshness.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          active_runs=0
+          for status in queued in_progress waiting pending requested; do
+            count=$(gh api --method GET "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
+              -f status="$status" \
+              -f branch="$DEFAULT_BRANCH" \
+              --jq '.total_count')
+            echo "Predict runs with status ${status}: ${count}"
+            active_runs=$((active_runs + count))
+          done
+
+          if [ "$active_runs" -gt 0 ]; then
+            echo "Predict is already active or queued; watchdog will not dispatch another run."
+            exit 0
+          fi
+
+          echo "Prediction log is stale; dispatching Predict workflow."
+          gh workflow run predict.yml --ref "$DEFAULT_BRANCH"
