@@ -1,8 +1,8 @@
 {
-  "cash": 1733.6845949139388,
-  "btc_holdings": 0.0036650656083706268,
+  "cash": 1497.6608549139387,
+  "btc_holdings": 0.007341424707478205,
   "peak_value": 2000.0,
-  "last_price": 64398.74,
+  "last_price": 64168.32,
   "daily_start_value": 1971.977273605309,
   "daily_start_date": "2026-06-18T04:43:36.673305+00:00",
   "positions": [
@@ -21,7 +21,23 @@
       "confidence": 66,
       "reason": "6h prediction: UP +0.1% @ 66% confidence; Multi-timeframe alignment: Strong (score 13.69); Supporting timeframes: 12h (63%), 18h (61%), 30h (59%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
       "used_ml": true
+    },
+    {
+      "id": "c9fa8e815917",
+      "entry_time": "2026-06-18T12:43:12.629495+00:00",
+      "entry_price": 64200.40416,
+      "amount_usd": 236.02374,
+      "amount_btc": 0.003676359099107578,
+      "side": "LONG",
+      "timeframe": "6h",
+      "stop_loss": 63558.4001184,
+      "take_profit": 64457.205776639996,
+      "trailing_stop_active": false,
+      "prediction_id": "28581354bd30",
+      "confidence": 66,
+      "reason": "6h prediction: UP +0.1% @ 66% confidence; Multi-timeframe alignment: Strong (score 13.84); Supporting timeframes: 12h (63%), 18h (61%), 30h (59%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
+      "used_ml": true
     }
   ],
-  "updated_at": "2026-06-18T09:23:14.560429+00:00"
+  "updated_at": "2026-06-18T12:43:12.629805+00:00"
 }
