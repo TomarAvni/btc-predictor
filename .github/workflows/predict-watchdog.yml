@@ -1,0 +1,53 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    # Recover from dropped/delayed Predict cron events before users see a long gap.
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  recover-stale-predict:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        continue-on-error: true
+        run: python -m src.utils.prediction_freshness --path predictions.log --max-age-hours 3
+
+      - name: Check for active Predict runs
+        id: active
+        if: steps.freshness.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          total=0
+          for status in queued in_progress waiting pending requested; do
+            count="$(gh api --method GET "repos/${{ github.repository }}/actions/workflows/predict.yml/runs" \
+              -f status="$status" \
+              -q '.workflow_runs | length')"
+            echo "$status=$count"
+            total=$((total + count))
+          done
+          echo "active_count=$total" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch Predict
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.active_count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: gh workflow run predict.yml --ref "$DEFAULT_BRANCH"
+
+      - name: Skip dispatch because Predict is active
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.active_count != '0'
+        run: echo "Prediction log is stale, but a Predict run is already queued or running."
