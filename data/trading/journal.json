@@ -1285,5 +1285,43 @@
       "168h: UP 2.0% @ 12%",
       "30d: DOWN 6.8% @ 10%"
     ]
+  },
+  {
+    "trade_number": null,
+    "timestamp": "2026-06-18T23:22:56.562488+00:00",
+    "action": "SKIP",
+    "reason": "Already have 2 positions in same direction",
+    "run_number": 69,
+    "predictions_summary": [
+      "6h: DOWN 0.2% @ 61%",
+      "12h: DOWN 0.3% @ 58%",
+      "18h: DOWN 0.4% @ 56%",
+      "24h: UP 1.2% @ 13%",
+      "30h: DOWN 0.6% @ 54%",
+      "36h: DOWN 0.6% @ 53%",
+      "42h: DOWN 0.7% @ 52%",
+      "48h: DOWN 0.8% @ 51%",
+      "54h: DOWN 0.8% @ 51%",
+      "60h: DOWN 0.9% @ 50%",
+      "66h: DOWN 0.9% @ 50%",
+      "72h: DOWN 1.0% @ 50%",
+      "78h: DOWN 1.0% @ 49%",
+      "84h: DOWN 1.1% @ 49%",
+      "90h: DOWN 1.1% @ 48%",
+      "96h: DOWN 1.2% @ 48%",
+      "102h: DOWN 1.2% @ 48%",
+      "108h: DOWN 1.3% @ 48%",
+      "114h: DOWN 1.3% @ 47%",
+      "120h: DOWN 1.3% @ 47%",
+      "126h: DOWN 1.4% @ 47%",
+      "132h: DOWN 1.4% @ 47%",
+      "138h: DOWN 1.5% @ 47%",
+      "144h: DOWN 1.5% @ 46%",
+      "150h: DOWN 1.5% @ 46%",
+      "156h: DOWN 1.6% @ 46%",
+      "162h: DOWN 1.6% @ 46%",
+      "168h: UP 1.8% @ 13%",
+      "30d: UP 7.1% @ 10%"
+    ]
   }
 ]
