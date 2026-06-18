@@ -1,0 +1,69 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: predict-pipeline
+  cancel-in-progress: false
+
+jobs:
+  recover-stale-predict:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        run: |
+          if python -m src.utils.prediction_freshness --max-age-hours 3; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check active Predict runs
+        if: steps.freshness.outputs.stale == 'true'
+        id: active
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          active_count=0
+          for status in queued in_progress waiting pending requested; do
+            count="$(gh api --method GET \
+              repos/${{ github.repository }}/actions/workflows/predict.yml/runs \
+              -f branch=master \
+              -f status="$status" \
+              -q '.total_count')"
+            active_count=$((active_count + count))
+          done
+          echo "count=$active_count" >> "$GITHUB_OUTPUT"
+          echo "Active Predict runs: $active_count"
+
+      - name: Dispatch Predict
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run predict.yml --ref master
+          echo "Dispatched Predict because predictions.log is stale."
+
+      - name: Skip dispatch
+        if: steps.freshness.outputs.stale != 'true' || steps.active.outputs.count != '0'
+        run: |
+          if [ "${{ steps.freshness.outputs.stale }}" != "true" ]; then
+            echo "Prediction log is fresh; no recovery needed."
+          else
+            echo "Predict already has an active run; no duplicate dispatch needed."
+          fi

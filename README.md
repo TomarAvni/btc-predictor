@@ -143,18 +143,21 @@ The dashboard works with demo data out of the box — run the predictor to popul
 
 ### GitHub Actions (Automated Pipeline)
 
-Three workflows run a hands-off pipeline: **Download → Train → Predict**.
+Four workflows run a hands-off pipeline: **Download → Train → Predict**, with a watchdog that recovers stale prediction schedules.
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
 | **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly cron or manual | Checks `predictions.log`; if no prediction has landed for 3 hours and no Predict run is active, dispatches `predict.yml` |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule.
 
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
+
+Predict runs use a shared concurrency group and a 25-minute timeout so delayed or stuck schedules do not pile up indefinitely. The watchdog uses `python -m src.utils.prediction_freshness --max-age-hours 3` as its freshness probe before dispatching recovery runs.
 
 All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
@@ -162,7 +165,7 @@ All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
 The system improves over time through a closed feedback loop:
 
-1. **Predict** (`predict.yml`, every 30 min) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions.
+1. **Predict** (`predict.yml`, every 30 min; watchdog recovery after 3 stale hours) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions.
 2. **Score** (`score_predictions.py`) — for each prediction whose horizon has elapsed (any 6h-step point up to 168h, plus 30d), compares predicted direction and magnitude to the actual BTC move from `data/price/btc_hourly.parquet`. Results append to `data/performance/prediction_scores.jsonl`; rolling stats land in `data/performance/rolling_accuracy.json`.
 3. **Retrain** (`retrain.yml`, weekly Sunday 3am UTC) — downloads fresh candles, scores any newly mature predictions, retrains models via `validate.py`, and commits updated models + performance data.
 4. **Dashboard** — the Performance page shows live rolling accuracy; the Signals page shows feature importance from the latest validation run.
