@@ -85,10 +85,11 @@ class TrainingFeatureBuilder:
             price_df: DataFrame with OHLCV columns and DatetimeIndex.
                       May also contain pre-computed TA columns from the
                       TechnicalCollector or merged dataset.
-            include_placeholders: Whether to add NaN columns for future signals.
-            include_tweets: Whether to add the X/Twitter sentiment feature
-                columns. Default False keeps the ``numbers`` model pure; the
-                ``llm_calibrated`` / ``blended`` tracks opt in by passing True.
+            include_placeholders: Whether to copy future-signal columns when
+                they are present in the merged dataset.
+            include_tweets: Whether to copy X/Twitter sentiment feature columns
+                when they are present. Default False keeps the ``numbers``
+                model pure; the ``llm_calibrated`` / ``blended`` tracks opt in.
 
         Returns:
             DataFrame with one row per timestamp and all feature columns.
@@ -278,31 +279,25 @@ class TrainingFeatureBuilder:
     def _add_tweet_features(
         self, features: pd.DataFrame, price_df: pd.DataFrame
     ) -> pd.DataFrame:
-        """Copy tweet-sentiment columns from the merged dataset when present.
-
-        When the tweet signal history is absent the columns are added as NaN so
-        the feature schema is identical with and without the Twitter module
-        (placeholders are filled with 0 at scale/transform time).
-        """
+        """Copy tweet-sentiment columns from the merged dataset when present."""
         for col in TWEET_FEATURE_COLUMNS:
             if col in price_df.columns:
                 features[col] = price_df[col]
-            elif col not in features.columns:
-                features[col] = np.nan
         return features
 
     def _add_placeholder_columns(
         self, features: pd.DataFrame, price_df: pd.DataFrame
     ) -> pd.DataFrame:
-        """Add NaN placeholder columns for signals not yet available.
+        """Copy optional signal columns only when real source data exists.
 
-        These get populated when the corresponding collectors are built.
+        Absent future-signal columns used to be added as all-NaN placeholders,
+        then converted to zeros during training. That made missing data look
+        like a real flat signal, so the feature schema now follows the merged
+        histories that are actually available.
         """
         for col in PLACEHOLDER_COLUMNS:
             if col in price_df.columns:
                 features[col] = price_df[col]
-            elif col not in features.columns:
-                features[col] = np.nan
 
         return features
 
