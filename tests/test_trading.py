@@ -30,19 +30,22 @@ from src.trading.portfolio import Portfolio  # noqa: E402
 from src.trading.position_sizer import PositionSizer  # noqa: E402
 from src.trading.risk_manager import RiskManager  # noqa: E402
 from src.trading.simulator import OrderSimulator  # noqa: E402
+from src.trading.strategy import TradingStrategy  # noqa: E402
 
 
 def _short_prediction(confidence: float = 80.0, magnitude: float = 3.0) -> list[dict]:
+    secondary_magnitude = magnitude + 2 if magnitude else 0.0
     return [
         {"timeframe": "24h", "direction": "DOWN", "magnitude": magnitude, "confidence": confidence},
-        {"timeframe": "7d", "direction": "DOWN", "magnitude": magnitude + 2, "confidence": confidence - 5},
+        {"timeframe": "7d", "direction": "DOWN", "magnitude": secondary_magnitude, "confidence": confidence - 5},
     ]
 
 
 def _long_prediction(confidence: float = 80.0, magnitude: float = 3.0) -> list[dict]:
+    secondary_magnitude = magnitude + 2 if magnitude else 0.0
     return [
         {"timeframe": "24h", "direction": "UP", "magnitude": magnitude, "confidence": confidence},
-        {"timeframe": "7d", "direction": "UP", "magnitude": magnitude + 2, "confidence": confidence - 5},
+        {"timeframe": "7d", "direction": "UP", "magnitude": secondary_magnitude, "confidence": confidence - 5},
     ]
 
 
@@ -138,6 +141,45 @@ class TestPositionSizerDirectionAgnostic(unittest.TestCase):
         self.assertTrue(r1.should_trade)
         self.assertEqual(r1.amount_usd, r2.amount_usd)
         self.assertGreater(r1.amount_usd, 0)
+
+
+class TestStrategyCostAwareEntry(unittest.TestCase):
+    def test_blocks_high_confidence_tiny_move(self) -> None:
+        strategy = TradingStrategy()
+        signal = strategy.evaluate_entry(
+            predictions=[
+                {"timeframe": "6h", "direction": "UP", "magnitude": 0.05, "confidence": 90},
+            ],
+            current_price=100_000.0,
+            open_positions=[],
+        )
+        self.assertFalse(signal.should_enter)
+        self.assertIn("cost-aware edge", signal.reasons[0])
+
+    def test_prefers_larger_net_edge_over_raw_confidence(self) -> None:
+        strategy = TradingStrategy()
+        signal = strategy.evaluate_entry(
+            predictions=[
+                {"timeframe": "6h", "direction": "UP", "magnitude": 0.5, "confidence": 80},
+                {"timeframe": "24h", "direction": "UP", "magnitude": 3.0, "confidence": 70},
+            ],
+            current_price=100_000.0,
+            open_positions=[],
+        )
+        self.assertTrue(signal.should_enter)
+        self.assertEqual(signal.timeframe, "24h")
+
+    def test_optional_evidence_gate_blocks_bad_horizon(self) -> None:
+        strategy = TradingStrategy(horizon_stats={"24h": {"n": 25, "expectancy": -1.0}})
+        signal = strategy.evaluate_entry(
+            predictions=[
+                {"timeframe": "24h", "direction": "UP", "magnitude": 3.0, "confidence": 80},
+            ],
+            current_price=100_000.0,
+            open_positions=[],
+        )
+        self.assertFalse(signal.should_enter)
+        self.assertIn("Evidence gate", signal.reasons[0])
 
 
 class _AgentTestBase(unittest.TestCase):

@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from src.horizons import HORIZON_HOURS
+from src.trading.simulator import OrderSimulator
 
 
 # Horizon label -> hours, sourced from the single source of truth
@@ -45,8 +46,23 @@ class TradingStrategy:
     """Evaluates predictions and generates trade signals."""
 
     MIN_CONFIDENCE: float = 55.0
+    ROUND_TRIP_COST_PCT: float = OrderSimulator.ROUND_TRIP_COST_PCT
+    MIN_EDGE_BUFFER_PCT: float = 0.10
+    MIN_ACTIONABLE_MOVE_PCT: float = ROUND_TRIP_COST_PCT + MIN_EDGE_BUFFER_PCT
+    MIN_EVIDENCE_SAMPLES: int = 20
     ALIGNMENT_STRONG_THRESHOLD: float = 1.5
     ALIGNMENT_WEAK_THRESHOLD: float = 0.5
+
+    def __init__(
+        self,
+        horizon_stats: Optional[dict[str, dict]] = None,
+        side_stats: Optional[dict[str, dict]] = None,
+    ) -> None:
+        # Optional diagnostic gates. Callers can pass realized performance
+        # summaries once enough samples exist; with no stats, the strategy
+        # behaves normally except for the cost-aware edge threshold.
+        self.horizon_stats = horizon_stats or {}
+        self.side_stats = side_stats or {}
 
     def evaluate_entry(
         self,
@@ -74,14 +90,28 @@ class TradingStrategy:
         if not predictions:
             return self._no_trade("No predictions available")
 
-        # Find the highest-confidence prediction
-        viable = [p for p in predictions if p.get("confidence", 0) >= self.MIN_CONFIDENCE]
-        if not viable:
+        confidence_viable = [
+            p for p in predictions if p.get("confidence", 0) >= self.MIN_CONFIDENCE
+        ]
+        if not confidence_viable:
             return self._no_trade(
                 f"No predictions above minimum confidence ({self.MIN_CONFIDENCE}%)"
             )
 
-        primary = max(viable, key=lambda p: p["confidence"])
+        # Trade only when the expected move clears round-trip costs plus a small
+        # safety buffer. This avoids taking high-confidence but economically tiny
+        # predictions that cannot reliably pay for slippage/fees.
+        viable = [
+            p for p in confidence_viable
+            if abs(float(p.get("magnitude", 0.0) or 0.0)) >= self.MIN_ACTIONABLE_MOVE_PCT
+        ]
+        if not viable:
+            return self._no_trade(
+                "No predictions clear cost-aware edge threshold "
+                f"({self.MIN_ACTIONABLE_MOVE_PCT:.2f}% minimum move)"
+            )
+
+        primary = max(viable, key=lambda p: self._entry_score(predictions, p))
         primary_direction = primary["direction"]
         primary_timeframe = primary["timeframe"]
         primary_confidence = primary["confidence"]
@@ -116,8 +146,19 @@ class TradingStrategy:
 
         direction = "LONG" if primary_direction == "UP" else "SHORT"
 
+        evidence_reason = self._evidence_gate_reason(primary_timeframe, direction)
+        if evidence_reason:
+            return self._no_trade(evidence_reason)
+
         reasons = [
-            f"{primary_timeframe} prediction: {primary_direction} +{primary_magnitude}% @ {primary_confidence}% confidence",
+            (
+                f"{primary_timeframe} prediction: {primary_direction} "
+                f"{primary_magnitude:+.2f}% @ {primary_confidence}% confidence"
+            ),
+            (
+                f"Cost-aware edge: {abs(primary_magnitude) - self.ROUND_TRIP_COST_PCT:.2f}% "
+                f"after estimated {self.ROUND_TRIP_COST_PCT:.2f}% round-trip cost"
+            ),
             f"Multi-timeframe alignment: {alignment_label} (score {alignment_score:.2f})",
         ]
 
@@ -213,6 +254,33 @@ class TradingStrategy:
             else:
                 score -= conf
         return score
+
+    def _evidence_gate_reason(self, timeframe: str, side: str) -> Optional[str]:
+        """Block statistically populated horizons/sides with negative expectancy."""
+        for label, stats in (("horizon", self.horizon_stats.get(timeframe)), ("side", self.side_stats.get(side))):
+            if not stats:
+                continue
+            n = int(stats.get("n", stats.get("total_trades", 0)) or 0)
+            expectancy = float(stats.get("expectancy", stats.get("expectancy_usd", 0.0)) or 0.0)
+            if n >= self.MIN_EVIDENCE_SAMPLES and expectancy <= 0:
+                return (
+                    f"Evidence gate: {label} {timeframe if label == 'horizon' else side} "
+                    f"has non-positive expectancy (${expectancy:.2f}) over {n} samples"
+                )
+        return None
+
+    def _entry_score(self, predictions: list[dict], candidate: dict) -> float:
+        """Rank candidates by confidence, net move, and timeframe alignment."""
+        confidence_edge = max(0.0, (float(candidate.get("confidence", 0.0)) - 50.0) / 50.0)
+        net_move = max(
+            0.0,
+            abs(float(candidate.get("magnitude", 0.0) or 0.0)) - self.ROUND_TRIP_COST_PCT,
+        )
+        alignment = max(
+            0.1,
+            self._calculate_alignment(predictions, str(candidate.get("direction", "")).upper()),
+        )
+        return confidence_edge * net_move * alignment
 
     def _alignment_label(self, score: float) -> str:
         if score > self.ALIGNMENT_STRONG_THRESHOLD:

@@ -27,8 +27,10 @@ from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.config import SUMMARY_HORIZONS
 from dashboard.data_loader import (
     get_backtest_results,
+    get_data_health,
     get_live_performance_scores,
     get_prediction_history,
+    get_training_status,
     has_live_performance,
     has_real_data,
     load_rolling_accuracy,
@@ -60,14 +62,26 @@ with st.expander("ℹ️ How to read this page"):
 
 live_scores = get_live_performance_scores()
 rolling = load_rolling_accuracy()
+health = get_data_health()
+training_status = get_training_status()
 
 if has_live_performance():
     st.success("Showing live prediction accuracy from scored predictions.")
 elif not has_real_data():
     st.info(
-        "Showing simulated backtest data. "
-        "Once the predictor has run for a while, this page will blend live results."
+        "No live pipeline data exists yet. Run the predictor and scorer before "
+        "treating this page as model performance."
     )
+else:
+    st.warning(
+        "Predictions exist, but no matured predictions have been scored yet. "
+        "Accuracy, calibration, and P&L charts are hidden until real scores exist."
+    )
+
+if health.get("warnings"):
+    with st.expander("Data Health Warnings", expanded=True):
+        for warning in health["warnings"]:
+            st.warning(warning)
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -93,8 +107,6 @@ def _simulate_performance(runs: list[dict], horizon: str, rng: np.random.Generat
 
 runs = get_prediction_history()
 bt = get_backtest_results()
-rng = np.random.default_rng(42)
-
 horizons = list(SUMMARY_HORIZONS)
 perf: dict[str, pd.DataFrame] = {}
 
@@ -116,7 +128,7 @@ if live_scores:
         })
 else:
     for h in horizons:
-        perf[h] = _simulate_performance(runs, h, rng)
+        perf[h] = pd.DataFrame()
 
 # ── Live prediction accuracy ──────────────────────────────────────────────
 
@@ -138,6 +150,45 @@ if rolling.get("timeframes"):
                     st.metric(f"{label}", f"{acc:.1f}%", help=f"{n} scored predictions")
                 else:
                     st.metric(f"{label}", "—", help="No scored predictions yet")
+
+# ── Training-loop visibility ──────────────────────────────────────────────
+
+st.markdown("### Prediction to Training Pipeline")
+st.caption(
+    "Counts across the supervised-learning loop: prediction rows are created at "
+    "forecast time, scored rows appear after horizons mature, and labeled rows "
+    "are trainable examples with feature vectors."
+)
+layout_marker("stack")
+pipe_cols = st.columns(4, gap="small")
+with pipe_cols[0]:
+    st.metric("Prediction JSONL Rows", training_status["prediction_jsonl_rows"])
+with pipe_cols[1]:
+    st.metric("Scored Rows", training_status["scored_rows"])
+with pipe_cols[2]:
+    st.metric("Trainable Labeled Rows", training_status["labeled_rows"])
+with pipe_cols[3]:
+    ready = sum(1 for ok in training_status["calibration_ready"].values() if ok)
+    st.metric("Calibration-Ready Horizons", ready)
+
+eligibility_rows = []
+for h in horizons:
+    labeled_n = training_status["labeled_by_horizon"].get(h, 0)
+    scored_n = training_status["scored_by_horizon"].get(h, 0)
+    eligibility_rows.append({
+        "Horizon": h,
+        "Scored": scored_n,
+        "Labeled": labeled_n,
+        "Calibration": (
+            "Ready" if labeled_n >= training_status["calibration_min_rows"]
+            else f"{training_status['calibration_min_rows'] - labeled_n} more"
+        ),
+        "Retrain": (
+            "Ready" if labeled_n >= training_status["retrain_min_rows"]
+            else f"{training_status['retrain_min_rows'] - labeled_n} more"
+        ),
+    })
+st.dataframe(pd.DataFrame(eligibility_rows), width="stretch", hide_index=True)
 
 # ── Track comparison (numbers vs tweets vs blended) ───────────────────────
 
@@ -229,12 +280,15 @@ if rolling_data:
         create_line_chart(roll_df, title="Rolling 10-Run Accuracy", colors=[BLUE, GREEN, RED, YELLOW]),
         width="stretch",
     )
+else:
+    st.info("No live scored prediction rows yet, so rolling accuracy is not available.")
 
 # ── Calibration curve ────────────────────────────────────────────────────
 
 st.markdown("### Confidence Calibration")
 
-all_preds = pd.concat(perf.values(), ignore_index=True)
+non_empty_perf = [df for df in perf.values() if not df.empty]
+all_preds = pd.concat(non_empty_perf, ignore_index=True) if non_empty_perf else pd.DataFrame()
 if not all_preds.empty:
     bins = list(range(20, 81, 10))
     predicted: list[float] = []
@@ -249,6 +303,8 @@ if not all_preds.empty:
         st.plotly_chart(create_calibration_curve(predicted, actual), width="stretch")
     else:
         st.caption("Not enough data for calibration curve.")
+else:
+    st.info("No live scored prediction rows yet, so calibration is not available.")
 
 # ── Cumulative P&L simulation ────────────────────────────────────────────
 
@@ -270,6 +326,8 @@ for h in horizons:
 
 if equity:
     st.plotly_chart(create_equity_curve(equity), width="stretch")
+else:
+    st.info("No live scored prediction rows yet, so simulated P&L from predictions is hidden.")
 
 # ── Performance by regime ────────────────────────────────────────────────
 
@@ -307,6 +365,8 @@ if not all_preds.empty:
         .reset_index()
     )
     st.dataframe(monthly, width="stretch", hide_index=True)
+else:
+    st.caption("No scored prediction rows yet.")
 
 # ── Win / loss streak ────────────────────────────────────────────────────
 
@@ -334,3 +394,5 @@ if not all_preds.empty:
         st.metric("Longest Win Streak", f"W{max_win}")
     with c3:
         st.metric("Longest Loss Streak", f"L{max_loss}")
+else:
+    st.caption("No scored prediction rows yet.")
