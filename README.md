@@ -143,20 +143,21 @@ The dashboard works with demo data out of the box — run the predictor to popul
 
 ### GitHub Actions (Automated Pipeline)
 
-Three workflows run a hands-off pipeline: **Download → Train → Predict**.
+Four workflows run a hands-off pipeline: **Download → Train → Predict**, with a watchdog that recovers missed Predict schedules.
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
 | **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly cron or manual | Checks `predictions.log`; if the latest prediction is older than 3 hours and no Predict run is active, dispatches a recovery Predict run |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule.
 
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
 
-All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
+Predict runs share the `predict-pipeline` concurrency group so scheduled and watchdog-triggered runs do not overlap, and the Predict job has a 25-minute timeout so a stuck run cannot block the pipeline indefinitely. All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
 ### Continuous Learning Loop
 
