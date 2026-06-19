@@ -1,0 +1,54 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  recover-stale-predict:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        continue-on-error: true
+        run: python -m src.utils.prediction_freshness --path predictions.log --max-age-hours 3
+
+      - name: Check for active Predict runs
+        id: active
+        if: steps.freshness.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          active_count=0
+          for status in queued in_progress waiting pending requested; do
+            count="$(gh api --method GET "repos/${{ github.repository }}/actions/workflows/predict.yml/runs" \
+              -f branch=master \
+              -f status="$status" \
+              --jq '.total_count')"
+            echo "Predict runs with status $status: $count"
+            active_count=$((active_count + count))
+          done
+          echo "count=$active_count" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch Predict recovery
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run predict.yml --ref master
+
+      - name: Report existing active run
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.count != '0'
+        run: echo "Prediction log is stale, but a Predict run is already active."
