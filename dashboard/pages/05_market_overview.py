@@ -22,7 +22,11 @@ from dashboard.components.charts import (
     create_line_chart,
 )
 from dashboard.components.mobile_nav import render_mobile_nav
-from dashboard.data_loader import get_price_data
+from dashboard.data_loader import (
+    get_price_data,
+    load_onchain_flow_history,
+    load_onchain_flow_latest,
+)
 from dashboard.styles import BLUE, GREEN, RED, TEXT_DIM, YELLOW, inject_css, layout_marker
 
 inject_css()
@@ -37,6 +41,8 @@ st.caption(
 )
 
 price_df = get_price_data()
+onchain_flow_latest = load_onchain_flow_latest()
+onchain_flow_history = load_onchain_flow_history()
 
 if price_df.empty:
     st.warning(
@@ -193,3 +199,60 @@ if valid.sum() > 100:
     )
 else:
     st.caption("Not enough data for power law analysis.")
+
+# ── On-chain flow data center ─────────────────────────────────────────────
+
+st.markdown("### On-chain Flow Data Center")
+st.caption(
+    "Large BTC movement telemetry from public APIs. Entity labels are exact only "
+    "when an address exists in the local label file; otherwise the dashboard uses "
+    "transparent heuristics such as cold-storage-like or distribution-like."
+)
+
+if not onchain_flow_latest:
+    st.info("No on-chain flow snapshot yet. It will populate after the next prediction workflow run.")
+else:
+    layout_marker("stack")
+    f1, f2, f3, f4 = st.columns(4, gap="small")
+    with f1:
+        st.metric("Whale BTC Moved 24h", f"{onchain_flow_latest.get('whale_btc_moved_24h', 0):,.0f} BTC")
+    with f2:
+        st.metric("Whale TX Count 24h", f"{onchain_flow_latest.get('whale_tx_count_24h', 0)}")
+    with f3:
+        st.metric("Largest Whale TX", f"{onchain_flow_latest.get('largest_whale_tx_btc_24h', 0):,.0f} BTC")
+    with f4:
+        st.metric("Flow Score", f"{onchain_flow_latest.get('flow_accumulation_score', 0):+.2f}")
+
+    layout_marker("stack")
+    e1, e2, e3, e4 = st.columns(4, gap="small")
+    with e1:
+        st.metric("Exchange Inflow 24h", f"{onchain_flow_latest.get('exchange_inflow_btc_24h', 0):,.0f} BTC")
+    with e2:
+        st.metric("Exchange Outflow 24h", f"{onchain_flow_latest.get('exchange_outflow_btc_24h', 0):,.0f} BTC")
+    with e3:
+        st.metric("Miner to Exchange 24h", f"{onchain_flow_latest.get('miner_to_exchange_btc_24h', 0):,.0f} BTC")
+    with e4:
+        st.metric("Unknown Large Flow 24h", f"{onchain_flow_latest.get('unknown_large_flow_btc_24h', 0):,.0f} BTC")
+
+    st.info(onchain_flow_latest.get("label_coverage_note", "Label coverage unavailable."))
+
+    top = onchain_flow_latest.get("top_transactions", [])
+    if top:
+        st.markdown("#### Largest Recent Whale Transactions")
+        st.dataframe(pd.DataFrame(top), width="stretch", hide_index=True)
+
+if not onchain_flow_history.empty:
+    chart_cols = [
+        c for c in ["whale_btc_moved_24h", "cold_storage_like_btc_24h", "distribution_like_btc_24h"]
+        if c in onchain_flow_history.columns
+    ]
+    if chart_cols:
+        st.plotly_chart(
+            create_line_chart(
+                onchain_flow_history[chart_cols].tail(168),
+                title="On-chain Flow History",
+                colors=[BLUE, GREEN, RED],
+                height=360,
+            ),
+            width="stretch",
+        )

@@ -25,7 +25,8 @@ SIGNAL_CATEGORIES = {
     "Cycle": ["Halving Cycle", "Cycle Phase"],
     "On-chain": [
         "LTH/STH Supply", "Exchange Flow", "Whale Activity",
-        "Miner Health", "BTC Dominance",
+        "Miner Health", "BTC Dominance", "On-chain Whale Flow",
+        "On-chain Data Coverage",
     ],
     "Sentiment": ["Fear & Greed", "Google Trends", "Coinbase Premium"],
     "Macro": ["M2/Net Liquidity", "DXY"],
