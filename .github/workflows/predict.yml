@@ -2,9 +2,8 @@
 
 on:
   schedule:
-    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
-    # under load, which was leaving the predictor idle for hours.
-    - cron: '7,37 * * * *'
+    # Hourly, offset from :00 because GitHub can delay top-of-hour schedules.
+    - cron: '7 * * * *'
   workflow_dispatch:
 
 permissions:

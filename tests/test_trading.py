@@ -16,10 +16,12 @@ No third-party deps required (stdlib unittest only).
 from __future__ import annotations
 
 import os
+import json
 import sys
 import tempfile
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 
 # Make the repo root importable when run directly.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -31,6 +33,7 @@ from src.trading.position_sizer import PositionSizer  # noqa: E402
 from src.trading.risk_manager import RiskManager  # noqa: E402
 from src.trading.simulator import OrderSimulator  # noqa: E402
 from src.trading.strategy import TradingStrategy  # noqa: E402
+from trade import load_latest_logged_prediction  # noqa: E402
 
 
 def _short_prediction(confidence: float = 80.0, magnitude: float = 3.0) -> list[dict]:
@@ -264,6 +267,47 @@ class TestPreTradeSafetyGate(_AgentTestBase):
         self.assertIsNone(agent._pretrade_gate_reason(_Sig(), used_ml=True))
         self.assertIsNotNone(agent._pretrade_gate_reason(_Sig(), used_ml=False))
         self.assertIsNotNone(agent._pretrade_gate_reason(_ZeroSig(), used_ml=True))
+
+
+class TestLiveTickPredictionLoading(_AgentTestBase):
+    def test_load_latest_logged_prediction_skips_twitter_tracks(self) -> None:
+        path = Path("data/predictions/predictions.jsonl")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        rows = [
+            {
+                "run_number": 1,
+                "timestamp": "2026-01-01T00:00:00Z",
+                "btc_price": 100.0,
+                "used_ml": True,
+                "model_source": "ensemble",
+                "predictions": [{"timeframe": "24h", "direction": "UP", "magnitude": 1.0, "confidence": 70}],
+            },
+            {
+                "run_number": 1,
+                "timestamp": "2026-01-01T00:00:00Z",
+                "btc_price": 100.0,
+                "used_ml": True,
+                "model_source": "llm_direct",
+                "predictions": [{"timeframe": "24h", "direction": "DOWN", "magnitude": 1.0, "confidence": 90}],
+            },
+            {
+                "run_number": 2,
+                "timestamp": "2026-01-01T01:00:00Z",
+                "btc_price": 101.0,
+                "used_ml": True,
+                "model_source": "numbers",
+                "predictions": [{"timeframe": "24h", "direction": "UP", "magnitude": 2.0, "confidence": 75}],
+            },
+        ]
+        with open(path, "w", encoding="utf-8") as fh:
+            for row in rows:
+                fh.write(json.dumps(row) + "\n")
+
+        latest = load_latest_logged_prediction()
+        self.assertIsNotNone(latest)
+        assert latest is not None
+        self.assertEqual(latest["run_number"], 2)
+        self.assertEqual(latest["model_source"], "numbers")
 
 
 class TestPortfolioShortValue(_AgentTestBase):
