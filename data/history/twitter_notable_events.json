@@ -1,0 +1,37 @@
+[
+  {
+    "tweet_id": "1001",
+    "timestamp": "2026-06-15T09:05:00+00:00",
+    "author": "saylor",
+    "text": "Just bought more $BTC. Bitcoin ETF inflows hitting record highs, this rally is just getting started.",
+    "event_flags": [
+      "etf"
+    ],
+    "sentiment": 1.0,
+    "engagement_weight": 75.2952
+  },
+  {
+    "tweet_id": "1002",
+    "timestamp": "2026-06-15T09:12:00+00:00",
+    "author": "WatcherGuru",
+    "text": "BREAKING: Major exchange reports security incident, withdrawals paused. #Bitcoin holders nervous.",
+    "event_flags": [
+      "breaking_news",
+      "hack",
+      "regulation"
+    ],
+    "sentiment": -1.0,
+    "engagement_weight": 80.1381
+  },
+  {
+    "tweet_id": "1007",
+    "timestamp": "2026-06-15T10:02:00+00:00",
+    "author": "cointelegraph",
+    "text": "SEC delays decision again, regulatory uncertainty weighing on Bitcoin. Market feeling cautious.",
+    "event_flags": [
+      "regulation"
+    ],
+    "sentiment": -1.0,
+    "engagement_weight": 66.4637
+  }
+]
