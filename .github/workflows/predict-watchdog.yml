@@ -1,0 +1,69 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    # Offset from Predict's :07 schedule; recovers when cron events are dropped
+    # and no committed prediction has landed within the stale threshold.
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: predict-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        run: |
+          if python -m src.utils.prediction_freshness --log-path predictions.log --max-age-hours 1; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check active Predict runs
+        id: active
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          active_count="$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${GITHUB_REPOSITORY}/actions/runs?branch=master&per_page=100" \
+              --jq '[.workflow_runs[] | select(.name == "Predict" and (.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "pending" or .status == "requested"))] | length'
+          )"
+          echo "count=${active_count}" >> "$GITHUB_OUTPUT"
+          echo "Active Predict runs: ${active_count}"
+
+      - name: Dispatch Predict
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/actions/workflows/predict.yml/dispatches" \
+            -f ref=master
+          echo "Dispatched Predict because predictions.log is stale (>1 hour)."
+
+      - name: Skip dispatch when Predict is active
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
+        run: echo "Predictions are stale, but a Predict run is already active."
