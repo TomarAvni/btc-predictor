@@ -27,6 +27,7 @@ from src.trading.risk_manager import RiskManager
 from src.trading.simulator import OrderSimulator
 from src.trading.strategy import TradingStrategy
 from src.trading.trade_journal import TradeJournal
+from src.output.jsonl_logger import PREDICTIONS_JSONL_PATH
 from src.utils.timez import now_israel_str
 
 
@@ -326,21 +327,46 @@ def _print_live_status(status: dict, predictions: list[dict]) -> None:
     print()
 
 
+def load_latest_logged_prediction() -> dict | None:
+    """Load the latest numeric prediction run written by ``main.py --predict``."""
+    if not PREDICTIONS_JSONL_PATH.exists():
+        return None
+
+    latest: dict | None = None
+    for line in PREDICTIONS_JSONL_PATH.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        # Sentiment tracks are logged into the same JSONL file. The paper trader
+        # should consume the main numeric/ensemble prediction until the blended
+        # strategy is explicitly enabled.
+        source = str(record.get("model_source", "")).lower()
+        if source in {"llm_direct", "llm_calibrated", "twitter", "blended_50_50"}:
+            continue
+        if record.get("predictions"):
+            latest = record
+    return latest
+
+
 async def run_live_tick() -> None:
-    """Run a single prediction+trade cycle then exit (for CI/cron)."""
+    """Run a single trade cycle from the latest logged prediction then exit."""
     agent = create_agent()
     current_price = _get_current_price()
 
     used_ml = False
     run_number = 0
-    try:
-        from src.engine.predictor import PredictionEngine
-        engine = PredictionEngine()
-        engine_result = await engine.run_prediction()
-        predictions = engine_result.get("predictions", [])
-        used_ml = bool(engine_result.get("using_ml", False))
-        run_number = int(engine_result.get("run_number", 0))
-    except (ImportError, Exception):
+    latest = load_latest_logged_prediction()
+    if latest:
+        predictions = latest.get("predictions", [])
+        current_price = float(latest.get("btc_price") or current_price)
+        used_ml = bool(latest.get("used_ml", False))
+        run_number = int(latest.get("run_number", 0) or 0)
+    else:
+        print("[WARN] No logged prediction found. Falling back to synthetic prediction.")
         prev_price = current_price * (1 + np.random.normal(0, 0.002))
         predictions = generate_synthetic_predictions(
             current_price, prev_price, datetime.now(timezone.utc)
