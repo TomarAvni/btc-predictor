@@ -8,10 +8,6 @@ from __future__ import annotations
 
 import _bootstrap  # noqa: F401 — repo root on sys.path for Streamlit Cloud
 
-import json
-from datetime import datetime, timezone
-from pathlib import Path
-
 import streamlit as st
 
 st.set_page_config(page_title="Trading", page_icon="💹", layout="wide")
@@ -23,50 +19,25 @@ from dashboard.styles import inject_css, layout_marker
 from dashboard.components.charts import create_cumulative_pnl_chart
 from dashboard.components.metrics_cards import render_metric_card
 from dashboard.components.mobile_nav import render_mobile_nav
+from dashboard.data_loader import (
+    get_data_health,
+    load_portfolio_state,
+    load_trades,
+    load_trading_backtest,
+    load_trading_journal,
+)
 from src.utils.timez import utc_str_to_israel
 
 inject_css()
 render_mobile_nav()
 
-TRADING_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "trading"
-PORTFOLIO_PATH = TRADING_DIR / "portfolio.json"
-TRADES_PATH = TRADING_DIR / "trades.json"
-BACKTEST_PATH = TRADING_DIR / "backtest_results.json"
-
-
-def load_portfolio() -> dict | None:
-    if not PORTFOLIO_PATH.exists():
-        return None
-    try:
-        return json.loads(PORTFOLIO_PATH.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return None
-
-
-def load_trades() -> list[dict]:
-    if not TRADES_PATH.exists():
-        return []
-    try:
-        data = json.loads(TRADES_PATH.read_text(encoding="utf-8"))
-        return data if isinstance(data, list) else []
-    except (json.JSONDecodeError, OSError):
-        return []
-
-
-def load_backtest() -> dict | None:
-    if not BACKTEST_PATH.exists():
-        return None
-    try:
-        return json.loads(BACKTEST_PATH.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return None
-
-
 # ── Load data ─────────────────────────────────────────────────────────────
 
-portfolio = load_portfolio()
+portfolio = load_portfolio_state()
 trades = load_trades()
-backtest = load_backtest()
+backtest = load_trading_backtest()
+journal = load_trading_journal()
+health = get_data_health()
 
 st.markdown("# 💹 Trading Agent")
 st.caption(
@@ -99,6 +70,27 @@ if portfolio is None and not trades and backtest is None:
         "```\npython trade.py --live-tick\n```"
     )
     st.stop()
+
+# ── Data Health ───────────────────────────────────────────────────────────
+
+st.markdown("### Trading Data Health")
+layout_marker("stack")
+h1, h2, h3, h4 = st.columns(4, gap="small")
+with h1:
+    render_metric_card("Closed Trades", str(health.get("closed_trades", 0)))
+with h2:
+    render_metric_card("Journal Entries", str(health.get("journal_entries", 0)))
+with h3:
+    render_metric_card(
+        "Portfolio Updated",
+        utc_str_to_israel(health.get("portfolio_updated_at"), fallback="—"),
+    )
+with h4:
+    latest_action = health.get("latest_journal_action") or "—"
+    render_metric_card("Latest Journal Action", str(latest_action))
+
+for warning in health.get("warnings", []):
+    st.warning(warning)
 
 # ── Portfolio Overview ────────────────────────────────────────────────────
 
@@ -233,6 +225,32 @@ if trades:
         render_metric_card("Avg Win", f"${avg_win:+.2f}", delta_color="green")
     with s5:
         render_metric_card("Avg Loss", f"${avg_loss:.2f}", delta_color="red")
+
+# ── Decision Journal ──────────────────────────────────────────────────────
+
+if journal:
+    st.markdown("### Recent Trader Decisions")
+    st.caption(
+        "Full decision trail from the trading journal, including SKIP decisions "
+        "that do not appear in closed-trade history."
+    )
+    decision_rows = []
+    for entry in reversed(journal[-25:]):
+        action = entry.get("action", "—")
+        preds = entry.get("predictions_summary") or []
+        reason = entry.get("reason") or "; ".join(entry.get("reasons", [])) or entry.get("exit_reason", "—")
+        decision_rows.append({
+            "Time (Israel)": utc_str_to_israel(entry.get("timestamp"), fallback="—"),
+            "Action": action,
+            "Run": entry.get("run_number", "—"),
+            "Side": entry.get("position_side") or entry.get("side", "—"),
+            "Timeframe": entry.get("timeframe", "—"),
+            "Confidence": entry.get("confidence", "—"),
+            "Amount": f"${entry.get('amount_usd', 0):.2f}" if entry.get("amount_usd") else "—",
+            "Reason": reason,
+            "Predictions": " | ".join(preds[:4]) if preds else "—",
+        })
+    st.dataframe(pd.DataFrame(decision_rows), width="stretch", hide_index=True)
 
 # ── Backtest Results ──────────────────────────────────────────────────────
 

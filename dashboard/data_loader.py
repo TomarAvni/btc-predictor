@@ -26,6 +26,9 @@ from dashboard.config import (
     VALIDATION_DIR,
 )
 from src.horizons import HORIZON_HOURS, TIMEFRAMES
+from src.output.jsonl_logger import PREDICTIONS_JSONL_PATH
+from src.training.closed_loop import MIN_CALIBRATION_ROWS, MIN_RETRAIN_ROWS
+from src.training.labeled_store import LABELED_STORE_PATH
 
 # ── Prediction-log parser ──────────────────────────────────────────────────
 
@@ -391,4 +394,170 @@ def get_live_performance_scores() -> list[dict[str, Any]]:
 def has_live_performance() -> bool:
     """Whether live prediction scoring data exists."""
     return (PERFORMANCE_DIR / "prediction_scores.jsonl").exists()
+
+
+# ── Trading / training status loaders ──────────────────────────────────────
+
+TRADING_DIR = DATA_DIR / "trading"
+PORTFOLIO_PATH = TRADING_DIR / "portfolio.json"
+TRADES_PATH = TRADING_DIR / "trades.json"
+JOURNAL_PATH = TRADING_DIR / "journal.json"
+BACKTEST_TRADING_PATH = TRADING_DIR / "backtest_results.json"
+
+
+def _load_json(path: Path, fallback: Any) -> Any:
+    if not path.exists():
+        return fallback
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return fallback
+
+
+@st.cache_data(ttl=60)
+def load_portfolio_state() -> dict[str, Any] | None:
+    data = _load_json(PORTFOLIO_PATH, None)
+    return data if isinstance(data, dict) else None
+
+
+@st.cache_data(ttl=60)
+def load_trades() -> list[dict[str, Any]]:
+    data = _load_json(TRADES_PATH, [])
+    return data if isinstance(data, list) else []
+
+
+@st.cache_data(ttl=60)
+def load_trading_journal() -> list[dict[str, Any]]:
+    data = _load_json(JOURNAL_PATH, [])
+    return data if isinstance(data, list) else []
+
+
+@st.cache_data(ttl=60)
+def load_trading_backtest() -> dict[str, Any] | None:
+    data = _load_json(BACKTEST_TRADING_PATH, None)
+    return data if isinstance(data, dict) else None
+
+
+@st.cache_data(ttl=60)
+def load_prediction_jsonl_runs() -> list[dict[str, Any]]:
+    """Load rich prediction records with feature vectors, if available."""
+    path = PREDICTIONS_JSONL_PATH
+    if not path.exists():
+        return []
+    records: list[dict[str, Any]] = []
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            records.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return records
+
+
+@st.cache_data(ttl=60)
+def load_labeled_training_rows() -> list[dict[str, Any]]:
+    if not LABELED_STORE_PATH.exists():
+        return []
+    rows: list[dict[str, Any]] = []
+    for line in LABELED_STORE_PATH.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rows.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return rows
+
+
+def _latest_timestamp(records: list[dict[str, Any]], keys: tuple[str, ...]) -> str | None:
+    values: list[str] = []
+    for rec in records:
+        for key in keys:
+            value = rec.get(key)
+            if value:
+                values.append(str(value))
+                break
+    return max(values) if values else None
+
+
+def _count_scored_by_horizon(scores: list[dict[str, Any]]) -> dict[str, int]:
+    counts = {tf: 0 for tf in TIMEFRAMES}
+    for rec in scores:
+        tf = rec.get("timeframe")
+        if tf in counts:
+            counts[tf] += 1
+    return counts
+
+
+def get_training_status() -> dict[str, Any]:
+    """Return prediction -> score -> labeled-store progress for the dashboard."""
+    prediction_runs = load_prediction_jsonl_runs()
+    scores = load_prediction_scores()
+    labeled_rows = load_labeled_training_rows()
+    labeled_counts = {tf: 0 for tf in TIMEFRAMES}
+    for row in labeled_rows:
+        tf = row.get("timeframe")
+        if tf in labeled_counts:
+            labeled_counts[tf] += 1
+
+    return {
+        "prediction_jsonl_rows": len(prediction_runs),
+        "scored_rows": len(scores),
+        "labeled_rows": len(labeled_rows),
+        "latest_prediction_jsonl": _latest_timestamp(prediction_runs, ("timestamp",)),
+        "latest_score": _latest_timestamp(scores, ("scored_at", "prediction_timestamp")),
+        "scored_by_horizon": _count_scored_by_horizon(scores),
+        "labeled_by_horizon": labeled_counts,
+        "calibration_min_rows": MIN_CALIBRATION_ROWS,
+        "retrain_min_rows": MIN_RETRAIN_ROWS,
+        "calibration_ready": {
+            tf: n >= MIN_CALIBRATION_ROWS for tf, n in labeled_counts.items()
+        },
+        "retrain_ready": {
+            tf: n >= MIN_RETRAIN_ROWS for tf, n in labeled_counts.items()
+        },
+    }
+
+
+def get_data_health() -> dict[str, Any]:
+    """Summarize artifact freshness and obvious sync problems."""
+    runs = load_prediction_runs()
+    scores = load_prediction_scores()
+    portfolio = load_portfolio_state()
+    trades = load_trades()
+    journal = load_trading_journal()
+
+    latest_prediction = runs[-1] if runs else None
+    latest_trade_exit = _latest_timestamp(trades, ("exit_time",))
+    latest_journal = journal[-1] if journal else None
+    portfolio_updated = portfolio.get("updated_at") if portfolio else None
+    latest_score = _latest_timestamp(scores, ("scored_at", "prediction_timestamp"))
+
+    warnings: list[str] = []
+    if not scores:
+        warnings.append("No scored predictions yet; performance charts should not be treated as live accuracy.")
+    if latest_journal and portfolio_updated and str(latest_journal.get("timestamp")) > str(portfolio_updated):
+        warnings.append("Trading journal is newer than portfolio state; portfolio view may be stale.")
+    if latest_journal and latest_trade_exit and str(latest_journal.get("timestamp")) > str(latest_trade_exit):
+        action = latest_journal.get("action")
+        if action != "SKIP":
+            warnings.append("Latest journal action is newer than closed-trade history.")
+
+    return {
+        "latest_prediction_run": latest_prediction.get("run_number") if latest_prediction else None,
+        "latest_prediction_time": latest_prediction.get("timestamp") if latest_prediction else None,
+        "prediction_runs": len(runs),
+        "scored_predictions": len(scores),
+        "latest_score_time": latest_score,
+        "portfolio_updated_at": portfolio_updated,
+        "closed_trades": len(trades),
+        "latest_trade_exit": latest_trade_exit,
+        "journal_entries": len(journal),
+        "latest_journal_action": latest_journal.get("action") if latest_journal else None,
+        "latest_journal_time": latest_journal.get("timestamp") if latest_journal else None,
+        "warnings": warnings,
+    }
 
