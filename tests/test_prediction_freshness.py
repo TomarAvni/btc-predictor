@@ -87,6 +87,16 @@ class TestPredictionFreshness(unittest.TestCase):
             self.assertTrue(status.is_fresh)
             self.assertEqual(status.latest_run_at, datetime(2026, 6, 19, 8, 0, tzinfo=timezone.utc))
 
+    def test_uses_highest_run_number_when_latest_timestamp_ties(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "predictions.log"
+            _write_log(path, "2026-06-19 08:00 UTC", "2026-06-19 08:00 UTC")
+
+            status = check_prediction_freshness(path, now=NOW)
+
+            self.assertTrue(status.is_fresh)
+            self.assertEqual(status.latest_run_number, 2)
+
     def test_future_timestamp_is_not_fresh(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.log"

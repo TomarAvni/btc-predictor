@@ -103,7 +103,7 @@ def check_prediction_freshness(
             reason=f"{log_path} contains no prediction run headers",
         )
 
-    latest_run_at, latest_run_number = max(headers, key=lambda item: item[0])
+    latest_run_at, latest_run_number = max(headers, key=lambda item: (item[0], item[1]))
     status = PredictionFreshness(
         path=log_path,
         max_age=max_age,
