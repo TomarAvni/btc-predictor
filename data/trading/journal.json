@@ -358,5 +358,36 @@
     "prediction_id": "3d652ad7bee6",
     "run_number": 23,
     "used_ml": true
+  },
+  {
+    "trade_number": 17,
+    "timestamp": "2026-06-19T21:16:57.509012+00:00",
+    "action": "BUY",
+    "position_side": "LONG",
+    "side": "BUY",
+    "amount_usd": 119.16,
+    "amount_btc": 0.0018827828177419067,
+    "price": 63226.007205,
+    "timeframe": "138h",
+    "confidence": 57,
+    "reasons": [
+      "138h prediction: UP +1.50% @ 57% confidence",
+      "Cost-aware edge: 1.20% after estimated 0.30% round-trip cost",
+      "Multi-timeframe alignment: Strong (score 15.38)",
+      "Supporting timeframes: 6h (71%), 12h (68%), 18h (66%), 30h (64%), 36h (63%), 42h (62%), 48h (61%), 54h (61%), 60h (60%), 66h (60%), 72h (60%), 78h (59%), 84h (59%), 90h (58%), 96h (58%), 102h (58%), 108h (58%), 114h (57%), 120h (57%), 126h (57%), 132h (57%), 144h (56%), 150h (56%), 156h (56%), 162h (56%)"
+    ],
+    "sizing_tier": "Small",
+    "alignment_score": 15.38,
+    "stop_loss": 61329.22698885,
+    "take_profit": 64364.07533469,
+    "max_loss_usd": 3.5748,
+    "max_loss_pct_portfolio": 0.1800086378921034,
+    "portfolio_cash": 1747.5139655869793,
+    "portfolio_total": 1985.9046998304182,
+    "open_positions": 2,
+    "exposure_pct": 12.004137674068438,
+    "prediction_id": "de117534800a",
+    "run_number": 24,
+    "used_ml": true
   }
 ]
