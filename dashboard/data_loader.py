@@ -26,6 +26,8 @@ from dashboard.config import (
     VALIDATION_DIR,
 )
 from src.horizons import HORIZON_HOURS, TIMEFRAMES
+from src.collectors.onchain_flows import LATEST_PATH as ONCHAIN_FLOW_LATEST_PATH
+from src.collectors.onchain_flows import HISTORY_PATH as ONCHAIN_FLOW_HISTORY_PATH
 from src.output.jsonl_logger import PREDICTIONS_JSONL_PATH
 from src.training.closed_loop import MIN_CALIBRATION_ROWS, MIN_RETRAIN_ROWS
 from src.training.labeled_store import LABELED_STORE_PATH
@@ -560,4 +562,27 @@ def get_data_health() -> dict[str, Any]:
         "latest_journal_time": latest_journal.get("timestamp") if latest_journal else None,
         "warnings": warnings,
     }
+
+
+@st.cache_data(ttl=300)
+def load_onchain_flow_latest() -> dict[str, Any]:
+    """Load latest on-chain flow snapshot for dashboard display."""
+    data = _load_json(ONCHAIN_FLOW_LATEST_PATH, {})
+    return data if isinstance(data, dict) else {}
+
+
+@st.cache_data(ttl=300)
+def load_onchain_flow_history() -> pd.DataFrame:
+    """Load persisted on-chain flow history from the collector."""
+    if not ONCHAIN_FLOW_HISTORY_PATH.exists():
+        return pd.DataFrame()
+    try:
+        df = pd.read_parquet(ONCHAIN_FLOW_HISTORY_PATH)
+        if not isinstance(df.index, pd.DatetimeIndex):
+            if "timestamp" in df.columns:
+                df = df.set_index("timestamp")
+            df.index = pd.to_datetime(df.index, utc=True)
+        return df.sort_index()
+    except Exception:
+        return pd.DataFrame()
 

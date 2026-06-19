@@ -15,6 +15,9 @@ import numpy as np
 import pandas as pd
 
 from src.collectors.cycle import CycleCollector
+from src.collectors.onchain_flows import LATEST_PATH as ONCHAIN_FLOW_LATEST_PATH
+from src.collectors.onchain_flows import HISTORY_PATH as ONCHAIN_FLOW_HISTORY_PATH
+from src.collectors.onchain_flows import OnChainFlowCollector
 from src.collectors.price import PriceCollector
 from src.collectors.technical import TechnicalCollector
 from src.features.engineer import FeatureEngineer
@@ -74,6 +77,7 @@ class PredictionEngine:
         self.price = PriceCollector(storage_path=storage)
         self.technical = TechnicalCollector(self.price)
         self.cycle = CycleCollector()
+        self.onchain_flows = OnChainFlowCollector()
         self.temporal = TemporalFeatures()
         self.engineer = FeatureEngineer()
         self.formatter = PredictionFormatter()
@@ -125,11 +129,13 @@ class PredictionEngine:
         ta_df = await self.technical.collect()
         cycle_info = self.cycle.get_cycle_position()
         await self.cycle.collect()
+        flow_df = await self.onchain_flows.collect()
         self.temporal.compute(price_df.tail(1000))
 
         latest_price = await self.price.get_latest()
         latest_ta = await self.technical.get_latest()
-        signals = self._build_signal_summary(latest_price, latest_ta, cycle_info)
+        latest_flow = flow_df.iloc[-1].to_dict() if not flow_df.empty else {}
+        signals = self._build_signal_summary(latest_price, latest_ta, cycle_info, latest_flow)
 
         predictions, features_dict, model_source = self._generate_predictions(
             price_df, ta_df
@@ -355,6 +361,7 @@ class PredictionEngine:
         """
         merged = self._build_merged_data(price_df, ta_df)
         merged = self._merge_tweet_signal(merged)
+        merged = self._merge_onchain_flow_signal(merged)
         if merged.empty:
             return [], {}
 
@@ -457,6 +464,28 @@ class PredictionEngine:
             logger.warning("Tweet signal merge skipped: %s", exc)
             return merged
 
+    @staticmethod
+    def _merge_onchain_flow_signal(merged: pd.DataFrame) -> pd.DataFrame:
+        """Forward-fill on-chain flow metrics onto the price grid."""
+        if merged.empty or not ONCHAIN_FLOW_HISTORY_PATH.exists():
+            return merged
+        try:
+            signal = pd.read_parquet(ONCHAIN_FLOW_HISTORY_PATH)
+            if signal.empty:
+                return merged
+            if not isinstance(signal.index, pd.DatetimeIndex):
+                if "timestamp" in signal.columns:
+                    signal = signal.set_index("timestamp")
+                signal.index = pd.to_datetime(signal.index, utc=True)
+            new_cols = [c for c in signal.columns if c not in merged.columns]
+            if not new_cols:
+                return merged
+            reindexed = signal[new_cols].reindex(merged.index, method="ffill")
+            return merged.join(reindexed, how="left")
+        except Exception as exc:  # pragma: no cover - defensive
+            logger.warning("On-chain flow signal merge skipped: %s", exc)
+            return merged
+
     # ------------------------------------------------------------------
     # Heuristic fallback
     # ------------------------------------------------------------------
@@ -556,7 +585,7 @@ class PredictionEngine:
 
     @staticmethod
     def _build_signal_summary(
-        price: dict, ta: dict, cycle: dict
+        price: dict, ta: dict, cycle: dict, onchain_flow: dict | None = None
     ) -> dict[str, dict[str, Any]]:
         """Assemble a human-readable signal summary dict."""
         signals: dict[str, dict[str, Any]] = {}
@@ -601,6 +630,28 @@ class PredictionEngine:
             signals["Cycle Phase"] = {
                 "value": phase.replace("_", " ").title(),
                 "interpretation": f"{pct*100:.0f}% through cycle",
+            }
+
+        flow = onchain_flow or {}
+        btc_24h = flow.get("whale_btc_moved_24h")
+        if btc_24h is not None:
+            net_exchange = float(flow.get("net_exchange_flow_btc_24h", 0.0) or 0.0)
+            score = float(flow.get("flow_accumulation_score", 0.0) or 0.0)
+            if score > 0.2:
+                interp = "cold-storage-like accumulation"
+            elif score < -0.2:
+                interp = "distribution-like whale flow"
+            else:
+                interp = "mixed/neutral large flows"
+            signals["On-chain Whale Flow"] = {
+                "value": f"{float(btc_24h):,.0f} BTC moved (24h)",
+                "interpretation": f"{interp}; net exchange labeled flow {net_exchange:+,.0f} BTC",
+            }
+
+        if ONCHAIN_FLOW_LATEST_PATH.exists():
+            signals["On-chain Data Coverage"] = {
+                "value": "free public APIs + local labels",
+                "interpretation": "exact exchange/miner labels require address labels or paid entity API",
             }
 
         return signals

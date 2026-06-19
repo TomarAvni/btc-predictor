@@ -1,0 +1,17 @@
+{
+  "addresses": {},
+  "notes": {
+    "schema": "address -> {entity, category}",
+    "categories": [
+      "exchange",
+      "exchange_outflow",
+      "miner",
+      "miner_to_exchange",
+      "custody",
+      "cold_wallet",
+      "whale"
+    ],
+    "free_mode": "Unknown addresses stay unknown until labels are added or a labeling API is connected.",
+    "next_step": "Add known exchange/miner addresses here or connect a labeled on-chain intelligence API."
+  }
+}

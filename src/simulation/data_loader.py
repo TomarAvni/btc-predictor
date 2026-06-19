@@ -137,6 +137,7 @@ class HistoricalDataLoader:
         signal_names = [
             "technical", "cycle", "macro", "sentiment",
             "onchain", "institutional", "options",
+            "onchain_flows",
             "twitter_llm_signal",
         ]
 

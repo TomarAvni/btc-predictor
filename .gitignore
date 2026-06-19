@@ -21,3 +21,6 @@ data/training_data/staging/
 # X/Twitter sentiment module: the signal history must persist across stateless
 # cloud runs, so un-ignore it from the global *.parquet rule above.
 !data/history/twitter_llm_signal.parquet
+
+# On-chain flow module: persisted snapshots must also survive stateless runs.
+!data/history/onchain_flows.parquet

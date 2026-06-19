@@ -50,6 +50,9 @@ PLACEHOLDER_COLUMNS = [
 # Sourced from the merged dataset when data/history/twitter_llm_signal.parquet
 # exists; otherwise added as NaN placeholders so the schema stays stable.
 from src.features.tweet_aggregator import SIGNAL_COLUMNS as TWEET_FEATURE_COLUMNS
+from src.collectors.onchain_flows import FLOW_FEATURE_COLUMNS as ONCHAIN_FLOW_COLUMNS
+
+PLACEHOLDER_COLUMNS.extend(ONCHAIN_FLOW_COLUMNS)
 
 
 class TrainingFeatureBuilder:
@@ -296,7 +299,9 @@ class TrainingFeatureBuilder:
         These get populated when the corresponding collectors are built.
         """
         for col in PLACEHOLDER_COLUMNS:
-            if col not in features.columns and col not in price_df.columns:
+            if col in price_df.columns:
+                features[col] = price_df[col]
+            elif col not in features.columns:
                 features[col] = np.nan
 
         return features
