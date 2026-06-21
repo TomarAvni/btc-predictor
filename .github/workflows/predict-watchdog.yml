@@ -2,7 +2,8 @@ name: Predict Watchdog
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    # Offset from Predict (:07/:37) — recovers within ~30 min if schedules are dropped.
+    - cron: '17,47 * * * *'
   workflow_dispatch:
 
 permissions:
