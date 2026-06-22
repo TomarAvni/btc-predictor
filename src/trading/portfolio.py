@@ -131,14 +131,15 @@ class Portfolio:
     # Actions
     # ------------------------------------------------------------------
 
-    def update_price(self, price: float) -> None:
-        """Update the last known BTC price and track peak value."""
+    def update_price(self, price: float, timestamp: Optional[datetime] = None) -> None:
+        """Update the last known BTC price and track peak/daily state."""
         self._last_price = price
         current_value = self.total_value_usd
         if current_value > self.peak_value:
             self.peak_value = current_value
 
-        now = datetime.now(timezone.utc)
+        now = timestamp or datetime.now(timezone.utc)
+        now = _ensure_utc(now)
         if self._daily_start_date is None or now.date() > self._daily_start_date.date():
             self._daily_start_value = current_value
             self._daily_start_date = now

@@ -93,7 +93,7 @@ class TradingAgent:
         actions_taken: list[dict] = []
 
         # 1. Update price
-        self.portfolio.update_price(current_price)
+        self.portfolio.update_price(current_price, ts)
         self.performance.record_daily_value(ts, self.portfolio.total_value_usd)
         self.performance.record_btc_price(ts, current_price)
 
@@ -140,7 +140,7 @@ class TradingAgent:
         candle_high = high or price
         candle_low = low or price
 
-        self.portfolio.update_price(price)
+        self.portfolio.update_price(price, ts)
         self.performance.record_daily_value(ts, self.portfolio.total_value_usd)
         self.performance.record_btc_price(ts, price)
 
@@ -321,6 +321,8 @@ class TradingAgent:
             alignment_score=signal.alignment_score,
             current_drawdown_pct=self.portfolio.max_drawdown,
             open_position_count=self.portfolio.open_position_count,
+            expected_move_pct=signal.magnitude,
+            round_trip_cost_pct=self.simulator.ROUND_TRIP_COST_PCT,
         )
 
         if not sizing.should_trade:

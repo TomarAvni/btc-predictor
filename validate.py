@@ -47,6 +47,41 @@ logger = setup_logger(__name__)
 # TIMEFRAMES / HORIZON_HOURS are the single source of truth (src/horizons.py).
 # The train/test gap buffer matches the longest horizon to prevent label leakage.
 GAP_DAYS = max(HORIZON_HOURS.values()) // 24
+HORIZON_SCHEMA_VERSION = "horizons-v2-6h-168h-plus-30d"
+
+
+def _ordered_horizons(values: Any) -> list[str]:
+    present = set(values)
+    return [tf for tf in TIMEFRAMES if tf in present]
+
+
+def build_artifact_manifest(
+    models: dict[str, dict[str, Any]],
+    feature_columns: list[str],
+    tft_available: bool,
+) -> dict[str, Any]:
+    """Describe trained artifact coverage against the canonical horizon schema."""
+    coverage: dict[str, Any] = {}
+    for model_name in ("baseline", "xgboost"):
+        trained_horizons = _ordered_horizons(models.get(model_name, {}).keys())
+        coverage[model_name] = {
+            "trained_horizons": trained_horizons,
+            "missing_horizons": [tf for tf in TIMEFRAMES if tf not in trained_horizons],
+            "coverage": f"{len(trained_horizons)}/{len(TIMEFRAMES)}",
+            "complete": len(trained_horizons) == len(TIMEFRAMES),
+        }
+    coverage["tft"] = {"available": bool(tft_available)}
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "horizon_schema_version": HORIZON_SCHEMA_VERSION,
+        "timeframes": TIMEFRAMES,
+        "horizon_hours": HORIZON_HOURS,
+        "longest_horizon_hours": max(HORIZON_HOURS.values()),
+        "gap_days": GAP_DAYS,
+        "model_coverage": coverage,
+        "n_feature_columns": len(feature_columns),
+        "feature_columns": feature_columns,
+    }
 
 
 def parse_args() -> argparse.Namespace:
@@ -260,6 +295,13 @@ def train_models(
         except Exception as e:
             logger.info("TFT not available: %s", e)
 
+    feature_columns = numeric_features.columns.tolist()
+    artifact_manifest = build_artifact_manifest(models, feature_columns, tft_available)
+    (model_dir / "artifact_manifest.json").write_text(
+        json.dumps(artifact_manifest, indent=2, default=_json_default),
+        encoding="utf-8",
+    )
+
     # Calibrate confidence
     calibrator = ConfidenceCalibrator(model_dir=model_dir)
 
@@ -270,7 +312,8 @@ def train_models(
         "training_metrics": training_metrics,
         "tft_available": tft_available,
         "calibrator": calibrator,
-        "feature_columns": numeric_features.columns.tolist(),
+        "feature_columns": feature_columns,
+        "artifact_manifest": artifact_manifest,
     }
 
 
@@ -769,6 +812,13 @@ def run_trading_backtest(
         buy_hold_return = 0.0
 
     perf_metrics["buy_and_hold_return_pct"] = round(buy_hold_return, 2)
+    from src.trading.simulator import OrderSimulator
+    perf_metrics["round_trip_cost_pct"] = OrderSimulator.ROUND_TRIP_COST_PCT
+    perf_metrics["methodology"] = {
+        "prediction_source": "holdout model replay",
+        "promotion_safe": False,
+        "note": "Use purged walk-forward or live matured predictions for promotion decisions.",
+    }
     perf_metrics["equity_curve"] = equity_curve
 
     return perf_metrics
@@ -787,6 +837,7 @@ def generate_report(
     feature_importance: list[tuple[str, float]],
     trading_metrics: Optional[dict[str, Any]],
     wf_section: Optional[dict[str, Any]] = None,
+    artifact_manifest: Optional[dict[str, Any]] = None,
 ) -> str:
     """Generate the human-readable validation report."""
     lines = [
@@ -806,6 +857,21 @@ def generate_report(
         f"({split_info['test_n']:,} hourly candles)",
         "",
     ]
+
+    if artifact_manifest:
+        lines.append("Artifact / Horizon Schema:")
+        lines.append(f"  Schema: {artifact_manifest.get('horizon_schema_version')}")
+        lines.append(
+            f"  Horizons: {len(artifact_manifest.get('timeframes', []))} "
+            f"({', '.join(artifact_manifest.get('timeframes', [])[:4])}, ...)"
+        )
+        for model_name in ("baseline", "xgboost"):
+            cov = artifact_manifest.get("model_coverage", {}).get(model_name, {})
+            lines.append(
+                f"  {model_name}: {cov.get('coverage', '0/0')} horizons trained"
+                + ("" if cov.get("complete") else " (incomplete)")
+            )
+        lines.append("")
 
     # Model accuracy table
     lines.append("MODEL ACCURACY (Test Set):")
@@ -863,6 +929,10 @@ def generate_report(
     # Trading results
     if trading_metrics:
         lines.append("TRADING AGENT RESULTS (Test Period):")
+        lines.append("  Method: in-sample holdout trading simulation; use purged OOF results for promotion decisions")
+        lines.append(
+            f"  Costs:   round-trip cost model ~{trading_metrics.get('round_trip_cost_pct', 0):.2f}% notional"
+        )
         lines.append(f"  Starting Balance:  ${trading_metrics.get('starting_balance', 2000):,.2f}")
         lines.append(f"  Ending Balance:    ${trading_metrics.get('current_value', 0):,.2f}")
         lines.append(f"  Total Return:      {trading_metrics.get('total_return_pct', 0):+.1f}%")
@@ -917,6 +987,11 @@ def generate_report(
                 f"  Trading agent outperforms buy-and-hold: "
                 f"{agent_ret:+.1f}% vs {bh_ret:+.1f}%"
             )
+
+        if abs(agent_ret) > 1000:
+            conclusions.append(
+                "  Trading return is extreme; audit accounting and OOF replay before treating as evidence"
+            )
         else:
             conclusions.append(
                 f"  Trading agent underperforms buy-and-hold: "
@@ -962,6 +1037,7 @@ def save_results_json(
     feature_importance: list[tuple[str, float]],
     trading_metrics: Optional[dict[str, Any]],
     wf_section: Optional[dict[str, Any]] = None,
+    artifact_manifest: Optional[dict[str, Any]] = None,
 ) -> None:
     """Save machine-readable results to JSON."""
     results = {
@@ -975,6 +1051,11 @@ def save_results_json(
             "train_samples": split_info["train_n"],
             "test_samples": split_info["test_n"],
         },
+        "horizon_schema": {
+            "version": HORIZON_SCHEMA_VERSION,
+            "timeframes": TIMEFRAMES,
+            "horizon_hours": HORIZON_HOURS,
+        },
         "model_accuracy": metrics,
         "confidence_calibration": calibration,
         "regime_accuracy": regime_accuracy,
@@ -983,6 +1064,9 @@ def save_results_json(
             for feat, imp in feature_importance
         ],
     }
+
+    if artifact_manifest:
+        results["artifact_manifest"] = artifact_manifest
 
     if wf_section:
         results["walk_forward"] = wf_section.get("summary", {})
@@ -1168,6 +1252,7 @@ def main() -> int:
     report = generate_report(
         split_info, metrics, calibration, regime_accuracy,
         feature_importance, trading_metrics, wf_section,
+        trained.get("artifact_manifest"),
     )
 
     # Save report
@@ -1179,6 +1264,7 @@ def main() -> int:
     save_results_json(
         output_dir, split_info, metrics, calibration,
         regime_accuracy, feature_importance, trading_metrics, wf_section,
+        trained.get("artifact_manifest"),
     )
 
     elapsed = time.time() - start_time

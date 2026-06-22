@@ -15,7 +15,8 @@ from src.training import labeled_store  # noqa: E402
 
 
 def _score(run: int, tf: str, feats: dict | None, direction: str = "UP",
-           actual: str = "UP", prob: float = 0.6) -> dict:
+           actual: str = "UP", prob: float | None = 0.6,
+           model_source: str = "ensemble", used_ml: bool = True) -> dict:
     return {
         "run_number": run,
         "timeframe": tf,
@@ -25,8 +26,8 @@ def _score(run: int, tf: str, feats: dict | None, direction: str = "UP",
         "predicted_magnitude": 1.5,
         "confidence": 60,
         "calibrated": False,
-        "model_source": "ensemble",
-        "used_ml": True,
+        "model_source": model_source,
+        "used_ml": used_ml,
         "actual_return_pct": 1.2,
         "actual_direction": actual,
         "direction_correct": direction == actual,
@@ -79,6 +80,21 @@ class TestLabeledStore(unittest.TestCase):
         ]
         added = labeled_store.append_labeled_rows(scores, path=self.store)
         self.assertEqual(added, 2)
+
+    def test_same_run_horizon_different_model_sources_are_distinct(self) -> None:
+        scores = [
+            _score(1, "24h", {"rsi_14": 1.0}, model_source="numbers"),
+            _score(1, "24h", {"rsi_14": 1.0}, model_source="llm_calibrated"),
+        ]
+        added = labeled_store.append_labeled_rows(scores, path=self.store)
+        self.assertEqual(added, 2)
+
+    def test_skips_heuristic_rows_without_model_probability(self) -> None:
+        scores = [
+            _score(1, "24h", {"rsi_14": 1.0}, prob=None, model_source="heuristic", used_ml=False),
+        ]
+        added = labeled_store.append_labeled_rows(scores, path=self.store)
+        self.assertEqual(added, 0)
 
     def test_frame_expands_features(self) -> None:
         labeled_store.append_labeled_rows(

@@ -28,24 +28,26 @@ class RiskCheck:
 class RiskManager:
     """Portfolio-level risk management and position protection."""
 
-    MAX_OPEN_POSITIONS: int = 5
-    MAX_EXPOSURE_PCT: float = 80.0  # Always keep 20% cash reserve
-    MAX_DRAWDOWN_CIRCUIT_BREAKER: float = 25.0  # Stop trading if down 25% from peak
-    DAILY_LOSS_LIMIT_PCT: float = 5.0  # No new trades if down 5% today
-    MAX_SINGLE_TRADE_RISK_PCT: float = 5.0  # Position * SL distance < 5% of portfolio
-    MIN_TIME_BETWEEN_TRADES: timedelta = timedelta(hours=1)
-    CIRCUIT_BREAKER_COOLDOWN: timedelta = timedelta(hours=48)
+    # Aggressive paper-trading limits. These intentionally allow many more
+    # BTC/USDT experiments than a real-money setup would.
+    MAX_OPEN_POSITIONS: int = 20
+    MAX_EXPOSURE_PCT: float = 100.0
+    MAX_DRAWDOWN_CIRCUIT_BREAKER: float = 80.0
+    DAILY_LOSS_LIMIT_PCT: float = 50.0
+    MAX_SINGLE_TRADE_RISK_PCT: float = 25.0
+    MIN_TIME_BETWEEN_TRADES: timedelta = timedelta(0)
+    CIRCUIT_BREAKER_COOLDOWN: timedelta = timedelta(hours=6)
 
-    MIN_STOP_LOSS_PCT: float = 1.0  # Minimum SL to avoid noise exits
+    MIN_STOP_LOSS_PCT: float = 0.25  # Tight paper scalping floor.
     TRAILING_STOP_ACTIVATION_PCT: float = 50.0  # Activate trailing after 50% of target
 
     # Total cost of opening and closing a position (slippage + fees on both
     # legs), sourced from the simulator so it stays correct if the cost model
-    # changes. With the defaults this is ~0.30% of notional.
+    # changes. With the low-fee BTC/USDT paper defaults this is ~0.06% of notional.
     ROUND_TRIP_COST_PCT: float = OrderSimulator.ROUND_TRIP_COST_PCT
     # Floor for the take-profit distance: a TP hit must clear the round-trip
     # cost with a small margin so a "win" is reliably net-positive.
-    MIN_TP_PCT: float = ROUND_TRIP_COST_PCT + 0.05
+    MIN_TP_PCT: float = max(0.10, ROUND_TRIP_COST_PCT + 0.02)
 
     def __init__(self) -> None:
         self._circuit_breaker_until: Optional[datetime] = None

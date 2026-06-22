@@ -92,7 +92,13 @@ def main() -> int:
         extractions = reader.read(tweets)
         signal = tweet_aggregator.aggregate(tweets, extractions, min_rel)
         if not signal.empty:
-            memory.add_signal(signal)
+            memory.add_signal(signal, metadata={
+                "reader_version": reader.version,
+                "reader_mode": "mock" if reader.is_mock else "llm",
+                "collector_mode": "mock" if collector.is_mock else "live",
+                "backfill_start": start.isoformat(),
+                "backfill_end": end.isoformat(),
+            })
             total_hours += len(signal)
 
     logger.info("Backfill complete: %d hourly rows in %s", total_hours, memory.signal_path)

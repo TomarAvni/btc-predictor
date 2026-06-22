@@ -26,15 +26,15 @@ class PositionSizer:
     """Confidence-based position sizing with Kelly Criterion."""
 
     MIN_CONFIDENCE: float = 55.0
-    MIN_POSITION_USD: float = 50.0
-    MAX_POSITION_PCT: float = 0.40  # 40% of portfolio
-    KELLY_FRACTION: float = 0.25  # Use 25% of Kelly suggestion
+    MIN_POSITION_USD: float = 10.0
+    MAX_POSITION_PCT: float = 0.85  # aggressive paper mode
+    KELLY_FRACTION: float = 0.75
 
     TIERS = [
-        (55.0, 65.0, 0.05, 0.10, "Small"),
-        (65.0, 75.0, 0.10, 0.20, "Medium"),
-        (75.0, 85.0, 0.20, 0.30, "Large"),
-        (85.0, 100.1, 0.30, 0.40, "Maximum"),
+        (55.0, 65.0, 0.10, 0.20, "Small"),
+        (65.0, 75.0, 0.20, 0.35, "Medium"),
+        (75.0, 85.0, 0.35, 0.60, "Large"),
+        (85.0, 100.1, 0.60, 0.85, "Maximum"),
     ]
 
     def calculate(
@@ -44,6 +44,8 @@ class PositionSizer:
         alignment_score: float = 1.0,
         current_drawdown_pct: float = 0.0,
         open_position_count: int = 0,
+        expected_move_pct: float | None = None,
+        round_trip_cost_pct: float = 0.0,
     ) -> SizingResult:
         """Calculate position size for a trade.
 
@@ -53,6 +55,8 @@ class PositionSizer:
             alignment_score: Multi-timeframe alignment score.
             current_drawdown_pct: Current portfolio drawdown (positive = drawdown).
             open_position_count: Number of currently open positions.
+            expected_move_pct: Absolute expected move in percent, when available.
+            round_trip_cost_pct: Estimated full open+close cost in percent.
 
         Returns:
             SizingResult with trade decision and amount.
@@ -68,6 +72,21 @@ class PositionSizer:
                 kelly_fraction=0.0,
                 adjustments=["Confidence below minimum threshold (55%)"],
             )
+
+        if expected_move_pct is not None:
+            net_edge_pct = abs(expected_move_pct) - round_trip_cost_pct
+            if net_edge_pct <= 0:
+                return SizingResult(
+                    should_trade=False,
+                    amount_usd=0.0,
+                    position_pct=0.0,
+                    tier="No Trade",
+                    kelly_fraction=0.0,
+                    adjustments=[
+                        f"Expected move {expected_move_pct:.2f}% does not clear "
+                        f"round-trip cost {round_trip_cost_pct:.2f}%"
+                    ],
+                )
 
         # Kelly fraction: (confidence * 2 - 1) for binary outcomes, capped
         kelly_raw = (confidence / 100.0 * 2 - 1)
@@ -96,6 +115,12 @@ class PositionSizer:
 
         # --- Adjustments ---
 
+        if expected_move_pct is not None:
+            net_edge_pct = max(0.0, abs(expected_move_pct) - round_trip_cost_pct)
+            edge_scale = min(1.25, max(0.50, net_edge_pct / 0.50))
+            position_amount *= edge_scale
+            adjustments.append(f"Net edge scale ({net_edge_pct:.2f}% after costs): x{edge_scale:.2f}")
+
         # Multi-timeframe alignment boost/reduction
         if alignment_score > 1.5:
             position_amount *= 1.20
@@ -105,14 +130,14 @@ class PositionSizer:
             adjustments.append(f"Weak/conflicting signals (score {alignment_score:.2f}): -50%")
 
         # Drawdown defensive mode
-        if current_drawdown_pct > 10.0:
-            position_amount *= 0.50
-            adjustments.append(f"Defensive mode (drawdown {current_drawdown_pct:.1f}%): -50%")
+        if current_drawdown_pct > 40.0:
+            position_amount *= 0.75
+            adjustments.append(f"Paper defensive mode (drawdown {current_drawdown_pct:.1f}%): -25%")
 
-        # Reduce if too many open positions
-        if open_position_count >= 3:
-            reduction = 0.25 * (open_position_count - 2)
-            reduction = min(reduction, 0.75)
+        # Only taper once the paper book is already very crowded.
+        if open_position_count >= 10:
+            reduction = 0.05 * (open_position_count - 9)
+            reduction = min(reduction, 0.50)
             position_amount *= (1.0 - reduction)
             adjustments.append(
                 f"{open_position_count} open positions: -{reduction*100:.0f}%"

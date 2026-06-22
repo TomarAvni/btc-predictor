@@ -41,8 +41,7 @@ jobs:
       - name: Validate eval harness
         run: python -m unittest tests.test_promptfoo_eval_harness
 
-      - name: Run PromptFoo evals (report-only)
-        continue-on-error: true
+      - name: Run PromptFoo evals
         timeout-minutes: 10
         env:
           # Keep CI deterministic and free. The provider config also forces mock

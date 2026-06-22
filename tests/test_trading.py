@@ -157,7 +157,18 @@ class TestStrategyCostAwareEntry(unittest.TestCase):
             open_positions=[],
         )
         self.assertFalse(signal.should_enter)
-        self.assertIn("cost-aware edge", signal.reasons[0])
+        self.assertIn("aggressive paper edge", signal.reasons[0])
+
+    def test_allows_aggressive_small_paper_move(self) -> None:
+        strategy = TradingStrategy()
+        signal = strategy.evaluate_entry(
+            predictions=[
+                {"timeframe": "6h", "direction": "UP", "magnitude": 0.11, "confidence": 90},
+            ],
+            current_price=100_000.0,
+            open_positions=[],
+        )
+        self.assertTrue(signal.should_enter)
 
     def test_prefers_larger_net_edge_over_raw_confidence(self) -> None:
         strategy = TradingStrategy()
