@@ -1185,5 +1185,55 @@
       "168h: UP 1.0% @ 25%",
       "30d: UP 8.0% @ 10%"
     ]
+  },
+  {
+    "trade_number": 41,
+    "timestamp": "2026-06-22T12:20:56.672971+00:00",
+    "action": "CLOSE",
+    "position_side": "LONG",
+    "side": "SELL",
+    "amount_usd": 119.04084,
+    "amount_btc": 0.0018827828177419067,
+    "entry_price": 63226.007205,
+    "exit_price": 64331.89329702266,
+    "pnl_usd": 1.9610203491075566,
+    "pnl_pct": 1.647350899999997,
+    "exit_reason": "take_profit",
+    "timeframe": "138h",
+    "holding_time_hours": 63.066434433055555,
+    "portfolio_cash": 1868.2243736401815,
+    "portfolio_total": 1988.2755479500436,
+    "fees_paid": 0.24016382333244002
+  },
+  {
+    "trade_number": 42,
+    "timestamp": "2026-06-22T12:20:56.672971+00:00",
+    "action": "BUY",
+    "position_side": "LONG",
+    "side": "BUY",
+    "amount_usd": 119.3,
+    "amount_btc": 0.0018425540758661113,
+    "price": 64682.335005,
+    "timeframe": "138h",
+    "confidence": 57,
+    "reasons": [
+      "138h prediction: UP +1.50% @ 57% confidence",
+      "Cost-aware edge: 1.20% after estimated 0.30% round-trip cost",
+      "Multi-timeframe alignment: Strong (score 15.78)",
+      "Supporting timeframes: 6h (71%), 12h (68%), 18h (66%), 30h (64%), 36h (63%), 42h (62%), 48h (61%), 54h (61%), 60h (60%), 66h (60%), 72h (60%), 78h (59%), 84h (59%), 90h (58%), 96h (58%), 102h (58%), 108h (58%), 114h (57%), 120h (57%), 126h (57%), 132h (57%), 144h (56%), 150h (56%), 156h (56%), 162h (56%)"
+    ],
+    "sizing_tier": "Small",
+    "alignment_score": 15.780000000000003,
+    "stop_loss": 62741.864954849996,
+    "take_profit": 65846.61703509,
+    "max_loss_usd": 3.5790000000000086,
+    "max_loss_pct_portfolio": 0.18001062373086013,
+    "portfolio_cash": 1749.0436736401816,
+    "portfolio_total": 1988.2159873803284,
+    "open_positions": 2,
+    "exposure_pct": 12.029493538842331,
+    "prediction_id": "f7043e21a028",
+    "run_number": 45,
+    "used_ml": true
   }
 ]
