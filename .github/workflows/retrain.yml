@@ -50,17 +50,18 @@ jobs:
             exit 0
           fi
           git commit -m "chore: weekly retrain and performance update [skip ci]"
+          TARGET_BRANCH="${GITHUB_REF_NAME:-master}"
           # Resilient push: re-sync and retry so concurrent runs / data-file
           # conflicts self-heal instead of failing the whole run.
           for attempt in 1 2 3 4 5; do
-            git fetch origin master || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
-            if ! git rebase -X theirs origin/master; then
+            git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
+            if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
               git rebase --abort || true
               sleep $((RANDOM % 5 + 3))
               continue
             fi
-            if git push origin HEAD:master; then
+            if git push origin "HEAD:$TARGET_BRANCH"; then
               echo "Pushed successfully on attempt $attempt."
               exit 0
             fi
