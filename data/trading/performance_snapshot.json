@@ -1,34 +1,36 @@
 {
   "total_return_pct": -0.63,
-  "total_return_usd": -12.59,
-  "current_value": 1987.41,
+  "total_return_usd": -12.68,
+  "current_value": 1987.32,
   "starting_balance": 2000.0,
   "daily_returns_count": 0,
   "sharpe_ratio": 0.0,
   "sortino_ratio": 0.0,
   "max_drawdown_pct": 0.0,
   "volatility_annual_pct": 0.0,
-  "total_trades": 4,
+  "total_trades": 6,
   "winning_trades": 1,
-  "losing_trades": 3,
-  "win_rate_pct": 25.0,
+  "losing_trades": 5,
+  "win_rate_pct": 16.7,
   "avg_win_usd": 1.96,
-  "avg_loss_usd": 4.81,
+  "avg_loss_usd": 3.29,
   "largest_win_usd": 1.96,
   "largest_loss_usd": -11.2,
-  "profit_factor": 0.14,
-  "expectancy_usd": -3.12,
-  "avg_holding_hours": 30.1,
-  "total_fees_paid": 0.74,
+  "profit_factor": 0.12,
+  "expectancy_usd": -2.42,
+  "avg_holding_hours": 22.4,
+  "total_fees_paid": 1.16,
   "exit_reasons": {
     "stop_loss": 2,
-    "take_profit": 2
+    "take_profit": 2,
+    "signal_flip": 2
   },
   "pnl_by_timeframe": {
     "24h": -11.44,
     "6h": -3.0,
-    "138h": 1.96
+    "138h": 1.96,
+    "18h": -2.02
   },
   "buy_and_hold_return_pct": 0.0,
-  "snapshot_at": "2026-06-21T23:24:42.872601+00:00"
+  "snapshot_at": "2026-06-22T05:11:58.192972+00:00"
 }
