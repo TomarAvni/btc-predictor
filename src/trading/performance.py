@@ -7,7 +7,7 @@ trade analytics, and comparison benchmarks.
 from __future__ import annotations
 
 import math
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 import numpy as np
@@ -25,11 +25,19 @@ class PerformanceTracker:
         self._btc_prices: list[tuple[datetime, float]] = []
 
     def record_daily_value(self, timestamp: datetime, value: float) -> None:
-        """Record end-of-day portfolio value for return calculations."""
+        """Record a portfolio value sample.
+
+        Callers may record hourly/intraday samples; risk metrics resample these
+        to one end-of-day value per UTC date before computing daily returns.
+        """
+        if timestamp.tzinfo is None:
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
         self._daily_values.append((timestamp, value))
 
     def record_btc_price(self, timestamp: datetime, price: float) -> None:
         """Record BTC price for buy-and-hold comparison."""
+        if timestamp.tzinfo is None:
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
         self._btc_prices.append((timestamp, price))
 
     def calculate_metrics(
@@ -201,15 +209,27 @@ class PerformanceTracker:
     # Private calculation methods
     # ------------------------------------------------------------------
 
+    def _daily_close_values(self) -> list[tuple[datetime, float]]:
+        """Return one end-of-day portfolio value per UTC calendar date."""
+        if not self._daily_values:
+            return []
+
+        by_day: dict[object, tuple[datetime, float]] = {}
+        for ts, value in sorted(self._daily_values, key=lambda item: item[0]):
+            day = ts.astimezone(timezone.utc).date()
+            by_day[day] = (ts, value)
+        return [by_day[day] for day in sorted(by_day)]
+
     def _compute_daily_returns(self) -> list[float]:
-        """Compute daily percentage returns from value history."""
-        if len(self._daily_values) < 2:
+        """Compute daily percentage returns from end-of-day values."""
+        closes = self._daily_close_values()
+        if len(closes) < 2:
             return []
 
         returns = []
-        for i in range(1, len(self._daily_values)):
-            prev_val = self._daily_values[i - 1][1]
-            curr_val = self._daily_values[i][1]
+        for i in range(1, len(closes)):
+            prev_val = closes[i - 1][1]
+            curr_val = closes[i][1]
             if prev_val > 0:
                 returns.append((curr_val - prev_val) / prev_val)
         return returns
@@ -262,8 +282,9 @@ class PerformanceTracker:
         """Calculate BTC buy-and-hold return over the same period."""
         if len(self._btc_prices) < 2:
             return 0.0
-        start_price = self._btc_prices[0][1]
-        end_price = self._btc_prices[-1][1]
+        ordered = sorted(self._btc_prices, key=lambda item: item[0])
+        start_price = ordered[0][1]
+        end_price = ordered[-1][1]
         if start_price == 0:
             return 0.0
         return (end_price - start_price) / start_price * 100

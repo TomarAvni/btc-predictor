@@ -312,15 +312,17 @@ def score_mature_predictions(
             continue
 
         run_features = run.get("features") or {}
-        model_source = run.get("model_source")
-        used_ml = bool(run.get("used_ml", False))
+        run_model_source = run.get("model_source")
+        run_used_ml = bool(run.get("used_ml", False))
 
         for pred in run.get("predictions", []):
             tf = _normalize_timeframe(pred.get("timeframe"))
             if tf is None:
                 continue
 
-            key = _score_key(run["run_number"], tf, model_source)
+            pred_model_source = pred.get("model_source") or run_model_source
+            pred_used_ml = run_used_ml and pred_model_source != "heuristic"
+            key = _score_key(run["run_number"], tf, pred_model_source)
             if key in already_scored:
                 continue
             if not _is_mature(pred_ts, tf, now_ts):
@@ -350,8 +352,8 @@ def score_mature_predictions(
                 # text-log rows / heuristic runs that never carried a prob).
                 "direction_prob": pred.get("direction_prob"),
                 "calibrated": pred.get("calibrated"),
-                "model_source": model_source,
-                "used_ml": used_ml,
+                "model_source": pred_model_source,
+                "used_ml": pred_used_ml,
                 "actual_return_pct": round(actual_return, 4),
                 "actual_direction": actual_direction,
                 "direction_correct": direction_correct,
@@ -458,6 +460,7 @@ def _empty_window_stats() -> dict[str, Any]:
         "n_correct": 0,
         "mean_magnitude_error": None,
         "mean_actual_return_pct": None,
+        "mean_predicted_edge_pct": None,
     }
 
 
@@ -467,12 +470,19 @@ def _window_stats(df: pd.DataFrame) -> dict[str, Any]:
 
     n = len(df)
     n_correct = int(df["direction_correct"].sum())
+    signed_edge = df.apply(
+        lambda r: float(r["actual_return_pct"])
+        if str(r.get("predicted_direction")).upper() == "UP"
+        else -float(r["actual_return_pct"]),
+        axis=1,
+    )
     return {
         "direction_accuracy_pct": round(n_correct / n * 100, 1),
         "n_scored": n,
         "n_correct": n_correct,
         "mean_magnitude_error": round(float(df["magnitude_error"].mean()), 2),
         "mean_actual_return_pct": round(float(df["actual_return_pct"].mean()), 2),
+        "mean_predicted_edge_pct": round(float(signed_edge.mean()), 4),
     }
 
 

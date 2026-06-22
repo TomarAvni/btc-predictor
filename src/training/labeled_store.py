@@ -15,11 +15,11 @@ The store is the substrate for the closed-loop trainer (``autotrain.py``):
 Format & location
 -----------------
 JSONL at ``data/training_data/labeled.jsonl`` -- one JSON object per
-``run_number:timeframe``. JSONL (not Parquet) is deliberate: Parquet is
+``run_number:timeframe:model_source``. JSONL (not Parquet) is deliberate: Parquet is
 gitignored, while the JSONL store is git-tracked and therefore persists across
 stateless cloud (GitHub Actions) runs, exactly like ``prediction_scores.jsonl``.
 
-The store is append-only and deduped by ``run_number:timeframe`` so it
+The store is append-only and deduped by ``run_number:timeframe:model_source`` so it
 accumulates over time and is never overwritten. It is derived from the enriched
 ``prediction_scores.jsonl`` produced by the scorer, so it can always be rebuilt
 from scratch if deleted.
@@ -62,11 +62,11 @@ _PASSTHROUGH_FIELDS = (
 
 
 def _store_key(rec: dict[str, Any]) -> str:
-    return f"{rec.get('run_number')}:{rec.get('timeframe')}"
+    return f"{rec.get('run_number')}:{rec.get('timeframe')}:{rec.get('model_source')}"
 
 
 def load_labeled_keys(path: Path | None = None) -> set[str]:
-    """Return the set of ``run_number:timeframe`` keys already in the store."""
+    """Return the set of ``run_number:timeframe:model_source`` keys already in the store."""
     store = path or LABELED_STORE_PATH
     if not store.exists():
         return set()
@@ -104,8 +104,8 @@ def _to_labeled_row(score: dict[str, Any]) -> Optional[dict[str, Any]]:
     """Project an enriched score record onto a labeled-store row.
 
     Returns ``None`` for rows that carry no learning signal -- i.e. an unknown
-    horizon or an empty feature vector (legacy text-log / heuristic rows). Those
-    are skipped so the store only holds genuinely trainable examples.
+    horizon, an empty feature vector, or a non-ML/heuristic row. Those are skipped
+    so the store only holds genuinely trainable examples.
     """
     timeframe = score.get("timeframe")
     if timeframe not in HORIZON_HOURS:
@@ -114,6 +114,10 @@ def _to_labeled_row(score: dict[str, Any]) -> Optional[dict[str, Any]]:
     features = score.get("features") or {}
     if not isinstance(features, dict) or not features:
         # No feature vector -> nothing the model can learn to map from.
+        return None
+    if score.get("direction_prob") is None or not score.get("used_ml", False):
+        # Score heuristic/advisory tracks for analysis, but do not feed them into
+        # the closed-loop learner as if they were model probability examples.
         return None
 
     actual_direction = score.get("actual_direction")
@@ -139,8 +143,9 @@ def append_labeled_rows(
 ) -> int:
     """Append new labeled rows derived from enriched score records.
 
-    Deduped by ``run_number:timeframe`` against what is already on disk, so the
-    store accumulates monotonically. Returns the number of rows appended.
+    Deduped by ``run_number:timeframe:model_source`` against what is already on
+    disk, so the store accumulates monotonically. Returns the number of rows
+    appended.
     """
     store = path or LABELED_STORE_PATH
     store.parent.mkdir(parents=True, exist_ok=True)

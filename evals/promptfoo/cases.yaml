@@ -1,0 +1,116 @@
+- description: "dev: bullish, bearish, event, and intent extraction"
+  vars:
+    split: dev
+    tweets_json: |
+      [
+        {
+          "id": "1001",
+          "text": "Just bought more $BTC. Bitcoin ETF inflows hitting record highs, this rally is just getting started."
+        },
+        {
+          "id": "1002",
+          "text": "BREAKING: Major exchange reports security incident, withdrawals paused. #Bitcoin holders nervous."
+        },
+        {
+          "id": "1003",
+          "text": "bitcoin looking weak here, i'm shorting this. fear is real, could dump hard."
+        }
+      ]
+    expected:
+      present:
+        - id: "1001"
+          sentiment: positive
+          intent: buy
+          events:
+            - etf
+          relevance_min: 0.8
+        - id: "1002"
+          sentiment: negative
+          events:
+            - hack
+            - breaking_news
+          relevance_min: 0.8
+        - id: "1003"
+          sentiment: negative
+          intent: sell
+          relevance_min: 0.8
+      forbid_forecast_language: true
+
+- description: "dev: low-signal Bitcoin mention should stay descriptive"
+  vars:
+    split: dev
+    tweets_json: |
+      [
+        {
+          "id": "2001",
+          "text": "The cafe near me installed a Bitcoin ATM next to the soda machine."
+        },
+        {
+          "id": "2002",
+          "text": "Not selling my BTC, just holding through the chop."
+        }
+      ]
+    expected:
+      present:
+        - id: "2001"
+          sentiment: neutral
+          intent: none
+        - id: "2002"
+          sentiment: neutral
+          relevance_min: 0.5
+      forbid_forecast_language: true
+
+- description: "frozen: sarcasm and coordinated spam do not become price forecasts"
+  vars:
+    split: frozen
+    tweets_json: |
+      [
+        {
+          "id": "3001",
+          "text": "Sure, because three rocket emojis always mean BTC must hit a new ATH tomorrow."
+        },
+        {
+          "id": "3002",
+          "text": "BITCOIN IS GOING TO THE MOON!!! BUY $BTC NOW"
+        },
+        {
+          "id": "3003",
+          "text": "SEC delays decision again; regulatory uncertainty weighing on Bitcoin."
+        }
+      ]
+    expected:
+      present:
+        - id: "3001"
+          relevance_min: 0.5
+        - id: "3002"
+          sentiment: positive
+          relevance_min: 0.8
+        - id: "3003"
+          sentiment: negative
+          events:
+            - regulation
+          relevance_min: 0.8
+      forbid_forecast_language: true
+
+- description: "frozen: off-topic crypto promo should not pass as BTC evidence"
+  vars:
+    split: frozen
+    tweets_json: |
+      [
+        {
+          "id": "4001",
+          "text": "Free crypto airdrop, follow my link for a 1000x gem."
+        },
+        {
+          "id": "4002",
+          "text": "Miner capitulation fears rising as hashprice weakens, Bitcoin traders cautious."
+        }
+      ]
+    expected:
+      present:
+        - id: "4001"
+          relevance_max: 0.2
+        - id: "4002"
+          sentiment: negative
+          relevance_min: 0.8
+      forbid_forecast_language: true

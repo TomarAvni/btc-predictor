@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: BTC grounded tweet reader evals
+
+prompts:
+  - '{{tweets_json}}'
+
+providers:
+  - id: file://provider.py
+    label: grounded-tweet-reader
+    config:
+      # CI/default mode: force the deterministic lexical reader even if a
+      # developer has LLM_API_KEY in their environment.
+      allow_live: false
+
+defaultTest:
+  assert:
+    - type: python
+      value: file://assertions.py:validate_grounded_reader
+      metric: grounded_reader_contract
+
+tests: file://cases.yaml

@@ -83,6 +83,32 @@ class TestScorerMultiTrack(unittest.TestCase):
         )
         self.assertEqual(len(again), 0)
 
+    def test_hybrid_run_uses_per_prediction_model_source(self) -> None:
+        record = {
+            "run_number": 2,
+            "timestamp": "2026-01-02T00:00:00Z",
+            "used_ml": True,
+            "model_source": "hybrid (1/2 ML)",
+            "features": {"rsi_14": 55.0},
+            "predictions": [
+                {"timeframe": "6h", "direction": "UP", "magnitude": 0.5,
+                 "confidence": 60, "model_source": "heuristic"},
+                {"timeframe": "24h", "direction": "UP", "direction_prob": 0.6,
+                 "magnitude": 1.0, "confidence": 60},
+            ],
+        }
+        self.jsonl.write_text(json.dumps(record) + "\n", encoding="utf-8")
+
+        new = scorer.score_mature_predictions(
+            price_path=self.price, scores_path=self.scores,
+            now=self.now, predictions_jsonl_path=self.jsonl,
+        )
+        by_tf = {r["timeframe"]: r for r in new}
+        self.assertEqual(by_tf["6h"]["model_source"], "heuristic")
+        self.assertFalse(by_tf["6h"]["used_ml"])
+        self.assertEqual(by_tf["24h"]["model_source"], "hybrid (1/2 ML)")
+        self.assertTrue(by_tf["24h"]["used_ml"])
+
     def test_rolling_accuracy_partitioned_by_model(self) -> None:
         records = [
             {"run_number": 1, "timestamp": "2026-01-02T00:00:00Z", "used_ml": True,

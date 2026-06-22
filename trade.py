@@ -31,11 +31,35 @@ from src.output.jsonl_logger import PREDICTIONS_JSONL_PATH
 from src.utils.timez import now_israel_str
 
 
+def load_horizon_evidence_stats(path: Path = Path("data/performance/rolling_accuracy.json")) -> dict[str, dict]:
+    """Load realized prediction edge stats for strategy evidence gates."""
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+    stats: dict[str, dict] = {}
+    for tf, windows in (data.get("timeframes") or {}).items():
+        block = (windows or {}).get("all_time") or {}
+        n = int(block.get("n_scored") or 0)
+        edge = block.get("mean_predicted_edge_pct")
+        if edge is None:
+            continue
+        stats[tf] = {
+            "n": n,
+            "expectancy": float(edge),
+            "direction_accuracy_pct": block.get("direction_accuracy_pct"),
+        }
+    return stats
+
+
 def create_agent() -> TradingAgent:
     """Create a fully configured trading agent."""
     return TradingAgent(
         portfolio=Portfolio(load_existing=True),
-        strategy=TradingStrategy(),
+        strategy=TradingStrategy(horizon_stats=load_horizon_evidence_stats()),
         risk_manager=RiskManager(),
         position_sizer=PositionSizer(),
         simulator=OrderSimulator(),
@@ -345,7 +369,7 @@ def load_latest_logged_prediction() -> dict | None:
         # should consume the main numeric/ensemble prediction until the blended
         # strategy is explicitly enabled.
         source = str(record.get("model_source", "")).lower()
-        if source in {"llm_direct", "llm_calibrated", "twitter", "blended_50_50"}:
+        if source.startswith("llm_") or source.startswith("blended") or source == "twitter":
             continue
         if record.get("predictions"):
             latest = record

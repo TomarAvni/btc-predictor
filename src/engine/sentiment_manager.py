@@ -60,7 +60,12 @@ class SentimentManager:
         signal = tweet_aggregator.aggregate(tweets, extractions, self._min_relevance)
 
         if not signal.empty:
-            self.memory.add_signal(signal)
+            self.memory.add_signal(signal, metadata={
+                "reader_version": self.reader.version,
+                "reader_mode": "mock" if self.reader.is_mock else "llm",
+                "collector_mode": "mock" if self.collector.is_mock else "live",
+                "model_source": MODEL_ID,
+            })
         self.memory.record_events(tweets, extractions)
 
         latest = self.memory.latest_signal()
@@ -97,6 +102,11 @@ class SentimentManager:
             "conviction": float(sig.get("tw_conviction_mean", 0.0)),
             "event_presence": float(sig.get("tw_event_presence", 0.0)),
             "volume_zscore": float(sig.get("tw_volume_zscore_24h", 0.0)),
+            # Impact-quality signals (evidence weighting, not direction).
+            "burst_intensity": float(sig.get("tw_burst_intensity", 1.0)),
+            "effective_volume": float(sig.get("tw_effective_volume", 0.0)),
+            "novelty_ratio": float(sig.get("tw_novelty_ratio", 1.0)),
+            "bot_ratio": float(sig.get("tw_bot_ratio", 0.0)),
             "money_signals": money_signals or {},
             "evidence": evidence,
             "as_of": sig.get("timestamp"),
@@ -115,6 +125,14 @@ class SentimentManager:
         score = self._signal_score(state)
         conviction = max(0.0, min(1.0, state.get("conviction", 0.0)))
 
+        # Evidence-quality multiplier on confidence (not direction): a real
+        # intra-hour burst is stronger evidence, while a high coordinated/bot
+        # fraction is weaker. Bounded so it tops up / discounts modestly; the
+        # final confidence is still clamped to the existing 10..95 range.
+        burst = max(1.0, state.get("burst_intensity", 1.0))
+        bot = min(1.0, max(0.0, state.get("bot_ratio", 0.0)))
+        quality = (1.0 + 0.05 * min(burst - 1.0, 4.0)) * (1.0 - 0.5 * bot)
+
         predictions: list[dict[str, Any]] = []
         for tf in TIMEFRAMES:
             hours = HORIZON_HOURS.get(tf)
@@ -128,7 +146,9 @@ class SentimentManager:
 
             direction = "UP" if prob_up >= 0.5 else "DOWN"
             magnitude = round(max(0.1, abs(eff) * 4.0 * math.sqrt(hours / 24.0)), 2)
-            confidence = int(round(min(95, max(10, 50 + 45 * abs(eff) * (0.5 + 0.5 * conviction)))))
+            confidence = int(round(min(95, max(
+                10, (50 + 45 * abs(eff) * (0.5 + 0.5 * conviction)) * quality
+            ))))
 
             predictions.append({
                 "timeframe": tf,

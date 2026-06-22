@@ -28,6 +28,7 @@ logger = setup_logger(__name__)
 HISTORY_DIR = DATA_DIR / "history"
 EVENTS_PATH = HISTORY_DIR / "twitter_notable_events.json"
 STATE_PATH = HISTORY_DIR / "twitter_market_state.json"
+METADATA_PATH = HISTORY_DIR / "twitter_llm_signal_metadata.json"
 MAX_NOTABLE_EVENTS = 200
 
 
@@ -39,15 +40,26 @@ class SentimentMemory:
         signal_path: Path | None = None,
         events_path: Path | None = None,
         state_path: Path | None = None,
+        metadata_path: Path | None = None,
     ) -> None:
         self.signal_path = signal_path or tweet_aggregator.SIGNAL_PATH
         self.events_path = events_path or EVENTS_PATH
         self.state_path = state_path or STATE_PATH
+        if metadata_path is not None:
+            self.metadata_path = metadata_path
+        elif signal_path is not None:
+            self.metadata_path = self.signal_path.with_name(
+                f"{self.signal_path.stem}_metadata.json"
+            )
+        else:
+            self.metadata_path = METADATA_PATH
 
     # -- signal time-series -----------------------------------------------------
 
-    def add_signal(self, frame: pd.DataFrame) -> None:
+    def add_signal(self, frame: pd.DataFrame, metadata: dict[str, Any] | None = None) -> None:
         tweet_aggregator.persist(frame, self.signal_path)
+        if metadata:
+            self.update_metadata(metadata)
 
     def load_signal(self) -> pd.DataFrame:
         if not self.signal_path.exists():
@@ -64,6 +76,22 @@ class SentimentMemory:
         row = df.iloc[-1].to_dict()
         row["timestamp"] = df.index[-1].isoformat()
         return row
+
+    def update_metadata(self, metadata: dict[str, Any]) -> None:
+        """Persist extraction provenance for the tweet signal time series."""
+        current = self.get_metadata()
+        current.update(metadata)
+        current["updated_at"] = pd.Timestamp.now(tz="UTC").isoformat()
+        self.metadata_path.parent.mkdir(parents=True, exist_ok=True)
+        self.metadata_path.write_text(json.dumps(current, indent=2), encoding="utf-8")
+
+    def get_metadata(self) -> dict[str, Any]:
+        if not self.metadata_path.exists():
+            return {}
+        try:
+            return json.loads(self.metadata_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return {}
 
     # -- notable-events index (RAG-lite) ---------------------------------------
 

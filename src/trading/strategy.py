@@ -47,8 +47,7 @@ class TradingStrategy:
 
     MIN_CONFIDENCE: float = 55.0
     ROUND_TRIP_COST_PCT: float = OrderSimulator.ROUND_TRIP_COST_PCT
-    MIN_EDGE_BUFFER_PCT: float = 0.10
-    MIN_ACTIONABLE_MOVE_PCT: float = ROUND_TRIP_COST_PCT + MIN_EDGE_BUFFER_PCT
+    MIN_ACTIONABLE_MOVE_PCT: float = 0.10
     MIN_EVIDENCE_SAMPLES: int = 20
     ALIGNMENT_STRONG_THRESHOLD: float = 1.5
     ALIGNMENT_WEAK_THRESHOLD: float = 0.5
@@ -98,17 +97,19 @@ class TradingStrategy:
                 f"No predictions above minimum confidence ({self.MIN_CONFIDENCE}%)"
             )
 
-        # Trade only when the expected move clears round-trip costs plus a small
-        # safety buffer. This avoids taking high-confidence but economically tiny
-        # predictions that cannot reliably pay for slippage/fees.
+        # Aggressive paper mode: test short-term BTC/USDT scalps once the model
+        # predicts more than 0.10% movement and the move clears the low-fee
+        # simulator cost model.
         viable = [
             p for p in confidence_viable
-            if abs(float(p.get("magnitude", 0.0) or 0.0)) >= self.MIN_ACTIONABLE_MOVE_PCT
+            if abs(float(p.get("magnitude", 0.0) or 0.0)) > self.MIN_ACTIONABLE_MOVE_PCT
+            and abs(float(p.get("magnitude", 0.0) or 0.0)) > self.ROUND_TRIP_COST_PCT
         ]
         if not viable:
             return self._no_trade(
-                "No predictions clear cost-aware edge threshold "
-                f"({self.MIN_ACTIONABLE_MOVE_PCT:.2f}% minimum move)"
+                "No predictions clear aggressive paper edge threshold "
+                f"(>{self.MIN_ACTIONABLE_MOVE_PCT:.2f}% move and "
+                f">{self.ROUND_TRIP_COST_PCT:.2f}% cost)"
             )
 
         primary = max(viable, key=lambda p: self._entry_score(predictions, p))
@@ -265,7 +266,7 @@ class TradingStrategy:
             if n >= self.MIN_EVIDENCE_SAMPLES and expectancy <= 0:
                 return (
                     f"Evidence gate: {label} {timeframe if label == 'horizon' else side} "
-                    f"has non-positive expectancy (${expectancy:.2f}) over {n} samples"
+                    f"has non-positive realized edge ({expectancy:.4f}) over {n} samples"
                 )
         return None
 

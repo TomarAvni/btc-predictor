@@ -14,16 +14,16 @@ from src.trading.order import Order, Position, Trade
 
 
 class OrderSimulator:
-    """Simulates trade execution with slippage and fees."""
+    """Simulates paper BTC/USDT execution with low exchange-style costs."""
 
-    SLIPPAGE_PCT: float = 0.05  # 0.05% slippage per trade
-    TAKER_FEE_PCT: float = 0.10  # 0.10% taker fee (Binance-realistic)
+    SLIPPAGE_PCT: float = 0.01  # 0.01% slippage per leg (liquid BTC/USDT paper fill)
+    TAKER_FEE_PCT: float = 0.02  # 0.02% fee per leg (low-fee paper BTC/USDT assumption)
 
     # Single source of truth for total cost of a full open+close cycle.
     # Each leg pays slippage + fee, and there are two legs (entry + exit),
     # so a round trip costs 2 * (slippage + fee) of notional. With the
-    # defaults above this is ~0.30%; the favorable move needed just to break
-    # even is roughly half that (~0.15%). Anything downstream that needs the
+    # defaults above this is ~0.06%; the favorable move needed just to break
+    # even is small enough to test short-term scalping. Anything downstream that needs the
     # round-trip cost should derive it from here rather than hardcoding it.
     ROUND_TRIP_COST_PCT: float = 2 * (SLIPPAGE_PCT + TAKER_FEE_PCT)
 

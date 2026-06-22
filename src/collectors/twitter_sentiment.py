@@ -51,6 +51,14 @@ RAW_COLUMNS = [
     "lang", "is_whitelist", "engagement_weight",
 ]
 
+# Engagement-rate factor constants. A tweet's engagement *rate*
+# (virality / followers) credits small accounts that punch above their reach:
+# a 1k-follower tweet drawing thousands of interactions is a stronger organic
+# signal than its raw reach implies. The boost is bounded so it tops up -- never
+# dominates -- the reach/virality term.
+RATE_SCALE = 5.0   # multiplier on the raw engagement rate before capping
+RATE_CAP = 1.0     # max additive boost (rate_factor in [1.0, 1.0 + RATE_CAP])
+
 
 def engagement_weight(
     like_count: int,
@@ -65,14 +73,24 @@ def engagement_weight(
 
     Combines virality (likes/retweets/quotes, retweets weighted highest because
     they amplify reach) with author reach (followers), on a log scale so a few
-    viral tweets don't completely swamp the aggregate, then boosts whitelisted
-    handles. A retweeted/viral tweet therefore counts more -- by design.
+    viral tweets don't completely swamp the aggregate, then applies an
+    engagement-*rate* boost (so small accounts punching above their reach are not
+    under-credited) and finally a credibility multiplier for whitelisted handles.
+    A retweeted/viral tweet therefore counts more -- by design.
+
+        virality      = likes + 2*retweets + quotes + 0.5*replies
+        engagement_rate = virality / max(followers, 1)
+        rate_factor   = 1 + min(engagement_rate * RATE_SCALE, RATE_CAP)
+        credibility   = whitelist_weight if whitelisted else 1
+        weight = (1+log1p(virality)) * (1+log1p(followers)/10) * rate_factor * credibility
     """
     virality = like_count + 2.0 * retweet_count + quote_count + 0.5 * reply_count
     reach = math.log1p(max(followers, 0))
+    engagement_rate = max(virality, 0.0) / max(followers, 1)
+    rate_factor = 1.0 + min(engagement_rate * RATE_SCALE, RATE_CAP)
+    credibility = max(whitelist_weight, 1.0) if is_whitelist else 1.0
     weight = (1.0 + math.log1p(max(virality, 0.0))) * (1.0 + reach / 10.0)
-    if is_whitelist:
-        weight *= max(whitelist_weight, 1.0)
+    weight *= rate_factor * credibility
     return round(weight, 4)
 
 
@@ -148,7 +166,58 @@ class TwitterSentimentCollector(BaseCollector):
                     break
 
         self._budget_consume(len(collected))
+        # LIVE-MODE TODO (engagement velocity / two-pass capture): a planned
+        # enhancement is to re-poll a sample of these tweets after a short delay
+        # to measure how fast engagement is *accelerating* (dlikes/dt), a leading
+        # impact signal. It is intentionally not implemented here because it
+        # cannot run offline/mock and would add dead complexity to the batch path.
         return collected[:limit]
+
+    def fetch_historical_day(self, day_start: pd.Timestamp) -> pd.DataFrame:
+        """Fetch one UTC day of historical tweets and normalize to the raw frame.
+
+        TwitterAPI.io exposes historical search through the same advanced-search
+        endpoint. The query is constrained with since/until date operators so the
+        downstream reader/backfill path uses the exact live normalization logic.
+        """
+        if self.is_mock:
+            return self._to_frame(self._load_mock())
+        if not self._budget_ok():
+            logger.warning("[twitter_sentiment] monthly tweet cap reached -- skipping historical pull")
+            return pd.DataFrame(columns=RAW_COLUMNS)
+
+        import httpx
+
+        start = pd.Timestamp(day_start)
+        start = start.tz_localize("UTC") if start.tzinfo is None else start.tz_convert("UTC")
+        start = start.normalize()
+        end = start + pd.Timedelta(days=1)
+        query = " OR ".join(self._cfg["keywords"])
+        for handle in self._cfg["whitelist_handles"]:
+            query += f" OR from:{handle}"
+        query = f"({query}) since:{start.date()} until:{end.date()}"
+
+        url = f"{self._cfg['api_base'].rstrip('/')}/twitter/tweet/advanced_search"
+        params = {"query": query, "queryType": "Latest"}
+        headers = {"X-API-Key": self._api_key}
+
+        collected: list[dict[str, Any]] = []
+        limit = int(self._cfg["max_tweets_per_run"])
+        with httpx.Client(timeout=20) as client:
+            cursor: str | None = None
+            while len(collected) < limit:
+                if cursor:
+                    params["cursor"] = cursor
+                resp = client.get(url, params=params, headers=headers)
+                resp.raise_for_status()
+                payload = resp.json()
+                collected.extend(payload.get("tweets", []))
+                cursor = payload.get("next_cursor")
+                if not cursor or not payload.get("has_next_page"):
+                    break
+
+        self._budget_consume(len(collected))
+        return self._to_frame(collected[:limit])
 
     # -- normalization + filtering ---------------------------------------------
 

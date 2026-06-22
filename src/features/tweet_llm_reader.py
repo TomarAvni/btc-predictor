@@ -30,10 +30,20 @@ API_KEY_ENV = "LLM_API_KEY"
 # historical features always match the live extractor (train/serve parity).
 VERSION = "reader-v1"
 
+TWEET_READER_SYSTEM_PROMPT = (
+    "You read Bitcoin tweets and output ONLY JSON shaped as {\"tweets\": [...]}. "
+    "For each tweet emit {tweet_id, sentiment(-1..1), fear_greed(0..100), event_flags[], "
+    "self_reported_intent(buy|sell|hold|none), conviction(0..1), relevance(0..1), "
+    "cited_tweet_ids[]}. Be DESCRIPTIVE only -- never predict price. "
+    "cited_tweet_ids MUST contain the id(s) of the tweet(s) that justify your "
+    "judgment; if you cannot ground it, omit the tweet."
+)
+
 INTENT_BUY = "buy"
 INTENT_SELL = "sell"
 INTENT_HOLD = "hold"
 INTENT_NONE = "none"
+ALLOWED_INTENTS = {INTENT_BUY, INTENT_SELL, INTENT_HOLD, INTENT_NONE}
 
 _BULLISH = {"bullish", "moon", "rally", "pump", "breakout", "ath", "record", "surge", "buy", "long", "accumulate", "accumulating", "stacking", "inflows", "euphoria"}
 _BEARISH = {"bearish", "dump", "crash", "weak", "sell", "short", "shorting", "fear", "nervous", "cautious", "delays", "uncertainty", "incident", "hack", "paused", "capitulation"}
@@ -208,18 +218,10 @@ class GroundedTweetReader:
 
     def _build_request(self, model: str, ids: list[str], texts: list[str]) -> dict[str, Any]:
         numbered = "\n".join(f"[{i}] {t}" for i, t in zip(ids, texts))
-        system = (
-            "You read Bitcoin tweets and output ONLY a JSON array. For each tweet emit "
-            "{tweet_id, sentiment(-1..1), fear_greed(0..100), event_flags[], "
-            "self_reported_intent(buy|sell|hold|none), conviction(0..1), relevance(0..1), "
-            "cited_tweet_ids[]}. Be DESCRIPTIVE only -- never predict price. "
-            "cited_tweet_ids MUST contain the id(s) of the tweet(s) that justify your "
-            "judgment; if you cannot ground it, omit the tweet."
-        )
         return {
             "model": model,
             "messages": [
-                {"role": "system", "content": system},
+                {"role": "system", "content": TWEET_READER_SYSTEM_PROMPT},
                 {"role": "user", "content": numbered},
             ],
             "response_format": {"type": "json_object"},
@@ -231,19 +233,39 @@ class GroundedTweetReader:
         content = body["choices"][0]["message"]["content"]
         data = json.loads(content)
         items = data if isinstance(data, list) else data.get("tweets", data.get("results", []))
+        if not isinstance(items, list):
+            return []
         out: list[TweetExtraction] = []
         for it in items:
+            if not isinstance(it, dict):
+                continue
             try:
+                intent = str(it.get("self_reported_intent", INTENT_NONE)).lower()
+                if intent not in ALLOWED_INTENTS:
+                    intent = INTENT_NONE
                 out.append(TweetExtraction(
                     tweet_id=str(it["tweet_id"]),
-                    sentiment=float(it.get("sentiment", 0.0)),
-                    fear_greed=float(it.get("fear_greed", 50.0)),
-                    event_flags=list(it.get("event_flags", []) or []),
-                    self_reported_intent=str(it.get("self_reported_intent", INTENT_NONE)),
-                    conviction=float(it.get("conviction", 0.0)),
-                    relevance=float(it.get("relevance", 0.0)),
+                    sentiment=_clamp(float(it.get("sentiment", 0.0)), -1.0, 1.0),
+                    fear_greed=_clamp(float(it.get("fear_greed", 50.0)), 0.0, 100.0),
+                    event_flags=_clean_event_flags(it.get("event_flags", []) or []),
+                    self_reported_intent=intent,
+                    conviction=_clamp(float(it.get("conviction", 0.0)), 0.0, 1.0),
+                    relevance=_clamp(float(it.get("relevance", 0.0)), 0.0, 1.0),
                     cited_tweet_ids=[str(c) for c in (it.get("cited_tweet_ids") or [])],
                 ))
             except (KeyError, TypeError, ValueError):
                 continue
         return out
+
+
+def _clamp(value: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, value))
+
+
+def _clean_event_flags(flags: list[Any]) -> list[str]:
+    clean: list[str] = []
+    for flag in flags:
+        text = str(flag).strip().lower()
+        if text and text not in clean:
+            clean.append(text)
+    return clean[:8]
