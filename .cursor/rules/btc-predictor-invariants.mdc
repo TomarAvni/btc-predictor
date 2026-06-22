@@ -1,0 +1,14 @@
+---
+description: BTC predictor invariants for AI-assisted changes
+alwaysApply: true
+---
+
+# BTC Predictor Invariants
+
+- Preserve causal feature construction: do not let future candles, future tweets, or realized outcomes leak into training or live prediction features.
+- Use chronological splits for market data. Do not random-split time series or tune against the final holdout.
+- Keep train/serve parity. If the tweet reader prompt, schema, or model changes, update its version and run the sentiment tests plus PromptFoo evals.
+- Keep mock mode working without `TWITTERAPI_KEY` or `LLM_API_KEY`; CI and demos must not require paid services.
+- Treat MiroFish/OpenViking outputs as research context until they pass held-out scoring and promotion gates.
+- Never commit secrets, transient staging artifacts, or large generated experiment outputs.
+- This project is research/paper trading only; do not add real-money trading claims or unsafe execution paths.

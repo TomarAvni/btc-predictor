@@ -18,6 +18,12 @@ data/models/*.joblib
 # they persist across stateless cloud runs.
 data/training_data/staging/
 
+# Local AI-tool outputs.
+experiments/output/
+.promptfoo/
+promptfoo-results.json
+promptfoo-report.html
+
 # X/Twitter sentiment module: the signal history must persist across stateless
 # cloud runs, so un-ignore it from the global *.parquet rule above.
 !data/history/twitter_llm_signal.parquet

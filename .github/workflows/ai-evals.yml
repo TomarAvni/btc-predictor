@@ -1,0 +1,65 @@
+name: AI Evals
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/features/tweet_llm_reader.py'
+      - 'evals/promptfoo/**'
+      - 'tests/test_promptfoo_eval_harness.py'
+      - '.github/workflows/ai-evals.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  promptfoo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-ai-evals-pip-v1
+          restore-keys: |
+            ${{ runner.os }}-ai-evals-pip-
+
+      - name: Install Python dependencies
+        run: pip install pandas pyyaml httpx
+
+      - name: Validate eval harness
+        run: python -m unittest tests.test_promptfoo_eval_harness
+
+      - name: Run PromptFoo evals (report-only)
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          # Keep CI deterministic and free. The provider config also forces mock
+          # mode unless explicitly changed for a local/live run.
+          LLM_API_KEY: ''
+        run: |
+          npx promptfoo@latest eval \
+            -c evals/promptfoo/promptfooconfig.yaml \
+            -o promptfoo-results.json \
+            -o promptfoo-report.html
+
+      - name: Upload PromptFoo artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: promptfoo-report
+          path: |
+            promptfoo-results.json
+            promptfoo-report.html
+          if-no-files-found: ignore

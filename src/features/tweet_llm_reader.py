@@ -30,6 +30,15 @@ API_KEY_ENV = "LLM_API_KEY"
 # historical features always match the live extractor (train/serve parity).
 VERSION = "reader-v1"
 
+TWEET_READER_SYSTEM_PROMPT = (
+    "You read Bitcoin tweets and output ONLY a JSON array. For each tweet emit "
+    "{tweet_id, sentiment(-1..1), fear_greed(0..100), event_flags[], "
+    "self_reported_intent(buy|sell|hold|none), conviction(0..1), relevance(0..1), "
+    "cited_tweet_ids[]}. Be DESCRIPTIVE only -- never predict price. "
+    "cited_tweet_ids MUST contain the id(s) of the tweet(s) that justify your "
+    "judgment; if you cannot ground it, omit the tweet."
+)
+
 INTENT_BUY = "buy"
 INTENT_SELL = "sell"
 INTENT_HOLD = "hold"
@@ -208,18 +217,10 @@ class GroundedTweetReader:
 
     def _build_request(self, model: str, ids: list[str], texts: list[str]) -> dict[str, Any]:
         numbered = "\n".join(f"[{i}] {t}" for i, t in zip(ids, texts))
-        system = (
-            "You read Bitcoin tweets and output ONLY a JSON array. For each tweet emit "
-            "{tweet_id, sentiment(-1..1), fear_greed(0..100), event_flags[], "
-            "self_reported_intent(buy|sell|hold|none), conviction(0..1), relevance(0..1), "
-            "cited_tweet_ids[]}. Be DESCRIPTIVE only -- never predict price. "
-            "cited_tweet_ids MUST contain the id(s) of the tweet(s) that justify your "
-            "judgment; if you cannot ground it, omit the tweet."
-        )
         return {
             "model": model,
             "messages": [
-                {"role": "system", "content": system},
+                {"role": "system", "content": TWEET_READER_SYSTEM_PROMPT},
                 {"role": "user", "content": numbered},
             ],
             "response_format": {"type": "json_object"},
