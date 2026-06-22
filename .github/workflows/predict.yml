@@ -2,16 +2,22 @@
 
 on:
   schedule:
-    # Hourly, offset from :00 because GitHub can delay top-of-hour schedules.
-    - cron: '7 * * * *'
+    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: predict-pipeline
+  cancel-in-progress: false
+
 jobs:
   predict:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -68,6 +74,7 @@ jobs:
           # conflicts self-heal instead of failing the whole prediction run.
           for attempt in 1 2 3 4 5; do
             git fetch origin master || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
+            git reset --hard HEAD
             if ! git rebase -X theirs origin/master; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
               git rebase --abort || true
