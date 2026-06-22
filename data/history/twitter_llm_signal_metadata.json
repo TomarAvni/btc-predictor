@@ -1,0 +1,7 @@
+{
+  "reader_version": "reader-v1",
+  "reader_mode": "mock",
+  "collector_mode": "mock",
+  "model_source": "llm_direct",
+  "updated_at": "2026-06-22T15:11:24.061055+00:00"
+}

@@ -8,7 +8,7 @@
       "etf"
     ],
     "sentiment": 1.0,
-    "engagement_weight": 75.2952
+    "engagement_weight": 76.2952
   },
   {
     "tweet_id": "1002",
@@ -21,7 +21,7 @@
       "regulation"
     ],
     "sentiment": -1.0,
-    "engagement_weight": 80.1381
+    "engagement_weight": 83.0311
   },
   {
     "tweet_id": "1007",
@@ -32,6 +32,6 @@
       "regulation"
     ],
     "sentiment": -1.0,
-    "engagement_weight": 66.4637
+    "engagement_weight": 66.9788
   }
 ]
