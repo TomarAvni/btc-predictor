@@ -1,8 +1,8 @@
 {
-  "cash": 1489.4633277216433,
-  "btc_holdings": 0.0025582757388788136,
+  "cash": 1489.920149066596,
+  "btc_holdings": 0.002545892309833033,
   "peak_value": 2000.0,
-  "last_price": 62359.24,
+  "last_price": 62627.22,
   "daily_start_value": 1978.368803857836,
   "daily_start_date": "2026-06-23T00:18:11.405374+00:00",
   "positions": [
@@ -39,21 +39,21 @@
       "used_ml": true
     },
     {
-      "id": "0d6388c73c4b",
-      "entry_time": "2026-06-23T20:21:41.319376+00:00",
-      "entry_price": 62365.475924,
-      "amount_usd": 159.54808400000002,
-      "amount_btc": 0.0025582757388788145,
+      "id": "e3290c600c12",
+      "entry_time": "2026-06-23T22:21:43.297609+00:00",
+      "entry_price": 62633.482722,
+      "amount_usd": 159.458102,
+      "amount_btc": 0.002545892309833034,
       "side": "LONG",
       "timeframe": "30h",
-      "stop_loss": 62116.014020304,
-      "take_profit": 62527.6261614024,
+      "stop_loss": 62382.948791112,
+      "take_profit": 62796.3297770772,
       "trailing_stop_active": false,
-      "prediction_id": "a1c603d1d0c9",
+      "prediction_id": "63418386396c",
       "confidence": 59,
-      "reason": "30h prediction: UP +0.20% @ 59% confidence; Cost-aware edge: 0.14% after estimated 0.06% round-trip cost; Multi-timeframe alignment: Strong (score 15.08); Supporting timeframes: 6h (66%), 12h (63%), 18h (61%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
+      "reason": "30h prediction: UP +0.20% @ 59% confidence; Cost-aware edge: 0.14% after estimated 0.06% round-trip cost; Multi-timeframe alignment: Strong (score 14.87); Supporting timeframes: 6h (66%), 12h (63%), 18h (61%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
       "used_ml": true
     }
   ],
-  "updated_at": "2026-06-23T20:21:41.319682+00:00"
+  "updated_at": "2026-06-23T22:21:43.300037+00:00"
 }
