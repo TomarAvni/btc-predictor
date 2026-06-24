@@ -80,7 +80,10 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
             python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore || true
-            git add data/predictions/predictions.jsonl data/performance/prediction_scores.jsonl data/training_data/labeled.jsonl
+            # recover_pipeline_data.py also refreshes rolling_accuracy.json and
+            # calibration_live.json via run_scorer(); stage all pipeline
+            # artifacts so rebase is not blocked by unstaged changes.
+            git add -A
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
             fi
