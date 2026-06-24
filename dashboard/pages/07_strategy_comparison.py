@@ -16,7 +16,7 @@ st.set_page_config(page_title="Strategy Comparison", page_icon="BTC", layout="wi
 
 from dashboard.components.metrics_cards import render_metric_card
 from dashboard.components.mobile_nav import render_mobile_nav
-from dashboard.data_loader import get_training_status, load_trades, load_trading_journal
+from dashboard.data_loader import get_training_status, load_trades_for_analytics, load_trading_journal
 from dashboard.evaluation import (
     StrategySeries,
     build_strategy_series,
@@ -94,12 +94,30 @@ st.caption(
     "Inverse and random modes are what-if baselines, not live trading modes."
 )
 
-trades = load_trades()
+analytics_bundle = load_trades_for_analytics()
+trades = analytics_bundle["trades"]
+excluded_trades = analytics_bundle["excluded_trades"]
 journal = load_trading_journal()
 training_status = get_training_status()
 
-if not trades:
+if not trades and analytics_bundle["raw_count"] == 0:
     st.info("No closed trades available yet. Run the trading agent or a backtest first.")
+    st.stop()
+
+if analytics_bundle["excluded_count"] > 0:
+    first = excluded_trades[0] if excluded_trades else {}
+    st.info(
+        f"Strategy analytics exclude {analytics_bundle['excluded_count']} earliest closed trade(s). "
+        f"Raw history: {analytics_bundle['raw_count']} trades. "
+        f"Earliest excluded: {first.get('id', '—')} "
+        f"({first.get('side', '—')}, ${float(first.get('pnl_usd') or 0):+.2f})."
+    )
+
+if not trades:
+    st.warning(
+        "All closed trades are excluded from analytics. "
+        "Adjust DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES to compare strategies."
+    )
     st.stop()
 
 series_map = build_strategy_series(trades, journal)

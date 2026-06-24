@@ -24,6 +24,7 @@ from dashboard.data_loader import (
     get_trading_activity_summary,
     load_portfolio_state,
     load_trades,
+    load_trades_for_analytics,
     load_trading_backtest,
     load_trading_journal,
 )
@@ -36,11 +37,14 @@ render_mobile_nav()
 # ── Load data ─────────────────────────────────────────────────────────────
 
 portfolio = load_portfolio_state()
-trades = load_trades()
+all_trades = load_trades()
+analytics_bundle = load_trades_for_analytics()
+analytics_trades = analytics_bundle["trades"]
+excluded_trades = analytics_bundle["excluded_trades"]
 backtest = load_trading_backtest()
 journal = load_trading_journal()
 health = get_data_health()
-activity = get_trading_activity_summary(trades=trades, journal=journal, portfolio=portfolio)
+activity = get_trading_activity_summary(trades=all_trades, journal=journal, portfolio=portfolio)
 
 st.markdown("# 💹 Trading Agent")
 profile = get_paper_profile_summary()
@@ -72,7 +76,7 @@ with st.expander("ℹ️ How the demo agent works"):
         """
     )
 
-if portfolio is None and not trades and backtest is None:
+if portfolio is None and not all_trades and backtest is None:
     st.info(
         "**No trading data available yet.**\n\n"
         "Run the trading agent to generate data:\n"
@@ -86,9 +90,20 @@ if portfolio is None and not trades and backtest is None:
 
 st.markdown("### Trading Data Health")
 st.caption(
-    "Closed trades are completed positions in trades.json. "
-    "Journal entries include every decision — entries, exits, and SKIPs."
+    "Closed trades for metrics exclude the earliest completed trade by default "
+    "(audit history remains on disk). Journal entries include every decision — "
+    "entries, exits, and SKIPs."
 )
+if activity.get("excluded_trades_count", 0) > 0:
+    excluded = activity.get("excluded_trades") or []
+    first = excluded[0] if excluded else {}
+    st.info(
+        f"**Analytics exclude {activity['excluded_trades_count']} earliest closed trade(s).** "
+        f"Raw history: {activity.get('raw_closed_trades', 0)} closed trades "
+        f"(${activity.get('raw_total_closed_pnl', 0):+.2f} P&L). "
+        f"Earliest excluded: {first.get('id', '—')} "
+        f"({first.get('side', '—')}, ${float(first.get('pnl_usd') or 0):+.2f})."
+    )
 layout_marker("stack")
 h1, h2, h3, h4, h5, h6 = st.columns(6, gap="small")
 with h1:
@@ -195,10 +210,11 @@ if portfolio and portfolio.get("positions"):
 
 # ── P&L Chart ─────────────────────────────────────────────────────────────
 
-if trades:
+if analytics_trades:
     st.markdown("### Cumulative P&L")
+    st.caption("Chart uses analytics trades (earliest closed trade excluded).")
 
-    sorted_trades = sorted(trades, key=lambda t: t.get("exit_time", ""))
+    sorted_trades = sorted(analytics_trades, key=lambda t: t.get("exit_time", ""))
     cumulative_pnl = []
     running = 0.0
 
@@ -210,13 +226,16 @@ if trades:
 
 # ── Trade History ─────────────────────────────────────────────────────────
 
-if trades:
+if all_trades:
     st.markdown("### Trade History")
+    st.caption("Full audit history from trades.json (includes excluded trades).")
 
+    excluded_ids = {str(t.get("id")) for t in excluded_trades if t.get("id")}
     trade_rows = []
-    for t in reversed(trades[-50:]):
+    for t in reversed(all_trades[-50:]):
         pnl_usd = t.get("pnl_usd", 0)
         pnl_pct_val = t.get("pnl_pct", 0)
+        trade_id = str(t.get("id", ""))
         trade_rows.append({
             "Exit Time (Israel)": utc_str_to_israel(t.get("exit_time"), fallback="—"),
             "Side": t.get("side", "LONG"),
@@ -226,23 +245,25 @@ if trades:
             "Amount": f"${t.get('amount_usd', 0):.2f}",
             "P&L": f"${pnl_usd:+.2f} ({pnl_pct_val:+.1f}%)",
             "Reason": t.get("exit_reason", "—"),
+            "Analytics": "Excluded" if trade_id in excluded_ids else "Included",
         })
 
     st.dataframe(pd.DataFrame(trade_rows), width="stretch", hide_index=True)
 
     # Summary stats
     st.markdown("### Performance Summary")
-    winners = sum(1 for t in trades if t.get("pnl_usd", 0) > 0)
-    losers = sum(1 for t in trades if t.get("pnl_usd", 0) <= 0)
-    win_rate = (winners / len(trades) * 100) if trades else 0
-    total_pnl = sum(t.get("pnl_usd", 0) for t in trades)
-    avg_win = np.mean([t["pnl_usd"] for t in trades if t.get("pnl_usd", 0) > 0]) if winners else 0
-    avg_loss = np.mean([t["pnl_usd"] for t in trades if t.get("pnl_usd", 0) <= 0]) if losers else 0
+    st.caption("Metrics below exclude the earliest closed trade.")
+    winners = sum(1 for t in analytics_trades if t.get("pnl_usd", 0) > 0)
+    losers = sum(1 for t in analytics_trades if t.get("pnl_usd", 0) <= 0)
+    win_rate = (winners / len(analytics_trades) * 100) if analytics_trades else 0
+    total_pnl = sum(t.get("pnl_usd", 0) for t in analytics_trades)
+    avg_win = np.mean([t["pnl_usd"] for t in analytics_trades if t.get("pnl_usd", 0) > 0]) if winners else 0
+    avg_loss = np.mean([t["pnl_usd"] for t in analytics_trades if t.get("pnl_usd", 0) <= 0]) if losers else 0
 
     layout_marker("stack")
     s1, s2, s3, s4, s5, s6 = st.columns(6, gap="small")
     with s1:
-        render_metric_card("Closed Trades", str(len(trades)))
+        render_metric_card("Closed Trades", str(len(analytics_trades)))
     with s2:
         render_metric_card("Win Rate", f"{win_rate:.1f}%", delta_color="green" if win_rate > 50 else "red")
     with s3:

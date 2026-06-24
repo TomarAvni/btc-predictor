@@ -650,6 +650,42 @@ TRADES_PATH = TRADING_DIR / "trades.json"
 JOURNAL_PATH = TRADING_DIR / "journal.json"
 BACKTEST_TRADING_PATH = TRADING_DIR / "backtest_results.json"
 
+# Earliest closed trades excluded from dashboard analytics by default (audit copy kept on disk).
+DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES = 1
+
+
+def _closed_trade_sort_key(trade: dict[str, Any]) -> tuple[str, str]:
+    """Chronological key for closed trades (entry_time, then exit_time)."""
+    return (str(trade.get("entry_time") or ""), str(trade.get("exit_time") or ""))
+
+
+def filter_trades_for_analytics(
+    trades: list[dict[str, Any]],
+    exclude_count: int = DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES,
+) -> dict[str, Any]:
+    """Drop the earliest closed trades from analytics while preserving audit history."""
+    raw_count = len(trades)
+    if exclude_count <= 0 or raw_count == 0:
+        return {
+            "trades": list(trades),
+            "excluded_trades": [],
+            "excluded_count": 0,
+            "raw_count": raw_count,
+            "analytics_count": raw_count,
+        }
+
+    ordered = sorted(trades, key=_closed_trade_sort_key)
+    drop = min(exclude_count, raw_count)
+    excluded = ordered[:drop]
+    analytics = ordered[drop:]
+    return {
+        "trades": analytics,
+        "excluded_trades": excluded,
+        "excluded_count": drop,
+        "raw_count": raw_count,
+        "analytics_count": len(analytics),
+    }
+
 
 def _load_json(path: Path, fallback: Any) -> Any:
     if not path.exists():
@@ -668,8 +704,16 @@ def load_portfolio_state() -> dict[str, Any] | None:
 
 @st.cache_data(ttl=60)
 def load_trades() -> list[dict[str, Any]]:
+    """Load all closed trades from disk (full audit history)."""
     data = _load_json(TRADES_PATH, [])
     return data if isinstance(data, list) else []
+
+
+def load_trades_for_analytics(
+    exclude_count: int = DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES,
+) -> dict[str, Any]:
+    """Load closed trades with earliest entries excluded from analytics."""
+    return filter_trades_for_analytics(load_trades(), exclude_count=exclude_count)
 
 
 @st.cache_data(ttl=60)
@@ -765,11 +809,14 @@ def get_trading_activity_summary(
     trades: list[dict[str, Any]] | None = None,
     journal: list[dict[str, Any]] | None = None,
     portfolio: dict[str, Any] | None = None,
+    exclude_analytics_trades: int = DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES,
 ) -> dict[str, Any]:
     """Break down closed trades vs journal decisions vs open positions."""
-    trades = trades if trades is not None else load_trades()
+    raw_trades = trades if trades is not None else load_trades()
     journal = journal if journal is not None else load_trading_journal()
     portfolio = portfolio if portfolio is not None else load_portfolio_state()
+    analytics = filter_trades_for_analytics(raw_trades, exclude_count=exclude_analytics_trades)
+    analytics_trades = analytics["trades"]
 
     action_counts: dict[str, int] = {}
     for entry in journal:
@@ -781,12 +828,16 @@ def get_trading_activity_summary(
     skips = action_counts.get("SKIP", 0)
     open_positions = len(portfolio.get("positions", [])) if portfolio else 0
 
-    trade_ids = [str(t.get("id")) for t in trades if t.get("id")]
-    duplicate_trade_ids = len(trade_ids) - len(set(trade_ids))
-    total_closed_pnl = sum(float(t.get("pnl_usd") or 0) for t in trades)
+    raw_trade_ids = [str(t.get("id")) for t in raw_trades if t.get("id")]
+    duplicate_trade_ids = len(raw_trade_ids) - len(set(raw_trade_ids))
+    raw_total_closed_pnl = sum(float(t.get("pnl_usd") or 0) for t in raw_trades)
+    analytics_total_closed_pnl = sum(float(t.get("pnl_usd") or 0) for t in analytics_trades)
 
     return {
-        "closed_trades": len(trades),
+        "closed_trades": analytics["analytics_count"],
+        "raw_closed_trades": analytics["raw_count"],
+        "excluded_trades_count": analytics["excluded_count"],
+        "excluded_trades": analytics["excluded_trades"],
         "open_positions": open_positions,
         "journal_entries": len(journal),
         "journal_entries_count": entries,
@@ -794,7 +845,8 @@ def get_trading_activity_summary(
         "journal_skips_count": skips,
         "journal_action_counts": action_counts,
         "duplicate_trade_ids": duplicate_trade_ids,
-        "total_closed_pnl": round(total_closed_pnl, 2),
+        "total_closed_pnl": round(analytics_total_closed_pnl, 2),
+        "raw_total_closed_pnl": round(raw_total_closed_pnl, 2),
     }
 
 
@@ -880,7 +932,7 @@ def get_data_health() -> dict[str, Any]:
         warnings.append(
             f"{activity['duplicate_trade_ids']} duplicate closed-trade IDs detected in trades.json."
         )
-    if activity["journal_exits_count"] > activity["closed_trades"]:
+    if activity["journal_exits_count"] > activity["raw_closed_trades"]:
         warnings.append(
             "Journal CLOSE count exceeds closed trades on disk; some exits may be missing from trades.json."
         )
@@ -895,6 +947,9 @@ def get_data_health() -> dict[str, Any]:
         "latest_score_time": latest_score,
         "portfolio_updated_at": portfolio_updated,
         "closed_trades": activity["closed_trades"],
+        "raw_closed_trades": activity["raw_closed_trades"],
+        "excluded_trades_count": activity["excluded_trades_count"],
+        "excluded_trades": activity["excluded_trades"],
         "open_positions": activity["open_positions"],
         "journal_entries": activity["journal_entries"],
         "journal_entries_count": activity["journal_entries_count"],
@@ -902,6 +957,7 @@ def get_data_health() -> dict[str, Any]:
         "journal_skips_count": activity["journal_skips_count"],
         "journal_action_counts": activity["journal_action_counts"],
         "total_closed_pnl": activity["total_closed_pnl"],
+        "raw_total_closed_pnl": activity["raw_total_closed_pnl"],
         "duplicate_trade_ids": activity["duplicate_trade_ids"],
         "latest_trade_exit": latest_trade_exit,
         "latest_journal_action": latest_journal.get("action") if latest_journal else None,
