@@ -23,10 +23,12 @@ from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.components.prediction_table import render_prediction_table
 from dashboard.components.price_monitor import render_price_monitor
 from dashboard.components.signal_badges import render_signal_grid
+from dashboard.components.training_readiness import render_training_readiness_dock
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
 from dashboard.data_loader import (
     get_prediction_history,
     get_price_data,
+    get_training_status,
     has_real_data,
     is_using_demo_predictions,
     is_using_demo_price,
@@ -77,6 +79,7 @@ with st.sidebar:
 runs = get_prediction_history()
 latest = runs[-1] if runs else None
 price_df = get_price_data()
+training_status = get_training_status()
 
 # ── Header: current price + last prediction time ──────────────────────────
 
@@ -85,6 +88,8 @@ st.caption(
     "Experimental machine-learning forecasts for Bitcoin, with a demo "
     "(paper-money) trading agent. Not financial advice."
 )
+
+render_training_readiness_dock(training_status)
 
 # ── How this works ─────────────────────────────────────────────────────────
 

@@ -163,6 +163,105 @@ def inject_css() -> None:
             text-align: right;
         }}
 
+        /* ── Training readiness dock (sticky) ─────── */
+        .training-readiness-dock {{
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: min(260px, calc(100vw - 2rem));
+            pointer-events: none;
+        }}
+        .training-readiness-card {{
+            background: {CARD_BG};
+            border: 1px solid {BORDER};
+            border-radius: 10px;
+            padding: 0.75rem 0.85rem;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+            pointer-events: auto;
+        }}
+        .training-readiness-card.ready {{
+            border-color: {GREEN}55;
+        }}
+        .training-readiness-card.pending {{
+            border-color: {BORDER};
+        }}
+        .training-readiness-card .tr-header {{
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-bottom: 0.35rem;
+        }}
+        .training-readiness-card .tr-icon {{
+            font-size: 0.85rem;
+            color: {TEXT_DIM};
+        }}
+        .training-readiness-card .tr-title {{
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: {TEXT_DIM};
+            flex: 1;
+        }}
+        .training-readiness-card .tr-badge {{
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 0.12rem 0.4rem;
+            border-radius: 999px;
+            border: 1px solid;
+        }}
+        .training-readiness-card .tr-horizon {{
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: {TEXT};
+            margin-bottom: 0.15rem;
+        }}
+        .training-readiness-card .tr-count {{
+            font-size: 0.78rem;
+            color: {TEXT_DIM};
+            margin-bottom: 0.4rem;
+        }}
+        .training-readiness-card .tr-progress {{
+            height: 4px;
+            border-radius: 2px;
+            background: {BORDER};
+            overflow: hidden;
+            margin-bottom: 0.35rem;
+        }}
+        .training-readiness-card .tr-progress-fill {{
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }}
+        .training-readiness-card .tr-detail {{
+            font-size: 0.72rem;
+            color: {TEXT_DIM};
+        }}
+        @media (max-width: 768px) {{
+            .training-readiness-dock {{
+                bottom: 0.5rem;
+                right: 0.5rem;
+                left: 0.5rem;
+                width: auto;
+            }}
+            .training-readiness-dock {{
+                flex-direction: row;
+            }}
+            .training-readiness-card {{
+                flex: 1;
+                min-width: 0;
+            }}
+            .training-readiness-card .tr-horizon {{
+                font-size: 0.82rem;
+            }}
+        }}
+
         /* ── Coming-soon placeholder ────────────── */
         .coming-soon {{
             background: {CARD_BG};
