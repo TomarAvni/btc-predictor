@@ -24,7 +24,13 @@ from dashboard.components.prediction_table import render_prediction_table
 from dashboard.components.price_monitor import render_price_monitor
 from dashboard.components.signal_badges import render_signal_grid
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
-from dashboard.data_loader import get_prediction_history, get_price_data, has_real_data
+from dashboard.data_loader import (
+    get_prediction_history,
+    get_price_data,
+    has_real_data,
+    is_using_demo_predictions,
+    is_using_demo_price,
+)
 from dashboard.styles import inject_css, layout_marker
 from src.utils.timez import now_israel_str, utc_str_to_israel
 
@@ -48,14 +54,22 @@ with st.sidebar:
             st.warning("Install `streamlit-autorefresh` for auto-refresh.")
 
     st.divider()
-    if not has_real_data():
+    if is_using_demo_predictions():
         st.info(
-            "📊 **Using demo data**\n\n"
+            "📊 **Using demo prediction data**\n\n"
             "Run the predictor to see live data:\n"
             "```\npython main.py --predict\n```"
         )
+    elif not has_real_data():
+        st.info(
+            "📊 **Limited pipeline data**\n\n"
+            "Some views may still use simulated placeholders until more "
+            "artefacts exist on disk."
+        )
     else:
-        st.success("Connected to live data")
+        st.success("Connected to recovered/live pipeline data")
+        if is_using_demo_price():
+            st.caption("Price chart uses simulated OHLCV — no parquet in data/price/.")
 
 
 # ── Data ───────────────────────────────────────────────────────────────────

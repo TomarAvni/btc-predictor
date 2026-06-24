@@ -105,12 +105,94 @@ def _parse_predictions_log(path: Path) -> list[dict[str, Any]]:
     return runs
 
 
+def _read_jsonl_records(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    records: list[dict[str, Any]] = []
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            records.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return records
+
+
+def _parse_signal_summary_value(raw: Any) -> dict[str, str]:
+    """Convert a JSONL ``signals_summary`` entry to dashboard signal shape."""
+    if isinstance(raw, dict):
+        if "fear_greed_label" in raw or "fear_greed" in raw:
+            fg = raw.get("fear_greed")
+            label = str(raw.get("fear_greed_label") or "")
+            value = f"{fg:.0f}" if isinstance(fg, (int, float)) else str(fg or "—")
+            return {"value": value, "interpretation": label}
+        parts = [
+            f"{key}={value}"
+            for key, value in list(raw.items())[:4]
+            if value is not None and not isinstance(value, (list, dict))
+        ]
+        return {"value": ", ".join(parts) or "—", "interpretation": ""}
+    text = str(raw).strip()
+    if " -- " in text:
+        val, interp = text.split(" -- ", 1)
+        return {"value": val.strip(), "interpretation": interp.strip()}
+    return {"value": text, "interpretation": ""}
+
+
+def _jsonl_record_to_run(record: dict[str, Any]) -> dict[str, Any]:
+    """Normalize a JSONL prediction record for dashboard components."""
+    signals_raw = record.get("signals_summary") or {}
+    predictions: list[dict[str, Any]] = []
+    for pred in record.get("predictions") or []:
+        if not isinstance(pred, dict) or "timeframe" not in pred:
+            continue
+        predictions.append(
+            {
+                "timeframe": pred["timeframe"],
+                "direction": str(pred.get("direction", "")).upper(),
+                "magnitude": float(pred.get("magnitude", 0)),
+                "confidence": int(pred.get("confidence", 0)),
+            }
+        )
+    return {
+        "timestamp": str(record.get("timestamp") or ""),
+        "run_number": int(record.get("run_number") or 0),
+        "predictions": predictions,
+        "signals": {
+            str(name): _parse_signal_summary_value(value)
+            for name, value in signals_raw.items()
+        },
+    }
+
+
+def _merge_prediction_runs(
+    log_runs: list[dict[str, Any]],
+    jsonl_records: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Merge log + JSONL runs; JSONL wins when both sources share a run number."""
+    by_run: dict[int, dict[str, Any]] = {}
+    for run in log_runs:
+        run_number = int(run.get("run_number") or 0)
+        if run_number:
+            by_run[run_number] = run
+    for record in jsonl_records:
+        run = _jsonl_record_to_run(record)
+        run_number = int(run.get("run_number") or 0)
+        if run_number:
+            by_run[run_number] = run
+    return [by_run[key] for key in sorted(by_run)]
+
+
 # ── Public loaders (cached) ────────────────────────────────────────────────
 
 
 @st.cache_data(ttl=60)
 def load_prediction_runs() -> list[dict[str, Any]]:
-    return _parse_predictions_log(PREDICTIONS_LOG)
+    log_runs = _parse_predictions_log(PREDICTIONS_LOG)
+    jsonl_records = _read_jsonl_records(PREDICTIONS_JSONL_PATH)
+    return _merge_prediction_runs(log_runs, jsonl_records)
 
 
 @st.cache_data(ttl=60)
@@ -309,13 +391,34 @@ def get_backtest_results() -> pd.DataFrame:
     return df
 
 
+def is_using_demo_predictions() -> bool:
+    """True when the dashboard is showing synthetic prediction history."""
+    return not load_prediction_runs()
+
+
+def is_using_demo_price() -> bool:
+    """True when price charts fall back to synthetic OHLCV data."""
+    return load_price_data().empty
+
+
+def is_using_demo_backtest() -> bool:
+    """True when walk-forward backtest charts use synthetic data."""
+    return load_backtest_results().empty
+
+
 def has_real_data() -> bool:
     """Check whether any real pipeline data exists on disk."""
+    trading_dir = DATA_DIR / "trading"
     return (
         PREDICTIONS_LOG.exists()
+        or PREDICTIONS_JSONL_PATH.exists()
+        or LABELED_STORE_PATH.exists()
         or (PRICE_DIR.exists() and any(PRICE_DIR.glob("*.parquet")))
         or (BACKTEST_DIR.exists() and any(BACKTEST_DIR.iterdir()))
         or has_live_performance()
+        or (trading_dir / "trades.json").exists()
+        or (trading_dir / "journal.json").exists()
+        or (trading_dir / "portfolio.json").exists()
     )
 
 
@@ -470,19 +573,7 @@ def load_trading_backtest() -> dict[str, Any] | None:
 @st.cache_data(ttl=60)
 def load_prediction_jsonl_runs() -> list[dict[str, Any]]:
     """Load rich prediction records with feature vectors, if available."""
-    path = PREDICTIONS_JSONL_PATH
-    if not path.exists():
-        return []
-    records: list[dict[str, Any]] = []
-    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            records.append(json.loads(line))
-        except json.JSONDecodeError:
-            continue
-    return records
+    return _read_jsonl_records(PREDICTIONS_JSONL_PATH)
 
 
 @st.cache_data(ttl=60)
@@ -554,6 +645,8 @@ def get_training_status() -> dict[str, Any]:
 def get_data_health() -> dict[str, Any]:
     """Summarize artifact freshness and obvious sync problems."""
     runs = load_prediction_runs()
+    log_runs = _parse_predictions_log(PREDICTIONS_LOG)
+    jsonl_records = load_prediction_jsonl_runs()
     scores = load_prediction_scores()
     portfolio = load_portfolio_state()
     trades = load_trades()
@@ -566,6 +659,19 @@ def get_data_health() -> dict[str, Any]:
     latest_score = _latest_timestamp(scores, ("scored_at", "prediction_timestamp"))
 
     warnings: list[str] = []
+    if is_using_demo_predictions():
+        warnings.append(
+            "Prediction history is synthetic demo data; run the predictor or "
+            "recover data/predictions/predictions.jsonl to show real runs."
+        )
+    elif log_runs and jsonl_records:
+        log_latest = max(int(r.get("run_number") or 0) for r in log_runs)
+        jsonl_latest = max(int(r.get("run_number") or 0) for r in jsonl_records)
+        if jsonl_latest > log_latest:
+            warnings.append(
+                f"predictions.log stops at run #{log_latest} but recovered JSONL "
+                f"includes run #{jsonl_latest}; dashboard uses the merged JSONL history."
+            )
     if not scores:
         warnings.append("No scored predictions yet; performance charts should not be treated as live accuracy.")
     elif _rolling_accuracy_is_empty(load_rolling_accuracy()) and scores:
@@ -584,6 +690,8 @@ def get_data_health() -> dict[str, Any]:
         "latest_prediction_run": latest_prediction.get("run_number") if latest_prediction else None,
         "latest_prediction_time": latest_prediction.get("timestamp") if latest_prediction else None,
         "prediction_runs": len(runs),
+        "prediction_log_runs": len(log_runs),
+        "prediction_jsonl_rows": len(jsonl_records),
         "scored_predictions": len(scores),
         "latest_score_time": latest_score,
         "portfolio_updated_at": portfolio_updated,

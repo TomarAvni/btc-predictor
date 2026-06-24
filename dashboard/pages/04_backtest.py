@@ -26,6 +26,7 @@ from dashboard.config import SUMMARY_HORIZONS
 from dashboard.data_loader import (
     get_backtest_results,
     get_validation_results,
+    is_using_demo_backtest,
     load_validation_equity_curve,
 )
 from dashboard.components.mobile_nav import render_mobile_nav
@@ -253,6 +254,12 @@ st.markdown("## Walk-Forward Backtest")
 
 bt = get_backtest_results()
 
+if is_using_demo_backtest():
+    st.warning(
+        "Showing **simulated demo backtest** data — no files in `data/backtest/`. "
+        "Run `python train.py --backtest` for real walk-forward results."
+    )
+
 if bt.empty:
     st.warning(
         "No backtest results found. Run the backtester first:\n"
@@ -351,6 +358,10 @@ if "avg_predicted_return" in bt.columns and "avg_actual_return" in bt.columns:
 # ── Confusion matrix (direction) ─────────────────────────────────────────
 
 st.markdown("### Direction Confusion Matrix")
+st.caption(
+    "**Illustrative placeholder** — random demo matrices, not computed from "
+    "real backtest outcomes. Use the validation section above for held-out metrics."
+)
 
 rng = np.random.default_rng(11)
 for horizon in SUMMARY_HORIZONS:
@@ -375,6 +386,7 @@ for horizon in SUMMARY_HORIZONS:
 # ── Model comparison placeholder ─────────────────────────────────────────
 
 st.markdown("### Model Comparison")
+st.caption("**Illustrative placeholder** — not loaded from trained model artefacts.")
 
 model_names = ["Baseline", "XGBoost", "LSTM", "Ensemble"]
 model_accs = [50.2, 57.8, 55.1, 59.4]

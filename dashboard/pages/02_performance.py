@@ -33,6 +33,7 @@ from dashboard.data_loader import (
     get_training_status,
     has_live_performance,
     has_real_data,
+    is_using_demo_backtest,
     load_rolling_accuracy,
 )
 from dashboard.styles import BLUE, GREEN, RED, YELLOW, inject_css, layout_marker
@@ -82,6 +83,12 @@ if health.get("warnings"):
     with st.expander("Data Health Warnings", expanded=True):
         for warning in health["warnings"]:
             st.warning(warning)
+
+if is_using_demo_backtest():
+    st.info(
+        "Walk-forward backtest regime chart uses **simulated demo data** "
+        "(no files in data/backtest/). Live scored accuracy above is real."
+    )
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 

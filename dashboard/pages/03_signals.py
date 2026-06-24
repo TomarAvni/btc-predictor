@@ -24,6 +24,7 @@ from dashboard.components.charts import (
 from dashboard.data_loader import (
     get_prediction_history,
     get_price_data,
+    is_using_demo_predictions,
     load_model_metrics,
     load_validation_results,
 )
@@ -45,6 +46,12 @@ st.caption(
 
 runs = get_prediction_history()
 price_df = get_price_data()
+
+if is_using_demo_predictions():
+    st.warning(
+        "Signal history uses **simulated demo predictions** until real "
+        "prediction JSONL or log data exists on disk."
+    )
 
 all_signals: set[str] = set()
 for run in runs:

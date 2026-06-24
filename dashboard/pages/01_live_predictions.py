@@ -18,7 +18,11 @@ from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.components.prediction_table import render_prediction_table
 from dashboard.components.signal_badges import infer_sentiment, render_signal_grid
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES, SUMMARY_HORIZONS
-from dashboard.data_loader import get_prediction_history, get_price_data, has_real_data
+from dashboard.data_loader import (
+    get_prediction_history,
+    get_price_data,
+    is_using_demo_predictions,
+)
 from dashboard.styles import inject_css, layout_marker
 from src.utils.timez import utc_str_to_israel
 
@@ -49,6 +53,12 @@ st.caption(
     "**Confidence** is the model's conviction (not a probability of profit), "
     "and **magnitude** is the size of the expected move."
 )
+
+if is_using_demo_predictions():
+    st.warning(
+        "Showing **simulated demo predictions** — no predictions.log or "
+        "data/predictions/predictions.jsonl found on disk."
+    )
 
 if not latest:
     st.warning("No predictions available yet. Run `python main.py --predict` to get started.")
