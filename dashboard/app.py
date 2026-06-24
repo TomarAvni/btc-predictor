@@ -23,13 +23,18 @@ from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.components.prediction_table import render_prediction_table
 from dashboard.components.price_monitor import render_price_monitor
 from dashboard.components.signal_badges import render_signal_grid
+from dashboard.components.training_readiness import render_training_readiness_dock
 from dashboard.config import AUTO_REFRESH_INTERVAL_MS, SIGNAL_CATEGORIES
 from dashboard.data_loader import (
+    get_data_health,
     get_prediction_history,
     get_price_data,
+    get_training_status,
     has_real_data,
+    is_prediction_stale,
     is_using_demo_predictions,
     is_using_demo_price,
+    load_latest_prediction,
 )
 from dashboard.styles import inject_css, layout_marker
 from src.utils.timez import now_israel_str, utc_str_to_israel
@@ -75,8 +80,23 @@ with st.sidebar:
 # ── Data ───────────────────────────────────────────────────────────────────
 
 runs = get_prediction_history()
-latest = runs[-1] if runs else None
+latest = load_latest_prediction()
 price_df = get_price_data()
+training_status = get_training_status()
+data_health = get_data_health()
+
+# ── Freshness warnings ─────────────────────────────────────────────────────
+
+if data_health.get("warnings"):
+    for warning in data_health["warnings"]:
+        if is_prediction_stale() and "Latest prediction" in warning:
+            st.error(f"⚠️ **Stale predictions** — {warning}")
+        elif is_using_demo_price() and "simulated OHLCV" in warning:
+            st.warning(f"⚠️ {warning}")
+        elif "predictions.log is newer" in warning or "predictions.jsonl is newer" in warning:
+            st.warning(f"⚠️ **Log sync** — {warning}")
+        else:
+            st.warning(f"⚠️ {warning}")
 
 # ── Header: current price + last prediction time ──────────────────────────
 
@@ -85,6 +105,8 @@ st.caption(
     "Experimental machine-learning forecasts for Bitcoin, with a demo "
     "(paper-money) trading agent. Not financial advice."
 )
+
+render_training_readiness_dock(training_status)
 
 # ── How this works ─────────────────────────────────────────────────────────
 
@@ -119,7 +141,7 @@ with st.expander("ℹ️ How this works (start here)", expanded=False):
 render_price_monitor()
 st.divider()
 
-if not price_df.empty:
+if not is_using_demo_price() and not price_df.empty:
     last_close = price_df["close"].iloc[-1]
     # price_df is hourly; 24 rows back ≈ 24h ago (true 24h change, not 1h).
     prev_close = price_df["close"].iloc[-25] if len(price_df) > 24 else price_df["close"].iloc[0]
@@ -129,7 +151,27 @@ if not price_df.empty:
     layout_marker("stack")
     h1, h2, h3 = st.columns([2, 1, 1], gap="small")
     with h1:
-        render_metric_card("Last Candle Close", f"${last_close:,.2f}", f"{change_pct:+.2f}% (24h)", change_color)
+        render_metric_card(
+            "Last Candle Close",
+            f"${last_close:,.2f}",
+            f"{change_pct:+.2f}% (24h)",
+            change_color,
+        )
+    with h2:
+        render_metric_card(
+            "Last Prediction",
+            utc_str_to_israel(latest["timestamp"]) if latest else "—",
+        )
+    with h3:
+        render_metric_card("Total Runs", str(len(runs)))
+elif is_using_demo_price():
+    st.info(
+        "**Last Candle Close** uses **simulated** hourly OHLCV because no parquet "
+        "exists in `data/price/`. The live BTC/USD feed above is real-time display "
+        "only — run Download or wait for the Predict workflow price refresh."
+    )
+    layout_marker("stack")
+    _, h2, h3 = st.columns([2, 1, 1], gap="small")
     with h2:
         render_metric_card(
             "Last Prediction",

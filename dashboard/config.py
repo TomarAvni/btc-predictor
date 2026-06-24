@@ -1,5 +1,6 @@
 """Dashboard configuration constants."""
 
+from datetime import timedelta
 from pathlib import Path
 
 from src.horizons import KEY_HORIZONS, TIMEFRAMES
@@ -41,3 +42,9 @@ SIGNAL_CATEGORIES = {
 }
 
 AUTO_REFRESH_INTERVAL_MS = 60_000
+
+# Predict workflow runs hourly; warn when the newest run is older than this.
+EXPECTED_PREDICTION_MAX_AGE = timedelta(hours=2)
+
+# Parquet candles older than this are treated as stale for the Last Candle card.
+EXPECTED_PRICE_MAX_AGE = timedelta(hours=6)

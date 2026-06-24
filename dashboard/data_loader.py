@@ -19,12 +19,15 @@ import streamlit as st
 from dashboard.config import (
     BACKTEST_DIR,
     DATA_DIR,
+    EXPECTED_PREDICTION_MAX_AGE,
+    EXPECTED_PRICE_MAX_AGE,
     MODELS_DIR,
     PERFORMANCE_DIR,
     PREDICTIONS_LOG,
     PRICE_DIR,
     VALIDATION_DIR,
 )
+from src.utils.timez import _parse_to_utc
 from src.horizons import HORIZON_HOURS, TIMEFRAMES
 from src.collectors.onchain_flows import LATEST_PATH as ONCHAIN_FLOW_LATEST_PATH
 from src.collectors.onchain_flows import HISTORY_PATH as ONCHAIN_FLOW_HISTORY_PATH
@@ -167,22 +170,92 @@ def _jsonl_record_to_run(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _parse_run_timestamp(ts: str) -> datetime:
+    """Parse a prediction run timestamp to UTC for ordering and freshness checks."""
+    parsed = _parse_to_utc(str(ts))
+    if parsed is None:
+        return datetime.min.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def _jsonl_source_priority(record: dict[str, Any]) -> int:
+    """Prefer primary model tracks over auxiliary sentiment (llm_direct) rows."""
+    source = str(record.get("model_source") or "").lower()
+    if source in ("ensemble", "xgboost", "baseline", "heuristic", "heuristics"):
+        return 2
+    if source == "llm_direct":
+        return 0
+    return 1
+
+
+def _should_replace_run(existing: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    """True when *candidate* should replace *existing* for the same run_number."""
+    existing_ts = _parse_run_timestamp(str(existing.get("timestamp") or ""))
+    candidate_ts = _parse_run_timestamp(str(candidate.get("timestamp") or ""))
+    if candidate_ts > existing_ts:
+        return True
+    if candidate_ts < existing_ts:
+        return False
+    return bool(candidate.get("_from_jsonl")) and not bool(existing.get("_from_jsonl"))
+
+
+def _sort_runs_by_timestamp(runs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(
+        runs,
+        key=lambda run: (
+            _parse_run_timestamp(str(run.get("timestamp") or "")),
+            int(run.get("run_number") or 0),
+        ),
+    )
+
+
 def _merge_prediction_runs(
     log_runs: list[dict[str, Any]],
     jsonl_records: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """Merge log + JSONL runs; JSONL wins when both sources share a run number."""
+    """Merge log + JSONL runs, ordered by timestamp (not run counter).
+
+    When both sources share a run number, keep the row with the newer timestamp;
+    on a tie, prefer JSONL because it carries richer features/provenance.
+    Multiple JSONL lines for one run (e.g. sentiment ``llm_direct``) defer to
+    the primary model track when present.
+    """
     by_run: dict[int, dict[str, Any]] = {}
+
     for run in log_runs:
         run_number = int(run.get("run_number") or 0)
-        if run_number:
-            by_run[run_number] = run
+        if not run_number:
+            continue
+        tagged = {**run, "_from_jsonl": False}
+        existing = by_run.get(run_number)
+        if existing is None or _should_replace_run(existing, tagged):
+            by_run[run_number] = tagged
+
+    jsonl_by_run: dict[int, list[dict[str, Any]]] = {}
     for record in jsonl_records:
-        run = _jsonl_record_to_run(record)
-        run_number = int(run.get("run_number") or 0)
+        run_number = int(record.get("run_number") or 0)
         if run_number:
+            jsonl_by_run.setdefault(run_number, []).append(record)
+
+    for run_number, records in jsonl_by_run.items():
+        primary = max(records, key=_jsonl_source_priority)
+        run = _jsonl_record_to_run(primary)
+        run["_from_jsonl"] = True
+        existing = by_run.get(run_number)
+        if existing is None or _should_replace_run(existing, run):
             by_run[run_number] = run
-    return [by_run[key] for key in sorted(by_run)]
+
+    cleaned = []
+    for run in by_run.values():
+        run.pop("_from_jsonl", None)
+        cleaned.append(run)
+    return _sort_runs_by_timestamp(cleaned)
+
+
+def _latest_run_by_timestamp(runs: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not runs:
+        return None
+    return _sort_runs_by_timestamp(runs)[-1]
 
 
 # ── Public loaders (cached) ────────────────────────────────────────────────
@@ -197,8 +270,7 @@ def load_prediction_runs() -> list[dict[str, Any]]:
 
 @st.cache_data(ttl=60)
 def load_latest_prediction() -> dict[str, Any] | None:
-    runs = load_prediction_runs()
-    return runs[-1] if runs else None
+    return _latest_run_by_timestamp(load_prediction_runs())
 
 
 @st.cache_data(ttl=300)
@@ -401,6 +473,48 @@ def is_using_demo_price() -> bool:
     return load_price_data().empty
 
 
+def get_price_candle_age() -> timedelta | None:
+    """Age of the newest committed hourly candle, or None when parquet is absent."""
+    df = load_price_data()
+    if df.empty or not isinstance(df.index, pd.DatetimeIndex):
+        return None
+    last_ts = df.index[-1]
+    if last_ts.tzinfo is None:
+        last_ts = last_ts.tz_localize("UTC")
+    else:
+        last_ts = last_ts.tz_convert("UTC")
+    return datetime.now(timezone.utc) - last_ts.to_pydatetime()
+
+
+def is_price_candle_stale() -> bool:
+    """True when parquet candles are missing or older than EXPECTED_PRICE_MAX_AGE."""
+    age = get_price_candle_age()
+    if age is None:
+        return True
+    return age > EXPECTED_PRICE_MAX_AGE
+
+
+def get_prediction_age() -> timedelta | None:
+    """Age of the newest merged prediction run, or None when no real runs exist."""
+    latest = _latest_run_by_timestamp(load_prediction_runs())
+    if latest is None:
+        return None
+    ts = _parse_run_timestamp(str(latest.get("timestamp") or ""))
+    if ts == datetime.min.replace(tzinfo=timezone.utc):
+        return None
+    return datetime.now(timezone.utc) - ts
+
+
+def is_prediction_stale() -> bool:
+    """True when the newest prediction is older than EXPECTED_PREDICTION_MAX_AGE."""
+    if is_using_demo_predictions():
+        return False
+    age = get_prediction_age()
+    if age is None:
+        return True
+    return age > EXPECTED_PREDICTION_MAX_AGE
+
+
 def is_using_demo_backtest() -> bool:
     """True when walk-forward backtest charts use synthetic data."""
     return load_backtest_results().empty
@@ -536,6 +650,42 @@ TRADES_PATH = TRADING_DIR / "trades.json"
 JOURNAL_PATH = TRADING_DIR / "journal.json"
 BACKTEST_TRADING_PATH = TRADING_DIR / "backtest_results.json"
 
+# Earliest closed trades excluded from dashboard analytics by default (audit copy kept on disk).
+DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES = 1
+
+
+def _closed_trade_sort_key(trade: dict[str, Any]) -> tuple[str, str]:
+    """Chronological key for closed trades (entry_time, then exit_time)."""
+    return (str(trade.get("entry_time") or ""), str(trade.get("exit_time") or ""))
+
+
+def filter_trades_for_analytics(
+    trades: list[dict[str, Any]],
+    exclude_count: int = DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES,
+) -> dict[str, Any]:
+    """Drop the earliest closed trades from analytics while preserving audit history."""
+    raw_count = len(trades)
+    if exclude_count <= 0 or raw_count == 0:
+        return {
+            "trades": list(trades),
+            "excluded_trades": [],
+            "excluded_count": 0,
+            "raw_count": raw_count,
+            "analytics_count": raw_count,
+        }
+
+    ordered = sorted(trades, key=_closed_trade_sort_key)
+    drop = min(exclude_count, raw_count)
+    excluded = ordered[:drop]
+    analytics = ordered[drop:]
+    return {
+        "trades": analytics,
+        "excluded_trades": excluded,
+        "excluded_count": drop,
+        "raw_count": raw_count,
+        "analytics_count": len(analytics),
+    }
+
 
 def _load_json(path: Path, fallback: Any) -> Any:
     if not path.exists():
@@ -554,8 +704,16 @@ def load_portfolio_state() -> dict[str, Any] | None:
 
 @st.cache_data(ttl=60)
 def load_trades() -> list[dict[str, Any]]:
+    """Load all closed trades from disk (full audit history)."""
     data = _load_json(TRADES_PATH, [])
     return data if isinstance(data, list) else []
+
+
+def load_trades_for_analytics(
+    exclude_count: int = DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES,
+) -> dict[str, Any]:
+    """Load closed trades with earliest entries excluded from analytics."""
+    return filter_trades_for_analytics(load_trades(), exclude_count=exclude_count)
 
 
 @st.cache_data(ttl=60)
@@ -614,6 +772,7 @@ def _count_scored_by_horizon(scores: list[dict[str, Any]]) -> dict[str, int]:
 
 def get_training_status() -> dict[str, Any]:
     """Return prediction -> score -> labeled-store progress for the dashboard."""
+    merged_runs = load_prediction_runs()
     prediction_runs = load_prediction_jsonl_runs()
     scores = load_prediction_scores()
     labeled_rows = load_labeled_training_rows()
@@ -623,11 +782,15 @@ def get_training_status() -> dict[str, Any]:
         if tf in labeled_counts:
             labeled_counts[tf] += 1
 
+    latest_merged = _latest_run_by_timestamp(merged_runs)
+
     return {
         "prediction_jsonl_rows": len(prediction_runs),
+        "prediction_merged_runs": len(merged_runs),
         "scored_rows": len(scores),
         "labeled_rows": len(labeled_rows),
         "latest_prediction_jsonl": _latest_timestamp(prediction_runs, ("timestamp",)),
+        "latest_prediction_merged": latest_merged.get("timestamp") if latest_merged else None,
         "latest_score": _latest_timestamp(scores, ("scored_at", "prediction_timestamp")),
         "scored_by_horizon": _count_scored_by_horizon(scores),
         "labeled_by_horizon": labeled_counts,
@@ -642,6 +805,51 @@ def get_training_status() -> dict[str, Any]:
     }
 
 
+def get_trading_activity_summary(
+    trades: list[dict[str, Any]] | None = None,
+    journal: list[dict[str, Any]] | None = None,
+    portfolio: dict[str, Any] | None = None,
+    exclude_analytics_trades: int = DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES,
+) -> dict[str, Any]:
+    """Break down closed trades vs journal decisions vs open positions."""
+    raw_trades = trades if trades is not None else load_trades()
+    journal = journal if journal is not None else load_trading_journal()
+    portfolio = portfolio if portfolio is not None else load_portfolio_state()
+    analytics = filter_trades_for_analytics(raw_trades, exclude_count=exclude_analytics_trades)
+    analytics_trades = analytics["trades"]
+
+    action_counts: dict[str, int] = {}
+    for entry in journal:
+        action = str(entry.get("action") or "unknown")
+        action_counts[action] = action_counts.get(action, 0) + 1
+
+    entries = action_counts.get("BUY", 0) + action_counts.get("SHORT", 0)
+    exits = action_counts.get("CLOSE", 0)
+    skips = action_counts.get("SKIP", 0)
+    open_positions = len(portfolio.get("positions", [])) if portfolio else 0
+
+    raw_trade_ids = [str(t.get("id")) for t in raw_trades if t.get("id")]
+    duplicate_trade_ids = len(raw_trade_ids) - len(set(raw_trade_ids))
+    raw_total_closed_pnl = sum(float(t.get("pnl_usd") or 0) for t in raw_trades)
+    analytics_total_closed_pnl = sum(float(t.get("pnl_usd") or 0) for t in analytics_trades)
+
+    return {
+        "closed_trades": analytics["analytics_count"],
+        "raw_closed_trades": analytics["raw_count"],
+        "excluded_trades_count": analytics["excluded_count"],
+        "excluded_trades": analytics["excluded_trades"],
+        "open_positions": open_positions,
+        "journal_entries": len(journal),
+        "journal_entries_count": entries,
+        "journal_exits_count": exits,
+        "journal_skips_count": skips,
+        "journal_action_counts": action_counts,
+        "duplicate_trade_ids": duplicate_trade_ids,
+        "total_closed_pnl": round(analytics_total_closed_pnl, 2),
+        "raw_total_closed_pnl": round(raw_total_closed_pnl, 2),
+    }
+
+
 def get_data_health() -> dict[str, Any]:
     """Summarize artifact freshness and obvious sync problems."""
     runs = load_prediction_runs()
@@ -651,8 +859,9 @@ def get_data_health() -> dict[str, Any]:
     portfolio = load_portfolio_state()
     trades = load_trades()
     journal = load_trading_journal()
+    activity = get_trading_activity_summary(trades=trades, journal=journal, portfolio=portfolio)
 
-    latest_prediction = runs[-1] if runs else None
+    latest_prediction = _latest_run_by_timestamp(runs)
     latest_trade_exit = _latest_timestamp(trades, ("exit_time",))
     latest_journal = journal[-1] if journal else None
     portfolio_updated = portfolio.get("updated_at") if portfolio else None
@@ -664,14 +873,48 @@ def get_data_health() -> dict[str, Any]:
             "Prediction history is synthetic demo data; run the predictor or "
             "recover data/predictions/predictions.jsonl to show real runs."
         )
+    elif is_prediction_stale():
+        age = get_prediction_age()
+        hours = int(age.total_seconds() // 3600) if age is not None else 0
+        warnings.append(
+            f"Latest prediction is {hours}+ hours old (expected ≤ "
+            f"{int(EXPECTED_PREDICTION_MAX_AGE.total_seconds() // 3600)}h). "
+            "Check the Predict GitHub Action or run `python main.py --predict` locally."
+        )
     elif log_runs and jsonl_records:
-        log_latest = max(int(r.get("run_number") or 0) for r in log_runs)
-        jsonl_latest = max(int(r.get("run_number") or 0) for r in jsonl_records)
-        if jsonl_latest > log_latest:
+        log_latest_ts = max(
+            _parse_run_timestamp(str(r.get("timestamp") or "")) for r in log_runs
+        )
+        jsonl_latest_ts = max(
+            _parse_run_timestamp(str(r.get("timestamp") or "")) for r in jsonl_records
+        )
+        log_latest_run = max(int(r.get("run_number") or 0) for r in log_runs)
+        jsonl_latest_run = max(int(r.get("run_number") or 0) for r in jsonl_records)
+        if jsonl_latest_ts > log_latest_ts + timedelta(minutes=5):
             warnings.append(
-                f"predictions.log stops at run #{log_latest} but recovered JSONL "
-                f"includes run #{jsonl_latest}; dashboard uses the merged JSONL history."
+                f"predictions.jsonl is newer than predictions.log (run "
+                f"#{jsonl_latest_run} vs #{log_latest_run}); dashboard uses "
+                "whichever source has the latest timestamp."
             )
+        elif log_latest_ts > jsonl_latest_ts + timedelta(minutes=5):
+            warnings.append(
+                f"predictions.log is newer than predictions.jsonl (run "
+                f"#{log_latest_run} vs #{jsonl_latest_run}). Run "
+                "`python scripts/recover_pipeline_data.py` or wait for the next "
+                "Predict workflow commit to resync JSONL."
+            )
+    if is_using_demo_price():
+        warnings.append(
+            "No price parquet in data/price/ — Last Candle uses simulated OHLCV. "
+            "Run the Download workflow or `python main.py --download`."
+        )
+    elif is_price_candle_stale():
+        age = get_price_candle_age()
+        hours = int(age.total_seconds() // 3600) if age is not None else 0
+        warnings.append(
+            f"Price parquet last candle is {hours}+ hours old. "
+            "Run Download or enable the hourly price refresh in Predict workflow."
+        )
     if not scores:
         warnings.append("No scored predictions yet; performance charts should not be treated as live accuracy.")
     elif _rolling_accuracy_is_empty(load_rolling_accuracy()) and scores:
@@ -685,6 +928,14 @@ def get_data_health() -> dict[str, Any]:
         action = latest_journal.get("action")
         if action != "SKIP":
             warnings.append("Latest journal action is newer than closed-trade history.")
+    if activity["duplicate_trade_ids"] > 0:
+        warnings.append(
+            f"{activity['duplicate_trade_ids']} duplicate closed-trade IDs detected in trades.json."
+        )
+    if activity["journal_exits_count"] > activity["raw_closed_trades"]:
+        warnings.append(
+            "Journal CLOSE count exceeds closed trades on disk; some exits may be missing from trades.json."
+        )
 
     return {
         "latest_prediction_run": latest_prediction.get("run_number") if latest_prediction else None,
@@ -695,9 +946,20 @@ def get_data_health() -> dict[str, Any]:
         "scored_predictions": len(scores),
         "latest_score_time": latest_score,
         "portfolio_updated_at": portfolio_updated,
-        "closed_trades": len(trades),
+        "closed_trades": activity["closed_trades"],
+        "raw_closed_trades": activity["raw_closed_trades"],
+        "excluded_trades_count": activity["excluded_trades_count"],
+        "excluded_trades": activity["excluded_trades"],
+        "open_positions": activity["open_positions"],
+        "journal_entries": activity["journal_entries"],
+        "journal_entries_count": activity["journal_entries_count"],
+        "journal_exits_count": activity["journal_exits_count"],
+        "journal_skips_count": activity["journal_skips_count"],
+        "journal_action_counts": activity["journal_action_counts"],
+        "total_closed_pnl": activity["total_closed_pnl"],
+        "raw_total_closed_pnl": activity["raw_total_closed_pnl"],
+        "duplicate_trade_ids": activity["duplicate_trade_ids"],
         "latest_trade_exit": latest_trade_exit,
-        "journal_entries": len(journal),
         "latest_journal_action": latest_journal.get("action") if latest_journal else None,
         "latest_journal_time": latest_journal.get("timestamp") if latest_journal else None,
         "warnings": warnings,

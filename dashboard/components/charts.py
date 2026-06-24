@@ -332,14 +332,19 @@ def create_cumulative_pnl_chart(
     height: int = 350,
 ) -> go.Figure:
     """Cumulative P&L line with area fill and zero baseline."""
-    running = values[-1] if values else 0
+    from dashboard.evaluation import with_zero_baseline
+
+    series = with_zero_baseline(values)
+    running = series[-1] if series else 0
     color = GREEN if running >= 0 else RED
     fill_color = "rgba(0, 210, 106, 0.1)" if running >= 0 else "rgba(255, 75, 75, 0.1)"
+    trade_numbers = list(range(len(series)))
+    ticktext = ["Start"] + [str(i) for i in trade_numbers[1:]]
     fig = go.Figure()
     fig.add_trace(
         go.Scatter(
-            x=list(range(len(values))),
-            y=list(values),
+            x=trade_numbers,
+            y=series,
             mode="lines+markers",
             line=dict(color=color, width=2),
             marker=dict(size=4),
@@ -350,10 +355,11 @@ def create_cumulative_pnl_chart(
     )
     fig.update_layout(
         title="Cumulative P&L ($)",
-        xaxis_title="Trade #",
+        xaxis_title="Trade # (0 = start)",
         yaxis_title="P&L ($)",
         showlegend=False,
     )
+    fig.update_xaxes(tickmode="array", tickvals=trade_numbers, ticktext=ticktext)
     _apply_theme(fig, height=height)
     fig.add_hline(y=0, line_dash="dash", line_color=TEXT_DIM, opacity=0.5)
     return fig

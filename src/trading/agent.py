@@ -38,8 +38,8 @@ class TradingAgent:
     # --- Pre-trade safety gate (Change 2) ---------------------------------
     # No trade (long or short) may open unless a REAL ML model produced the
     # prediction AND the predicted magnitude is meaningfully non-zero.
-    # magnitude is expressed in percent, so 0.05 == 0.05%.
-    MIN_MAGNITUDE_PCT: float = 0.05
+    # magnitude is expressed in percent, so 0.04 == 0.04%.
+    MIN_MAGNITUDE_PCT: float = 0.04
 
     def __init__(
         self,

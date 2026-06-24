@@ -16,8 +16,13 @@ st.set_page_config(page_title="Strategy Comparison", page_icon="BTC", layout="wi
 
 from dashboard.components.metrics_cards import render_metric_card
 from dashboard.components.mobile_nav import render_mobile_nav
-from dashboard.data_loader import get_training_status, load_trades, load_trading_journal
-from dashboard.evaluation import StrategySeries, build_strategy_series
+from dashboard.data_loader import get_training_status, load_trades_for_analytics, load_trading_journal
+from dashboard.evaluation import (
+    StrategySeries,
+    build_strategy_series,
+    trade_notional_usd,
+    trade_size_btc,
+)
 from dashboard.styles import BLUE, GREEN, RED, YELLOW, inject_css, layout_marker
 
 inject_css()
@@ -33,10 +38,13 @@ def _comparison_chart(series_map: dict[str, StrategySeries]) -> go.Figure:
         "buy_hold": GREEN,
         "blended": "#A855F7",
     }
+    max_windows = max(len(series.cumulative_pnl) for series in series_map.values())
+    trade_windows = list(range(max_windows))
+    ticktext = ["Start"] + [str(i) for i in trade_windows[1:]]
     for key, series in series_map.items():
         fig.add_trace(
             go.Scatter(
-                x=list(range(1, len(series.cumulative_pnl) + 1)),
+                x=list(range(len(series.cumulative_pnl))),
                 y=series.cumulative_pnl,
                 mode="lines+markers",
                 name=series.name,
@@ -47,11 +55,12 @@ def _comparison_chart(series_map: dict[str, StrategySeries]) -> go.Figure:
     fig.add_hline(y=0, line_dash="dash", line_color="#8B949E", opacity=0.5)
     fig.update_layout(
         title="Cumulative P&L by Diagnostic Strategy",
-        xaxis_title="Trade window",
+        xaxis_title="Trade window (0 = start)",
         yaxis_title="P&L ($)",
         template="plotly_dark",
         height=420,
     )
+    fig.update_xaxes(tickmode="array", tickvals=trade_windows, ticktext=ticktext)
     return fig
 
 
@@ -85,12 +94,30 @@ st.caption(
     "Inverse and random modes are what-if baselines, not live trading modes."
 )
 
-trades = load_trades()
+analytics_bundle = load_trades_for_analytics()
+trades = analytics_bundle["trades"]
+excluded_trades = analytics_bundle["excluded_trades"]
 journal = load_trading_journal()
 training_status = get_training_status()
 
-if not trades:
+if not trades and analytics_bundle["raw_count"] == 0:
     st.info("No closed trades available yet. Run the trading agent or a backtest first.")
+    st.stop()
+
+if analytics_bundle["excluded_count"] > 0:
+    first = excluded_trades[0] if excluded_trades else {}
+    st.info(
+        f"Strategy analytics exclude {analytics_bundle['excluded_count']} earliest closed trade(s). "
+        f"Raw history: {analytics_bundle['raw_count']} trades. "
+        f"Earliest excluded: {first.get('id', '—')} "
+        f"({first.get('side', '—')}, ${float(first.get('pnl_usd') or 0):+.2f})."
+    )
+
+if not trades:
+    st.warning(
+        "All closed trades are excluded from analytics. "
+        "Adjust DEFAULT_ANALYTICS_EXCLUDED_CLOSED_TRADES to compare strategies."
+    )
     st.stop()
 
 series_map = build_strategy_series(trades, journal)
@@ -159,12 +186,16 @@ for tab, key in zip(tabs[:4], tab_keys):
 
         rows = []
         for row in reversed(series.rows[-50:]):
+            entry_price = row.get("entry_price")
             rows.append({
                 "Exit Time": row.get("exit_time", "-"),
                 "Side": row.get("side", "-"),
                 "Original Side": row.get("original_side", row.get("side", "-")),
                 "Timeframe": row.get("timeframe", "-"),
                 "Confidence": row.get("confidence", "-"),
+                "Size (BTC)": f"{trade_size_btc(row):.6f}",
+                "Notional ($)": f"${trade_notional_usd(row):.2f}",
+                "Entry ($)": "-" if not entry_price else f"${float(entry_price):,.2f}",
                 "P&L": f"${row.get('pnl_usd', 0):+.2f}",
                 "Reason": row.get("exit_reason", "-"),
             })

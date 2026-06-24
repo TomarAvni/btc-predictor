@@ -20,6 +20,7 @@ import numpy as np
 import pandas as pd
 
 from src.trading.agent import TradingAgent
+from src.trading.paper_profile import PROFILE_LABEL, get_paper_profile_summary
 from src.trading.performance import PerformanceTracker
 from src.trading.portfolio import Portfolio
 from src.trading.position_sizer import PositionSizer
@@ -180,12 +181,32 @@ def generate_synthetic_predictions(
     return predictions
 
 
+def _print_paper_mode_banner() -> None:
+    """Print active paper-trading profile (simulated only)."""
+    profile = get_paper_profile_summary()
+    print(f"  Mode: {PROFILE_LABEL}")
+    print(
+        f"  Entry: conf>={profile['min_confidence_pct']:.0f}%, "
+        f"move>{profile['min_move_pct']:.2f}% (cost-aware), "
+        f"max {profile['max_same_direction']} same-direction"
+    )
+    print(
+        f"  Sizing: up to {profile['max_position_pct']:.0f}%/trade, "
+        f"Kelly x{profile['kelly_fraction']:.2f}"
+    )
+    print(
+        f"  Risk: max {profile['max_open_positions']} positions, "
+        f"{profile['max_exposure_pct']:.0f}% exposure (paper only)"
+    )
+
+
 def run_backtest(start: str, end: str) -> None:
     """Run a backtest over historical data."""
     print(f"\n{'='*70}")
     print(f"  BTC TRADING AGENT -- BACKTEST")
     print(f"  Period: {start} to {end}")
     print(f"  Starting Balance: $2,000")
+    _print_paper_mode_banner()
     print(f"{'='*70}\n")
 
     # Load price data
@@ -266,6 +287,7 @@ async def run_live() -> None:
     print(f"  BTC TRADING AGENT -- LIVE DEMO MODE")
     print(f"  Starting Balance: $2,000")
     print(f"  WARNING: This is a DEMO. No real money is involved.")
+    _print_paper_mode_banner()
     print(f"{'='*70}\n")
 
     agent = create_agent()

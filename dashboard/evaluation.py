@@ -38,17 +38,70 @@ def _opposite_side(side: str) -> str:
     return "SHORT" if str(side).upper() == "LONG" else "LONG"
 
 
+def _trade_size_btc(trade: dict[str, Any]) -> float:
+    """Return position size in BTC, inferring from notional when needed."""
+    amount_btc = _safe_float(trade.get("amount_btc"))
+    if amount_btc > 0:
+        return amount_btc
+    entry = _safe_float(trade.get("entry_price"))
+    amount_usd = _safe_float(trade.get("amount_usd"))
+    if entry > 0 and amount_usd > 0:
+        return amount_usd / entry
+    return 0.0
+
+
+def trade_notional_usd(trade: dict[str, Any]) -> float:
+    """Return USD collateral/notional rather than BTC spot entry price."""
+    amount_usd = _safe_float(trade.get("amount_usd"))
+    entry = _safe_float(trade.get("entry_price"))
+    amount_btc = _trade_size_btc(trade)
+    if amount_btc > 0 and entry > 0:
+        implied = amount_btc * entry
+        if amount_usd >= entry * 0.9:
+            return implied
+    return amount_usd
+
+
+def trade_size_btc(trade: dict[str, Any]) -> float:
+    """Return position size in BTC for display and diagnostics."""
+    return _trade_size_btc(trade)
+
+
 def _pnl_for_side(trade: dict[str, Any], side: str) -> float:
     """Approximate gross P&L for a trade window with a chosen direction."""
     entry = _safe_float(trade.get("entry_price"))
     exit_price = _safe_float(trade.get("exit_price"))
-    amount = _safe_float(trade.get("amount_usd"))
-    if entry <= 0 or exit_price <= 0 or amount <= 0:
-        return _safe_float(trade.get("pnl_usd"))
+    amount_btc = _trade_size_btc(trade)
+    if entry <= 0 or exit_price <= 0 or amount_btc <= 0:
+        recorded = _safe_float(trade.get("pnl_usd"))
+        original = str(trade.get("side", "LONG")).upper()
+        if side.upper() == original:
+            return recorded
+        return -recorded
 
     if side == "SHORT":
-        return amount * ((entry - exit_price) / entry)
-    return amount * ((exit_price - entry) / entry)
+        return amount_btc * (entry - exit_price)
+    return amount_btc * (exit_price - entry)
+
+
+def cumulative_pnl_with_baseline(pnls: Iterable[float]) -> list[float]:
+    """Build a cumulative P&L series that starts at zero before the first trade."""
+    cumulative: list[float] = [0.0]
+    running = 0.0
+    for pnl in pnls:
+        running += _safe_float(pnl)
+        cumulative.append(running)
+    return cumulative
+
+
+def with_zero_baseline(values: Iterable[float]) -> list[float]:
+    """Prepend a zero baseline to an already-cumulative P&L series."""
+    series = list(values)
+    if not series:
+        return [0.0]
+    if series[0] == 0.0:
+        return series
+    return [0.0, *series]
 
 
 def _confidence_bucket(confidence: Any) -> str:
@@ -87,11 +140,7 @@ def _enrich_trade(trade: dict[str, Any], journal_by_id: dict[str, dict[str, Any]
 
 
 def _series_from_rows(name: str, rows: list[dict[str, Any]], note: str = "") -> StrategySeries:
-    cumulative: list[float] = []
-    running = 0.0
-    for row in rows:
-        running += _safe_float(row.get("pnl_usd"))
-        cumulative.append(running)
+    cumulative = cumulative_pnl_with_baseline(_safe_float(row.get("pnl_usd")) for row in rows)
     return StrategySeries(name=name, rows=rows, metrics=trade_metrics(rows), cumulative_pnl=cumulative, note=note)
 
 
