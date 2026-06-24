@@ -19,12 +19,15 @@ import streamlit as st
 from dashboard.config import (
     BACKTEST_DIR,
     DATA_DIR,
+    EXPECTED_PREDICTION_MAX_AGE,
+    EXPECTED_PRICE_MAX_AGE,
     MODELS_DIR,
     PERFORMANCE_DIR,
     PREDICTIONS_LOG,
     PRICE_DIR,
     VALIDATION_DIR,
 )
+from src.utils.timez import _parse_to_utc
 from src.horizons import HORIZON_HOURS, TIMEFRAMES
 from src.collectors.onchain_flows import LATEST_PATH as ONCHAIN_FLOW_LATEST_PATH
 from src.collectors.onchain_flows import HISTORY_PATH as ONCHAIN_FLOW_HISTORY_PATH
@@ -167,22 +170,92 @@ def _jsonl_record_to_run(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _parse_run_timestamp(ts: str) -> datetime:
+    """Parse a prediction run timestamp to UTC for ordering and freshness checks."""
+    parsed = _parse_to_utc(str(ts))
+    if parsed is None:
+        return datetime.min.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def _jsonl_source_priority(record: dict[str, Any]) -> int:
+    """Prefer primary model tracks over auxiliary sentiment (llm_direct) rows."""
+    source = str(record.get("model_source") or "").lower()
+    if source in ("ensemble", "xgboost", "baseline", "heuristic", "heuristics"):
+        return 2
+    if source == "llm_direct":
+        return 0
+    return 1
+
+
+def _should_replace_run(existing: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    """True when *candidate* should replace *existing* for the same run_number."""
+    existing_ts = _parse_run_timestamp(str(existing.get("timestamp") or ""))
+    candidate_ts = _parse_run_timestamp(str(candidate.get("timestamp") or ""))
+    if candidate_ts > existing_ts:
+        return True
+    if candidate_ts < existing_ts:
+        return False
+    return bool(candidate.get("_from_jsonl")) and not bool(existing.get("_from_jsonl"))
+
+
+def _sort_runs_by_timestamp(runs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(
+        runs,
+        key=lambda run: (
+            _parse_run_timestamp(str(run.get("timestamp") or "")),
+            int(run.get("run_number") or 0),
+        ),
+    )
+
+
 def _merge_prediction_runs(
     log_runs: list[dict[str, Any]],
     jsonl_records: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """Merge log + JSONL runs; JSONL wins when both sources share a run number."""
+    """Merge log + JSONL runs, ordered by timestamp (not run counter).
+
+    When both sources share a run number, keep the row with the newer timestamp;
+    on a tie, prefer JSONL because it carries richer features/provenance.
+    Multiple JSONL lines for one run (e.g. sentiment ``llm_direct``) defer to
+    the primary model track when present.
+    """
     by_run: dict[int, dict[str, Any]] = {}
+
     for run in log_runs:
         run_number = int(run.get("run_number") or 0)
-        if run_number:
-            by_run[run_number] = run
+        if not run_number:
+            continue
+        tagged = {**run, "_from_jsonl": False}
+        existing = by_run.get(run_number)
+        if existing is None or _should_replace_run(existing, tagged):
+            by_run[run_number] = tagged
+
+    jsonl_by_run: dict[int, list[dict[str, Any]]] = {}
     for record in jsonl_records:
-        run = _jsonl_record_to_run(record)
-        run_number = int(run.get("run_number") or 0)
+        run_number = int(record.get("run_number") or 0)
         if run_number:
+            jsonl_by_run.setdefault(run_number, []).append(record)
+
+    for run_number, records in jsonl_by_run.items():
+        primary = max(records, key=_jsonl_source_priority)
+        run = _jsonl_record_to_run(primary)
+        run["_from_jsonl"] = True
+        existing = by_run.get(run_number)
+        if existing is None or _should_replace_run(existing, run):
             by_run[run_number] = run
-    return [by_run[key] for key in sorted(by_run)]
+
+    cleaned = []
+    for run in by_run.values():
+        run.pop("_from_jsonl", None)
+        cleaned.append(run)
+    return _sort_runs_by_timestamp(cleaned)
+
+
+def _latest_run_by_timestamp(runs: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not runs:
+        return None
+    return _sort_runs_by_timestamp(runs)[-1]
 
 
 # ── Public loaders (cached) ────────────────────────────────────────────────
@@ -197,8 +270,7 @@ def load_prediction_runs() -> list[dict[str, Any]]:
 
 @st.cache_data(ttl=60)
 def load_latest_prediction() -> dict[str, Any] | None:
-    runs = load_prediction_runs()
-    return runs[-1] if runs else None
+    return _latest_run_by_timestamp(load_prediction_runs())
 
 
 @st.cache_data(ttl=300)
@@ -399,6 +471,48 @@ def is_using_demo_predictions() -> bool:
 def is_using_demo_price() -> bool:
     """True when price charts fall back to synthetic OHLCV data."""
     return load_price_data().empty
+
+
+def get_price_candle_age() -> timedelta | None:
+    """Age of the newest committed hourly candle, or None when parquet is absent."""
+    df = load_price_data()
+    if df.empty or not isinstance(df.index, pd.DatetimeIndex):
+        return None
+    last_ts = df.index[-1]
+    if last_ts.tzinfo is None:
+        last_ts = last_ts.tz_localize("UTC")
+    else:
+        last_ts = last_ts.tz_convert("UTC")
+    return datetime.now(timezone.utc) - last_ts.to_pydatetime()
+
+
+def is_price_candle_stale() -> bool:
+    """True when parquet candles are missing or older than EXPECTED_PRICE_MAX_AGE."""
+    age = get_price_candle_age()
+    if age is None:
+        return True
+    return age > EXPECTED_PRICE_MAX_AGE
+
+
+def get_prediction_age() -> timedelta | None:
+    """Age of the newest merged prediction run, or None when no real runs exist."""
+    latest = _latest_run_by_timestamp(load_prediction_runs())
+    if latest is None:
+        return None
+    ts = _parse_run_timestamp(str(latest.get("timestamp") or ""))
+    if ts == datetime.min.replace(tzinfo=timezone.utc):
+        return None
+    return datetime.now(timezone.utc) - ts
+
+
+def is_prediction_stale() -> bool:
+    """True when the newest prediction is older than EXPECTED_PREDICTION_MAX_AGE."""
+    if is_using_demo_predictions():
+        return False
+    age = get_prediction_age()
+    if age is None:
+        return True
+    return age > EXPECTED_PREDICTION_MAX_AGE
 
 
 def is_using_demo_backtest() -> bool:
@@ -614,6 +728,7 @@ def _count_scored_by_horizon(scores: list[dict[str, Any]]) -> dict[str, int]:
 
 def get_training_status() -> dict[str, Any]:
     """Return prediction -> score -> labeled-store progress for the dashboard."""
+    merged_runs = load_prediction_runs()
     prediction_runs = load_prediction_jsonl_runs()
     scores = load_prediction_scores()
     labeled_rows = load_labeled_training_rows()
@@ -623,11 +738,15 @@ def get_training_status() -> dict[str, Any]:
         if tf in labeled_counts:
             labeled_counts[tf] += 1
 
+    latest_merged = _latest_run_by_timestamp(merged_runs)
+
     return {
         "prediction_jsonl_rows": len(prediction_runs),
+        "prediction_merged_runs": len(merged_runs),
         "scored_rows": len(scores),
         "labeled_rows": len(labeled_rows),
         "latest_prediction_jsonl": _latest_timestamp(prediction_runs, ("timestamp",)),
+        "latest_prediction_merged": latest_merged.get("timestamp") if latest_merged else None,
         "latest_score": _latest_timestamp(scores, ("scored_at", "prediction_timestamp")),
         "scored_by_horizon": _count_scored_by_horizon(scores),
         "labeled_by_horizon": labeled_counts,
@@ -652,7 +771,7 @@ def get_data_health() -> dict[str, Any]:
     trades = load_trades()
     journal = load_trading_journal()
 
-    latest_prediction = runs[-1] if runs else None
+    latest_prediction = _latest_run_by_timestamp(runs)
     latest_trade_exit = _latest_timestamp(trades, ("exit_time",))
     latest_journal = journal[-1] if journal else None
     portfolio_updated = portfolio.get("updated_at") if portfolio else None
@@ -664,14 +783,48 @@ def get_data_health() -> dict[str, Any]:
             "Prediction history is synthetic demo data; run the predictor or "
             "recover data/predictions/predictions.jsonl to show real runs."
         )
+    elif is_prediction_stale():
+        age = get_prediction_age()
+        hours = int(age.total_seconds() // 3600) if age is not None else 0
+        warnings.append(
+            f"Latest prediction is {hours}+ hours old (expected ≤ "
+            f"{int(EXPECTED_PREDICTION_MAX_AGE.total_seconds() // 3600)}h). "
+            "Check the Predict GitHub Action or run `python main.py --predict` locally."
+        )
     elif log_runs and jsonl_records:
-        log_latest = max(int(r.get("run_number") or 0) for r in log_runs)
-        jsonl_latest = max(int(r.get("run_number") or 0) for r in jsonl_records)
-        if jsonl_latest > log_latest:
+        log_latest_ts = max(
+            _parse_run_timestamp(str(r.get("timestamp") or "")) for r in log_runs
+        )
+        jsonl_latest_ts = max(
+            _parse_run_timestamp(str(r.get("timestamp") or "")) for r in jsonl_records
+        )
+        log_latest_run = max(int(r.get("run_number") or 0) for r in log_runs)
+        jsonl_latest_run = max(int(r.get("run_number") or 0) for r in jsonl_records)
+        if jsonl_latest_ts > log_latest_ts + timedelta(minutes=5):
             warnings.append(
-                f"predictions.log stops at run #{log_latest} but recovered JSONL "
-                f"includes run #{jsonl_latest}; dashboard uses the merged JSONL history."
+                f"predictions.jsonl is newer than predictions.log (run "
+                f"#{jsonl_latest_run} vs #{log_latest_run}); dashboard uses "
+                "whichever source has the latest timestamp."
             )
+        elif log_latest_ts > jsonl_latest_ts + timedelta(minutes=5):
+            warnings.append(
+                f"predictions.log is newer than predictions.jsonl (run "
+                f"#{log_latest_run} vs #{jsonl_latest_run}). Run "
+                "`python scripts/recover_pipeline_data.py` or wait for the next "
+                "Predict workflow commit to resync JSONL."
+            )
+    if is_using_demo_price():
+        warnings.append(
+            "No price parquet in data/price/ — Last Candle uses simulated OHLCV. "
+            "Run the Download workflow or `python main.py --download`."
+        )
+    elif is_price_candle_stale():
+        age = get_price_candle_age()
+        hours = int(age.total_seconds() // 3600) if age is not None else 0
+        warnings.append(
+            f"Price parquet last candle is {hours}+ hours old. "
+            "Run Download or enable the hourly price refresh in Predict workflow."
+        )
     if not scores:
         warnings.append("No scored predictions yet; performance charts should not be treated as live accuracy.")
     elif _rolling_accuracy_is_empty(load_rolling_accuracy()) and scores:

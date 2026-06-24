@@ -98,7 +98,15 @@ def _merge_rows(
 
 def _prediction_key(row: dict[str, Any]) -> str | None:
     run = row.get("run_number")
-    return str(run) if run is not None else None
+    if run is None:
+        return None
+    source = row.get("model_source") or "primary"
+    return f"{run}:{source}"
+
+
+def _prediction_sort_key(row: dict[str, Any]) -> tuple[Any, ...]:
+    ts = str(row.get("timestamp") or "")
+    return (ts, int(row.get("run_number") or 0))
 
 
 def _score_row_key(row: dict[str, Any]) -> str | None:
@@ -133,7 +141,7 @@ def recover(
     predictions = _merge_rows(
         pred_sources,
         _prediction_key,
-        sort_key=lambda r: (int(r.get("run_number") or 0), str(r.get("timestamp") or "")),
+        sort_key=_prediction_sort_key,
     )
     scores = _merge_rows(
         score_sources,

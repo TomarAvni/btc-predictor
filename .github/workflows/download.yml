@@ -1,6 +1,9 @@
 ﻿name: Download
 
 on:
+  schedule:
+    # Daily refresh so master keeps committed price parquet even between predicts.
+    - cron: '15 3 * * *'
   workflow_dispatch:
 
 permissions:

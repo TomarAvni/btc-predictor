@@ -39,6 +39,11 @@ jobs:
             echo "Trained model artifacts found in data/validation/models/"
           fi
 
+      - name: Refresh price candles
+        env:
+          BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
+        run: python main.py --download
+
       - name: Predict
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
@@ -58,6 +63,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          TARGET_BRANCH="master"
+          git fetch origin "$TARGET_BRANCH"
+          # Union append-only JSONL stores with upstream so concurrent hourly
+          # runs never drop newly appended prediction/score rows on rebase.
+          python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore
           git add -A
           if git diff --staged --quiet; then
             echo "No changes to commit."
@@ -67,12 +77,14 @@ jobs:
           # Pipeline artifacts (predictions, scores, labeled store, trading)
           # must always land on master so the dashboard and closed-loop trainer
           # read a single canonical history regardless of dispatch branch.
-          TARGET_BRANCH="master"
-          # Resilient push: re-sync and retry so concurrent runs / data-file
-          # conflicts self-heal instead of failing the whole prediction run.
           for attempt in 1 2 3 4 5; do
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
-            if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
+            python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore || true
+            git add data/predictions/predictions.jsonl data/performance/prediction_scores.jsonl data/training_data/labeled.jsonl
+            if ! git diff --staged --quiet; then
+              git commit --amend --no-edit
+            fi
+            if ! git rebase "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
               git rebase --abort || true
               sleep $((RANDOM % 5 + 3))
