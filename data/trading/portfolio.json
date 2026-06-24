@@ -1,10 +1,10 @@
 {
-  "cash": 1489.920149066596,
-  "btc_holdings": 0.002545892309833033,
+  "cash": 1330.472045066596,
+  "btc_holdings": 0.00508924965210325,
   "peak_value": 2000.0,
-  "last_price": 62627.22,
-  "daily_start_value": 1978.368803857836,
-  "daily_start_date": "2026-06-23T00:18:11.405374+00:00",
+  "last_price": 62685.71,
+  "daily_start_value": 1968.8934569881324,
+  "daily_start_date": "2026-06-24T00:06:31.609868+00:00",
   "positions": [
     {
       "id": "05af36ac9f8e",
@@ -53,7 +53,23 @@
       "confidence": 59,
       "reason": "30h prediction: UP +0.20% @ 59% confidence; Cost-aware edge: 0.14% after estimated 0.06% round-trip cost; Multi-timeframe alignment: Strong (score 14.87); Supporting timeframes: 6h (66%), 12h (63%), 18h (61%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
       "used_ml": true
+    },
+    {
+      "id": "03bd707d0d0b",
+      "entry_time": "2026-06-24T00:06:31.609868+00:00",
+      "entry_price": 62691.978571,
+      "amount_usd": 159.448104,
+      "amount_btc": 0.002543357342270218,
+      "side": "LONG",
+      "timeframe": "30h",
+      "stop_loss": 62441.210656716,
+      "take_profit": 62854.97771528459,
+      "trailing_stop_active": false,
+      "prediction_id": "68bee141363b",
+      "confidence": 59,
+      "reason": "30h prediction: UP +0.20% @ 59% confidence; Cost-aware edge: 0.14% after estimated 0.06% round-trip cost; Multi-timeframe alignment: Strong (score 14.75); Supporting timeframes: 6h (66%), 12h (63%), 18h (61%), 36h (58%), 42h (57%), 48h (56%), 54h (56%), 60h (55%), 66h (55%), 72h (55%), 78h (54%), 84h (54%), 90h (53%), 96h (53%), 102h (53%), 108h (53%), 114h (52%), 120h (52%), 126h (52%), 132h (52%), 138h (52%), 144h (51%), 150h (51%), 156h (51%), 162h (51%)",
+      "used_ml": true
     }
   ],
-  "updated_at": "2026-06-23T22:21:43.300037+00:00"
+  "updated_at": "2026-06-24T00:06:31.610213+00:00"
 }
