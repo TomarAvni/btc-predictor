@@ -28,6 +28,7 @@ from dashboard.data_loader import (
     load_trading_journal,
 )
 from src.utils.timez import utc_str_to_israel
+from src.trading.paper_profile import PROFILE_LABEL, get_paper_profile_summary
 
 inject_css()
 render_mobile_nav()
@@ -42,6 +43,14 @@ health = get_data_health()
 activity = get_trading_activity_summary(trades=trades, journal=journal, portfolio=portfolio)
 
 st.markdown("# 💹 Trading Agent")
+profile = get_paper_profile_summary()
+st.info(
+    f"**{PROFILE_LABEL}** — simulated trades only, no real funds. "
+    f"Entry ≥ **{profile['min_confidence_pct']:.0f}%** confidence, "
+    f"up to **{profile['max_position_pct']:.0f}%** per trade, "
+    f"**{profile['max_open_positions']}** max open positions, "
+    f"**{profile['max_exposure_pct']:.0f}%** max exposure."
+)
 st.caption(
     "A **demo (paper-money)** trading agent that acts on the predictions — "
     "**no real funds are involved**. It starts from a **$2,000 virtual** balance."

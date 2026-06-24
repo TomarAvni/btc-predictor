@@ -28,13 +28,12 @@ class RiskCheck:
 class RiskManager:
     """Portfolio-level risk management and position protection."""
 
-    # Aggressive paper-trading limits. These intentionally allow many more
-    # BTC/USDT experiments than a real-money setup would.
-    MAX_OPEN_POSITIONS: int = 20
-    MAX_EXPOSURE_PCT: float = 100.0
-    MAX_DRAWDOWN_CIRCUIT_BREAKER: float = 80.0
-    DAILY_LOSS_LIMIT_PCT: float = 50.0
-    MAX_SINGLE_TRADE_RISK_PCT: float = 25.0
+    # Aggressive paper-trading limits. Simulated only — no live broker path.
+    MAX_OPEN_POSITIONS: int = 30
+    MAX_EXPOSURE_PCT: float = 200.0
+    MAX_DRAWDOWN_CIRCUIT_BREAKER: float = 90.0
+    DAILY_LOSS_LIMIT_PCT: float = 60.0
+    MAX_SINGLE_TRADE_RISK_PCT: float = 35.0
     MIN_TIME_BETWEEN_TRADES: timedelta = timedelta(0)
     CIRCUIT_BREAKER_COOLDOWN: timedelta = timedelta(hours=6)
 

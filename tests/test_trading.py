@@ -184,7 +184,9 @@ class TestStrategyCostAwareEntry(unittest.TestCase):
         self.assertEqual(signal.timeframe, "24h")
 
     def test_optional_evidence_gate_blocks_bad_horizon(self) -> None:
-        strategy = TradingStrategy(horizon_stats={"24h": {"n": 25, "expectancy": -1.0}})
+        strategy = TradingStrategy(
+            horizon_stats={"24h": {"n": 100, "expectancy": -1.0}},
+        )
         signal = strategy.evaluate_entry(
             predictions=[
                 {"timeframe": "24h", "direction": "UP", "magnitude": 3.0, "confidence": 80},
@@ -194,6 +196,45 @@ class TestStrategyCostAwareEntry(unittest.TestCase):
         )
         self.assertFalse(signal.should_enter)
         self.assertIn("Evidence gate", signal.reasons[0])
+
+    def test_evidence_gate_allows_mildly_negative_edge(self) -> None:
+        strategy = TradingStrategy(
+            horizon_stats={"24h": {"n": 100, "expectancy": -0.10}},
+        )
+        signal = strategy.evaluate_entry(
+            predictions=[
+                {"timeframe": "24h", "direction": "UP", "magnitude": 3.0, "confidence": 80},
+            ],
+            current_price=100_000.0,
+            open_positions=[],
+        )
+        self.assertTrue(signal.should_enter)
+
+    def test_allows_fifty_percent_confidence(self) -> None:
+        strategy = TradingStrategy()
+        signal = strategy.evaluate_entry(
+            predictions=[
+                {"timeframe": "6h", "direction": "UP", "magnitude": 0.15, "confidence": 50},
+            ],
+            current_price=100_000.0,
+            open_positions=[],
+        )
+        self.assertTrue(signal.should_enter)
+
+    def test_same_direction_cap_is_relaxed(self) -> None:
+        strategy = TradingStrategy()
+        open_positions = [
+            Position(entry_price=100.0, amount_btc=1.0, side="LONG"),
+            Position(entry_price=100.0, amount_btc=1.0, side="LONG"),
+        ]
+        signal = strategy.evaluate_entry(
+            predictions=[
+                {"timeframe": "6h", "direction": "UP", "magnitude": 0.15, "confidence": 80},
+            ],
+            current_price=100_000.0,
+            open_positions=open_positions,
+        )
+        self.assertTrue(signal.should_enter)
 
 
 class _AgentTestBase(unittest.TestCase):

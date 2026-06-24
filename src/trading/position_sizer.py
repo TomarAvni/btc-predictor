@@ -25,16 +25,16 @@ class SizingResult:
 class PositionSizer:
     """Confidence-based position sizing with Kelly Criterion."""
 
-    MIN_CONFIDENCE: float = 55.0
+    MIN_CONFIDENCE: float = 50.0
     MIN_POSITION_USD: float = 10.0
-    MAX_POSITION_PCT: float = 0.85  # aggressive paper mode
-    KELLY_FRACTION: float = 0.75
+    MAX_POSITION_PCT: float = 0.95  # aggressive paper mode
+    KELLY_FRACTION: float = 0.85
 
     TIERS = [
-        (55.0, 65.0, 0.10, 0.20, "Small"),
-        (65.0, 75.0, 0.20, 0.35, "Medium"),
-        (75.0, 85.0, 0.35, 0.60, "Large"),
-        (85.0, 100.1, 0.60, 0.85, "Maximum"),
+        (50.0, 60.0, 0.15, 0.30, "Small"),
+        (60.0, 70.0, 0.30, 0.50, "Medium"),
+        (70.0, 80.0, 0.50, 0.75, "Large"),
+        (80.0, 100.1, 0.75, 0.95, "Maximum"),
     ]
 
     def calculate(
@@ -70,7 +70,7 @@ class PositionSizer:
                 position_pct=0.0,
                 tier="No Trade",
                 kelly_fraction=0.0,
-                adjustments=["Confidence below minimum threshold (55%)"],
+                adjustments=["Confidence below minimum threshold (50%)"],
             )
 
         if expected_move_pct is not None:
@@ -129,15 +129,15 @@ class PositionSizer:
             position_amount *= 0.50
             adjustments.append(f"Weak/conflicting signals (score {alignment_score:.2f}): -50%")
 
-        # Drawdown defensive mode
-        if current_drawdown_pct > 40.0:
+        # Drawdown defensive mode (paper): taper only on deep drawdowns.
+        if current_drawdown_pct > 55.0:
             position_amount *= 0.75
             adjustments.append(f"Paper defensive mode (drawdown {current_drawdown_pct:.1f}%): -25%")
 
-        # Only taper once the paper book is already very crowded.
-        if open_position_count >= 10:
-            reduction = 0.05 * (open_position_count - 9)
-            reduction = min(reduction, 0.50)
+        # Only taper once the paper book is heavily crowded.
+        if open_position_count >= 15:
+            reduction = 0.04 * (open_position_count - 14)
+            reduction = min(reduction, 0.35)
             position_amount *= (1.0 - reduction)
             adjustments.append(
                 f"{open_position_count} open positions: -{reduction*100:.0f}%"

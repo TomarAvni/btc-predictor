@@ -45,10 +45,14 @@ class ExitSignal:
 class TradingStrategy:
     """Evaluates predictions and generates trade signals."""
 
-    MIN_CONFIDENCE: float = 55.0
+    # Aggressive paper profile: lower bars, more entries; still cost-aware.
+    MIN_CONFIDENCE: float = 50.0
     ROUND_TRIP_COST_PCT: float = OrderSimulator.ROUND_TRIP_COST_PCT
-    MIN_ACTIONABLE_MOVE_PCT: float = 0.10
-    MIN_EVIDENCE_SAMPLES: int = 20
+    MIN_ACTIONABLE_MOVE_PCT: float = 0.0  # cost floor only (see viable filter)
+    MIN_EVIDENCE_SAMPLES: int = 80
+    EVIDENCE_BLOCK_EXPECTANCY: float = -0.50  # block only clearly bad edges
+    MAX_SAME_DIRECTION_POSITIONS: int = 8
+    CONFLICT_CONFIDENCE_THRESHOLD: float = 72.0
     ALIGNMENT_STRONG_THRESHOLD: float = 1.5
     ALIGNMENT_WEAK_THRESHOLD: float = 0.5
 
@@ -97,19 +101,17 @@ class TradingStrategy:
                 f"No predictions above minimum confidence ({self.MIN_CONFIDENCE}%)"
             )
 
-        # Aggressive paper mode: test short-term BTC/USDT scalps once the model
-        # predicts more than 0.10% movement and the move clears the low-fee
-        # simulator cost model.
+        # Aggressive paper mode: allow small predicted moves when they still
+        # clear the low-fee simulator round-trip cost model.
+        min_move = max(self.MIN_ACTIONABLE_MOVE_PCT, self.ROUND_TRIP_COST_PCT)
         viable = [
             p for p in confidence_viable
-            if abs(float(p.get("magnitude", 0.0) or 0.0)) > self.MIN_ACTIONABLE_MOVE_PCT
-            and abs(float(p.get("magnitude", 0.0) or 0.0)) > self.ROUND_TRIP_COST_PCT
+            if abs(float(p.get("magnitude", 0.0) or 0.0)) > min_move
         ]
         if not viable:
             return self._no_trade(
                 "No predictions clear aggressive paper edge threshold "
-                f"(>{self.MIN_ACTIONABLE_MOVE_PCT:.2f}% move and "
-                f">{self.ROUND_TRIP_COST_PCT:.2f}% cost)"
+                f"(>{min_move:.2f}% move after costs)"
             )
 
         primary = max(viable, key=lambda p: self._entry_score(predictions, p))
@@ -126,7 +128,8 @@ class TradingStrategy:
         if alignment_score < self.ALIGNMENT_WEAK_THRESHOLD:
             strong_conflicts = [
                 p for p in predictions
-                if p["direction"] != primary_direction and p["confidence"] >= 65
+                if p["direction"] != primary_direction
+                and p["confidence"] >= self.CONFLICT_CONFIDENCE_THRESHOLD
             ]
             if strong_conflicts:
                 return self._no_trade(
@@ -140,9 +143,10 @@ class TradingStrategy:
             if (p.side == "LONG" and primary_direction == "UP")
             or (p.side == "SHORT" and primary_direction == "DOWN")
         ]
-        if len(same_direction_positions) >= 2:
+        if len(same_direction_positions) >= self.MAX_SAME_DIRECTION_POSITIONS:
             return self._no_trade(
-                f"Already have {len(same_direction_positions)} positions in same direction"
+                f"Already have {len(same_direction_positions)} positions in same direction "
+                f"(max {self.MAX_SAME_DIRECTION_POSITIONS})"
             )
 
         direction = "LONG" if primary_direction == "UP" else "SHORT"
@@ -263,10 +267,10 @@ class TradingStrategy:
                 continue
             n = int(stats.get("n", stats.get("total_trades", 0)) or 0)
             expectancy = float(stats.get("expectancy", stats.get("expectancy_usd", 0.0)) or 0.0)
-            if n >= self.MIN_EVIDENCE_SAMPLES and expectancy <= 0:
+            if n >= self.MIN_EVIDENCE_SAMPLES and expectancy <= self.EVIDENCE_BLOCK_EXPECTANCY:
                 return (
                     f"Evidence gate: {label} {timeframe if label == 'horizon' else side} "
-                    f"has non-positive realized edge ({expectancy:.4f}) over {n} samples"
+                    f"has weak realized edge ({expectancy:.4f}) over {n} samples"
                 )
         return None
 
