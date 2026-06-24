@@ -1,0 +1,66 @@
+name: Predict Watchdog
+
+on:
+  schedule:
+    # Offset from Predict's twice-hourly schedule; recovers when cron events
+    # are dropped and no prediction has landed within the stale threshold.
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: predict-pipeline
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check prediction freshness
+        id: freshness
+        run: python -m src.utils.prediction_freshness --max-age-hours 1 --github-output "$GITHUB_OUTPUT"
+
+      - name: Check for active Predict runs
+        id: active
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          active=0
+          for status in queued in_progress waiting pending requested; do
+            count=$(gh api --method GET \
+              "/repos/$GH_REPO/actions/workflows/predict.yml/runs" \
+              -f status="$status" \
+              -f per_page=1 \
+              --jq '.total_count')
+            echo "$status=$count"
+            active=$((active + count))
+          done
+          echo "count=$active" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch Predict recovery run
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run predict.yml --ref master
+          echo "Dispatched Predict because pipeline output is stale and no Predict run is active."
+
+      - name: Skip recovery because Predict is active
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
+        run: echo "Predictions are stale, but a Predict run is already queued or running."
+
+      - name: Report fresh prediction pipeline
+        if: steps.freshness.outputs.stale != 'true'
+        run: echo "Prediction pipeline is fresh: ${{ steps.freshness.outputs.reason }}"
