@@ -761,6 +761,43 @@ def get_training_status() -> dict[str, Any]:
     }
 
 
+def get_trading_activity_summary(
+    trades: list[dict[str, Any]] | None = None,
+    journal: list[dict[str, Any]] | None = None,
+    portfolio: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Break down closed trades vs journal decisions vs open positions."""
+    trades = trades if trades is not None else load_trades()
+    journal = journal if journal is not None else load_trading_journal()
+    portfolio = portfolio if portfolio is not None else load_portfolio_state()
+
+    action_counts: dict[str, int] = {}
+    for entry in journal:
+        action = str(entry.get("action") or "unknown")
+        action_counts[action] = action_counts.get(action, 0) + 1
+
+    entries = action_counts.get("BUY", 0) + action_counts.get("SHORT", 0)
+    exits = action_counts.get("CLOSE", 0)
+    skips = action_counts.get("SKIP", 0)
+    open_positions = len(portfolio.get("positions", [])) if portfolio else 0
+
+    trade_ids = [str(t.get("id")) for t in trades if t.get("id")]
+    duplicate_trade_ids = len(trade_ids) - len(set(trade_ids))
+    total_closed_pnl = sum(float(t.get("pnl_usd") or 0) for t in trades)
+
+    return {
+        "closed_trades": len(trades),
+        "open_positions": open_positions,
+        "journal_entries": len(journal),
+        "journal_entries_count": entries,
+        "journal_exits_count": exits,
+        "journal_skips_count": skips,
+        "journal_action_counts": action_counts,
+        "duplicate_trade_ids": duplicate_trade_ids,
+        "total_closed_pnl": round(total_closed_pnl, 2),
+    }
+
+
 def get_data_health() -> dict[str, Any]:
     """Summarize artifact freshness and obvious sync problems."""
     runs = load_prediction_runs()
@@ -770,6 +807,7 @@ def get_data_health() -> dict[str, Any]:
     portfolio = load_portfolio_state()
     trades = load_trades()
     journal = load_trading_journal()
+    activity = get_trading_activity_summary(trades=trades, journal=journal, portfolio=portfolio)
 
     latest_prediction = _latest_run_by_timestamp(runs)
     latest_trade_exit = _latest_timestamp(trades, ("exit_time",))
@@ -838,6 +876,14 @@ def get_data_health() -> dict[str, Any]:
         action = latest_journal.get("action")
         if action != "SKIP":
             warnings.append("Latest journal action is newer than closed-trade history.")
+    if activity["duplicate_trade_ids"] > 0:
+        warnings.append(
+            f"{activity['duplicate_trade_ids']} duplicate closed-trade IDs detected in trades.json."
+        )
+    if activity["journal_exits_count"] > activity["closed_trades"]:
+        warnings.append(
+            "Journal CLOSE count exceeds closed trades on disk; some exits may be missing from trades.json."
+        )
 
     return {
         "latest_prediction_run": latest_prediction.get("run_number") if latest_prediction else None,
@@ -848,9 +894,16 @@ def get_data_health() -> dict[str, Any]:
         "scored_predictions": len(scores),
         "latest_score_time": latest_score,
         "portfolio_updated_at": portfolio_updated,
-        "closed_trades": len(trades),
+        "closed_trades": activity["closed_trades"],
+        "open_positions": activity["open_positions"],
+        "journal_entries": activity["journal_entries"],
+        "journal_entries_count": activity["journal_entries_count"],
+        "journal_exits_count": activity["journal_exits_count"],
+        "journal_skips_count": activity["journal_skips_count"],
+        "journal_action_counts": activity["journal_action_counts"],
+        "total_closed_pnl": activity["total_closed_pnl"],
+        "duplicate_trade_ids": activity["duplicate_trade_ids"],
         "latest_trade_exit": latest_trade_exit,
-        "journal_entries": len(journal),
         "latest_journal_action": latest_journal.get("action") if latest_journal else None,
         "latest_journal_time": latest_journal.get("timestamp") if latest_journal else None,
         "warnings": warnings,

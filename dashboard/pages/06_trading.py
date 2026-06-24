@@ -21,6 +21,7 @@ from dashboard.components.metrics_cards import render_metric_card
 from dashboard.components.mobile_nav import render_mobile_nav
 from dashboard.data_loader import (
     get_data_health,
+    get_trading_activity_summary,
     load_portfolio_state,
     load_trades,
     load_trading_backtest,
@@ -38,6 +39,7 @@ trades = load_trades()
 backtest = load_trading_backtest()
 journal = load_trading_journal()
 health = get_data_health()
+activity = get_trading_activity_summary(trades=trades, journal=journal, portfolio=portfolio)
 
 st.markdown("# 💹 Trading Agent")
 st.caption(
@@ -74,18 +76,33 @@ if portfolio is None and not trades and backtest is None:
 # ── Data Health ───────────────────────────────────────────────────────────
 
 st.markdown("### Trading Data Health")
+st.caption(
+    "Closed trades are completed positions in trades.json. "
+    "Journal entries include every decision — entries, exits, and SKIPs."
+)
 layout_marker("stack")
-h1, h2, h3, h4 = st.columns(4, gap="small")
+h1, h2, h3, h4, h5, h6 = st.columns(6, gap="small")
 with h1:
-    render_metric_card("Closed Trades", str(health.get("closed_trades", 0)))
+    render_metric_card("Closed Trades", str(activity.get("closed_trades", 0)))
 with h2:
-    render_metric_card("Journal Entries", str(health.get("journal_entries", 0)))
+    render_metric_card("Open Positions", str(activity.get("open_positions", 0)))
 with h3:
+    render_metric_card("Journal Decisions", str(activity.get("journal_entries", 0)))
+with h4:
+    render_metric_card("Entries (BUY/SHORT)", str(activity.get("journal_entries_count", 0)))
+with h5:
+    render_metric_card("Exits (CLOSE)", str(activity.get("journal_exits_count", 0)))
+with h6:
+    render_metric_card("Skips", str(activity.get("journal_skips_count", 0)))
+
+layout_marker("stack")
+h7, h8 = st.columns(2, gap="small")
+with h7:
     render_metric_card(
         "Portfolio Updated",
         utc_str_to_israel(health.get("portfolio_updated_at"), fallback="—"),
     )
-with h4:
+with h8:
     latest_action = health.get("latest_journal_action") or "—"
     render_metric_card("Latest Journal Action", str(latest_action))
 
@@ -214,17 +231,19 @@ if trades:
     avg_loss = np.mean([t["pnl_usd"] for t in trades if t.get("pnl_usd", 0) <= 0]) if losers else 0
 
     layout_marker("stack")
-    s1, s2, s3, s4, s5 = st.columns(5, gap="small")
+    s1, s2, s3, s4, s5, s6 = st.columns(6, gap="small")
     with s1:
-        render_metric_card("Total Trades", str(len(trades)))
+        render_metric_card("Closed Trades", str(len(trades)))
     with s2:
         render_metric_card("Win Rate", f"{win_rate:.1f}%", delta_color="green" if win_rate > 50 else "red")
     with s3:
-        render_metric_card("Total P&L", f"${total_pnl:+.2f}", delta_color="green" if total_pnl >= 0 else "red")
+        render_metric_card("Closed P&L", f"${total_pnl:+.2f}", delta_color="green" if total_pnl >= 0 else "red")
     with s4:
         render_metric_card("Avg Win", f"${avg_win:+.2f}", delta_color="green")
     with s5:
         render_metric_card("Avg Loss", f"${avg_loss:.2f}", delta_color="red")
+    with s6:
+        render_metric_card("Journal Skips", str(activity.get("journal_skips_count", 0)))
 
 # ── Decision Journal ──────────────────────────────────────────────────────
 
