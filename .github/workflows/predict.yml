@@ -2,16 +2,22 @@
 
 on:
   schedule:
-    # Hourly, offset from :00 because GitHub can delay top-of-hour schedules.
-    - cron: '7 * * * *'
+    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: predict-pipeline
+  cancel-in-progress: false
+
 jobs:
   predict:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -80,9 +86,14 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
             python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore || true
-            git add data/predictions/predictions.jsonl data/performance/prediction_scores.jsonl data/training_data/labeled.jsonl
+            git add -A
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
+            fi
+            if ! git diff --quiet; then
+              echo "Unstaged changes remain after amend; staging all before rebase."
+              git add -A
+              git commit --amend --no-edit || true
             fi
             if ! git rebase "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
