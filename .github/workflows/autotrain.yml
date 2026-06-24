@@ -1,15 +1,32 @@
-﻿name: Retrain
+name: Autotrain
+
+# Closed-loop auto-training: learn from realized prediction outcomes.
+# Daily it grades any newly matured predictions (enriched scoring -> labeled
+# store), refits the probability calibrator on real live hit-rates, and -- once
+# enough live data has matured -- blends those labeled rows into model
+# retraining behind a promotion guard (never auto-promote a worse model).
 
 on:
   schedule:
-    - cron: '0 3 * * 0'
+    # Daily at 04:17 UTC. Offset from the top of the hour (GitHub delays
+    # on-the-hour schedules) and from Retrain (Sun 03:00) / Predict.
+    - cron: '17 4 * * *'
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Evaluate + report only, promote nothing'
+        type: boolean
+        default: false
+      retrain_models:
+        description: 'Also blend live data into model retraining (heavy; gated)'
+        type: boolean
+        default: true
 
 permissions:
   contents: write
 
 jobs:
-  retrain:
+  autotrain:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,22 +51,33 @@ jobs:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
         run: python main.py --download
 
-      - name: Score mature predictions
+      - name: Score mature predictions (enriched) + update labeled store
         run: python score_predictions.py
 
-      - name: Train and validate
-        run: python validate.py --split 0.8 --output data/validation/ --skip-tft
+      - name: Closed-loop auto-train (calibrator refit + guarded retrain)
+        run: |
+          ARGS="--skip-tft"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ "${{ github.event.inputs.retrain_models }}" = "false" ]; then
+            ARGS="$ARGS --no-retrain-models"
+          fi
+          echo "autotrain args: $ARGS"
+          python autotrain.py $ARGS
 
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/validation/ data/performance/ data/price/
+          # Track the labeled store, autotrain report, refreshed scores and any
+          # promoted serving artifacts (calibrator / models). Staging is gitignored.
+          git add data/training_data/ data/performance/ data/validation/ data/predictions/
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "chore: weekly retrain and performance update [skip ci]"
+          git commit -m "chore: closed-loop autotrain update [skip ci]"
           TARGET_BRANCH="master"
           # Resilient push: re-sync and retry so concurrent runs / data-file
           # conflicts self-heal instead of failing the whole run.
@@ -68,5 +96,5 @@ jobs:
             echo "Push rejected (concurrent update); re-syncing and retrying (attempt $attempt)."
             sleep $((RANDOM % 5 + 3))
           done
-          echo "::error::Could not push retrain results after 5 attempts."
+          echo "::error::Could not push autotrain results after 5 attempts."
           exit 1

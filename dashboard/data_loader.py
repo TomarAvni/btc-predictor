@@ -377,15 +377,42 @@ def load_prediction_scores() -> list[dict[str, Any]]:
 
 @st.cache_data(ttl=60)
 def load_rolling_accuracy() -> dict[str, Any]:
-    """Load rolling accuracy stats from rolling_accuracy.json."""
+    """Load rolling accuracy stats from rolling_accuracy.json.
+
+    When the JSON snapshot is empty but scored rows exist on disk (for example
+    after a branch merge dropped ``prediction_scores.jsonl`` but left a zeroed
+    rolling file), recompute from the score log so the dashboard stays fresh.
+    """
     path = PERFORMANCE_DIR / "rolling_accuracy.json"
-    if not path.exists():
-        return {}
-    try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    except (json.JSONDecodeError, OSError):
-        return {}
+    scores = load_prediction_scores()
+    if path.exists():
+        try:
+            with open(path, encoding="utf-8") as f:
+                rolling = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            rolling = {}
+    else:
+        rolling = {}
+
+    if scores and _rolling_accuracy_is_empty(rolling):
+        from src.engine.scorer import compute_rolling_accuracy
+
+        return compute_rolling_accuracy(scores)
+    return rolling
+
+
+def _rolling_accuracy_is_empty(rolling: dict[str, Any]) -> bool:
+    """True when rolling stats contain no scored predictions."""
+    timeframes = rolling.get("timeframes")
+    if not isinstance(timeframes, dict):
+        return True
+    for windows in timeframes.values():
+        if not isinstance(windows, dict):
+            continue
+        all_time = windows.get("all_time") or {}
+        if all_time.get("n_scored", 0):
+            return False
+    return True
 
 
 def get_live_performance_scores() -> list[dict[str, Any]]:
@@ -541,6 +568,11 @@ def get_data_health() -> dict[str, Any]:
     warnings: list[str] = []
     if not scores:
         warnings.append("No scored predictions yet; performance charts should not be treated as live accuracy.")
+    elif _rolling_accuracy_is_empty(load_rolling_accuracy()) and scores:
+        warnings.append(
+            "Rolling accuracy snapshot is empty but scored rows exist; "
+            "charts recompute from prediction_scores.jsonl."
+        )
     if latest_journal and portfolio_updated and str(latest_journal.get("timestamp")) > str(portfolio_updated):
         warnings.append("Trading journal is newer than portfolio state; portfolio view may be stale.")
     if latest_journal and latest_trade_exit and str(latest_journal.get("timestamp")) > str(latest_trade_exit):
