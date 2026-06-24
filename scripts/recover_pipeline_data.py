@@ -177,7 +177,10 @@ def recover(
         scores_path=scores_path,
         store_path=labeled_path,
     )
-    scorer_result = run_scorer()
+    # Predict's commit step passes --no-rescore and only stages JSONL files.
+    # run_scorer() rewrites rolling_accuracy/calibration_live and would leave
+    # unstaged changes that block git rebase in the workflow retry loop.
+    scorer_result = run_scorer() if rescore else None
 
     return {
         "prediction_rows": len(predictions),
