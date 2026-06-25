@@ -2,7 +2,8 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # Offset from Predict (:07/:37) so we detect stale runs within ~30 minutes.
+    # Runs shortly after Predict's :07/:37 slots to recover when cron events
+    # are dropped and predictions.log has gone stale for over an hour.
     - cron: '17,47 * * * *'
   workflow_dispatch:
 
@@ -57,9 +58,8 @@ jobs:
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
         run: |
-          gh workflow run predict.yml --ref "${{ github.ref_name }}"
+          gh workflow run predict.yml --ref master
           echo "Dispatched Predict because predictions.log is stale and no Predict run is active."
 
       - name: Skip recovery because Predict is active
