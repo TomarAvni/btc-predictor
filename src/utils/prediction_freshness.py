@@ -67,9 +67,7 @@ def latest_prediction_timestamp(path: Path = PREDICTIONS_LOG) -> datetime | None
     for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         match = _RUN_HEADER.search(line)
         if match:
-            timestamp = parse_prediction_timestamp(match.group(1))
-            if latest is None or timestamp > latest:
-                latest = timestamp
+            latest = parse_prediction_timestamp(match.group(1))
     return latest
 
 
