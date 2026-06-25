@@ -170,6 +170,10 @@ Predict also has a 25-minute job timeout and a shared `predict-pipeline`
 concurrency group. The watchdog uses the same group, so recovery checks do not
 race with an active prediction run.
 
+Predict also has a 25-minute job timeout and a shared `predict-pipeline`
+concurrency group. The watchdog uses the same group, so recovery checks do not
+race with an active prediction run.
+
 All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
 Predict also has a 25-minute job timeout and a shared `predict-pipeline`
