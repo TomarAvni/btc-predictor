@@ -177,7 +177,7 @@ def recover(
         scores_path=scores_path,
         store_path=labeled_path,
     )
-    scorer_result: dict[str, Any] | None = None
+    scorer_result = None
     if rescore:
         scorer_result = run_scorer()
 

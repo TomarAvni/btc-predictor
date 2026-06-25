@@ -108,25 +108,16 @@ jobs:
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
             fi
-            if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
-              echo "Rebase hit conflicts; preferring replayed commit and continuing (attempt $attempt)."
-              if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
-                while IFS= read -r conflicted; do
-                  [ -n "$conflicted" ] || continue
-                  git checkout --theirs -- "$conflicted" || true
-                  git add -- "$conflicted" || true
-                done < <(git diff --name-only --diff-filter=U)
-                if ! GIT_EDITOR=true git rebase --continue; then
-                  echo "Could not continue rebase; aborting and retrying (attempt $attempt)."
-                  git rebase --abort || true
-                  sleep $((RANDOM % 5 + 3))
-                  continue
-                fi
-              else
-                git rebase --abort || true
-                sleep $((RANDOM % 5 + 3))
-                continue
-              fi
+            if ! git diff --quiet; then
+              echo "Unstaged changes remain after amend; staging all before rebase."
+              git add -A
+              git commit --amend --no-edit || true
+            fi
+            if ! git rebase "origin/$TARGET_BRANCH"; then
+              echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
+              git rebase --abort || true
+              sleep $((RANDOM % 5 + 3))
+              continue
             fi
             if git push origin "HEAD:$TARGET_BRANCH"; then
               echo "Pushed successfully on attempt $attempt."
