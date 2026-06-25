@@ -149,11 +149,11 @@ Four workflows run a hands-off pipeline: **Download → Train → Predict**, wit
 |----------|---------|--------------|
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
-| **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
-| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly cron or manual | Checks `predictions.log`; if the latest prediction is older than 3 hours and no Predict run is active, dispatches a recovery Predict run |
+| **Predict** (`predict.yml`) | Hourly (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly (offset cron) or manual | Dispatches **Predict** when `predictions.log` has no run within the last hour and no Predict job is already active |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
-**Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule. The watchdog runs hourly as a safety net for dropped or delayed scheduled Predict runs.
+**Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs hourly on the schedule; **Predict Watchdog** recovers if GitHub drops scheduled events and the log goes stale for more than an hour.
 
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
 Predict also has a 25-minute job timeout and a shared `predict-pipeline` concurrency group so delayed or stuck runs do not pile up. The watchdog uses `python -m src.utils.prediction_freshness --max-age-hours 3` as its stale-run detector.
@@ -164,14 +164,14 @@ Predict runs share the `predict-pipeline` concurrency group so scheduled and wat
 
 The system improves over time through a closed feedback loop:
 
-1. **Predict** (`predict.yml`, every 30 min; watchdog recovery after 3 stale hours) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions.
+1. **Predict** (`predict.yml`, hourly) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions.
 2. **Score** (`score_predictions.py`) — for each prediction whose horizon has elapsed (any 6h-step point up to 168h, plus 30d), compares predicted direction and magnitude to the actual BTC move from `data/price/btc_hourly.parquet`. Results append to `data/performance/prediction_scores.jsonl`; rolling stats land in `data/performance/rolling_accuracy.json`.
 3. **Predict Watchdog** (`predict-watchdog.yml`, hourly) — treats `predictions.log` as stale after 3 hours without a new prediction and dispatches Predict if GitHub cron skipped scheduled runs.
 4. **Retrain** (`retrain.yml`, weekly Sunday 3am UTC) — downloads fresh candles, scores any newly mature predictions, retrains models via `validate.py`, and commits updated models + performance data.
 5. **Dashboard** — the Performance page shows live rolling accuracy; the Signals page shows feature importance from the latest validation run.
 
 ```
-Download → Train (initial) → Predict (every 30m) → Score → Retrain (weekly) → Predict uses new models
+Download → Train (initial) → Predict (hourly) → Score → Retrain (weekly) → Predict uses new models
 ```
 
 Live predict loads trained models from `data/validation/models/` (configured in `config/settings.yaml`). If models are missing, it falls back to TA heuristics and logs a warning.

@@ -2,6 +2,8 @@ name: Predict Watchdog
 
 on:
   schedule:
+    # Offset from Predict's :07 schedule; recovers when cron events are dropped
+    # and no committed prediction has landed within the stale threshold.
     - cron: '17 * * * *'
   workflow_dispatch:
 
@@ -29,7 +31,7 @@ jobs:
       - name: Check prediction freshness
         id: freshness
         run: |
-          if python -m src.utils.prediction_freshness --log-path predictions.log --max-age-hours 3; then
+          if python -m src.utils.prediction_freshness --log-path predictions.log --max-age-hours 1; then
             echo "stale=false" >> "$GITHUB_OUTPUT"
           else
             echo "stale=true" >> "$GITHUB_OUTPUT"
@@ -60,7 +62,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             "/repos/${GITHUB_REPOSITORY}/actions/workflows/predict.yml/dispatches" \
             -f ref=master
-          echo "Dispatched Predict because predictions.log is stale."
+          echo "Dispatched Predict because predictions.log is stale (>1 hour)."
 
       - name: Skip dispatch when Predict is active
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'

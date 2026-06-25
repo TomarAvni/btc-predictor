@@ -41,18 +41,18 @@ class TestPredictionFreshness(unittest.TestCase):
     def test_fresh_when_latest_header_within_window(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.log"
-            _write_log(path, "2026-06-19 07:30 UTC")
+            _write_log(path, "2026-06-19 08:30 UTC")
 
             status = check_prediction_freshness(path, now=NOW)
 
             self.assertTrue(status.is_fresh)
             self.assertEqual(status.latest_run_number, 1)
-            self.assertEqual(status.age, timedelta(minutes=90))
+            self.assertEqual(status.age, timedelta(minutes=30))
 
     def test_stale_when_latest_header_exceeds_window(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.log"
-            _write_log(path, "2026-06-19 05:59 UTC")
+            _write_log(path, "2026-06-19 07:59 UTC")
 
             status = check_prediction_freshness(path, now=NOW)
 
@@ -128,7 +128,7 @@ class TestPredictionFreshness(unittest.TestCase):
             path = Path(tmp) / "empty.log"
             path.write_text("", encoding="utf-8")
 
-            self.assertEqual(main(["--log-path", str(path), "--max-age-hours", "3"]), 1)
+            self.assertEqual(main(["--log-path", str(path), "--max-age-hours", "1"]), 1)
 
 
 if __name__ == "__main__":

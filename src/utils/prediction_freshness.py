@@ -74,7 +74,7 @@ def iter_prediction_headers(path: Path) -> list[tuple[datetime, int]]:
 def check_prediction_freshness(
     path: Path | str = PREDICTIONS_LOG,
     *,
-    max_age: timedelta = timedelta(hours=3),
+    max_age: timedelta = timedelta(hours=1),
     now: datetime | None = None,
 ) -> PredictionFreshness:
     """Check whether *path* contains a recent prediction run."""
@@ -147,8 +147,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--max-age-hours",
         type=float,
-        default=3.0,
-        help="Maximum allowed age of the latest prediction run (default: 3)",
+        default=1.0,
+        help="Maximum allowed age of the latest prediction run (default: 1)",
     )
     return parser
 
