@@ -1,4 +1,4 @@
-"""Unit tests for prediction pipeline freshness checks."""
+"""Tests for prediction pipeline freshness checks."""
 
 from __future__ import annotations
 
@@ -6,59 +6,90 @@ import os
 import sys
 import tempfile
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.utils.prediction_freshness import (  # noqa: E402
-    is_prediction_stale,
-    latest_prediction_timestamp,
+    check_prediction_freshness,
+    latest_prediction_run_at,
     parse_prediction_timestamp,
-    prediction_age_hours,
 )
 
 
 class TestPredictionFreshness(unittest.TestCase):
-    def test_parse_prediction_header(self) -> None:
-        timestamp = parse_prediction_timestamp("[2026-06-17 00:26 UTC] -- Prediction Run #41")
-        self.assertEqual(timestamp, datetime(2026, 6, 17, 0, 26, tzinfo=timezone.utc))
+    def test_parse_prediction_timestamp_is_utc_aware(self) -> None:
+        parsed = parse_prediction_timestamp("2026-06-17 05:26 UTC")
 
-    def test_ignores_non_header_lines(self) -> None:
-        self.assertIsNone(parse_prediction_timestamp("PREDICTIONS:"))
+        self.assertEqual(parsed, datetime(2026, 6, 17, 5, 26, tzinfo=timezone.utc))
 
-    def test_latest_prediction_timestamp_uses_newest_header(self) -> None:
+    def test_latest_prediction_run_at_uses_newest_header(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             log_path = Path(tmp) / "predictions.log"
             log_path.write_text(
-                "\n".join(
-                    [
-                        "[2026-06-17 00:26 UTC] -- Prediction Run #41",
-                        "PREDICTIONS:",
-                        "[2026-06-17 02:07 UTC] -- Prediction Run #42",
-                    ]
-                ),
+                """
+================================================================================
+[2026-06-17 00:26 UTC] -- Prediction Run #41
+================================================================================
+[2026-06-17 05:26 UTC] -- Prediction Run #42
+================================================================================
+""",
                 encoding="utf-8",
             )
 
             self.assertEqual(
-                latest_prediction_timestamp(log_path),
-                datetime(2026, 6, 17, 2, 7, tzinfo=timezone.utc),
+                latest_prediction_run_at(log_path),
+                datetime(2026, 6, 17, 5, 26, tzinfo=timezone.utc),
             )
 
-    def test_missing_log_is_stale(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            self.assertTrue(is_prediction_stale(Path(tmp) / "missing.log"))
-
-    def test_age_and_staleness_boundary(self) -> None:
+    def test_check_prediction_freshness_accepts_recent_run(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             log_path = Path(tmp) / "predictions.log"
-            log_path.write_text("[2026-06-17 00:26 UTC] -- Prediction Run #41\n", encoding="utf-8")
-            now = datetime(2026, 6, 17, 3, 26, tzinfo=timezone.utc)
+            log_path.write_text(
+                "[2026-06-17 05:26 UTC] -- Prediction Run #42",
+                encoding="utf-8",
+            )
 
-            self.assertAlmostEqual(prediction_age_hours(log_path, now=now), 3.0)
-            self.assertFalse(is_prediction_stale(log_path, max_age_hours=3.0, now=now))
-            self.assertTrue(is_prediction_stale(log_path, max_age_hours=2.99, now=now))
+            result = check_prediction_freshness(
+                log_path,
+                max_age=timedelta(hours=3),
+                now=datetime(2026, 6, 17, 7, 0, tzinfo=timezone.utc),
+            )
+
+            self.assertTrue(result.is_fresh)
+            self.assertEqual(result.age, timedelta(hours=1, minutes=34))
+
+    def test_check_prediction_freshness_rejects_stale_run(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            log_path.write_text(
+                "[2026-06-17 00:26 UTC] -- Prediction Run #41",
+                encoding="utf-8",
+            )
+
+            result = check_prediction_freshness(
+                log_path,
+                max_age=timedelta(hours=3),
+                now=datetime(2026, 6, 17, 5, 0, tzinfo=timezone.utc),
+            )
+
+            self.assertFalse(result.is_fresh)
+            self.assertEqual(result.age, timedelta(hours=4, minutes=34))
+
+    def test_check_prediction_freshness_rejects_missing_or_unparseable_log(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            missing = Path(tmp) / "missing.log"
+            corrupt = Path(tmp) / "predictions.log"
+            corrupt.write_text("no prediction headers here", encoding="utf-8")
+
+            missing_result = check_prediction_freshness(missing)
+            corrupt_result = check_prediction_freshness(corrupt)
+
+            self.assertFalse(missing_result.is_fresh)
+            self.assertIsNone(missing_result.latest_run_at)
+            self.assertFalse(corrupt_result.is_fresh)
+            self.assertIsNone(corrupt_result.latest_run_at)
 
 
 if __name__ == "__main__":
