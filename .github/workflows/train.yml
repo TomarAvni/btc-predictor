@@ -56,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/validation/ data/price/
+          git add -A
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
@@ -64,6 +64,7 @@ jobs:
           git commit -m "chore: validation results [skip ci]"
           # Resilient push: re-sync and retry so concurrent runs / data-file
           # conflicts self-heal instead of failing the whole run.
+          git reset --hard HEAD
           for attempt in 1 2 3 4 5; do
             git fetch origin master || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
             if ! git rebase -X theirs origin/master; then
