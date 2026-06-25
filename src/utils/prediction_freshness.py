@@ -1,200 +1,118 @@
-"""Check whether the prediction pipeline has produced recent output."""
+"""Check whether the latest prediction log entry is recent enough."""
 
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import sys
-from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-DEFAULT_JSONL_PATH = Path("data/predictions/predictions.jsonl")
-DEFAULT_TEXT_LOG_PATH = Path("predictions.log")
-
-_TEXT_LOG_TIMESTAMP_RE = re.compile(
-    r"\[(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)\]\s+--\s+Prediction Run #"
+PREDICTION_HEADER_RE = re.compile(
+    r"\[(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)\]\s+--\s+Prediction Run #\d+"
 )
-_TEXT_LOG_TIMESTAMP_FMT = "%Y-%m-%d %H:%M UTC"
+PREDICTION_TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M UTC"
 
 
-@dataclass(frozen=True)
-class PredictionFreshness:
-    """Result of a freshness check."""
-
-    is_fresh: bool
-    latest_timestamp: datetime | None
-    age: timedelta | None
-    max_age: timedelta
-    source: str | None
-
-    @property
-    def status(self) -> str:
-        return "fresh" if self.is_fresh else "stale"
+def parse_prediction_timestamp(value: str) -> datetime:
+    """Parse the timestamp format written in ``predictions.log`` headers."""
+    parsed = datetime.strptime(value, PREDICTION_TIMESTAMP_FORMAT)
+    return parsed.replace(tzinfo=timezone.utc)
 
 
-def _ensure_utc(dt: datetime) -> datetime:
-    if dt.tzinfo is None:
-        return dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc)
-
-
-def _parse_iso_utc(value: object) -> datetime | None:
-    if not isinstance(value, str) or not value.strip():
-        return None
+def latest_prediction_timestamp(log_path: Path | str) -> datetime | None:
+    """Return the most recent prediction timestamp found in a text log."""
+    path = Path(log_path)
     try:
-        return _ensure_utc(datetime.fromisoformat(value.strip().replace("Z", "+00:00")))
-    except ValueError:
-        return None
-
-
-def latest_jsonl_timestamp(path: Path | str = DEFAULT_JSONL_PATH) -> datetime | None:
-    """Return the newest timestamp from the JSONL prediction log."""
-
-    log_path = Path(path)
-    if not log_path.exists():
+        content = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
         return None
 
     latest: datetime | None = None
-    try:
-        with log_path.open(encoding="utf-8") as fh:
-            for line in fh:
-                if not line.strip():
-                    continue
-                try:
-                    record = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                ts = _parse_iso_utc(record.get("timestamp"))
-                if ts and (latest is None or ts > latest):
-                    latest = ts
-    except OSError:
-        return None
-    return latest
-
-
-def latest_text_log_timestamp(path: Path | str = DEFAULT_TEXT_LOG_PATH) -> datetime | None:
-    """Return the newest timestamp from the human-readable prediction log."""
-
-    log_path = Path(path)
-    if not log_path.exists():
-        return None
-
-    latest: datetime | None = None
-    try:
-        content = log_path.read_text(encoding="utf-8")
-    except OSError:
-        return None
-
-    for match in _TEXT_LOG_TIMESTAMP_RE.finditer(content):
+    for match in PREDICTION_HEADER_RE.finditer(content):
         try:
-            ts = datetime.strptime(match.group("timestamp"), _TEXT_LOG_TIMESTAMP_FMT)
+            timestamp = parse_prediction_timestamp(match.group("timestamp"))
         except ValueError:
             continue
-        ts = ts.replace(tzinfo=timezone.utc)
-        if latest is None or ts > latest:
-            latest = ts
+        if latest is None or timestamp > latest:
+            latest = timestamp
     return latest
 
 
-def latest_prediction_timestamp(
+def prediction_age(
+    log_path: Path | str,
     *,
-    jsonl_path: Path | str = DEFAULT_JSONL_PATH,
-    text_log_path: Path | str = DEFAULT_TEXT_LOG_PATH,
-) -> tuple[datetime | None, str | None]:
-    """Return the newest prediction timestamp and the artifact it came from."""
-
-    candidates: list[tuple[datetime, str]] = []
-    jsonl_ts = latest_jsonl_timestamp(jsonl_path)
-    if jsonl_ts:
-        candidates.append((jsonl_ts, str(jsonl_path)))
-    text_ts = latest_text_log_timestamp(text_log_path)
-    if text_ts:
-        candidates.append((text_ts, str(text_log_path)))
-
-    if not candidates:
-        return None, None
-    return max(candidates, key=lambda item: item[0])
-
-
-def check_prediction_freshness(
-    *,
-    max_age_hours: float = 3.0,
     now: datetime | None = None,
-    jsonl_path: Path | str = DEFAULT_JSONL_PATH,
-    text_log_path: Path | str = DEFAULT_TEXT_LOG_PATH,
-) -> PredictionFreshness:
-    """Check whether the newest prediction artifact is within ``max_age_hours``."""
-
-    current_time = _ensure_utc(now or datetime.now(timezone.utc))
-    max_age = timedelta(hours=max_age_hours)
-    latest, source = latest_prediction_timestamp(
-        jsonl_path=jsonl_path,
-        text_log_path=text_log_path,
-    )
+) -> timedelta | None:
+    """Return the age of the latest prediction, or ``None`` if none exists."""
+    latest = latest_prediction_timestamp(log_path)
     if latest is None:
-        return PredictionFreshness(False, None, None, max_age, None)
+        return None
 
-    age = current_time - latest
-    return PredictionFreshness(age <= max_age, latest, age, max_age, source)
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=timezone.utc)
+    else:
+        current = current.astimezone(timezone.utc)
+    return current - latest
 
 
-def _format_timedelta(value: timedelta | None) -> str:
-    if value is None:
-        return "unknown"
-    total_seconds = int(value.total_seconds())
-    sign = "-" if total_seconds < 0 else ""
-    total_seconds = abs(total_seconds)
+def is_prediction_fresh(
+    log_path: Path | str,
+    *,
+    max_age: timedelta,
+    now: datetime | None = None,
+) -> bool:
+    """Return true when the latest prediction is no older than ``max_age``."""
+    age = prediction_age(log_path, now=now)
+    return age is not None and age <= max_age
+
+
+def _format_age(age: timedelta) -> str:
+    total_seconds = max(0, int(age.total_seconds()))
     hours, remainder = divmod(total_seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
-    return f"{sign}{hours}h {minutes}m {seconds}s"
+    minutes, _ = divmod(remainder, 60)
+    return f"{hours}h {minutes}m"
 
 
-def build_arg_parser() -> argparse.ArgumentParser:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Check whether prediction output is fresh enough."
+        description="Fail when predictions.log has no recent prediction run."
+    )
+    parser.add_argument(
+        "--log-path",
+        default="predictions.log",
+        help="Path to the text prediction log (default: predictions.log)",
     )
     parser.add_argument(
         "--max-age-hours",
         type=float,
         default=3.0,
-        help="Maximum acceptable age for the latest prediction artifact.",
+        help="Maximum allowed age for the latest prediction (default: 3)",
     )
-    parser.add_argument(
-        "--jsonl-path",
-        default=str(DEFAULT_JSONL_PATH),
-        help="Path to data/predictions/predictions.jsonl.",
-    )
-    parser.add_argument(
-        "--text-log-path",
-        default=str(DEFAULT_TEXT_LOG_PATH),
-        help="Path to predictions.log.",
-    )
-    return parser
+    args = parser.parse_args(argv)
 
+    max_age = timedelta(hours=args.max_age_hours)
+    latest = latest_prediction_timestamp(args.log_path)
+    if latest is None:
+        print(f"::warning::No prediction entries found in {args.log_path}")
+        return 1
 
-def main(argv: list[str] | None = None) -> int:
-    args = build_arg_parser().parse_args(argv)
-    result = check_prediction_freshness(
-        max_age_hours=args.max_age_hours,
-        jsonl_path=args.jsonl_path,
-        text_log_path=args.text_log_path,
-    )
-
-    if result.latest_timestamp is None:
+    now = datetime.now(timezone.utc)
+    age = now - latest
+    if age <= max_age:
         print(
-            "Prediction pipeline is stale: no prediction artifacts were found "
-            f"(max age {_format_timedelta(result.max_age)})."
+            "Latest prediction is fresh: "
+            f"{latest.strftime(PREDICTION_TIMESTAMP_FORMAT)} ({_format_age(age)} old)"
         )
-    else:
-        latest = result.latest_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ")
-        print(
-            f"Prediction pipeline is {result.status}: latest={latest}, "
-            f"age={_format_timedelta(result.age)}, "
-            f"max_age={_format_timedelta(result.max_age)}, source={result.source}"
-        )
-    return 0 if result.is_fresh else 1
+        return 0
+
+    print(
+        "::warning::Latest prediction is stale: "
+        f"{latest.strftime(PREDICTION_TIMESTAMP_FORMAT)} ({_format_age(age)} old, "
+        f"limit {args.max_age_hours:g}h)"
+    )
+    return 1
 
 
 if __name__ == "__main__":
