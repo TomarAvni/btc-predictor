@@ -24,7 +24,7 @@ jobs:
           script: |
             const workflowId = "predict.yml";
             const ref = "master";
-            const staleAfterMs = 3 * 60 * 60 * 1000;
+            const staleAfterMs = 60 * 60 * 1000;
             const now = Date.now();
             const owner = context.repo.owner;
             const repo = context.repo.repo;
