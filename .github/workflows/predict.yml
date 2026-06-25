@@ -36,14 +36,6 @@ jobs:
             --threshold-minutes 25 \
             --output "$GITHUB_OUTPUT"
 
-      - name: Check prediction freshness
-        id: freshness
-        run: |
-          python3 -m src.utils.prediction_freshness \
-            --event-name "${{ github.event_name }}" \
-            --threshold-minutes 25 \
-            --output "$GITHUB_OUTPUT"
-
       - uses: actions/setup-python@v5
         if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         with:
