@@ -74,7 +74,7 @@ def latest_prediction_run_at(log_path: str | Path = "predictions.log") -> dateti
 def check_prediction_freshness(
     log_path: str | Path = "predictions.log",
     *,
-    max_age: timedelta = timedelta(hours=1),
+    max_age: timedelta = timedelta(hours=3),
     now: datetime | None = None,
 ) -> PredictionFreshness:
     """Check whether the prediction pipeline has produced recent output."""
@@ -115,8 +115,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--max-age-hours",
         type=float,
-        default=1.0,
-        help="Maximum acceptable age for the latest run (default: 1)",
+        default=3.0,
+        help="Maximum acceptable age for the latest run (default: 3)",
     )
     return parser
 
@@ -139,7 +139,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Prediction log is fresh (latest run at {latest}, age {age}, max {max_age}).")
         return 0
 
-    print(f"Prediction log is stale (latest run at {latest}, age {age}, max {max_age}).")
+    print(f"Prediction log is stale: latest run at {latest} (age {age}, max {max_age}).")
     return 1
 
 

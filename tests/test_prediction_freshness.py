@@ -53,12 +53,12 @@ class TestPredictionFreshness(unittest.TestCase):
 
             result = check_prediction_freshness(
                 log_path,
-                max_age=timedelta(hours=1),
-                now=datetime(2026, 6, 17, 6, 0, tzinfo=timezone.utc),
+                max_age=timedelta(hours=3),
+                now=datetime(2026, 6, 17, 7, 0, tzinfo=timezone.utc),
             )
 
             self.assertTrue(result.is_fresh)
-            self.assertEqual(result.age, timedelta(minutes=34))
+            self.assertEqual(result.age, timedelta(hours=1, minutes=34))
 
     def test_check_prediction_freshness_rejects_stale_run(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -70,7 +70,7 @@ class TestPredictionFreshness(unittest.TestCase):
 
             result = check_prediction_freshness(
                 log_path,
-                max_age=timedelta(hours=1),
+                max_age=timedelta(hours=3),
                 now=datetime(2026, 6, 17, 5, 0, tzinfo=timezone.utc),
             )
 
