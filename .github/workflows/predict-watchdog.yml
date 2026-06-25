@@ -2,7 +2,7 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # Offset from Predict (:07/:37) so we detect stale runs within ~30 minutes.
+    # Offset from Predict (:07/:37) — recovers within ~30 min if schedules are dropped.
     - cron: '17,47 * * * *'
   workflow_dispatch:
 
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: predict-pipeline
+  group: predict-watchdog
   cancel-in-progress: false
 
 jobs:
@@ -30,32 +30,28 @@ jobs:
       - name: Check prediction freshness
         id: freshness
         run: |
-          if python -m src.utils.prediction_freshness --max-age-hours 1; then
+          if python -m src.utils.prediction_freshness --log-path predictions.log --max-age-hours 1; then
             echo "stale=false" >> "$GITHUB_OUTPUT"
           else
             echo "stale=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Check for active Predict runs
+      - name: Check active Predict runs
         id: active
         if: steps.freshness.outputs.stale == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
         run: |
-          active=0
-          for status in queued in_progress waiting pending requested; do
-            count=$(gh api --method GET \
-              "/repos/$GH_REPO/actions/workflows/predict.yml/runs" \
-              -f status="$status" \
-              -f per_page=1 \
-              --jq '.total_count')
-            echo "$status=$count"
-            active=$((active + count))
-          done
-          echo "count=$active" >> "$GITHUB_OUTPUT"
+          active_count="$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${GITHUB_REPOSITORY}/actions/runs?branch=master&per_page=100" \
+              --jq '[.workflow_runs[] | select(.name == "Predict" and (.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "pending" or .status == "requested"))] | length'
+          )"
+          echo "count=${active_count}" >> "$GITHUB_OUTPUT"
+          echo "Active Predict runs: ${active_count}"
 
-      - name: Dispatch Predict recovery run
+      - name: Dispatch Predict
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -65,8 +61,8 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             "/repos/${GITHUB_REPOSITORY}/actions/workflows/predict.yml/dispatches" \
             -f ref=master
-          echo "Dispatched Predict because predictions.log is stale and no Predict run is active."
+          echo "Dispatched Predict because predictions.log is stale."
 
-      - name: Skip recovery because Predict is active
+      - name: Skip dispatch when Predict is active
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
-        run: echo "Predictions are stale, but a Predict run is already queued or running."
+        run: echo "Predictions are stale, but a Predict run is already active."
