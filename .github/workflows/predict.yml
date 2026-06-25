@@ -103,6 +103,7 @@ jobs:
           git reset --hard HEAD
           for attempt in 1 2 3 4 5; do
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
+            git reset --hard HEAD
             python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore || true
             # recover_pipeline_data also refreshes rolling_accuracy.json and
             # calibration_live.json via run_scorer(); stage all pipeline outputs
