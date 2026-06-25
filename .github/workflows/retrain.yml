@@ -56,8 +56,8 @@ jobs:
           git reset --hard HEAD
           for attempt in 1 2 3 4 5; do
             git fetch origin master || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
-            # Discard unstaged changes from earlier steps (e.g. cache files) so
-            # rebase is not blocked after a partial git add.
+            # Partial git add leaves unstaged changes from earlier steps; discard
+            # them before rebasing so the push retry loop does not fail.
             git reset --hard HEAD
             if ! git rebase -X theirs origin/master; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
