@@ -44,13 +44,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          queued=$(gh run list --workflow predict.yml --status queued --json databaseId --jq 'length')
-          running=$(gh run list --workflow predict.yml --status in_progress --json databaseId --jq 'length')
-          active=$((queued + running))
-          echo "count=$active" >> "$GITHUB_OUTPUT"
-          if [ "$active" -gt 0 ]; then
-            echo "Predict already has $active queued/running run(s); not dispatching another."
-          fi
+          active_count="$(
+            gh api \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${GITHUB_REPOSITORY}/actions/runs?branch=${{ github.event.repository.default_branch }}&per_page=100" \
+              --jq '[.workflow_runs[] | select(.name == "Predict" and (.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "pending" or .status == "requested"))] | length'
+          )"
+          echo "count=${active_count}" >> "$GITHUB_OUTPUT"
+          echo "Active Predict runs on default branch: ${active_count}"
 
       - name: Dispatch Predict recovery run
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
