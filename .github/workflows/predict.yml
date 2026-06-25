@@ -2,7 +2,8 @@
 
 on:
   schedule:
-    # Twice-hourly, offset from :00/:30 — GitHub drops/delays top-of-hour schedules.
+    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
     - cron: '7,37 * * * *'
   workflow_dispatch:
 
@@ -110,8 +111,6 @@ jobs:
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
             fi
-            # recover_pipeline_data may refresh derived JSON performance files;
-            # discard unstaged artifacts so rebase is not blocked.
             git reset --hard HEAD
             if ! git rebase "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
