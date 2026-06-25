@@ -149,8 +149,8 @@ Four workflows run a hands-off pipeline: **Download → Train → Predict**, wit
 |----------|---------|--------------|
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
-| **Predict** (`predict.yml`) | Twice hourly (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
-| **Predict Watchdog** (`predict-watchdog.yml`) | Twice hourly (offset cron) or manual | Dispatches Predict when `predictions.log` is stale (>1h) and no Predict run is active |
+| **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Every 30 minutes (cron) or manual | Checks `predictions.log`; if the latest prediction is older than 1 hour and no Predict run is active, dispatches a recovery Predict run |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs twice hourly on the schedule; **Predict Watchdog** recovers if GitHub skips scheduled runs.

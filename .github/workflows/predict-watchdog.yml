@@ -59,7 +59,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          gh workflow run predict.yml --ref master
+          gh workflow run predict.yml --ref "${{ github.ref_name }}"
           echo "Dispatched Predict because predictions.log is stale and no Predict run is active."
 
       - name: Skip recovery because Predict is active
