@@ -6,15 +6,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
   actions: write
+  contents: read
 
 concurrency:
   group: predict-pipeline
   cancel-in-progress: false
 
 jobs:
-  recover-stale-predict:
+  watchdog:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -33,37 +33,34 @@ jobs:
             echo "stale=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Check active Predict runs
-        if: steps.freshness.outputs.stale == 'true'
+      - name: Check for active Predict runs
         id: active
+        if: steps.freshness.outputs.stale == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          active_count=0
+          active=0
           for status in queued in_progress waiting pending requested; do
-            count="$(gh api --method GET \
-              repos/${{ github.repository }}/actions/workflows/predict.yml/runs \
-              -f branch=master \
+            count=$(gh api --method GET \
+              "/repos/$GH_REPO/actions/workflows/predict.yml/runs" \
               -f status="$status" \
-              -q '.total_count')"
-            active_count=$((active_count + count))
+              -f per_page=1 \
+              --jq '.total_count')
+            echo "$status=$count"
+            active=$((active + count))
           done
-          echo "count=$active_count" >> "$GITHUB_OUTPUT"
-          echo "Active Predict runs: $active_count"
+          echo "count=$active" >> "$GITHUB_OUTPUT"
 
-      - name: Dispatch Predict
+      - name: Dispatch Predict recovery run
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          gh workflow run predict.yml --ref master
-          echo "Dispatched Predict because predictions.log is stale."
+          gh workflow run predict.yml --ref "${{ github.ref_name }}"
+          echo "Dispatched Predict because predictions.log is stale and no Predict run is active."
 
-      - name: Skip dispatch
-        if: steps.freshness.outputs.stale != 'true' || steps.active.outputs.count != '0'
-        run: |
-          if [ "${{ steps.freshness.outputs.stale }}" != "true" ]; then
-            echo "Prediction log is fresh; no recovery needed."
-          else
-            echo "Predict already has an active run; no duplicate dispatch needed."
-          fi
+      - name: Skip recovery because Predict is active
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
+        run: echo "Predictions are stale, but a Predict run is already queued or running."
