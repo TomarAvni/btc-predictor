@@ -1,6 +1,6 @@
 """Freshness checks for the scheduled prediction pipeline.
 
-The GitHub schedule can occasionally skip or delay runs. This module lets
+GitHub scheduled workflows can skip or delay runs. This module lets
 automation check the committed prediction artifact and trigger recovery when
 the latest successful prediction is too old.
 """
