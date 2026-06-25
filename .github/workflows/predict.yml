@@ -2,16 +2,22 @@
 
 on:
   schedule:
-    # Hourly, offset from :00 because GitHub can delay top-of-hour schedules.
-    - cron: '7 * * * *'
+    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: predict-pipeline
+  cancel-in-progress: false
+
 jobs:
   predict:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -33,7 +39,7 @@ jobs:
       - name: Check trained models
         run: |
           if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
-            echo "::warning::No trained models in data/validation/models/ â€” running predict with heuristics only"
+            echo "::warning::No trained models in data/validation/models/ — running predict with heuristics only"
             echo "Run Download then Train (or workflow_dispatch Train) to produce ML models."
           else
             echo "Trained model artifacts found in data/validation/models/"
@@ -84,11 +90,25 @@ jobs:
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
             fi
-            if ! git rebase "origin/$TARGET_BRANCH"; then
-              echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
-              git rebase --abort || true
-              sleep $((RANDOM % 5 + 3))
-              continue
+            if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
+              echo "Rebase hit conflicts; preferring replayed commit and continuing (attempt $attempt)."
+              if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+                while IFS= read -r conflicted; do
+                  [ -n "$conflicted" ] || continue
+                  git checkout --theirs -- "$conflicted" || true
+                  git add -- "$conflicted" || true
+                done < <(git diff --name-only --diff-filter=U)
+                if ! GIT_EDITOR=true git rebase --continue; then
+                  echo "Could not continue rebase; aborting and retrying (attempt $attempt)."
+                  git rebase --abort || true
+                  sleep $((RANDOM % 5 + 3))
+                  continue
+                fi
+              else
+                git rebase --abort || true
+                sleep $((RANDOM % 5 + 3))
+                continue
+              fi
             fi
             if git push origin "HEAD:$TARGET_BRANCH"; then
               echo "Pushed successfully on attempt $attempt."
