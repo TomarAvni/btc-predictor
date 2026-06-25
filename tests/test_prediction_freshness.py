@@ -1,4 +1,4 @@
-"""Tests for prediction freshness checks."""
+"""Unit tests for prediction log freshness checks."""
 
 from __future__ import annotations
 
@@ -6,125 +6,129 @@ import os
 import sys
 import tempfile
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.utils.prediction_freshness import (  # noqa: E402
     check_prediction_freshness,
-    latest_jsonl_timestamp,
-    latest_text_log_timestamp,
+    iter_prediction_headers,
     main,
 )
 
 
+NOW = datetime(2026, 6, 19, 9, 0, tzinfo=timezone.utc)
+
+
+def _write_log(path: Path, *headers: str) -> None:
+    blocks = []
+    for index, header in enumerate(headers, start=1):
+        blocks.append(
+            "\n".join([
+                "=" * 80,
+                f"[{header}] -- Prediction Run #{index}",
+                "=" * 80,
+                "",
+                "PREDICTIONS:",
+                "  6h    | UP    | +0.1%    | Confidence: 66%",
+            ])
+        )
+    path.write_text("\n".join(blocks), encoding="utf-8")
+
+
 class TestPredictionFreshness(unittest.TestCase):
-    def test_jsonl_latest_timestamp_ignores_bad_rows(self) -> None:
+    def test_fresh_when_latest_header_within_window(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "predictions.jsonl"
-            path.write_text(
-                "\n".join(
-                    [
-                        '{"timestamp": "2026-06-17T05:28:36Z"}',
-                        "not json",
-                        '{"timestamp": "2026-06-17T06:00:00+00:00"}',
-                        '{"timestamp": "bad"}',
-                    ]
-                ),
-                encoding="utf-8",
-            )
+            path = Path(tmp) / "predictions.log"
+            _write_log(path, "2026-06-19 08:30 UTC")
 
-            self.assertEqual(
-                latest_jsonl_timestamp(path),
-                datetime(2026, 6, 17, 6, 0, tzinfo=timezone.utc),
-            )
+            status = check_prediction_freshness(path, now=NOW)
 
-    def test_text_log_latest_timestamp(self) -> None:
+            self.assertTrue(status.is_fresh)
+            self.assertEqual(status.latest_run_number, 1)
+            self.assertEqual(status.age, timedelta(minutes=30))
+
+    def test_stale_when_latest_header_exceeds_window(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "predictions.log"
+            _write_log(path, "2026-06-19 07:59 UTC")
+
+            status = check_prediction_freshness(path, now=NOW)
+
+            self.assertFalse(status.is_fresh)
+            self.assertIn("older", status.reason)
+
+    def test_missing_log_is_stale(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            status = check_prediction_freshness(Path(tmp) / "missing.log", now=NOW)
+
+            self.assertFalse(status.is_fresh)
+            self.assertIsNone(status.latest_run_at)
+            self.assertIn("does not exist", status.reason)
+
+    def test_log_without_headers_is_stale(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "predictions.log"
+            path.write_text("no prediction runs yet\n", encoding="utf-8")
+
+            status = check_prediction_freshness(path, now=NOW)
+
+            self.assertFalse(status.is_fresh)
+            self.assertIn("no prediction run headers", status.reason)
+
+    def test_uses_newest_timestamp_not_last_header(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "predictions.log"
+            _write_log(path, "2026-06-19 08:30 UTC", "2026-06-19 04:00 UTC")
+
+            status = check_prediction_freshness(path, now=NOW)
+
+            self.assertTrue(status.is_fresh)
+            self.assertEqual(status.latest_run_at, datetime(2026, 6, 19, 8, 30, tzinfo=timezone.utc))
+
+    def test_uses_highest_run_number_when_latest_timestamp_ties(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "predictions.log"
+            _write_log(path, "2026-06-19 08:30 UTC", "2026-06-19 08:30 UTC")
+
+            status = check_prediction_freshness(path, now=NOW)
+
+            self.assertTrue(status.is_fresh)
+            self.assertEqual(status.latest_run_number, 2)
+
+    def test_future_timestamp_is_not_fresh(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "predictions.log"
+            _write_log(path, "2026-06-19 10:00 UTC")
+
+            status = check_prediction_freshness(path, now=NOW)
+
+            self.assertFalse(status.is_fresh)
+            self.assertIn("future", status.reason)
+
+    def test_iter_prediction_headers_ignores_malformed_headers(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.log"
             path.write_text(
-                """
-================================================================================
-[2026-06-17 05:28 UTC] -- Prediction Run #42
-================================================================================
-[2026-06-17 08:01 UTC] -- Prediction Run #43
-""",
+                "\n".join([
+                    "[not a date] -- Prediction Run #1",
+                    "[2026-06-19 08:00 UTC] -- Prediction Run #2",
+                ]),
                 encoding="utf-8",
             )
 
             self.assertEqual(
-                latest_text_log_timestamp(path),
-                datetime(2026, 6, 17, 8, 1, tzinfo=timezone.utc),
+                iter_prediction_headers(path),
+                [(datetime(2026, 6, 19, 8, 0, tzinfo=timezone.utc), 2)],
             )
 
-    def test_fresh_when_latest_prediction_within_max_age(self) -> None:
+    def test_cli_accepts_log_path_alias(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            jsonl = Path(tmp) / "predictions.jsonl"
-            text_log = Path(tmp) / "predictions.log"
-            jsonl.write_text(
-                '{"timestamp": "2026-06-17T08:30:00Z"}\n',
-                encoding="utf-8",
-            )
+            path = Path(tmp) / "empty.log"
+            path.write_text("", encoding="utf-8")
 
-            result = check_prediction_freshness(
-                max_age_hours=3,
-                now=datetime(2026, 6, 17, 10, 0, tzinfo=timezone.utc),
-                jsonl_path=jsonl,
-                text_log_path=text_log,
-            )
-
-            self.assertTrue(result.is_fresh)
-            self.assertEqual(result.source, str(jsonl))
-
-    def test_stale_when_latest_prediction_exceeds_max_age(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            jsonl = Path(tmp) / "predictions.jsonl"
-            text_log = Path(tmp) / "predictions.log"
-            jsonl.write_text(
-                '{"timestamp": "2026-06-17T05:28:00Z"}\n',
-                encoding="utf-8",
-            )
-
-            result = check_prediction_freshness(
-                max_age_hours=3,
-                now=datetime(2026, 6, 17, 9, 1, tzinfo=timezone.utc),
-                jsonl_path=jsonl,
-                text_log_path=text_log,
-            )
-
-            self.assertFalse(result.is_fresh)
-
-    def test_missing_artifacts_are_stale(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            result = check_prediction_freshness(
-                max_age_hours=3,
-                now=datetime(2026, 6, 17, 9, 1, tzinfo=timezone.utc),
-                jsonl_path=Path(tmp) / "missing.jsonl",
-                text_log_path=Path(tmp) / "missing.log",
-            )
-
-            self.assertFalse(result.is_fresh)
-            self.assertIsNone(result.latest_timestamp)
-
-    def test_cli_exit_code_reflects_freshness(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            jsonl = Path(tmp) / "predictions.jsonl"
-            text_log = Path(tmp) / "predictions.log"
-
-            self.assertEqual(
-                main(
-                    [
-                        "--max-age-hours",
-                        "3",
-                        "--jsonl-path",
-                        str(jsonl),
-                        "--text-log-path",
-                        str(text_log),
-                    ]
-                ),
-                1,
-            )
+            self.assertEqual(main(["--log-path", str(path), "--max-age-hours", "1"]), 1)
 
 
 if __name__ == "__main__":

@@ -2,9 +2,7 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # GitHub scheduled workflows can be delayed or dropped. This watchdog
-    # checks the committed prediction log twice hourly and restarts Predict
-    # when no run has landed in the last hour.
+    # Offset from Predict (7,37) to catch stale runs between scheduled attempts.
     - cron: '17,47 * * * *'
   workflow_dispatch:
 
@@ -22,8 +20,6 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: master
 
       - uses: actions/setup-python@v5
         with:
@@ -31,40 +27,45 @@ jobs:
 
       - name: Check prediction freshness
         id: freshness
-        continue-on-error: true
-        run: python -m src.utils.prediction_freshness --max-age-hours 1
+        run: |
+          if python -m src.utils.prediction_freshness --max-age-hours 1; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prediction pipeline is fresh
+        if: steps.freshness.outputs.stale == 'false'
+        run: echo "Prediction pipeline is fresh (latest run within 1 hour)."
 
       - name: Check for active Predict runs
         id: active
-        if: steps.freshness.outcome == 'failure'
+        if: steps.freshness.outputs.stale == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          active_count="$(
-            gh run list \
-              --workflow Predict \
-              --branch master \
-              --limit 20 \
-              --json status \
-              --jq '[.[] | select(.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "requested" or .status == "pending")] | length'
-          )"
-          echo "active_count=$active_count"
-          if [ "$active_count" -gt 0 ]; then
-            echo "has_active=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_active=false" >> "$GITHUB_OUTPUT"
-          fi
+          active=0
+          for status in queued in_progress waiting pending requested; do
+            count=$(gh api --method GET \
+              "/repos/$GH_REPO/actions/workflows/predict.yml/runs" \
+              -f status="$status" \
+              -f per_page=1 \
+              --jq '.total_count')
+            echo "$status=$count"
+            active=$((active + count))
+          done
+          echo "count=$active" >> "$GITHUB_OUTPUT"
 
-      - name: Dispatch recovery Predict run
-        if: steps.freshness.outcome == 'failure' && steps.active.outputs.has_active == 'false'
+      - name: Dispatch Predict recovery run
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run predict.yml --ref master
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh workflow run predict.yml --ref master
+          echo "Dispatched Predict because predictions.log is stale and no Predict run is active."
 
-      - name: Report fresh pipeline
-        if: steps.freshness.outcome == 'success'
-        run: echo "Prediction pipeline is fresh (no recovery run needed)."
-
-      - name: Report active Predict run
-        if: steps.freshness.outcome == 'failure' && steps.active.outputs.has_active == 'true'
-        run: echo "Prediction pipeline is stale but a Predict run is already active."
+      - name: Skip recovery because Predict is active
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
+        run: echo "Predictions are stale, but a Predict run is already queued or running."
