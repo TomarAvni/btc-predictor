@@ -2,17 +2,17 @@
 
 on:
   schedule:
-    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
-    # under load, which was leaving the predictor idle for hours. Changing the
-    # minute pair also forces GitHub to re-index a stale scheduler entry.
-    - cron: '13,43 * * * *'
+    # Redundant, staggered attempts. GitHub can delay or drop individual
+    # schedule events; the freshness gate below keeps backup attempts cheap.
+    - cron: '7,37 * * * *'
+    - cron: '22,52 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: predict-pipeline
+  group: predict-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -22,11 +22,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check prediction freshness
+        id: freshness
+        run: |
+          python3 -m src.utils.prediction_freshness \
+            --event-name "${{ github.event_name }}" \
+            --threshold-minutes 25 \
+            --output "$GITHUB_OUTPUT"
+
       - uses: actions/setup-python@v5
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         with:
           python-version: '3.11'
 
       - name: Cache pip
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
@@ -35,9 +45,11 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: pip install -r requirements.txt
 
       - name: Check trained models
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: |
           if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
             echo "::warning::No trained models in data/validation/models/ — running predict with heuristics only"
@@ -52,6 +64,7 @@ jobs:
         run: python main.py --download
 
       - name: Predict
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
           # X/Twitter sentiment module. When these secrets are unset the module
@@ -61,12 +74,15 @@ jobs:
         run: python main.py --predict
 
       - name: Trade
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: python trade.py --live-tick
 
       - name: Score mature predictions
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: python score_predictions.py
 
       - name: Commit
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
