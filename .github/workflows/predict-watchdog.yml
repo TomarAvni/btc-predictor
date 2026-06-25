@@ -2,8 +2,6 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # Offset from Predict's :07 schedule; recovers when cron events are dropped
-    # and no committed prediction has landed within the stale threshold.
     - cron: '17 * * * *'
   workflow_dispatch:
 
@@ -62,7 +60,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             "/repos/${GITHUB_REPOSITORY}/actions/workflows/predict.yml/dispatches" \
             -f ref=master
-          echo "Dispatched Predict because predictions.log is stale (>1 hour)."
+          echo "Dispatched Predict because predictions.log is stale."
 
       - name: Skip dispatch when Predict is active
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
