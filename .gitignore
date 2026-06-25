@@ -13,20 +13,4 @@ data/models/*.joblib
 !predictions.log
 .DS_Store
 *.parquet
-# Closed-loop staging artifacts are transient; never commit them. The labeled
-# store (data/training_data/labeled.jsonl) and autotrain report ARE tracked so
-# they persist across stateless cloud runs.
-data/training_data/staging/
-
-# Local AI-tool outputs.
-experiments/output/
-.promptfoo/
-promptfoo-results.json
-promptfoo-report.html
-
-# X/Twitter sentiment module: the signal history must persist across stateless
-# cloud runs, so un-ignore it from the global *.parquet rule above.
-!data/history/twitter_llm_signal.parquet
-
-# On-chain flow module: persisted snapshots must also survive stateless runs.
-!data/history/onchain_flows.parquet
+!data/price/*.parquet
