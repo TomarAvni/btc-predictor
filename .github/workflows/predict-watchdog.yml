@@ -2,7 +2,8 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # Offset from Predict (7,37) so stale recovery runs even when GitHub skips schedules.
+    # Offset from Predict's twice-hourly schedule; recovers when cron events
+    # are dropped and no prediction has landed within the stale threshold.
     - cron: '17,47 * * * *'
   workflow_dispatch:
 
@@ -15,57 +16,105 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  recover-stale-predict:
+  watchdog:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: master
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Check latest Predict result
+        id: latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh api --method GET \
+            "/repos/$GH_REPO/actions/workflows/predict.yml/runs" \
+            -f status=completed \
+            -f per_page=1 > latest_predict_run.json
+          python - <<'PY'
+          import json
+          import os
+
+          with open("latest_predict_run.json", encoding="utf-8") as f:
+              runs = json.load(f).get("workflow_runs", [])
+          latest = runs[0] if runs else {}
+          conclusion = latest.get("conclusion") or ""
+          url = latest.get("html_url") or ""
+          name = latest.get("display_title") or latest.get("name") or "Predict"
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+              out.write(f"failed={'true' if conclusion == 'failure' else 'false'}\n")
+              out.write(f"conclusion={conclusion}\n")
+              out.write(f"url={url}\n")
+              out.write(f"name={name}\n")
+          PY
+
       - name: Check prediction freshness
         id: freshness
-        continue-on-error: true
-        run: python -m src.utils.prediction_freshness --max-age-hours 1
+        run: python -m src.utils.prediction_freshness --max-age-hours 1 --github-output "$GITHUB_OUTPUT"
 
       - name: Check for active Predict runs
         id: active
-        if: steps.freshness.outcome == 'failure'
+        if: steps.freshness.outputs.stale == 'true' || steps.latest.outputs.failed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          queued="$(gh api \
-            --method GET \
-            -H "Accept: application/vnd.github+json" \
-            "/repos/${{ github.repository }}/actions/workflows/predict.yml/runs" \
-            -f status=queued \
-            --jq '.total_count')"
-          in_progress="$(gh api \
-            --method GET \
-            -H "Accept: application/vnd.github+json" \
-            "/repos/${{ github.repository }}/actions/workflows/predict.yml/runs" \
-            -f status=in_progress \
-            --jq '.total_count')"
-          active_count=$((queued + in_progress))
-          echo "active_count=$active_count" >> "$GITHUB_OUTPUT"
-          echo "Active Predict runs: $active_count"
+          active=0
+          for status in queued in_progress waiting pending requested; do
+            count=$(gh api --method GET \
+              "/repos/$GH_REPO/actions/workflows/predict.yml/runs" \
+              -f status="$status" \
+              -f per_page=1 \
+              --jq '.total_count')
+            echo "$status=$count"
+            active=$((active + count))
+          done
+          echo "count=$active" >> "$GITHUB_OUTPUT"
 
       - name: Dispatch Predict recovery run
-        if: steps.freshness.outcome == 'failure' && steps.active.outputs.active_count == '0'
+        if: (steps.freshness.outputs.stale == 'true' || steps.latest.outputs.failed == 'true') && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          echo "Prediction log is stale; dispatching Predict."
           gh workflow run predict.yml --ref master
+          echo "Dispatched Predict because pipeline output is unhealthy and no Predict run is active."
+
+      - name: Skip recovery because Predict is active
+        if: (steps.freshness.outputs.stale == 'true' || steps.latest.outputs.failed == 'true') && steps.active.outputs.count != '0'
+        run: echo "Prediction pipeline is unhealthy, but a Predict run is already queued or running."
+
+      - name: Flag latest Predict failure
+        if: steps.latest.outputs.failed == 'true'
+        run: |
+          {
+            echo "## Latest Predict run failed"
+            echo ""
+            echo "- Run: ${{ steps.latest.outputs.url }}"
+            echo "- Freshness: ${{ steps.freshness.outputs.reason }}"
+            echo ""
+            echo "The watchdog dispatched recovery when no Predict run was active, but this job fails so the broken Predict state is visible."
+          } | tee predict_watchdog_failure.md
+          tee -a "$GITHUB_STEP_SUMMARY" < predict_watchdog_failure.md
+          echo "::error title=Latest Predict run failed::${{ steps.latest.outputs.url }}"
+          exit 1
 
       - name: Report fresh prediction pipeline
-        if: steps.freshness.outcome == 'success'
-        run: echo "Prediction pipeline is fresh (no recovery needed)."
-
-      - name: Report active prediction pipeline
-        if: steps.freshness.outcome == 'failure' && steps.active.outputs.active_count != '0'
-        run: echo "Prediction pipeline is stale, but a Predict run is already queued or in progress."
+        if: steps.freshness.outputs.stale != 'true' && steps.latest.outputs.failed != 'true'
+        run: |
+          echo "Prediction pipeline is fresh: ${{ steps.freshness.outputs.reason }}"

@@ -2,7 +2,8 @@
 
 on:
   schedule:
-    # Offset from :00/:30 — GitHub drops or delays top-of-hour schedules under load.
+    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
     - cron: '7,37 * * * *'
   workflow_dispatch:
 
@@ -101,16 +102,11 @@ jobs:
           # conflicts self-heal instead of failing the whole prediction run.
           git reset --hard HEAD
           for attempt in 1 2 3 4 5; do
-            git fetch origin master || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
-            git reset --hard HEAD
-            if ! git rebase -X theirs origin/master; then
-              echo "Rebase conflicted; resolving generated data files (attempt $attempt)."
-              if ! resolve_generated_conflicts; then
-                echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
-                git rebase --abort || true
-                sleep $((RANDOM % 5 + 3))
-                continue
-              fi
+            git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
+            python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore || true
+            git add -A
+            if ! git diff --staged --quiet; then
+              git commit --amend --no-edit
             fi
             if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
               echo "Rebase hit conflicts; preferring replayed commit and continuing (attempt $attempt)."
@@ -141,3 +137,26 @@ jobs:
           done
           echo "::error::Could not push prediction results after 5 attempts."
           exit 1
+
+      - name: Flag Predict failure
+        if: failure()
+        run: |
+          {
+            echo "## Predict failed"
+            echo ""
+            echo "- Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo "- Branch: $GITHUB_REF_NAME"
+            echo "- Commit: $GITHUB_SHA"
+            echo ""
+            echo "The prediction pipeline failed. Inspect the failed step above before trusting pipeline freshness."
+          } | tee predict_failure.md
+          tee -a "$GITHUB_STEP_SUMMARY" < predict_failure.md
+          echo "::error title=Predict workflow failed::Prediction pipeline failed; see the job summary and predict_failure.md artifact."
+
+      - name: Upload Predict failure marker
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: predict-failure-${{ github.run_id }}
+          path: predict_failure.md
+          if-no-files-found: ignore

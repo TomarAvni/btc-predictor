@@ -1,177 +1,202 @@
-"""Freshness checks for the committed prediction log.
-
-GitHub scheduled workflows can be delayed or dropped under load. This module
-lets a watchdog workflow decide whether the predictor has stopped producing
-committed runs and should be dispatched manually.
-"""
+"""Helpers for detecting stale prediction pipeline output."""
 
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import re
-import sys
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from src import PREDICTIONS_LOG
+from src.output.jsonl_logger import PREDICTIONS_JSONL_PATH
 
 _RUN_HEADER = re.compile(
-    r"^\[(?P<timestamp>\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}\sUTC)\]\s*--\s*"
-    r"Prediction Run #(?P<run_number>\d+)"
+    r"^\[(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}\sUTC)\]\s*--\s*Prediction Run #\d+"
 )
-_LOG_TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M UTC"
 
 
 @dataclass(frozen=True)
 class PredictionFreshness:
-    """Status returned by :func:`check_prediction_freshness`."""
+    """Freshness status for the latest logged prediction."""
 
-    path: Path
+    latest_at: datetime | None
     max_age: timedelta
     now: datetime
-    latest_run_at: datetime | None
-    latest_run_number: int | None
-    reason: str
+    source: str | None = None
 
     @property
     def age(self) -> timedelta | None:
-        if self.latest_run_at is None:
+        if self.latest_at is None:
             return None
-        return self.now - self.latest_run_at
+        return self.now - self.latest_at
 
     @property
-    def is_fresh(self) -> bool:
+    def is_stale(self) -> bool:
         age = self.age
-        return age is not None and timedelta(0) <= age <= self.max_age
+        return age is None or age >= self.max_age
+
+    @property
+    def reason(self) -> str:
+        age = self.age
+        if age is None:
+            return "no prediction runs found"
+        source = f" ({self.source})" if self.source else ""
+        if self.is_stale:
+            return f"latest prediction is {age.total_seconds() / 3600:.2f} hours old{source}"
+        return (
+            f"latest prediction is fresh at {age.total_seconds() / 60:.1f} minutes old"
+            f"{source}"
+        )
 
 
-def _ensure_utc(value: datetime) -> datetime:
-    if value.tzinfo is None:
-        return value.replace(tzinfo=timezone.utc)
-    return value.astimezone(timezone.utc)
+def _as_utc(dt: datetime) -> datetime:
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
 
 
-def _parse_log_timestamp(value: str) -> datetime:
-    return datetime.strptime(value, _LOG_TIMESTAMP_FORMAT).replace(tzinfo=timezone.utc)
+def parse_prediction_timestamp(value: str) -> datetime:
+    """Parse the UTC timestamp format written in predictions.log headers."""
+
+    return datetime.strptime(value, "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
 
 
-def iter_prediction_headers(path: Path) -> list[tuple[datetime, int]]:
-    """Return all parseable prediction headers from *path*."""
+def latest_prediction_timestamp_from_log(path: Path = PREDICTIONS_LOG) -> datetime | None:
+    """Return the newest prediction timestamp from *path*, or ``None``."""
 
-    headers: list[tuple[datetime, int]] = []
+    if not path.exists():
+        return None
+
+    latest: datetime | None = None
     for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         match = _RUN_HEADER.search(line)
-        if not match:
+        if match:
+            latest = parse_prediction_timestamp(match.group(1))
+    return latest
+
+
+def latest_prediction_timestamp_from_jsonl(
+    path: Path = PREDICTIONS_JSONL_PATH,
+) -> datetime | None:
+    """Return the newest ISO timestamp from the JSONL prediction store."""
+
+    if not path.exists():
+        return None
+
+    latest: datetime | None = None
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = line.strip()
+        if not line:
             continue
-        headers.append((
-            _parse_log_timestamp(match.group("timestamp")),
-            int(match.group("run_number")),
-        ))
-    return headers
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        raw = record.get("timestamp")
+        if not raw:
+            continue
+        parsed = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        parsed = _as_utc(parsed)
+        if latest is None or parsed > latest:
+            latest = parsed
+    return latest
+
+
+def latest_prediction_timestamp(
+    log_path: Path = PREDICTIONS_LOG,
+    jsonl_path: Path = PREDICTIONS_JSONL_PATH,
+) -> tuple[datetime | None, str | None]:
+    """Return the newest prediction timestamp and which source supplied it."""
+
+    candidates: list[tuple[datetime, str]] = []
+    log_ts = latest_prediction_timestamp_from_log(log_path)
+    if log_ts is not None:
+        candidates.append((log_ts, "predictions.log"))
+    jsonl_ts = latest_prediction_timestamp_from_jsonl(jsonl_path)
+    if jsonl_ts is not None:
+        candidates.append((jsonl_ts, "predictions.jsonl"))
+    if not candidates:
+        return None, None
+    latest, source = max(candidates, key=lambda item: item[0])
+    return latest, source
 
 
 def check_prediction_freshness(
-    path: Path | str = PREDICTIONS_LOG,
+    log_path: Path = PREDICTIONS_LOG,
     *,
+    jsonl_path: Path = PREDICTIONS_JSONL_PATH,
     max_age: timedelta = timedelta(hours=1),
     now: datetime | None = None,
 ) -> PredictionFreshness:
-    """Check whether *path* contains a recent prediction run."""
+    """Return freshness status for the latest logged prediction."""
 
-    log_path = Path(path)
-    current_time = _ensure_utc(now or datetime.now(timezone.utc))
-
-    if not log_path.exists():
-        return PredictionFreshness(
-            path=log_path,
-            max_age=max_age,
-            now=current_time,
-            latest_run_at=None,
-            latest_run_number=None,
-            reason=f"{log_path} does not exist",
-        )
-
-    headers = iter_prediction_headers(log_path)
-    if not headers:
-        return PredictionFreshness(
-            path=log_path,
-            max_age=max_age,
-            now=current_time,
-            latest_run_at=None,
-            latest_run_number=None,
-            reason=f"{log_path} contains no prediction run headers",
-        )
-
-    latest_run_at, latest_run_number = max(headers, key=lambda item: (item[0], item[1]))
-    status = PredictionFreshness(
-        path=log_path,
-        max_age=max_age,
-        now=current_time,
-        latest_run_at=latest_run_at,
-        latest_run_number=latest_run_number,
-        reason="latest prediction is within freshness window",
-    )
-    if status.is_fresh:
-        return status
-
-    age = status.age
-    if age is not None and age < timedelta(0):
-        reason = "latest prediction timestamp is in the future"
-    else:
-        reason = "latest prediction is older than freshness window"
+    now_utc = _as_utc(now or datetime.now(timezone.utc))
+    latest, source = latest_prediction_timestamp(log_path, jsonl_path)
     return PredictionFreshness(
-        path=log_path,
+        latest_at=latest,
         max_age=max_age,
-        now=current_time,
-        latest_run_at=latest_run_at,
-        latest_run_number=latest_run_number,
-        reason=reason,
+        now=now_utc,
+        source=source,
     )
 
 
-def _resolve_path(args: argparse.Namespace) -> Path:
-    selected = args.log_path or args.option_path or args.positional_path
-    return Path(selected) if selected else PREDICTIONS_LOG
+def _write_github_output(path: str, freshness: PredictionFreshness) -> None:
+    latest = freshness.latest_at.isoformat() if freshness.latest_at else ""
+    age_seconds = "" if freshness.age is None else str(int(freshness.age.total_seconds()))
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(f"stale={'true' if freshness.is_stale else 'false'}\n")
+        f.write(f"latest_at={latest}\n")
+        f.write(f"age_seconds={age_seconds}\n")
+        f.write(f"reason={freshness.reason}\n")
+        if freshness.source:
+            f.write(f"source={freshness.source}\n")
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Check prediction log freshness.")
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Check whether prediction pipeline output has gone stale."
+    )
     parser.add_argument(
-        "positional_path",
-        nargs="?",
-        help="Path to predictions.log (defaults to repository predictions.log)",
+        "--path",
+        type=Path,
+        default=PREDICTIONS_LOG,
+        help="Path to predictions.log",
     )
-    parser.add_argument("--path", dest="option_path", help="Alias for --log-path")
-    parser.add_argument("--log-path", help="Path to predictions.log")
+    parser.add_argument(
+        "--jsonl-path",
+        type=Path,
+        default=PREDICTIONS_JSONL_PATH,
+        help="Path to data/predictions/predictions.jsonl",
+    )
     parser.add_argument(
         "--max-age-hours",
         type=float,
         default=1.0,
-        help="Maximum allowed age of the latest prediction run (default: 1)",
+        help="Maximum allowed prediction age before stale recovery is needed",
     )
-    return parser
+    parser.add_argument(
+        "--github-output",
+        default=os.environ.get("GITHUB_OUTPUT"),
+        help="Optional GitHub Actions output file to populate",
+    )
+    args = parser.parse_args(argv)
 
-
-def main(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
-    status = check_prediction_freshness(
-        _resolve_path(args),
+    freshness = check_prediction_freshness(
+        args.path,
+        jsonl_path=args.jsonl_path,
         max_age=timedelta(hours=args.max_age_hours),
     )
+    status = "stale" if freshness.is_stale else "fresh"
+    latest = freshness.latest_at.isoformat() if freshness.latest_at else "none"
+    print(f"Prediction freshness: {status}; latest={latest}; {freshness.reason}")
 
-    if status.latest_run_at is None:
-        print(f"STALE: {status.reason}", file=sys.stderr)
-        return 1
+    if args.github_output:
+        _write_github_output(args.github_output, freshness)
 
-    age_minutes = status.age.total_seconds() / 60 if status.age else 0.0
-    latest = status.latest_run_at.strftime(_LOG_TIMESTAMP_FORMAT)
-    prefix = "FRESH" if status.is_fresh else "STALE"
-    print(
-        f"{prefix}: latest prediction run #{status.latest_run_number} at {latest} "
-        f"({age_minutes:.1f} minutes old); {status.reason}"
-    )
-    return 0 if status.is_fresh else 1
+    return 0
 
 
 if __name__ == "__main__":
