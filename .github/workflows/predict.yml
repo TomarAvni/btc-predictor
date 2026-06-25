@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    # Redundant, staggered attempts. GitHub can delay or drop individual
-    # schedule events; the freshness gate below keeps backup attempts cheap.
+    # Offset from :00/:30 -- GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
     - cron: '7,37 * * * *'
     - cron: '22,52 * * * *'
   workflow_dispatch:
@@ -12,8 +12,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: predict-${{ github.ref }}
-  cancel-in-progress: false
+  group: predict-master
+  cancel-in-progress: true
 
 jobs:
   predict:
@@ -21,6 +21,13 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync to latest master
+        run: |
+          git fetch origin master
+          git reset --hard origin/master
 
       - name: Check prediction freshness
         id: freshness
@@ -52,30 +59,15 @@ jobs:
         if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: |
           if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
-            echo "::warning::No trained models in data/validation/models/ - running predict with heuristics only"
+            echo "::warning::No trained models in data/validation/models/ -- running predict with heuristics only"
             echo "Run Download then Train (or workflow_dispatch Train) to produce ML models."
           else
             echo "Trained model artifacts found in data/validation/models/"
           fi
 
-      - name: Predict
-        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
+      - name: Predict and trade
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
-        run: python main.py --download
-
-      - name: Predict
-        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
-        env:
-          BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
-          # X/Twitter sentiment module. When these secrets are unset the module
-          # runs in mock mode (fixtures) so the pipeline never breaks.
-          TWITTERAPI_KEY: ${{ secrets.TWITTERAPI_KEY }}
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-        run: python main.py --predict
-
-      - name: Trade
-        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: python trade.py --live-tick
 
       - name: Score mature predictions
@@ -87,12 +79,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          TARGET_BRANCH="master"
-          git fetch origin "$TARGET_BRANCH"
-          # Union append-only JSONL stores with upstream so concurrent hourly
-          # runs never drop newly appended prediction/score rows on rebase.
-          python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore
-          git add -A
+          git restore data/cache || true
+          git add predictions.log data/predictions/ data/performance/ data/price/ data/trading/
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
