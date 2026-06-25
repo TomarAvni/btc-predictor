@@ -102,23 +102,20 @@ jobs:
             exit 0
           fi
           git commit -m "chore: prediction run [skip ci]"
-          RUN_COMMIT="$(git rev-parse HEAD)"
-          # Pipeline artifacts (predictions, scores, labeled store, trading)
-          # must always land on master so the dashboard and closed-loop trainer
-          # read a single canonical history regardless of dispatch branch.
-          # Rebase replays the whole commit and conflicts on generated JSON/parquet
-          # artifacts; instead reset to upstream and replay this run's outputs.
+          RUN_COMMIT=$(git rev-parse HEAD)
+          # Rebase replays the whole prediction commit and conflicts on generated
+          # JSON/parquet/cache artifacts. Sync onto upstream and merge JSONL instead.
           for attempt in 1 2 3 4 5; do
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
             git reset --hard "origin/$TARGET_BRANCH"
-            git checkout "$RUN_COMMIT" -- data/ predictions.log || true
+            git checkout "$RUN_COMMIT" -- data/ predictions.log
             python scripts/recover_pipeline_data.py \
               --git-ref "origin/$TARGET_BRANCH" \
               --git-ref "$RUN_COMMIT" \
               --no-rescore
             git add -A
             if git diff --staged --quiet; then
-              echo "No changes to commit after sync."
+              echo "No changes to commit after upstream sync."
               exit 0
             fi
             git commit -m "chore: prediction run [skip ci]"
@@ -126,7 +123,7 @@ jobs:
               echo "Pushed successfully on attempt $attempt."
               exit 0
             fi
-            echo "Push rejected (concurrent update); re-syncing and retrying (attempt $attempt)."
+            echo "Push rejected (concurrent update); retrying (attempt $attempt)."
             sleep $((RANDOM % 5 + 3))
           done
           echo "::error::Could not push prediction results after 5 attempts."
