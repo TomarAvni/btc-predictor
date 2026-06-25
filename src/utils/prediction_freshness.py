@@ -136,7 +136,7 @@ def main(argv: list[str] | None = None) -> int:
     age = _format_age(result.age)
     max_age = _format_age(result.max_age)
     if result.is_fresh:
-        print(f"Prediction log is fresh: latest run at {latest} (age {age}, max {max_age}).")
+        print(f"Prediction log is fresh (latest run at {latest}, age {age}, max {max_age}).")
         return 0
 
     print(f"Prediction log is stale: latest run at {latest} (age {age}, max {max_age}).")
