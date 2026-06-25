@@ -30,7 +30,7 @@ class TestPredictionFreshness(unittest.TestCase):
         self.assertIsNone(freshness.latest_at)
         self.assertIn("no prediction", freshness.reason)
 
-    def test_latest_timestamp_uses_last_prediction_header(self) -> None:
+    def test_latest_timestamp_uses_newest_prediction_header(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "predictions.log"
             path.write_text(
@@ -39,6 +39,7 @@ class TestPredictionFreshness(unittest.TestCase):
                         "[2026-06-16 06:00 UTC] -- Prediction Run #41",
                         "noise",
                         "[2026-06-16 09:30 UTC] -- Prediction Run #42",
+                        "[2026-06-16 08:00 UTC] -- Prediction Run #43",
                     ]
                 ),
                 encoding="utf-8",
