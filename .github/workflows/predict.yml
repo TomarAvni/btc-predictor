@@ -110,7 +110,7 @@ jobs:
               git commit --amend --no-edit
             fi
             git reset --hard HEAD
-            if ! git rebase "origin/$TARGET_BRANCH"; then
+            if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
               git rebase --abort || true
               sleep $((RANDOM % 5 + 3))
