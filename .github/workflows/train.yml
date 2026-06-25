@@ -38,6 +38,11 @@ jobs:
       - name: Install
         run: pip install -r requirements.txt
 
+      - name: Refresh price candles
+        env:
+          BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
+        run: python main.py --download
+
       - name: Verify price data
         run: |
           if [ -z "$(find data/price -name '*.parquet' -print -quit 2>/dev/null)" ]; then
