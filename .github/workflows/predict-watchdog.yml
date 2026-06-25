@@ -2,6 +2,7 @@ name: Predict Watchdog
 
 on:
   schedule:
+    # Recover from dropped/delayed Predict cron events before users see a long gap.
     - cron: '17 * * * *'
   workflow_dispatch:
 
@@ -9,14 +10,9 @@ permissions:
   actions: write
   contents: read
 
-concurrency:
-  group: predict-watchdog
-  cancel-in-progress: false
-
 jobs:
   recover-stale-predict:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -26,38 +22,32 @@ jobs:
 
       - name: Check prediction freshness
         id: freshness
-        run: |
-          if python -m src.utils.prediction_freshness --path predictions.log --max-age-hours 3; then
-            echo "stale=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "stale=true" >> "$GITHUB_OUTPUT"
-          fi
+        continue-on-error: true
+        run: python -m src.utils.prediction_freshness --path predictions.log --max-age-hours 3
 
       - name: Check for active Predict runs
-        if: steps.freshness.outputs.stale == 'true'
         id: active
+        if: steps.freshness.outcome == 'failure'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           total=0
           for status in queued in_progress waiting pending requested; do
             count="$(gh api --method GET "repos/${{ github.repository }}/actions/workflows/predict.yml/runs" \
-              -f branch=master \
               -f status="$status" \
-              --jq '.total_count')"
+              -q '.workflow_runs | length')"
             echo "$status=$count"
             total=$((total + count))
           done
-          echo "count=$total" >> "$GITHUB_OUTPUT"
+          echo "active_count=$total" >> "$GITHUB_OUTPUT"
 
-      - name: Dispatch Predict recovery run
-        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
+      - name: Dispatch Predict
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.active_count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          echo "Prediction output is stale and no Predict run is active; dispatching recovery run."
-          gh workflow run predict.yml --ref master
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: gh workflow run predict.yml --ref "$DEFAULT_BRANCH"
 
-      - name: Skip recovery because Predict is active
-        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
-        run: echo "Prediction output is stale, but a Predict run is already queued or running."
+      - name: Skip dispatch because Predict is active
+        if: steps.freshness.outcome == 'failure' && steps.active.outputs.active_count != '0'
+        run: echo "Prediction log is stale, but a Predict run is already queued or running."
