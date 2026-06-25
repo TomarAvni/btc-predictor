@@ -91,31 +91,37 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git restore data/cache || true
-          git add predictions.log data/predictions/ data/performance/ data/price/ data/trading/
+          TARGET_BRANCH="master"
+          git fetch origin "$TARGET_BRANCH"
+          # Union append-only JSONL stores with upstream so concurrent hourly
+          # runs never drop newly appended prediction/score rows.
+          python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore
+          git add -A
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
           fi
           git commit -m "chore: prediction run [skip ci]"
-          # Resilient push: re-sync and retry so concurrent runs / data-file
-          # conflicts self-heal instead of failing the whole prediction run.
-          git reset --hard HEAD
+          RUN_COMMIT="$(git rev-parse HEAD)"
+          # Pipeline artifacts (predictions, scores, labeled store, trading)
+          # must always land on master so the dashboard and closed-loop trainer
+          # read a single canonical history regardless of dispatch branch.
+          # Rebase replays the whole commit and conflicts on generated JSON/parquet
+          # artifacts; instead reset to upstream and replay this run's outputs.
           for attempt in 1 2 3 4 5; do
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
-            git reset --hard HEAD
-            python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore || true
+            git reset --hard "origin/$TARGET_BRANCH"
+            git checkout "$RUN_COMMIT" -- data/ predictions.log || true
+            python scripts/recover_pipeline_data.py \
+              --git-ref "origin/$TARGET_BRANCH" \
+              --git-ref "$RUN_COMMIT" \
+              --no-rescore
             git add -A
-            if ! git diff --staged --quiet; then
-              git commit --amend --no-edit
+            if git diff --staged --quiet; then
+              echo "No changes to commit after sync."
+              exit 0
             fi
-            git reset --hard HEAD
-            if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
-              echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
-              git rebase --abort || true
-              sleep $((RANDOM % 5 + 3))
-              continue
-            fi
+            git commit -m "chore: prediction run [skip ci]"
             if git push origin "HEAD:$TARGET_BRANCH"; then
               echo "Pushed successfully on attempt $attempt."
               exit 0

@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: predict-pipeline
+  group: predict-watchdog
   cancel-in-progress: false
 
 jobs:
