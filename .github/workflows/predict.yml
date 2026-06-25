@@ -105,10 +105,7 @@ jobs:
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
             git reset --hard HEAD
             python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore || true
-            # recover_pipeline_data also refreshes rolling_accuracy.json and
-            # calibration_live.json via run_scorer(); stage all pipeline outputs
-            # so rebase does not fail on unstaged derived performance files.
-            git add data/predictions/ data/performance/ data/training_data/
+            git add -A
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
             fi
