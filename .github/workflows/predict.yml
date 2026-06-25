@@ -2,16 +2,21 @@
 
 on:
   schedule:
-    # Hourly, offset from :00 because GitHub can delay top-of-hour schedules.
-    - cron: '7 * * * *'
+    # Twice hourly, offset from :00 because GitHub can delay top-of-hour schedules.
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: predict-pipeline
+  cancel-in-progress: false
+
 jobs:
   predict:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -84,6 +89,7 @@ jobs:
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
             fi
+            git reset --hard HEAD
             if ! git rebase "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
               git rebase --abort || true
