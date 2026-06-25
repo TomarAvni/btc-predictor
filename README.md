@@ -150,13 +150,17 @@ Four workflows run a hands-off pipeline: **Download → Train → Predict**, wit
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
 | **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
-| **Predict Watchdog** (`predict-watchdog.yml`) | Twice hourly (cron) or manual | Checks `predictions.log`; if the latest prediction is older than 1 hour and no Predict run is active, dispatches a recovery Predict run |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Every 30 minutes (cron) or manual | Checks `predictions.log`; if the latest prediction is older than 1 hour and no Predict run is active, dispatches a recovery Predict run |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs twice hourly on the schedule. If GitHub skips scheduled runs, **Predict Watchdog** auto-dispatches a recovery run when predictions go stale.
 
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
 Predict also has a 25-minute job timeout and a shared `predict-pipeline` concurrency group so delayed or stuck runs do not pile up. The watchdog uses `python -m src.utils.prediction_freshness --max-age-hours 3` as its stale-run detector.
+
+Predict also has a 25-minute job timeout and a shared `predict-pipeline`
+concurrency group. The watchdog uses the same group, so recovery checks do not
+race with an active prediction run.
 
 Predict also has a 25-minute job timeout and a shared `predict-pipeline`
 concurrency group. The watchdog uses the same group, so recovery checks do not
