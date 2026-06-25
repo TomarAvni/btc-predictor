@@ -67,7 +67,7 @@ class TestPredictionFreshness(unittest.TestCase):
             result = check_prediction_freshness(
                 path,
                 max_age=timedelta(hours=1),
-                now=datetime(2026, 6, 18, 12, 0, tzinfo=timezone.utc),
+                now=datetime(2026, 6, 18, 10, 0, tzinfo=timezone.utc),
             )
 
         self.assertFalse(result.is_fresh)
