@@ -3,8 +3,9 @@
 on:
   schedule:
     # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
-    # under load, which was leaving the predictor idle for hours.
-    - cron: '7,37 * * * *'
+    # under load, which was leaving the predictor idle for hours. Changing the
+    # minute pair also forces GitHub to re-index a stale scheduler entry.
+    - cron: '13,43 * * * *'
   workflow_dispatch:
 
 permissions:
