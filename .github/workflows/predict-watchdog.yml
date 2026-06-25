@@ -2,15 +2,12 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # GitHub scheduled workflows can be delayed or dropped. This watchdog
-    # checks the committed prediction log twice hourly and restarts Predict
-    # when no run has landed in the last hour.
-    - cron: '17,47 * * * *'
+    # Independent hourly safety net for missed/delayed Predict schedules.
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 permissions:
-  actions: write
-  contents: read
+  contents: write
 
 concurrency:
   group: predict-pipeline
@@ -19,45 +16,81 @@ concurrency:
 jobs:
   watchdog:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Check prediction freshness
+        id: freshness
+        run: python3 -m src.utils.prediction_freshness --max-age-hours 3 --github-output
 
       - uses: actions/setup-python@v5
+        if: steps.freshness.outputs.stale == 'true'
         with:
           python-version: '3.11'
 
-      - name: Check prediction log freshness
-        id: freshness
+      - name: Cache pip
+        if: steps.freshness.outputs.stale == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install
+        if: steps.freshness.outputs.stale == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Check trained models
+        if: steps.freshness.outputs.stale == 'true'
         run: |
-          # Run the script directly so we do not import src.utils (needs deps).
-          if python src/utils/prediction_freshness.py --max-age-hours 1; then
-            echo "stale=false" >> "$GITHUB_OUTPUT"
+          if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
+            echo "::warning::No trained models in data/validation/models/ - running predict with heuristics only"
+            echo "Run Download then Train (or workflow_dispatch Train) to produce ML models."
           else
-            echo "stale=true" >> "$GITHUB_OUTPUT"
+            echo "Trained model artifacts found in data/validation/models/"
           fi
 
-      - name: Check active Predict runs
-        id: active
+      - name: Predict
         if: steps.freshness.outputs.stale == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          queued=$(gh run list --workflow predict.yml --status queued --json databaseId --jq 'length')
-          running=$(gh run list --workflow predict.yml --status in_progress --json databaseId --jq 'length')
-          active=$((queued + running))
-          echo "count=$active" >> "$GITHUB_OUTPUT"
-          if [ "$active" -gt 0 ]; then
-            echo "Predict already has $active queued/running run(s); not dispatching another."
-          fi
+          BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
+        run: python main.py --predict
 
-      - name: Dispatch Predict recovery run
-        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      - name: Trade
+        if: steps.freshness.outputs.stale == 'true'
+        run: python trade.py --live-tick
+
+      - name: Score mature predictions
+        if: steps.freshness.outputs.stale == 'true'
+        run: python score_predictions.py
+
+      - name: Commit
+        if: steps.freshness.outputs.stale == 'true'
         run: |
-          gh workflow run predict.yml --ref "$DEFAULT_BRANCH"
-          echo "Prediction log was stale; dispatched Predict on $DEFAULT_BRANCH."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: watchdog prediction run [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin master || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
+            if ! git rebase -X theirs origin/master; then
+              echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
+              git rebase --abort || true
+              sleep $((RANDOM % 5 + 3))
+              continue
+            fi
+            if git push origin HEAD:master; then
+              echo "Pushed successfully on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected (concurrent update); re-syncing and retrying (attempt $attempt)."
+            sleep $((RANDOM % 5 + 3))
+          done
+          echo "::error::Could not push watchdog prediction results after 5 attempts."
+          exit 1

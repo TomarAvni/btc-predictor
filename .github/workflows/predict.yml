@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    # Redundant, staggered attempts. GitHub can delay or drop individual
-    # schedule events; the freshness gate below keeps backup attempts cheap.
+    # Offset from :00/:30 because GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
     - cron: '7,37 * * * *'
     - cron: '22,52 * * * *'
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: predict-${{ github.ref }}
+  group: predict-pipeline
   cancel-in-progress: false
 
 jobs:

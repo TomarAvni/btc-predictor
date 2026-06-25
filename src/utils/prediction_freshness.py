@@ -1,15 +1,44 @@
-"""Freshness checks for the scheduled prediction workflow."""
+"""Helpers for deciding whether the prediction pipeline is stale.
+
+The GitHub Actions watchdog uses this module before installing project
+dependencies, so keep it limited to the Python standard library.
+"""
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import sys
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import Iterable
 
-JSONL_TIMESTAMP_KEY = "timestamp"
-PREDICTION_HEADER_RE = re.compile(r"^\[(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}\sUTC)\]")
+JSONL_PATH = Path("data/predictions/predictions.jsonl")
+TEXT_LOG_PATH = Path("predictions.log")
+LOG_HEADER_RE = re.compile(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)\]")
+
+
+@dataclass(frozen=True)
+class FreshnessStatus:
+    """Freshness details for the latest committed prediction."""
+
+    latest_timestamp: datetime | None
+    max_age: timedelta
+    now: datetime
+    source: str | None = None
+
+    @property
+    def age(self) -> timedelta | None:
+        if self.latest_timestamp is None:
+            return None
+        return self.now - self.latest_timestamp
+
+    @property
+    def is_stale(self) -> bool:
+        return self.age is None or self.age > self.max_age
 
 
 def _ensure_utc(dt: datetime) -> datetime:
@@ -18,109 +47,160 @@ def _ensure_utc(dt: datetime) -> datetime:
     return dt.astimezone(timezone.utc)
 
 
-def _parse_jsonl_timestamp(value: object) -> datetime | None:
-    if not isinstance(value, str) or not value.strip():
+def _parse_timestamp(value: object) -> datetime | None:
+    if not isinstance(value, str):
         return None
 
-    text = value.strip().replace("Z", "+00:00")
+    text = value.strip()
+    if not text:
+        return None
+
+    if text.endswith(" UTC"):
+        try:
+            return datetime.strptime(text, "%Y-%m-%d %H:%M UTC").replace(
+                tzinfo=timezone.utc
+            )
+        except ValueError:
+            return None
+
     try:
-        return _ensure_utc(datetime.fromisoformat(text))
+        return _ensure_utc(datetime.fromisoformat(text.replace("Z", "+00:00")))
     except ValueError:
         return None
 
 
-def latest_prediction_jsonl_time(path: Path) -> datetime | None:
-    """Return the newest UTC timestamp from prediction JSONL records."""
+def _iter_jsonl_timestamps(path: Path) -> Iterable[datetime]:
     if not path.exists():
-        return None
+        return
 
-    latest: datetime | None = None
     with path.open(encoding="utf-8") as f:
         for line in f:
+            line = line.strip()
+            if not line:
+                continue
             try:
-                record = json.loads(line)
+                row = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            ts = _parse_jsonl_timestamp(record.get(JSONL_TIMESTAMP_KEY))
-            if ts is not None and (latest is None or ts > latest):
-                latest = ts
-    return latest
+            ts = _parse_timestamp(row.get("timestamp"))
+            if ts is not None:
+                yield ts
 
 
-def latest_prediction_log_time(path: Path) -> datetime | None:
-    """Return the newest UTC timestamp from a predictions.log-style file."""
-    if not path.exists():
-        return None
+def latest_prediction_timestamp(
+    *,
+    jsonl_path: Path = JSONL_PATH,
+    text_log_path: Path = TEXT_LOG_PATH,
+) -> tuple[datetime | None, str | None]:
+    """Return the newest prediction timestamp and the file it came from."""
+
+    jsonl_latest = max(_iter_jsonl_timestamps(jsonl_path), default=None)
+    if jsonl_latest is not None:
+        return jsonl_latest, str(jsonl_path)
+
+    if not text_log_path.exists():
+        return None, None
 
     latest: datetime | None = None
-    with path.open(encoding="utf-8") as f:
+    with text_log_path.open(encoding="utf-8", errors="replace") as f:
         for line in f:
-            match = PREDICTION_HEADER_RE.match(line)
+            match = LOG_HEADER_RE.search(line)
             if not match:
                 continue
-            ts = datetime.strptime(match.group(1), "%Y-%m-%d %H:%M UTC").replace(
-                tzinfo=timezone.utc
-            )
-            if latest is None or ts > latest:
+            ts = _parse_timestamp(match.group(1))
+            if ts is not None and (latest is None or ts > latest):
                 latest = ts
-    return latest
+
+    if latest is None:
+        return None, None
+    return latest, str(text_log_path)
 
 
-def latest_prediction_time(jsonl_path: Path, log_path: Path) -> datetime | None:
-    """Return the newest prediction timestamp from machine or text logs."""
-    candidates = [
-        latest_prediction_jsonl_time(jsonl_path),
-        latest_prediction_log_time(log_path),
-    ]
-    return max((ts for ts in candidates if ts is not None), default=None)
-
-
-def should_run_prediction(
+def check_prediction_freshness(
     *,
-    event_name: str,
-    jsonl_path: Path,
-    log_path: Path,
-    threshold: timedelta,
+    max_age: timedelta,
     now: datetime | None = None,
-) -> bool:
-    """Manual runs always proceed; scheduled runs proceed only when stale."""
-    if event_name == "workflow_dispatch":
-        return True
+    jsonl_path: Path = JSONL_PATH,
+    text_log_path: Path = TEXT_LOG_PATH,
+) -> FreshnessStatus:
+    """Compute whether the latest prediction is older than ``max_age``."""
 
-    current_time = _ensure_utc(now or datetime.now(timezone.utc))
-    latest = latest_prediction_time(jsonl_path, log_path)
-    return latest is None or current_time - latest >= threshold
+    checked_at = _ensure_utc(now or datetime.now(timezone.utc))
+    latest, source = latest_prediction_timestamp(
+        jsonl_path=jsonl_path,
+        text_log_path=text_log_path,
+    )
+    return FreshnessStatus(
+        latest_timestamp=latest,
+        max_age=max_age,
+        now=checked_at,
+        source=source,
+    )
 
 
-def _write_output(path: Path, should_run: bool) -> None:
-    with path.open("a", encoding="utf-8") as f:
-        f.write(f"should_run={'true' if should_run else 'false'}\n")
+def _format_dt(dt: datetime | None) -> str:
+    if dt is None:
+        return ""
+    return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def main() -> None:
+def _write_github_output(status: FreshnessStatus) -> None:
+    output_path = os.environ.get("GITHUB_OUTPUT")
+    if not output_path:
+        return
+
+    age_seconds = "" if status.age is None else str(int(status.age.total_seconds()))
+    lines = [
+        f"stale={'true' if status.is_stale else 'false'}",
+        f"latest_timestamp={_format_dt(status.latest_timestamp)}",
+        f"age_seconds={age_seconds}",
+        f"source={status.source or ''}",
+    ]
+    with open(output_path, "a", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+        f.write("\n")
+
+
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Decide whether the predict workflow should do a full run."
+        description="Check whether committed prediction output is stale."
     )
-    parser.add_argument("--event-name", default="schedule")
-    parser.add_argument("--jsonl-path", default="data/predictions/predictions.jsonl")
-    parser.add_argument("--log-path", default="predictions.log")
-    parser.add_argument("--threshold-minutes", type=int, default=25)
-    parser.add_argument("--output", help="GitHub Actions output file path")
-    args = parser.parse_args()
+    parser.add_argument(
+        "--max-age-hours",
+        type=float,
+        default=3.0,
+        help="Maximum fresh age in hours before the pipeline should run.",
+    )
+    parser.add_argument(
+        "--github-output",
+        action="store_true",
+        help="Write stale/latest/age details to $GITHUB_OUTPUT.",
+    )
+    parser.add_argument(
+        "--exit-code",
+        action="store_true",
+        help="Exit 1 when stale instead of always exiting 0.",
+    )
+    args = parser.parse_args(argv)
 
-    threshold = timedelta(minutes=args.threshold_minutes)
-    should_run = should_run_prediction(
-        event_name=args.event_name,
-        jsonl_path=Path(args.jsonl_path),
-        log_path=Path(args.log_path),
-        threshold=threshold,
+    status = check_prediction_freshness(
+        max_age=timedelta(hours=args.max_age_hours),
+    )
+    if args.github_output:
+        _write_github_output(status)
+
+    latest = _format_dt(status.latest_timestamp) or "none"
+    age = "unknown" if status.age is None else str(status.age).split(".")[0]
+    state = "stale" if status.is_stale else "fresh"
+    print(
+        f"Prediction freshness: {state}; latest={latest}; "
+        f"age={age}; source={status.source or 'none'}"
     )
 
-    status = "stale or manual" if should_run else "fresh"
-    print(f"Prediction workflow freshness: {status}; should_run={should_run}")
-    if args.output:
-        _write_output(Path(args.output), should_run)
+    if args.exit_code and status.is_stale:
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
