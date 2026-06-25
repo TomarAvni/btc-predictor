@@ -31,7 +31,9 @@ jobs:
       - name: Check prediction freshness
         id: freshness
         run: |
-          python3 -m src.utils.prediction_freshness \
+          # Run as a script (not `python -m`) so src.utils.__init__ does not
+          # import PyYAML before requirements are installed on the runner.
+          python3 src/utils/prediction_freshness.py \
             --event-name "${{ github.event_name }}" \
             --threshold-minutes 25 \
             --output "$GITHUB_OUTPUT"
