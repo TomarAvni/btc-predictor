@@ -151,7 +151,7 @@ an hourly watchdog to recover missed scheduled prediction runs.
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
 | **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
-| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly or manual | Checks `predictions.log`; if no prediction has landed in 3 hours and no Predict run is active, dispatches a recovery Predict run |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly (cron) or manual | Checks `predictions.log`; if the latest prediction is older than 3 hours and no Predict run is active, dispatches Predict |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule.
@@ -159,15 +159,15 @@ an hourly watchdog to recover missed scheduled prediction runs.
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
 Predict runs share a `predict-pipeline` concurrency queue and have a 25-minute timeout, so scheduled and watchdog-dispatched runs cannot overlap or hang indefinitely.
 
-Predict runs share a `predict-pipeline` concurrency group with the watchdog and
-have a 25-minute timeout so stuck runs cannot block recovery indefinitely. All
-workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
+Predict has a 25-minute timeout and a shared concurrency group so a stuck run cannot silently block the pipeline. The watchdog uses `python -m src.utils.prediction_freshness --max-age-hours 3` as the stale check before triggering a recovery run.
+
+All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
 ### Continuous Learning Loop
 
 The system improves over time through a closed feedback loop:
 
-1. **Predict** (`predict.yml`, every 30 min) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions. The job is serialized and time-bounded so overlapping or hung runs do not block the loop indefinitely.
+1. **Predict** (`predict.yml`, every 30 min) — runs ML models on latest data, logs predictions to `predictions.log`, executes a paper-trade tick, then scores mature predictions. **Predict Watchdog** (`predict-watchdog.yml`) backstops missed schedules by dispatching Predict when the latest committed run is more than 3 hours old.
 2. **Score** (`score_predictions.py`) — for each prediction whose horizon has elapsed (any 6h-step point up to 168h, plus 30d), compares predicted direction and magnitude to the actual BTC move from `data/price/btc_hourly.parquet`. Results append to `data/performance/prediction_scores.jsonl`; rolling stats land in `data/performance/rolling_accuracy.json`.
 3. **Predict Watchdog** (`predict-watchdog.yml`, hourly) — treats `predictions.log` as stale after 3 hours without a new prediction and dispatches Predict if GitHub cron skipped scheduled runs.
 4. **Retrain** (`retrain.yml`, weekly Sunday 3am UTC) — downloads fresh candles, scores any newly mature predictions, retrains models via `validate.py`, and commits updated models + performance data.
