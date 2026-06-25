@@ -2,19 +2,16 @@ name: Predict Watchdog
 
 on:
   schedule:
+    # Run away from the top of the hour to avoid GitHub's busiest cron slots.
     - cron: '17 * * * *'
   workflow_dispatch:
 
 permissions:
-  actions: write
   contents: read
-
-concurrency:
-  group: predict-pipeline
-  cancel-in-progress: false
+  actions: write
 
 jobs:
-  recover-stale-predict:
+  watchdog:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -26,32 +23,30 @@ jobs:
 
       - name: Check prediction freshness
         id: freshness
-        run: |
-          if python -m src.utils.prediction_freshness --max-age-hours 3; then
-            echo "stale=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "stale=true" >> "$GITHUB_OUTPUT"
-          fi
+        continue-on-error: true
+        run: python -m src.utils.prediction_freshness --max-age-hours 3
 
-      - name: Dispatch Predict if inactive
-        if: steps.freshness.outputs.stale == 'true'
+      - name: Dispatch Predict if stale
+        if: steps.freshness.outcome == 'failure'
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           active_runs=0
           for status in queued in_progress waiting pending requested; do
-            count="$(gh api --method GET "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
-              -f branch=master \
+            count=$(gh api --method GET "repos/${REPOSITORY}/actions/workflows/predict.yml/runs" \
               -f status="$status" \
-              --jq '.total_count')"
+              -f branch="$DEFAULT_BRANCH" \
+              --jq '.total_count')
+            echo "Predict runs with status ${status}: ${count}"
             active_runs=$((active_runs + count))
           done
 
           if [ "$active_runs" -gt 0 ]; then
-            echo "Predict already has $active_runs active run(s); not dispatching another."
+            echo "Predict is already active or queued; watchdog will not dispatch another run."
             exit 0
           fi
 
-          gh workflow run predict.yml --ref master
-          echo "Prediction output is stale; dispatched Predict."
+          echo "Prediction log is stale; dispatching Predict workflow."
+          gh workflow run predict.yml --ref "$DEFAULT_BRANCH"
