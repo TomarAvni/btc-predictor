@@ -110,11 +110,9 @@ jobs:
             if ! git diff --staged --quiet; then
               git commit --amend --no-edit
             fi
-            if ! git diff --quiet; then
-              echo "Unstaged changes remain after amend; staging all before rebase."
-              git add -A
-              git commit --amend --no-edit || true
-            fi
+            # recover_pipeline_data.py refreshes derived JSON performance files;
+            # discard unstaged scorer side-effects so rebase can proceed.
+            git reset --hard HEAD
             if ! git rebase "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
               git rebase --abort || true

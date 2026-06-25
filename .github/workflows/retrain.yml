@@ -56,8 +56,6 @@ jobs:
           git reset --hard HEAD
           for attempt in 1 2 3 4 5; do
             git fetch origin "$TARGET_BRANCH" || { echo "Fetch failed; retrying (attempt $attempt)."; sleep $((RANDOM % 5 + 3)); continue; }
-            # score_predictions.py can leave unstaged changes outside the paths
-            # we commit; discard them so rebase is not blocked.
             git reset --hard HEAD
             if ! git rebase -X theirs "origin/$TARGET_BRANCH"; then
               echo "Rebase hit an unexpected state; aborting and retrying (attempt $attempt)."
