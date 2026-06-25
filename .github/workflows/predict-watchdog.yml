@@ -63,5 +63,4 @@ jobs:
 
       - name: Report fresh prediction pipeline
         if: steps.freshness.outputs.stale != 'true'
-        run: |
-          echo "Prediction pipeline is fresh (${{ steps.freshness.outputs.reason }})"
+        run: echo "Prediction pipeline is fresh (${{ steps.freshness.outputs.reason }})."
