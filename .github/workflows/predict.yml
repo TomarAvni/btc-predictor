@@ -2,7 +2,8 @@
 
 on:
   schedule:
-    # Offset from :00/:30 — GitHub drops or delays top-of-hour schedules under load.
+    # Offset from :00/:30 — GitHub drops/delays schedules at the top of the hour
+    # under load, which was leaving the predictor idle for hours.
     - cron: '7,37 * * * *'
   workflow_dispatch:
 
