@@ -20,6 +20,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: master
 
       - uses: actions/setup-python@v5
         with:
@@ -57,9 +59,12 @@ jobs:
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
         run: |
-          gh workflow run predict.yml --ref "${{ github.ref_name }}"
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/actions/workflows/predict.yml/dispatches" \
+            -f ref=master
           echo "Dispatched Predict because predictions.log is stale and no Predict run is active."
 
       - name: Skip recovery because Predict is active
