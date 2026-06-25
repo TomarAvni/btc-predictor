@@ -143,14 +143,15 @@ The dashboard works with demo data out of the box — run the predictor to popul
 
 ### GitHub Actions (Automated Pipeline)
 
-Four workflows run a hands-off pipeline: **Download → Train → Predict**, with a watchdog that recovers missed prediction schedules.
+Four workflows run a hands-off pipeline: **Download -> Train -> Predict**, with
+an hourly watchdog to recover missed scheduled prediction runs.
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
 | **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
-| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly cron or manual | Checks `predictions.log` freshness and dispatches Predict if no prediction has landed for 3 hours |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly or manual | Checks `predictions.log`; if no prediction has landed in 3 hours and no Predict run is active, dispatches a recovery Predict run |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule.
@@ -158,17 +159,9 @@ Four workflows run a hands-off pipeline: **Download → Train → Predict**, wit
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
 Predict runs share a `predict-pipeline` concurrency queue and have a 25-minute timeout, so scheduled and watchdog-dispatched runs cannot overlap or hang indefinitely.
 
-Predict uses a shared `predict-pipeline` concurrency group and a 25-minute job timeout so a slow or stuck run does not overlap with later scheduled runs. The watchdog is a recovery path for GitHub schedule delays or drops; it only dispatches a replacement run after the prediction log is stale for more than 3 hours.
-
-Predict uses a shared `predict-pipeline` concurrency group and a 25-minute job timeout so delayed runs do not pile up behind a stuck job. All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
-
-The Predict schedule is intentionally offset from the top and half hour because
-GitHub Actions can drop scheduled events during peak load. `Predict Watchdog`
-runs hourly and uses `python -m src.utils.prediction_freshness --max-age-hours 3`
-to check the latest `predictions.log` entry. If the log is stale and no Predict
-run is already queued or running, it dispatches `predict.yml` on `master`. Both
-workflows share the `predict-pipeline` concurrency group so recovery runs do not
-overlap normal prediction runs.
+Predict runs share a `predict-pipeline` concurrency group with the watchdog and
+have a 25-minute timeout so stuck runs cannot block recovery indefinitely. All
+workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
 ### Continuous Learning Loop
 
