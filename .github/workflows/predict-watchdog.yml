@@ -2,9 +2,8 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # GitHub scheduled workflows can be delayed or dropped. This watchdog
-    # checks the committed prediction log twice hourly and restarts Predict
-    # when predictions are more than 1 hour old.
+    # Offset from Predict's twice-hourly schedule; recovers when cron events
+    # are dropped and no prediction has landed within the stale threshold.
     - cron: '17,47 * * * *'
   workflow_dispatch:
 
@@ -29,12 +28,7 @@ jobs:
 
       - name: Check prediction freshness
         id: freshness
-        run: |
-          if python -m src.utils.prediction_freshness --max-age-hours 1; then
-            echo "stale=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "stale=true" >> "$GITHUB_OUTPUT"
-          fi
+        run: python -m src.utils.prediction_freshness --max-age-hours 1 --github-output "$GITHUB_OUTPUT"
 
       - name: Check for active Predict runs
         id: active
@@ -59,11 +53,14 @@ jobs:
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
         run: |
-          gh workflow run predict.yml --ref "${{ github.ref_name }}"
+          gh workflow run predict.yml --ref master
           echo "Dispatched Predict because predictions.log is stale and no Predict run is active."
 
       - name: Skip recovery because Predict is active
         if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count != '0'
         run: echo "Predictions are stale, but a Predict run is already queued or running."
+
+      - name: Report fresh prediction pipeline
+        if: steps.freshness.outputs.stale != 'true'
+        run: echo "Prediction pipeline is fresh: ${{ steps.freshness.outputs.reason }}"
