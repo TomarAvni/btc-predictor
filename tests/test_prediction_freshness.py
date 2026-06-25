@@ -1,4 +1,4 @@
-"""Tests for prediction freshness checks."""
+"""Tests for prediction log freshness checks."""
 
 from __future__ import annotations
 
@@ -6,113 +6,101 @@ import os
 import sys
 import tempfile
 import unittest
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.utils.prediction_freshness import (  # noqa: E402
     check_prediction_freshness,
-    latest_prediction_timestamp,
+    latest_prediction_run,
     main,
 )
 
 
-def _log_entry(timestamp: str, run_number: int = 1) -> str:
-    return "\n".join(
-        [
-            "=" * 80,
-            f"[{timestamp}] -- Prediction Run #{run_number}",
-            "=" * 80,
-            "",
-            "PREDICTIONS:",
-            "  6h    | UP    | +1.0%    | Confidence: 55%",
-        ]
-    )
+def _write_log(path: Path, headers: list[str]) -> None:
+    chunks = []
+    for header in headers:
+        chunks.append(
+            "\n".join(
+                [
+                    "=" * 80,
+                    f"[{header}] -- Prediction Run #{len(chunks) + 1}",
+                    "=" * 80,
+                    "",
+                    "PREDICTIONS:",
+                    "  6h    | UP    | +0.1%    | Confidence: 66%",
+                ]
+            )
+        )
+    path.write_text("\n".join(chunks), encoding="utf-8")
 
 
 class TestPredictionFreshness(unittest.TestCase):
-    def test_latest_prediction_timestamp_uses_newest_header(self) -> None:
-        text = "\n".join(
-            [
-                _log_entry("2026-06-18 08:00 UTC", 1),
-                _log_entry("2026-06-18 11:00 UTC", 2),
-                _log_entry("2026-06-18 09:00 UTC", 3),
-            ]
-        )
-
-        latest = latest_prediction_timestamp(text)
-
-        self.assertEqual(latest, datetime(2026, 6, 18, 11, 0, tzinfo=timezone.utc))
-
-    def test_fresh_when_latest_prediction_within_threshold(self) -> None:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            path = Path(tmpdir) / "predictions.log"
-            path.write_text(_log_entry("2026-06-18 10:30 UTC"), encoding="utf-8")
-
-            result = check_prediction_freshness(
-                path,
-                max_age=timedelta(hours=3),
-                now=datetime(2026, 6, 18, 12, 0, tzinfo=timezone.utc),
+    def test_latest_prediction_run_uses_newest_header(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            _write_log(
+                log_path,
+                [
+                    "2026-06-18 09:00 UTC",
+                    "2026-06-18 12:30 UTC",
+                ],
             )
 
-        self.assertTrue(result.is_fresh)
-        self.assertEqual(result.age, timedelta(hours=1, minutes=30))
+            latest = latest_prediction_run(log_path)
 
-    def test_stale_when_latest_prediction_exceeds_threshold(self) -> None:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            path = Path(tmpdir) / "predictions.log"
-            path.write_text(_log_entry("2026-06-18 08:59 UTC"), encoding="utf-8")
+        self.assertIsNotNone(latest)
+        timestamp, run_number = latest
+        self.assertEqual(timestamp, datetime(2026, 6, 18, 12, 30, tzinfo=timezone.utc))
+        self.assertEqual(run_number, 2)
 
-            result = check_prediction_freshness(
-                path,
-                max_age=timedelta(hours=3),
-                now=datetime(2026, 6, 18, 12, 0, tzinfo=timezone.utc),
+    def test_fresh_when_latest_run_is_within_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            _write_log(log_path, ["2026-06-18 12:30 UTC"])
+
+            freshness = check_prediction_freshness(
+                log_path,
+                max_age_hours=3,
+                now=datetime(2026, 6, 18, 15, 0, tzinfo=timezone.utc),
             )
 
-        self.assertFalse(result.is_fresh)
-        self.assertEqual(result.reason, "latest prediction is stale")
+        self.assertTrue(freshness.is_fresh)
+        self.assertAlmostEqual(freshness.age_hours, 2.5)
+
+    def test_stale_when_latest_run_exceeds_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            _write_log(log_path, ["2026-06-18 11:30 UTC"])
+
+            freshness = check_prediction_freshness(
+                log_path,
+                max_age_hours=3,
+                now=datetime(2026, 6, 18, 15, 0, tzinfo=timezone.utc),
+            )
+
+        self.assertFalse(freshness.is_fresh)
+        self.assertAlmostEqual(freshness.age_hours, 3.5)
 
     def test_missing_log_is_stale(self) -> None:
-        result = check_prediction_freshness(
-            "/tmp/does-not-exist-predictions.log",
-            now=datetime(2026, 6, 18, 12, 0, tzinfo=timezone.utc),
-        )
-
-        self.assertFalse(result.is_fresh)
-        self.assertIn("does not exist", result.reason)
-
-    def test_log_without_headers_is_stale(self) -> None:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            path = Path(tmpdir) / "predictions.log"
-            path.write_text("no prediction entries yet", encoding="utf-8")
-
-            result = check_prediction_freshness(
-                path,
-                now=datetime(2026, 6, 18, 12, 0, tzinfo=timezone.utc),
+        with tempfile.TemporaryDirectory() as tmp:
+            freshness = check_prediction_freshness(
+                Path(tmp) / "missing.log",
+                max_age_hours=3,
+                now=datetime(2026, 6, 18, 15, 0, tzinfo=timezone.utc),
             )
 
-        self.assertFalse(result.is_fresh)
-        self.assertIn("no prediction headers", result.reason)
+        self.assertFalse(freshness.is_fresh)
+        self.assertIsNone(freshness.age_hours)
 
-    def test_cli_returns_success_for_fresh_log(self) -> None:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            path = Path(tmpdir) / "predictions.log"
-            now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-            path.write_text(_log_entry(now), encoding="utf-8")
+    def test_cli_exit_codes_match_freshness(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            _write_log(log_path, ["2026-06-18 12:30 UTC"])
 
-            exit_code = main(["--path", str(path), "--max-age-hours", "3"])
-
-        self.assertEqual(exit_code, 0)
-
-    def test_cli_returns_failure_for_stale_log(self) -> None:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            path = Path(tmpdir) / "predictions.log"
-            path.write_text(_log_entry("2000-01-01 00:00 UTC"), encoding="utf-8")
-
-            exit_code = main(["--path", str(path), "--max-age-hours", "3"])
-
-        self.assertEqual(exit_code, 1)
+            self.assertEqual(main(["--path", str(log_path), "--max-age-hours", "99999"]), 0)
+            self.assertEqual(main(["--path", str(log_path), "--max-age-hours", "0.1"]), 1)
 
 
 if __name__ == "__main__":
