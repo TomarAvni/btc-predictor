@@ -93,8 +93,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           TARGET_BRANCH="master"
           git fetch origin "$TARGET_BRANCH"
-          # Union append-only JSONL stores with upstream so concurrent hourly
-          # runs never drop newly appended prediction/score rows.
+          # Union append-only JSONL stores with upstream so concurrent runs
+          # never drop newly appended prediction/score rows on push.
           python scripts/recover_pipeline_data.py --git-ref "origin/$TARGET_BRANCH" --no-rescore
           git add -A
           if git diff --staged --quiet; then
