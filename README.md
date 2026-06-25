@@ -143,19 +143,20 @@ The dashboard works with demo data out of the box — run the predictor to popul
 
 ### GitHub Actions (Automated Pipeline)
 
-Five workflows run a hands-off pipeline: **Download → Train → Predict**, with weekly retraining and a watchdog that recovers missed scheduled predictions.
+Four workflows run a hands-off pipeline: **Download -> Train -> Predict** plus a watchdog that recovers stale prediction runs.
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
 | **Download** (`download.yml`) | Manual (`workflow_dispatch`) | Downloads full hourly BTC price history (Bitstamp on CI; Binance fallback locally) and commits `data/price/` |
 | **Train** (`train.yml`) | Auto after Download succeeds, or manual | Runs 80/20 validation (`validate.py --split 0.8`), trains models, backtests the trading agent, commits `data/validation/` |
 | **Predict** (`predict.yml`) | Every 30 minutes (cron) or manual | Runs one prediction cycle + live demo trading tick + scores mature predictions, commits results |
-| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly cron or manual | Checks `predictions.log`; if no prediction has landed within 3 hours and no Predict run is active, dispatches a recovery Predict run |
+| **Predict Watchdog** (`predict-watchdog.yml`) | Hourly (cron) or manual | Checks the latest prediction artifact and dispatches `Predict` if no prediction has landed for 3 hours and no Predict run is already active |
 | **Retrain** (`retrain.yml`) | Weekly Sunday 3am UTC or manual | Incremental price update, score predictions, retrain models, commit `data/validation/` + `data/performance/` |
 
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs every 30 minutes on the schedule.
 
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
+Predict runs share a `predict-pipeline` concurrency queue and have a 25-minute timeout, so scheduled and watchdog-dispatched runs cannot overlap or hang indefinitely.
 
 All workflow commits use `[skip ci]` in the message to avoid infinite re-runs.
 
