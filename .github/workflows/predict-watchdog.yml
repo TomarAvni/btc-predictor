@@ -2,8 +2,7 @@ name: Predict Watchdog
 
 on:
   schedule:
-    # Offset from Predict's twice-hourly schedule; recovers when cron events
-    # are dropped and no prediction has landed within the stale threshold.
+    # Offset from Predict (:07/:37) so stale runs are detected within ~30 minutes.
     - cron: '17,47 * * * *'
   workflow_dispatch:
 
@@ -28,7 +27,12 @@ jobs:
 
       - name: Check prediction freshness
         id: freshness
-        run: python -m src.utils.prediction_freshness --max-age-hours 1 --github-output "$GITHUB_OUTPUT"
+        run: |
+          if python -m src.utils.prediction_freshness --max-age-hours 1; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Check for active Predict runs
         id: active
@@ -63,4 +67,4 @@ jobs:
 
       - name: Report fresh prediction pipeline
         if: steps.freshness.outputs.stale != 'true'
-        run: echo "Prediction pipeline is fresh (${{ steps.freshness.outputs.reason }})"
+        run: echo "Prediction pipeline is fresh."
