@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    # Offset from :00/:30 -- GitHub drops/delays schedules at the top of the hour
-    # under load, which was leaving the predictor idle for hours.
+    # Redundant, staggered attempts. GitHub can delay or drop individual
+    # schedule events; the freshness gate below keeps backup attempts cheap.
     - cron: '7,37 * * * *'
     - cron: '22,52 * * * *'
   workflow_dispatch:
@@ -12,8 +12,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: predict-master
-  cancel-in-progress: true
+  group: predict-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   predict:
@@ -28,6 +28,14 @@ jobs:
         run: |
           git fetch origin master
           git reset --hard origin/master
+
+      - name: Check prediction freshness
+        id: freshness
+        run: |
+          python3 -m src.utils.prediction_freshness \
+            --event-name "${{ github.event_name }}" \
+            --threshold-minutes 25 \
+            --output "$GITHUB_OUTPUT"
 
       - name: Check prediction freshness
         id: freshness
@@ -59,15 +67,20 @@ jobs:
         if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: |
           if [ ! -d "data/validation/models" ] || [ -z "$(find data/validation/models -type f -print -quit 2>/dev/null)" ]; then
-            echo "::warning::No trained models in data/validation/models/ -- running predict with heuristics only"
+            echo "::warning::No trained models in data/validation/models/ - running predict with heuristics only"
             echo "Run Download then Train (or workflow_dispatch Train) to produce ML models."
           else
             echo "Trained model artifacts found in data/validation/models/"
           fi
 
-      - name: Predict and trade
+      - name: Predict
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         env:
           BTC_PRICE_PRIMARY_EXCHANGE: bitstamp
+        run: python main.py --predict
+
+      - name: Trade
+        if: github.event_name == 'workflow_dispatch' || steps.freshness.outputs.should_run == 'true'
         run: python trade.py --live-tick
 
       - name: Score mature predictions
@@ -97,7 +110,7 @@ jobs:
 
             for path in $conflicts; do
               case "$path" in
-                data/cache/*|data/performance/*|data/predictions/*|data/price/*|data/trading/*|predictions.log)
+                data/performance/*|data/predictions/*|data/price/*|data/trading/*|predictions.log)
                   git checkout --theirs -- "$path"
                   git add -- "$path"
                   ;;

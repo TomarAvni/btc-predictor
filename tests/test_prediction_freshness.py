@@ -1,4 +1,4 @@
-"""Unit tests for scheduled prediction freshness checks."""
+"""Unit tests for prediction workflow freshness checks."""
 
 from __future__ import annotations
 
@@ -26,9 +26,10 @@ class TestPredictionFreshness(unittest.TestCase):
             path.write_text(
                 "\n".join(
                     [
-                        '{"timestamp": "2026-06-15T10:45:00Z"}',
-                        "not-json",
-                        '{"timestamp": "2026-06-15T11:15:00+00:00"}',
+                        '{"timestamp": "2026-06-16T10:00:00+00:00"}',
+                        "not json",
+                        '{"timestamp": "2026-06-16T12:30:00Z"}',
+                        '{"timestamp": ""}',
                     ]
                 ),
                 encoding="utf-8",
@@ -36,7 +37,7 @@ class TestPredictionFreshness(unittest.TestCase):
 
             self.assertEqual(
                 latest_prediction_jsonl_time(path),
-                datetime(2026, 6, 15, 11, 15, tzinfo=timezone.utc),
+                datetime(2026, 6, 16, 12, 30, tzinfo=timezone.utc),
             )
 
     def test_latest_prediction_log_time_uses_newest_header(self) -> None:
@@ -45,9 +46,9 @@ class TestPredictionFreshness(unittest.TestCase):
             path.write_text(
                 "\n".join(
                     [
-                        "[2026-06-15 10:45 UTC] -- Prediction Run #10",
+                        "[2026-06-16 09:30 UTC]",
                         "PREDICTIONS:",
-                        "[2026-06-15 11:15 UTC] -- Prediction Run #11",
+                        "[2026-06-16 11:00 UTC]",
                     ]
                 ),
                 encoding="utf-8",
@@ -55,90 +56,75 @@ class TestPredictionFreshness(unittest.TestCase):
 
             self.assertEqual(
                 latest_prediction_log_time(path),
-                datetime(2026, 6, 15, 11, 15, tzinfo=timezone.utc),
+                datetime(2026, 6, 16, 11, 0, tzinfo=timezone.utc),
             )
 
     def test_latest_prediction_time_prefers_newest_source(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            jsonl = Path(tmp) / "predictions.jsonl"
-            log = Path(tmp) / "predictions.log"
-            jsonl.write_text(
-                '{"timestamp": "2026-06-15T11:10:00Z"}\n',
+            jsonl_path = Path(tmp) / "predictions.jsonl"
+            log_path = Path(tmp) / "predictions.log"
+            jsonl_path.write_text(
+                '{"timestamp": "2026-06-16T13:15:00+00:00"}\n',
                 encoding="utf-8",
             )
-            log.write_text(
-                "[2026-06-15 11:15 UTC] -- Prediction Run #11\n",
-                encoding="utf-8",
-            )
+            log_path.write_text("[2026-06-16 12:45 UTC]\n", encoding="utf-8")
 
             self.assertEqual(
-                latest_prediction_time(jsonl, log),
-                datetime(2026, 6, 15, 11, 15, tzinfo=timezone.utc),
+                latest_prediction_time(jsonl_path, log_path),
+                datetime(2026, 6, 16, 13, 15, tzinfo=timezone.utc),
             )
 
-    def test_missing_logs_are_stale_for_schedule(self) -> None:
+    def test_scheduled_run_skips_when_prediction_is_fresh(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            self.assertTrue(
-                should_run_prediction(
-                    event_name="schedule",
-                    jsonl_path=Path(tmp) / "missing.jsonl",
-                    log_path=Path(tmp) / "missing.log",
-                    threshold=timedelta(minutes=25),
-                    now=datetime(2026, 6, 15, 11, 30, tzinfo=timezone.utc),
-                )
-            )
-
-    def test_schedule_skips_fresh_prediction(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "predictions.jsonl"
-            path.write_text(
-                '{"timestamp": "2026-06-15T11:15:00Z"}\n',
+            jsonl_path = Path(tmp) / "predictions.jsonl"
+            log_path = Path(tmp) / "predictions.log"
+            jsonl_path.write_text(
+                '{"timestamp": "2026-06-16T13:00:00+00:00"}\n',
                 encoding="utf-8",
             )
 
             self.assertFalse(
                 should_run_prediction(
                     event_name="schedule",
-                    jsonl_path=path,
-                    log_path=Path(tmp) / "missing.log",
+                    jsonl_path=jsonl_path,
+                    log_path=log_path,
                     threshold=timedelta(minutes=25),
-                    now=datetime(2026, 6, 15, 11, 30, tzinfo=timezone.utc),
+                    now=datetime(2026, 6, 16, 13, 20, tzinfo=timezone.utc),
                 )
             )
 
-    def test_schedule_runs_stale_prediction(self) -> None:
+    def test_scheduled_run_proceeds_when_prediction_is_stale(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "predictions.jsonl"
-            path.write_text(
-                '{"timestamp": "2026-06-15T11:00:00Z"}\n',
-                encoding="utf-8",
-            )
+            jsonl_path = Path(tmp) / "predictions.jsonl"
+            log_path = Path(tmp) / "predictions.log"
+            log_path.write_text("[2026-06-16 13:00 UTC]\n", encoding="utf-8")
 
             self.assertTrue(
                 should_run_prediction(
                     event_name="schedule",
-                    jsonl_path=path,
-                    log_path=Path(tmp) / "missing.log",
+                    jsonl_path=jsonl_path,
+                    log_path=log_path,
                     threshold=timedelta(minutes=25),
-                    now=datetime(2026, 6, 15, 11, 30, tzinfo=timezone.utc),
+                    now=datetime(2026, 6, 16, 13, 30, tzinfo=timezone.utc),
                 )
             )
 
-    def test_workflow_dispatch_always_runs(self) -> None:
+    def test_manual_run_always_proceeds(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "predictions.jsonl"
-            path.write_text(
-                '{"timestamp": "2026-06-15T11:29:00Z"}\n',
+            jsonl_path = Path(tmp) / "predictions.jsonl"
+            log_path = Path(tmp) / "predictions.log"
+            jsonl_path.write_text(
+                '{"timestamp": "2026-06-16T13:00:00+00:00"}\n',
                 encoding="utf-8",
             )
 
             self.assertTrue(
                 should_run_prediction(
                     event_name="workflow_dispatch",
-                    jsonl_path=path,
-                    log_path=Path(tmp) / "missing.log",
-                    threshold=timedelta(minutes=25),
-                    now=datetime(2026, 6, 15, 11, 30, tzinfo=timezone.utc),
+                    jsonl_path=jsonl_path,
+                    log_path=log_path,
+                    threshold=timedelta(hours=24),
+                    now=datetime(2026, 6, 16, 13, 1, tzinfo=timezone.utc),
                 )
             )
 
