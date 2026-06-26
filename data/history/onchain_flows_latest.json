@@ -1,46 +1,32 @@
 {
-  "whale_btc_moved_1h": 588.2298,
-  "whale_tx_count_1h": 3,
-  "whale_btc_moved_6h": 588.2298,
-  "whale_tx_count_6h": 3,
-  "whale_btc_moved_24h": 588.2298,
-  "whale_tx_count_24h": 3,
-  "whale_btc_moved_7d": 588.2298,
-  "whale_tx_count_7d": 3,
-  "largest_whale_tx_btc_24h": 368.6634,
+  "whale_btc_moved_1h": 184.4975,
+  "whale_tx_count_1h": 1,
+  "whale_btc_moved_6h": 184.4975,
+  "whale_tx_count_6h": 1,
+  "whale_btc_moved_24h": 184.4975,
+  "whale_tx_count_24h": 1,
+  "whale_btc_moved_7d": 184.4975,
+  "whale_tx_count_7d": 1,
+  "largest_whale_tx_btc_24h": 184.4975,
   "exchange_inflow_btc_24h": 0.0,
   "exchange_outflow_btc_24h": 0.0,
   "net_exchange_flow_btc_24h": 0.0,
   "miner_outflow_btc_24h": 0.0,
   "miner_to_exchange_btc_24h": 0.0,
-  "unknown_large_flow_btc_24h": 588.2298,
-  "cold_storage_like_btc_24h": 470.0848,
-  "distribution_like_btc_24h": 118.1451,
-  "flow_accumulation_score": 0.5983,
+  "unknown_large_flow_btc_24h": 184.4975,
+  "cold_storage_like_btc_24h": 0.0,
+  "distribution_like_btc_24h": 184.4975,
+  "flow_accumulation_score": -1.0,
   "label_source": "local_address_labels",
   "label_coverage_note": "free_mode_unknown_unless_address_label_exists",
   "top_transactions": [
     {
-      "timestamp": "2026-06-26 18:01:08+00:00",
-      "tx_hash": "97754fb13e7469046c588520f0e92562bfd011890f1c610b6f986e1af19aa1a3",
-      "total_btc": 368.6634,
-      "category": "unknown",
-      "heuristic": "cold_storage_like"
-    },
-    {
-      "timestamp": "2026-06-26 18:01:19+00:00",
-      "tx_hash": "40a1d351430492fad01afa1b95e644d3b00495ae972abb4c24dd00d4798296aa",
-      "total_btc": 118.1451,
+      "timestamp": "2026-06-26 19:06:18+00:00",
+      "tx_hash": "e444c01e88b835f041e9f35b4831402c01d236e3465910d553a8fb109ad8fbc1",
+      "total_btc": 184.4975,
       "category": "unknown",
       "heuristic": "distribution_like"
-    },
-    {
-      "timestamp": "2026-06-26 18:01:21+00:00",
-      "tx_hash": "9deb55433b1d85e36d2c41e06e706fe47b9f49bb989805aa32dc88176747262c",
-      "total_btc": 101.4214,
-      "category": "unknown",
-      "heuristic": "cold_storage_like"
     }
   ],
-  "timestamp": "2026-06-26T18:01:26.161613+00:00"
+  "timestamp": "2026-06-26T19:06:26.809899+00:00"
 }
