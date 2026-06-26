@@ -33,14 +33,39 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
         schedules = self.workflow["on"]["schedule"]
         self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
+    def test_watchdog_dispatches_predict_after_one_hour(self) -> None:
         step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
         script = step["with"]["script"]
 
         self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
+        self.assertIn("const staleAfterMs = 1 * 60 * 60 * 1000;", script)
         self.assertIn("listWorkflowRuns", script)
         self.assertIn("createWorkflowDispatch", script)
+
+    def test_watchdog_rechecks_after_pipeline_workflows_complete(self) -> None:
+        triggers = self.workflow["on"]["workflow_run"]
+        self.assertIn("Predict", triggers["workflows"])
+        self.assertIn("Predict Watchdog", triggers["workflows"])
+        self.assertEqual(triggers["types"], ["completed"])
+
+class TestPredictWatchdogWorkflow(unittest.TestCase):
+    def setUp(self) -> None:
+        self.workflow = load_workflow("predict-watchdog.yml")
+
+    def test_watchdog_runs_every_fifteen_minutes(self) -> None:
+        schedules = self.workflow["on"]["schedule"]
+        self.assertEqual(schedules[0]["cron"], "12,27,42,57 * * * *")
+
+    def test_watchdog_uses_fifty_minute_staleness_threshold(self) -> None:
+        step = self.workflow["jobs"]["watchdog"]["steps"][2]
+        run = step["run"]
+        self.assertIn("python3 src/utils/prediction_freshness.py --max-age-hours 0.84", run)
+        self.assertNotIn("python -m src.utils.prediction_freshness", run)
+
+    def test_watchdog_rechecks_after_pipeline_workflows_complete(self) -> None:
+        triggers = self.workflow["on"]["workflow_run"]
+        self.assertIn("Predict", triggers["workflows"])
+        self.assertEqual(triggers["types"], ["completed"])
 
 
 if __name__ == "__main__":
