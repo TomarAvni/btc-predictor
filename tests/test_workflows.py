@@ -33,14 +33,20 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
         schedules = self.workflow["on"]["schedule"]
         self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
+    def test_watchdog_dispatches_predict_after_one_hour(self) -> None:
         step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
         script = step["with"]["script"]
 
         self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
+        self.assertIn("const staleAfterMs = 1 * 60 * 60 * 1000;", script)
         self.assertIn("listWorkflowRuns", script)
         self.assertIn("createWorkflowDispatch", script)
+
+    def test_watchdog_chains_off_predict_completion(self) -> None:
+        workflow_run = self.workflow["on"]["workflow_run"]
+        self.assertIn("Predict", workflow_run["workflows"])
+        self.assertIn("Predict Watchdog", workflow_run["workflows"])
+        self.assertEqual(workflow_run["types"], ["completed"])
 
 
 if __name__ == "__main__":
