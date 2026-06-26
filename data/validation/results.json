@@ -1,195 +1,5510 @@
 {
-  "generated_at": "2026-06-14T23:13:03.002638+00:00",
+  "generated_at": "2026-06-26T07:31:57.697007+00:00",
   "split": {
     "data_start": "2013-09-01T00:00:00+00:00",
-    "data_end": "2026-06-14T23:00:00+00:00",
-    "train_end": "2023-11-24T00:00:00+00:00",
-    "test_start": "2024-02-22T00:00:00+00:00",
-    "gap_days": 90,
-    "train_samples": 89665,
-    "test_samples": 20256
+    "data_end": "2026-06-26T07:00:00+00:00",
+    "train_end": "2023-12-03T01:00:00+00:00",
+    "test_start": "2024-01-02T01:00:00+00:00",
+    "gap_days": 30,
+    "train_samples": 89882,
+    "test_samples": 21751
+  },
+  "horizon_schema": {
+    "version": "horizons-v2-6h-168h-plus-30d",
+    "timeframes": [
+      "6h",
+      "12h",
+      "18h",
+      "24h",
+      "30h",
+      "36h",
+      "42h",
+      "48h",
+      "54h",
+      "60h",
+      "66h",
+      "72h",
+      "78h",
+      "84h",
+      "90h",
+      "96h",
+      "102h",
+      "108h",
+      "114h",
+      "120h",
+      "126h",
+      "132h",
+      "138h",
+      "144h",
+      "150h",
+      "156h",
+      "162h",
+      "168h",
+      "30d"
+    ],
+    "horizon_hours": {
+      "6h": 6,
+      "12h": 12,
+      "18h": 18,
+      "24h": 24,
+      "30h": 30,
+      "36h": 36,
+      "42h": 42,
+      "48h": 48,
+      "54h": 54,
+      "60h": 60,
+      "66h": 66,
+      "72h": 72,
+      "78h": 78,
+      "84h": 84,
+      "90h": 90,
+      "96h": 96,
+      "102h": 102,
+      "108h": 108,
+      "114h": 114,
+      "120h": 120,
+      "126h": 126,
+      "132h": 132,
+      "138h": 138,
+      "144h": 144,
+      "150h": 150,
+      "156h": 156,
+      "162h": 162,
+      "168h": 168,
+      "30d": 720
+    }
   },
   "model_accuracy": {
     "baseline": {
-      "24h": {
-        "direction_accuracy": 52.0,
-        "mae": 1.78,
-        "mae_pct": 1.78,
-        "n_predictions": 5058
+      "6h": {
+        "direction_accuracy": 51.5,
+        "mae": 0.85,
+        "mae_pct": 0.85,
+        "n_predictions": 5437
       },
-      "7d": {
-        "direction_accuracy": 51.7,
-        "mae": 4.84,
-        "mae_pct": 4.81,
-        "n_predictions": 5022
-      },
-      "30d": {
-        "direction_accuracy": 52.8,
-        "mae": 11.04,
-        "mae_pct": 9.79,
-        "n_predictions": 4884
-      },
-      "90d": {
-        "direction_accuracy": 49.4,
-        "mae": 30.69,
-        "mae_pct": 19.53,
-        "n_predictions": 4524
-      }
-    },
-    "xgboost": {
-      "24h": {
+      "12h": {
         "direction_accuracy": 52.2,
-        "mae": 2.19,
-        "mae_pct": 1.78,
-        "n_predictions": 5058
+        "mae": 1.22,
+        "mae_pct": 1.22,
+        "n_predictions": 5435
       },
-      "7d": {
-        "direction_accuracy": 51.7,
-        "mae": 6.68,
-        "mae_pct": 4.81,
-        "n_predictions": 5022
+      "18h": {
+        "direction_accuracy": 51.9,
+        "mae": 1.54,
+        "mae_pct": 1.53,
+        "n_predictions": 5434
       },
-      "30d": {
-        "direction_accuracy": 54.1,
-        "mae": 18.32,
-        "mae_pct": 9.79,
-        "n_predictions": 4884
-      },
-      "90d": {
-        "direction_accuracy": 54.3,
-        "mae": 48.61,
-        "mae_pct": 19.53,
-        "n_predictions": 4524
-      }
-    },
-    "ensemble": {
       "24h": {
-        "direction_accuracy": 52.2,
-        "mae": 2.0,
-        "mae_pct": 1.78,
-        "n_predictions": 5058
+        "direction_accuracy": 52.6,
+        "mae": 1.77,
+        "mae_pct": 1.77,
+        "n_predictions": 5432
       },
-      "7d": {
+      "30h": {
+        "direction_accuracy": 52.4,
+        "mae": 1.98,
+        "mae_pct": 1.99,
+        "n_predictions": 5431
+      },
+      "36h": {
+        "direction_accuracy": 52.5,
+        "mae": 2.16,
+        "mae_pct": 2.17,
+        "n_predictions": 5429
+      },
+      "42h": {
+        "direction_accuracy": 52.3,
+        "mae": 2.36,
+        "mae_pct": 2.36,
+        "n_predictions": 5428
+      },
+      "48h": {
+        "direction_accuracy": 51.9,
+        "mae": 2.52,
+        "mae_pct": 2.52,
+        "n_predictions": 5426
+      },
+      "54h": {
+        "direction_accuracy": 52.1,
+        "mae": 2.7,
+        "mae_pct": 2.7,
+        "n_predictions": 5425
+      },
+      "60h": {
         "direction_accuracy": 51.6,
-        "mae": 5.93,
-        "mae_pct": 4.81,
-        "n_predictions": 5022
+        "mae": 2.85,
+        "mae_pct": 2.86,
+        "n_predictions": 5423
+      },
+      "66h": {
+        "direction_accuracy": 52.1,
+        "mae": 3.02,
+        "mae_pct": 3.02,
+        "n_predictions": 5422
+      },
+      "72h": {
+        "direction_accuracy": 51.9,
+        "mae": 3.16,
+        "mae_pct": 3.16,
+        "n_predictions": 5420
+      },
+      "78h": {
+        "direction_accuracy": 51.6,
+        "mae": 3.3,
+        "mae_pct": 3.3,
+        "n_predictions": 5419
+      },
+      "84h": {
+        "direction_accuracy": 52.0,
+        "mae": 3.41,
+        "mae_pct": 3.41,
+        "n_predictions": 5417
+      },
+      "90h": {
+        "direction_accuracy": 51.6,
+        "mae": 3.53,
+        "mae_pct": 3.53,
+        "n_predictions": 5416
+      },
+      "96h": {
+        "direction_accuracy": 51.9,
+        "mae": 3.65,
+        "mae_pct": 3.64,
+        "n_predictions": 5414
+      },
+      "102h": {
+        "direction_accuracy": 51.7,
+        "mae": 3.78,
+        "mae_pct": 3.77,
+        "n_predictions": 5413
+      },
+      "108h": {
+        "direction_accuracy": 52.3,
+        "mae": 3.87,
+        "mae_pct": 3.86,
+        "n_predictions": 5411
+      },
+      "114h": {
+        "direction_accuracy": 52.1,
+        "mae": 3.99,
+        "mae_pct": 3.98,
+        "n_predictions": 5410
+      },
+      "120h": {
+        "direction_accuracy": 51.8,
+        "mae": 4.1,
+        "mae_pct": 4.09,
+        "n_predictions": 5408
+      },
+      "126h": {
+        "direction_accuracy": 52.0,
+        "mae": 4.23,
+        "mae_pct": 4.2,
+        "n_predictions": 5407
+      },
+      "132h": {
+        "direction_accuracy": 51.6,
+        "mae": 4.33,
+        "mae_pct": 4.3,
+        "n_predictions": 5405
+      },
+      "138h": {
+        "direction_accuracy": 51.5,
+        "mae": 4.44,
+        "mae_pct": 4.41,
+        "n_predictions": 5404
+      },
+      "144h": {
+        "direction_accuracy": 51.6,
+        "mae": 4.54,
+        "mae_pct": 4.5,
+        "n_predictions": 5402
+      },
+      "150h": {
+        "direction_accuracy": 51.1,
+        "mae": 4.63,
+        "mae_pct": 4.59,
+        "n_predictions": 5401
+      },
+      "156h": {
+        "direction_accuracy": 51.9,
+        "mae": 4.71,
+        "mae_pct": 4.67,
+        "n_predictions": 5399
+      },
+      "162h": {
+        "direction_accuracy": 52.1,
+        "mae": 4.8,
+        "mae_pct": 4.77,
+        "n_predictions": 5398
+      },
+      "168h": {
+        "direction_accuracy": 52.3,
+        "mae": 4.88,
+        "mae_pct": 4.86,
+        "n_predictions": 5396
       },
       "30d": {
         "direction_accuracy": 53.8,
-        "mae": 15.06,
-        "mae_pct": 9.79,
-        "n_predictions": 4884
+        "mae": 11.86,
+        "mae_pct": 10.94,
+        "n_predictions": 5258
+      }
+    },
+    "xgboost": {
+      "6h": {
+        "direction_accuracy": 50.7,
+        "mae": 1.61,
+        "mae_pct": 0.85,
+        "n_predictions": 5437
       },
-      "90d": {
-        "direction_accuracy": 54.0,
-        "mae": 41.61,
-        "mae_pct": 19.53,
-        "n_predictions": 4524
+      "12h": {
+        "direction_accuracy": 50.6,
+        "mae": 3.74,
+        "mae_pct": 1.22,
+        "n_predictions": 5435
+      },
+      "18h": {
+        "direction_accuracy": 50.2,
+        "mae": 5.22,
+        "mae_pct": 1.53,
+        "n_predictions": 5434
+      },
+      "24h": {
+        "direction_accuracy": 50.3,
+        "mae": 5.49,
+        "mae_pct": 1.77,
+        "n_predictions": 5432
+      },
+      "30h": {
+        "direction_accuracy": 49.2,
+        "mae": 6.93,
+        "mae_pct": 1.99,
+        "n_predictions": 5431
+      },
+      "36h": {
+        "direction_accuracy": 49.5,
+        "mae": 6.71,
+        "mae_pct": 2.17,
+        "n_predictions": 5429
+      },
+      "42h": {
+        "direction_accuracy": 48.9,
+        "mae": 8.39,
+        "mae_pct": 2.36,
+        "n_predictions": 5428
+      },
+      "48h": {
+        "direction_accuracy": 49.2,
+        "mae": 8.37,
+        "mae_pct": 2.52,
+        "n_predictions": 5426
+      },
+      "54h": {
+        "direction_accuracy": 48.0,
+        "mae": 8.77,
+        "mae_pct": 2.7,
+        "n_predictions": 5425
+      },
+      "60h": {
+        "direction_accuracy": 50.0,
+        "mae": 7.89,
+        "mae_pct": 2.86,
+        "n_predictions": 5423
+      },
+      "66h": {
+        "direction_accuracy": 49.6,
+        "mae": 8.67,
+        "mae_pct": 3.02,
+        "n_predictions": 5422
+      },
+      "72h": {
+        "direction_accuracy": 48.5,
+        "mae": 9.06,
+        "mae_pct": 3.16,
+        "n_predictions": 5420
+      },
+      "78h": {
+        "direction_accuracy": 49.8,
+        "mae": 9.09,
+        "mae_pct": 3.3,
+        "n_predictions": 5419
+      },
+      "84h": {
+        "direction_accuracy": 49.0,
+        "mae": 8.53,
+        "mae_pct": 3.41,
+        "n_predictions": 5417
+      },
+      "90h": {
+        "direction_accuracy": 48.7,
+        "mae": 9.4,
+        "mae_pct": 3.53,
+        "n_predictions": 5416
+      },
+      "96h": {
+        "direction_accuracy": 49.7,
+        "mae": 9.44,
+        "mae_pct": 3.64,
+        "n_predictions": 5414
+      },
+      "102h": {
+        "direction_accuracy": 50.2,
+        "mae": 9.88,
+        "mae_pct": 3.77,
+        "n_predictions": 5413
+      },
+      "108h": {
+        "direction_accuracy": 48.4,
+        "mae": 10.65,
+        "mae_pct": 3.86,
+        "n_predictions": 5411
+      },
+      "114h": {
+        "direction_accuracy": 48.4,
+        "mae": 9.49,
+        "mae_pct": 3.98,
+        "n_predictions": 5410
+      },
+      "120h": {
+        "direction_accuracy": 48.7,
+        "mae": 10.12,
+        "mae_pct": 4.09,
+        "n_predictions": 5408
+      },
+      "126h": {
+        "direction_accuracy": 48.4,
+        "mae": 9.32,
+        "mae_pct": 4.2,
+        "n_predictions": 5407
+      },
+      "132h": {
+        "direction_accuracy": 48.8,
+        "mae": 9.63,
+        "mae_pct": 4.3,
+        "n_predictions": 5405
+      },
+      "138h": {
+        "direction_accuracy": 48.6,
+        "mae": 10.16,
+        "mae_pct": 4.41,
+        "n_predictions": 5404
+      },
+      "144h": {
+        "direction_accuracy": 49.6,
+        "mae": 9.18,
+        "mae_pct": 4.5,
+        "n_predictions": 5402
+      },
+      "150h": {
+        "direction_accuracy": 48.6,
+        "mae": 9.63,
+        "mae_pct": 4.59,
+        "n_predictions": 5401
+      },
+      "156h": {
+        "direction_accuracy": 49.2,
+        "mae": 9.49,
+        "mae_pct": 4.67,
+        "n_predictions": 5399
+      },
+      "162h": {
+        "direction_accuracy": 48.4,
+        "mae": 9.54,
+        "mae_pct": 4.77,
+        "n_predictions": 5398
+      },
+      "168h": {
+        "direction_accuracy": 48.9,
+        "mae": 10.2,
+        "mae_pct": 4.86,
+        "n_predictions": 5396
+      },
+      "30d": {
+        "direction_accuracy": 50.6,
+        "mae": 20.3,
+        "mae_pct": 10.94,
+        "n_predictions": 5258
+      }
+    },
+    "ensemble": {
+      "6h": {
+        "direction_accuracy": 50.9,
+        "mae": 1.24,
+        "mae_pct": 0.85,
+        "n_predictions": 5437
+      },
+      "12h": {
+        "direction_accuracy": 50.5,
+        "mae": 2.62,
+        "mae_pct": 1.22,
+        "n_predictions": 5435
+      },
+      "18h": {
+        "direction_accuracy": 50.0,
+        "mae": 3.61,
+        "mae_pct": 1.53,
+        "n_predictions": 5434
+      },
+      "24h": {
+        "direction_accuracy": 50.2,
+        "mae": 3.87,
+        "mae_pct": 1.77,
+        "n_predictions": 5432
+      },
+      "30h": {
+        "direction_accuracy": 49.3,
+        "mae": 4.78,
+        "mae_pct": 1.99,
+        "n_predictions": 5431
+      },
+      "36h": {
+        "direction_accuracy": 49.6,
+        "mae": 4.65,
+        "mae_pct": 2.17,
+        "n_predictions": 5429
+      },
+      "42h": {
+        "direction_accuracy": 49.0,
+        "mae": 5.66,
+        "mae_pct": 2.36,
+        "n_predictions": 5428
+      },
+      "48h": {
+        "direction_accuracy": 49.3,
+        "mae": 5.68,
+        "mae_pct": 2.52,
+        "n_predictions": 5426
+      },
+      "54h": {
+        "direction_accuracy": 48.2,
+        "mae": 5.93,
+        "mae_pct": 2.7,
+        "n_predictions": 5425
+      },
+      "60h": {
+        "direction_accuracy": 50.2,
+        "mae": 5.55,
+        "mae_pct": 2.86,
+        "n_predictions": 5423
+      },
+      "66h": {
+        "direction_accuracy": 49.6,
+        "mae": 6.0,
+        "mae_pct": 3.02,
+        "n_predictions": 5422
+      },
+      "72h": {
+        "direction_accuracy": 48.5,
+        "mae": 6.26,
+        "mae_pct": 3.16,
+        "n_predictions": 5420
+      },
+      "78h": {
+        "direction_accuracy": 49.9,
+        "mae": 6.36,
+        "mae_pct": 3.3,
+        "n_predictions": 5419
+      },
+      "84h": {
+        "direction_accuracy": 49.1,
+        "mae": 6.11,
+        "mae_pct": 3.41,
+        "n_predictions": 5417
+      },
+      "90h": {
+        "direction_accuracy": 48.9,
+        "mae": 6.64,
+        "mae_pct": 3.53,
+        "n_predictions": 5416
+      },
+      "96h": {
+        "direction_accuracy": 49.8,
+        "mae": 6.76,
+        "mae_pct": 3.64,
+        "n_predictions": 5414
+      },
+      "102h": {
+        "direction_accuracy": 50.3,
+        "mae": 7.03,
+        "mae_pct": 3.77,
+        "n_predictions": 5413
+      },
+      "108h": {
+        "direction_accuracy": 48.5,
+        "mae": 7.43,
+        "mae_pct": 3.86,
+        "n_predictions": 5411
+      },
+      "114h": {
+        "direction_accuracy": 48.5,
+        "mae": 6.89,
+        "mae_pct": 3.98,
+        "n_predictions": 5410
+      },
+      "120h": {
+        "direction_accuracy": 48.7,
+        "mae": 7.23,
+        "mae_pct": 4.09,
+        "n_predictions": 5408
+      },
+      "126h": {
+        "direction_accuracy": 48.4,
+        "mae": 6.83,
+        "mae_pct": 4.2,
+        "n_predictions": 5407
+      },
+      "132h": {
+        "direction_accuracy": 48.9,
+        "mae": 6.99,
+        "mae_pct": 4.3,
+        "n_predictions": 5405
+      },
+      "138h": {
+        "direction_accuracy": 48.7,
+        "mae": 7.22,
+        "mae_pct": 4.41,
+        "n_predictions": 5404
+      },
+      "144h": {
+        "direction_accuracy": 49.7,
+        "mae": 6.71,
+        "mae_pct": 4.5,
+        "n_predictions": 5402
+      },
+      "150h": {
+        "direction_accuracy": 48.8,
+        "mae": 7.04,
+        "mae_pct": 4.59,
+        "n_predictions": 5401
+      },
+      "156h": {
+        "direction_accuracy": 49.3,
+        "mae": 7.1,
+        "mae_pct": 4.67,
+        "n_predictions": 5399
+      },
+      "162h": {
+        "direction_accuracy": 48.4,
+        "mae": 7.1,
+        "mae_pct": 4.77,
+        "n_predictions": 5398
+      },
+      "168h": {
+        "direction_accuracy": 49.0,
+        "mae": 7.47,
+        "mae_pct": 4.86,
+        "n_predictions": 5396
+      },
+      "30d": {
+        "direction_accuracy": 50.8,
+        "mae": 15.84,
+        "mae_pct": 10.94,
+        "n_predictions": 5258
       }
     }
   },
   "confidence_calibration": {
     "50%": {
       "stated_confidence": 55.0,
-      "actual_accuracy": 57.5,
-      "n_samples": 3884,
+      "actual_accuracy": 49.2,
+      "n_samples": 29328,
       "well_calibrated": true
     },
     "60%": {
       "stated_confidence": 65.0,
-      "actual_accuracy": 58.2,
-      "n_samples": 2531,
-      "well_calibrated": true
+      "actual_accuracy": 48.0,
+      "n_samples": 35047,
+      "well_calibrated": false
     },
     "70%": {
       "stated_confidence": 75.0,
-      "actual_accuracy": 54.0,
-      "n_samples": 1565,
+      "actual_accuracy": 48.1,
+      "n_samples": 69454,
+      "well_calibrated": false
+    },
+    "80%": {
+      "stated_confidence": 85.0,
+      "actual_accuracy": 55.3,
+      "n_samples": 23091,
       "well_calibrated": false
     }
   },
   "regime_accuracy": {
-    "bull": 49.7,
-    "bear": 54.9,
-    "sideways": 58.2
+    "bull": 49.4,
+    "bear": 48.6,
+    "sideways": 50.1
   },
   "feature_importance": [
     {
+      "feature": "cycle_number",
+      "importance_pct": 4.318907737731934
+    },
+    {
       "feature": "cycle_pct",
-      "importance_pct": 12.985865592956543
-    },
-    {
-      "feature": "month_sin",
-      "importance_pct": 10.713540077209473
-    },
-    {
-      "feature": "days_since_halving",
-      "importance_pct": 10.514121055603027
+      "importance_pct": 4.182735919952393
     },
     {
       "feature": "month_cos",
-      "importance_pct": 7.988025188446045
+      "importance_pct": 4.079883575439453
     },
     {
-      "feature": "cycle_number",
-      "importance_pct": 7.629656791687012
-    },
-    {
-      "feature": "volatility_30d",
-      "importance_pct": 6.329931259155273
-    },
-    {
-      "feature": "return_30d",
-      "importance_pct": 5.356364727020264
+      "feature": "days_since_halving",
+      "importance_pct": 3.9613049030303955
     },
     {
       "feature": "phase_distribution",
-      "importance_pct": 5.16859769821167
+      "importance_pct": 3.88496994972229
     },
     {
-      "feature": "phase_markup",
-      "importance_pct": 4.433480739593506
+      "feature": "month_sin",
+      "importance_pct": 3.7313592433929443
     },
     {
-      "feature": "volatility_7d",
-      "importance_pct": 4.415626525878906
+      "feature": "ema_200",
+      "importance_pct": 3.6337475776672363
+    },
+    {
+      "feature": "phase_markdown",
+      "importance_pct": 3.599114418029785
+    },
+    {
+      "feature": "ema_21",
+      "importance_pct": 3.4419939517974854
+    },
+    {
+      "feature": "bb_upper",
+      "importance_pct": 3.321819305419922
     }
   ],
+  "artifact_manifest": {
+    "generated_at": "2026-06-26T07:09:13.906107+00:00",
+    "horizon_schema_version": "horizons-v2-6h-168h-plus-30d",
+    "timeframes": [
+      "6h",
+      "12h",
+      "18h",
+      "24h",
+      "30h",
+      "36h",
+      "42h",
+      "48h",
+      "54h",
+      "60h",
+      "66h",
+      "72h",
+      "78h",
+      "84h",
+      "90h",
+      "96h",
+      "102h",
+      "108h",
+      "114h",
+      "120h",
+      "126h",
+      "132h",
+      "138h",
+      "144h",
+      "150h",
+      "156h",
+      "162h",
+      "168h",
+      "30d"
+    ],
+    "horizon_hours": {
+      "6h": 6,
+      "12h": 12,
+      "18h": 18,
+      "24h": 24,
+      "30h": 30,
+      "36h": 36,
+      "42h": 42,
+      "48h": 48,
+      "54h": 54,
+      "60h": 60,
+      "66h": 66,
+      "72h": 72,
+      "78h": 78,
+      "84h": 84,
+      "90h": 90,
+      "96h": 96,
+      "102h": 102,
+      "108h": 108,
+      "114h": 114,
+      "120h": 120,
+      "126h": 126,
+      "132h": 132,
+      "138h": 138,
+      "144h": 144,
+      "150h": 150,
+      "156h": 156,
+      "162h": 162,
+      "168h": 168,
+      "30d": 720
+    },
+    "longest_horizon_hours": 720,
+    "gap_days": 30,
+    "model_coverage": {
+      "baseline": {
+        "trained_horizons": [
+          "6h",
+          "12h",
+          "18h",
+          "24h",
+          "30h",
+          "36h",
+          "42h",
+          "48h",
+          "54h",
+          "60h",
+          "66h",
+          "72h",
+          "78h",
+          "84h",
+          "90h",
+          "96h",
+          "102h",
+          "108h",
+          "114h",
+          "120h",
+          "126h",
+          "132h",
+          "138h",
+          "144h",
+          "150h",
+          "156h",
+          "162h",
+          "168h",
+          "30d"
+        ],
+        "missing_horizons": [],
+        "coverage": "29/29",
+        "complete": true
+      },
+      "xgboost": {
+        "trained_horizons": [
+          "6h",
+          "12h",
+          "18h",
+          "24h",
+          "30h",
+          "36h",
+          "42h",
+          "48h",
+          "54h",
+          "60h",
+          "66h",
+          "72h",
+          "78h",
+          "84h",
+          "90h",
+          "96h",
+          "102h",
+          "108h",
+          "114h",
+          "120h",
+          "126h",
+          "132h",
+          "138h",
+          "144h",
+          "150h",
+          "156h",
+          "162h",
+          "168h",
+          "30d"
+        ],
+        "missing_horizons": [],
+        "coverage": "29/29",
+        "complete": true
+      },
+      "tft": {
+        "available": false
+      }
+    },
+    "n_feature_columns": 65,
+    "feature_columns": [
+      "return_1h",
+      "return_4h",
+      "return_24h",
+      "return_7d",
+      "return_30d",
+      "hl_range_pct",
+      "candle_body_pct",
+      "volatility_24h",
+      "volatility_7d",
+      "volatility_30d",
+      "vol_ratio_24h_7d",
+      "rsi_14",
+      "rsi_7",
+      "macd",
+      "macd_signal",
+      "macd_histogram",
+      "bb_upper",
+      "bb_lower",
+      "bb_width",
+      "ema_9",
+      "ema_21",
+      "ema_50",
+      "ema_200",
+      "ema_9_21_cross",
+      "ema_50_200_cross",
+      "atr_14",
+      "volume_ratio",
+      "volume_sma_20",
+      "stoch_rsi_k",
+      "stoch_rsi_d",
+      "adx",
+      "obv",
+      "price_position_24h",
+      "price_position_168h",
+      "ema_50_200_ratio",
+      "bb_pct_b",
+      "rsi_14_change",
+      "days_since_halving",
+      "cycle_pct",
+      "cycle_number",
+      "phase_accumulation",
+      "phase_markup",
+      "phase_distribution",
+      "phase_markdown",
+      "hour_sin",
+      "hour_cos",
+      "day_sin",
+      "day_cos",
+      "month_sin",
+      "month_cos",
+      "whale_btc_moved_1h",
+      "whale_btc_moved_6h",
+      "whale_btc_moved_24h",
+      "whale_btc_moved_7d",
+      "whale_tx_count_24h",
+      "largest_whale_tx_btc_24h",
+      "exchange_inflow_btc_24h",
+      "exchange_outflow_btc_24h",
+      "net_exchange_flow_btc_24h",
+      "miner_outflow_btc_24h",
+      "miner_to_exchange_btc_24h",
+      "unknown_large_flow_btc_24h",
+      "cold_storage_like_btc_24h",
+      "distribution_like_btc_24h",
+      "flow_accumulation_score"
+    ]
+  },
+  "walk_forward": {
+    "6h": {
+      "accuracy": 52.4,
+      "baseline_accuracy": 51.8,
+      "auc": 0.5416,
+      "up_rate": 51.0,
+      "n": 67406,
+      "n_folds": 5,
+      "fold_accuracies": [
+        55.0,
+        51.3,
+        52.4,
+        51.8,
+        51.4
+      ],
+      "confusion": {
+        "tp": 12583,
+        "tn": 22714,
+        "fp": 10296,
+        "fn": 21813
+      }
+    },
+    "12h": {
+      "accuracy": 51.9,
+      "baseline_accuracy": 51.5,
+      "auc": 0.5337,
+      "up_rate": 51.2,
+      "n": 67400,
+      "n_folds": 5,
+      "fold_accuracies": [
+        55.5,
+        50.5,
+        52.7,
+        49.7,
+        51.0
+      ],
+      "confusion": {
+        "tp": 11567,
+        "tn": 23419,
+        "fp": 9447,
+        "fn": 22967
+      }
+    },
+    "18h": {
+      "accuracy": 51.0,
+      "baseline_accuracy": 51.9,
+      "auc": 0.5284,
+      "up_rate": 51.3,
+      "n": 67394,
+      "n_folds": 5,
+      "fold_accuracies": [
+        54.5,
+        48.1,
+        52.7,
+        49.6,
+        50.2
+      ],
+      "confusion": {
+        "tp": 11209,
+        "tn": 23181,
+        "fp": 9619,
+        "fn": 23385
+      }
+    },
+    "24h": {
+      "accuracy": 51.1,
+      "baseline_accuracy": 52.3,
+      "auc": 0.5304,
+      "up_rate": 51.8,
+      "n": 67388,
+      "n_folds": 5,
+      "fold_accuracies": [
+        54.7,
+        48.3,
+        53.3,
+        49.4,
+        49.7
+      ],
+      "confusion": {
+        "tp": 9721,
+        "tn": 24690,
+        "fp": 7797,
+        "fn": 25180
+      }
+    },
+    "30h": {
+      "accuracy": 51.4,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5309,
+      "up_rate": 51.9,
+      "n": 67382,
+      "n_folds": 5,
+      "fold_accuracies": [
+        54.7,
+        49.1,
+        53.7,
+        49.4,
+        49.9
+      ],
+      "confusion": {
+        "tp": 10564,
+        "tn": 24047,
+        "fp": 8370,
+        "fn": 24401
+      }
+    },
+    "36h": {
+      "accuracy": 50.6,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5219,
+      "up_rate": 52.2,
+      "n": 67376,
+      "n_folds": 5,
+      "fold_accuracies": [
+        54.6,
+        46.3,
+        53.3,
+        48.9,
+        49.9
+      ],
+      "confusion": {
+        "tp": 9904,
+        "tn": 24194,
+        "fp": 8040,
+        "fn": 25238
+      }
+    },
+    "42h": {
+      "accuracy": 49.7,
+      "baseline_accuracy": 52.1,
+      "auc": 0.5238,
+      "up_rate": 52.2,
+      "n": 67370,
+      "n_folds": 5,
+      "fold_accuracies": [
+        52.7,
+        45.2,
+        53.4,
+        47.4,
+        49.8
+      ],
+      "confusion": {
+        "tp": 6343,
+        "tn": 27142,
+        "fp": 5087,
+        "fn": 28798
+      }
+    },
+    "48h": {
+      "accuracy": 49.6,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5205,
+      "up_rate": 52.3,
+      "n": 67364,
+      "n_folds": 5,
+      "fold_accuracies": [
+        51.3,
+        46.3,
+        53.5,
+        46.6,
+        50.3
+      ],
+      "confusion": {
+        "tp": 6664,
+        "tn": 26751,
+        "fp": 5401,
+        "fn": 28548
+      }
+    },
+    "54h": {
+      "accuracy": 50.0,
+      "baseline_accuracy": 52.3,
+      "auc": 0.5206,
+      "up_rate": 52.3,
+      "n": 67358,
+      "n_folds": 5,
+      "fold_accuracies": [
+        52.9,
+        45.7,
+        54.4,
+        46.1,
+        50.7
+      ],
+      "confusion": {
+        "tp": 7943,
+        "tn": 25713,
+        "fp": 6430,
+        "fn": 27272
+      }
+    },
+    "60h": {
+      "accuracy": 49.8,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5321,
+      "up_rate": 52.1,
+      "n": 67352,
+      "n_folds": 5,
+      "fold_accuracies": [
+        53.1,
+        44.9,
+        53.9,
+        46.9,
+        50.0
+      ],
+      "confusion": {
+        "tp": 7655,
+        "tn": 25860,
+        "fp": 6369,
+        "fn": 27468
+      }
+    },
+    "66h": {
+      "accuracy": 49.1,
+      "baseline_accuracy": 52.6,
+      "auc": 0.5369,
+      "up_rate": 52.6,
+      "n": 67346,
+      "n_folds": 5,
+      "fold_accuracies": [
+        52.5,
+        43.8,
+        53.6,
+        45.3,
+        50.3
+      ],
+      "confusion": {
+        "tp": 7103,
+        "tn": 25961,
+        "fp": 5982,
+        "fn": 28300
+      }
+    },
+    "72h": {
+      "accuracy": 48.8,
+      "baseline_accuracy": 52.7,
+      "auc": 0.5264,
+      "up_rate": 52.6,
+      "n": 67340,
+      "n_folds": 5,
+      "fold_accuracies": [
+        50.8,
+        45.3,
+        54.0,
+        43.9,
+        50.1
+      ],
+      "confusion": {
+        "tp": 7653,
+        "tn": 25215,
+        "fp": 6695,
+        "fn": 27777
+      }
+    },
+    "78h": {
+      "accuracy": 50.3,
+      "baseline_accuracy": 52.6,
+      "auc": 0.5404,
+      "up_rate": 52.6,
+      "n": 67334,
+      "n_folds": 5,
+      "fold_accuracies": [
+        52.4,
+        46.4,
+        54.5,
+        48.3,
+        50.0
+      ],
+      "confusion": {
+        "tp": 7899,
+        "tn": 25983,
+        "fp": 5961,
+        "fn": 27491
+      }
+    },
+    "84h": {
+      "accuracy": 50.2,
+      "baseline_accuracy": 52.6,
+      "auc": 0.5383,
+      "up_rate": 52.6,
+      "n": 67328,
+      "n_folds": 5,
+      "fold_accuracies": [
+        54.0,
+        49.0,
+        52.8,
+        45.7,
+        49.3
+      ],
+      "confusion": {
+        "tp": 8546,
+        "tn": 25225,
+        "fp": 6678,
+        "fn": 26879
+      }
+    },
+    "90h": {
+      "accuracy": 51.6,
+      "baseline_accuracy": 52.5,
+      "auc": 0.5358,
+      "up_rate": 52.5,
+      "n": 67322,
+      "n_folds": 5,
+      "fold_accuracies": [
+        55.1,
+        52.6,
+        55.3,
+        44.9,
+        50.2
+      ],
+      "confusion": {
+        "tp": 11258,
+        "tn": 23492,
+        "fp": 8477,
+        "fn": 24095
+      }
+    },
+    "96h": {
+      "accuracy": 50.9,
+      "baseline_accuracy": 52.4,
+      "auc": 0.5421,
+      "up_rate": 52.5,
+      "n": 67316,
+      "n_folds": 5,
+      "fold_accuracies": [
+        54.9,
+        47.9,
+        55.4,
+        46.3,
+        50.0
+      ],
+      "confusion": {
+        "tp": 8666,
+        "tn": 25620,
+        "fp": 6366,
+        "fn": 26664
+      }
+    },
+    "102h": {
+      "accuracy": 50.0,
+      "baseline_accuracy": 52.3,
+      "auc": 0.5278,
+      "up_rate": 52.4,
+      "n": 67310,
+      "n_folds": 5,
+      "fold_accuracies": [
+        55.0,
+        46.9,
+        54.7,
+        44.6,
+        48.6
+      ],
+      "confusion": {
+        "tp": 8262,
+        "tn": 25367,
+        "fp": 6705,
+        "fn": 26976
+      }
+    },
+    "108h": {
+      "accuracy": 51.5,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5381,
+      "up_rate": 52.3,
+      "n": 67304,
+      "n_folds": 5,
+      "fold_accuracies": [
+        53.2,
+        54.0,
+        55.4,
+        45.1,
+        49.7
+      ],
+      "confusion": {
+        "tp": 10037,
+        "tn": 24616,
+        "fp": 7461,
+        "fn": 25190
+      }
+    },
+    "114h": {
+      "accuracy": 51.1,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5417,
+      "up_rate": 52.4,
+      "n": 67298,
+      "n_folds": 5,
+      "fold_accuracies": [
+        52.6,
+        52.0,
+        55.7,
+        44.4,
+        51.0
+      ],
+      "confusion": {
+        "tp": 9600,
+        "tn": 24810,
+        "fp": 7215,
+        "fn": 25673
+      }
+    },
+    "120h": {
+      "accuracy": 51.0,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5355,
+      "up_rate": 52.4,
+      "n": 67292,
+      "n_folds": 5,
+      "fold_accuracies": [
+        51.0,
+        54.3,
+        56.0,
+        43.3,
+        50.2
+      ],
+      "confusion": {
+        "tp": 10448,
+        "tn": 23839,
+        "fp": 8164,
+        "fn": 24841
+      }
+    },
+    "126h": {
+      "accuracy": 50.3,
+      "baseline_accuracy": 52.4,
+      "auc": 0.5347,
+      "up_rate": 52.6,
+      "n": 67286,
+      "n_folds": 5,
+      "fold_accuracies": [
+        49.6,
+        50.7,
+        56.7,
+        43.9,
+        50.4
+      ],
+      "confusion": {
+        "tp": 9297,
+        "tn": 24523,
+        "fp": 7348,
+        "fn": 26118
+      }
+    },
+    "132h": {
+      "accuracy": 51.5,
+      "baseline_accuracy": 52.3,
+      "auc": 0.5376,
+      "up_rate": 52.6,
+      "n": 67280,
+      "n_folds": 5,
+      "fold_accuracies": [
+        50.1,
+        57.2,
+        56.4,
+        41.4,
+        52.4
+      ],
+      "confusion": {
+        "tp": 11358,
+        "tn": 23288,
+        "fp": 8610,
+        "fn": 24024
+      }
+    },
+    "138h": {
+      "accuracy": 50.2,
+      "baseline_accuracy": 52.1,
+      "auc": 0.5214,
+      "up_rate": 52.5,
+      "n": 67274,
+      "n_folds": 5,
+      "fold_accuracies": [
+        51.9,
+        51.9,
+        53.7,
+        42.8,
+        50.6
+      ],
+      "confusion": {
+        "tp": 11008,
+        "tn": 22753,
+        "fp": 9223,
+        "fn": 24290
+      }
+    },
+    "144h": {
+      "accuracy": 51.8,
+      "baseline_accuracy": 52.2,
+      "auc": 0.5353,
+      "up_rate": 52.5,
+      "n": 67268,
+      "n_folds": 5,
+      "fold_accuracies": [
+        53.5,
+        57.6,
+        54.3,
+        43.3,
+        50.5
+      ],
+      "confusion": {
+        "tp": 13876,
+        "tn": 20980,
+        "fp": 10979,
+        "fn": 21433
+      }
+    },
+    "150h": {
+      "accuracy": 51.0,
+      "baseline_accuracy": 52.2,
+      "auc": 0.526,
+      "up_rate": 52.5,
+      "n": 67262,
+      "n_folds": 5,
+      "fold_accuracies": [
+        52.1,
+        55.2,
+        55.6,
+        43.6,
+        48.4
+      ],
+      "confusion": {
+        "tp": 12855,
+        "tn": 21443,
+        "fp": 10535,
+        "fn": 22429
+      }
+    },
+    "156h": {
+      "accuracy": 51.7,
+      "baseline_accuracy": 52.4,
+      "auc": 0.5355,
+      "up_rate": 52.6,
+      "n": 67256,
+      "n_folds": 5,
+      "fold_accuracies": [
+        53.0,
+        56.0,
+        58.5,
+        42.7,
+        48.2
+      ],
+      "confusion": {
+        "tp": 11709,
+        "tn": 23045,
+        "fp": 8808,
+        "fn": 23694
+      }
+    },
+    "162h": {
+      "accuracy": 53.3,
+      "baseline_accuracy": 52.5,
+      "auc": 0.5459,
+      "up_rate": 52.7,
+      "n": 67250,
+      "n_folds": 5,
+      "fold_accuracies": [
+        57.4,
+        62.1,
+        56.0,
+        43.4,
+        47.5
+      ],
+      "confusion": {
+        "tp": 16178,
+        "tn": 19677,
+        "fp": 12160,
+        "fn": 19235
+      }
+    },
+    "168h": {
+      "accuracy": 51.9,
+      "baseline_accuracy": 52.4,
+      "auc": 0.5424,
+      "up_rate": 52.7,
+      "n": 67244,
+      "n_folds": 5,
+      "fold_accuracies": [
+        53.8,
+        60.9,
+        54.3,
+        43.2,
+        47.5
+      ],
+      "confusion": {
+        "tp": 14368,
+        "tn": 20560,
+        "fp": 11267,
+        "fn": 21049
+      }
+    },
+    "30d": {
+      "accuracy": 51.2,
+      "baseline_accuracy": 54.0,
+      "auc": 0.5355,
+      "up_rate": 55.0,
+      "n": 66692,
+      "n_folds": 5,
+      "fold_accuracies": [
+        48.2,
+        64.8,
+        52.1,
+        45.6,
+        44.8
+      ],
+      "confusion": {
+        "tp": 13088,
+        "tn": 21037,
+        "fp": 8971,
+        "fn": 23596
+      }
+    }
+  },
+  "walk_forward_calibration": {
+    "6h": {
+      "n": 67406,
+      "auc": 0.5416175398575157,
+      "ece_before_pp": 9.29,
+      "ece_after_pp": 0.97,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.4,
+          "accuracy": 51.1,
+          "n": 52004,
+          "gap_pp": 1.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.2,
+          "accuracy": 56.2,
+          "n": 14635,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.8,
+          "accuracy": 60.8,
+          "n": 469,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 69.4,
+          "accuracy": 69.4,
+          "n": 186,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.3,
+          "accuracy": 72.3,
+          "n": 94,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 18,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.6,
+          "n": 16845,
+          "gap_pp": 1.9
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.4,
+          "accuracy": 50.7,
+          "n": 16072,
+          "gap_pp": 6.7
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.4,
+          "accuracy": 52.9,
+          "n": 13222,
+          "gap_pp": 9.5
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.3,
+          "accuracy": 53.7,
+          "n": 9914,
+          "gap_pp": 13.6
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.2,
+          "accuracy": 54.6,
+          "n": 6390,
+          "gap_pp": 17.6
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.2,
+          "accuracy": 54.9,
+          "n": 3217,
+          "gap_pp": 22.3
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.0,
+          "accuracy": 59.0,
+          "n": 1299,
+          "gap_pp": 23.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.0,
+          "accuracy": 62.9,
+          "n": 372,
+          "gap_pp": 24.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 91.6,
+          "accuracy": 56.9,
+          "n": 72,
+          "gap_pp": 34.6
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.4,
+          "accuracy": 100.0,
+          "n": 3,
+          "gap_pp": 3.6
+        }
+      ],
+      "brier": {
+        "n": 67406,
+        "brier_before": 0.2615,
+        "brier_after": 0.2483
+      }
+    },
+    "12h": {
+      "n": 67400,
+      "auc": 0.5336911807825555,
+      "ece_before_pp": 12.34,
+      "ece_after_pp": 0.61,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.7,
+          "accuracy": 51.1,
+          "n": 59343,
+          "gap_pp": 0.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 57.5,
+          "n": 7265,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.8,
+          "accuracy": 60.8,
+          "n": 572,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.7,
+          "accuracy": 67.7,
+          "n": 167,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.0,
+          "accuracy": 75.0,
+          "n": 16,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 80.0,
+          "accuracy": 80.0,
+          "n": 5,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 85.7,
+          "accuracy": 85.7,
+          "n": 14,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 18,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.8,
+          "n": 12697,
+          "gap_pp": 1.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 51.0,
+          "n": 13095,
+          "gap_pp": 6.5
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 51.2,
+          "n": 12642,
+          "gap_pp": 11.3
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.4,
+          "accuracy": 52.7,
+          "n": 10862,
+          "gap_pp": 14.7
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.3,
+          "accuracy": 51.9,
+          "n": 8401,
+          "gap_pp": 20.5
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.3,
+          "accuracy": 53.7,
+          "n": 5354,
+          "gap_pp": 23.6
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.2,
+          "accuracy": 54.4,
+          "n": 2758,
+          "gap_pp": 27.8
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.1,
+          "accuracy": 57.1,
+          "n": 1181,
+          "gap_pp": 30.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 91.8,
+          "accuracy": 61.6,
+          "n": 375,
+          "gap_pp": 30.2
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.1,
+          "accuracy": 82.9,
+          "n": 35,
+          "gap_pp": 13.2
+        }
+      ],
+      "brier": {
+        "n": 67400,
+        "brier_before": 0.2712,
+        "brier_after": 0.2487
+      }
+    },
+    "18h": {
+      "n": 67394,
+      "auc": 0.5283734199995207,
+      "ece_before_pp": 15.24,
+      "ece_after_pp": 1.49,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.1,
+          "accuracy": 50.5,
+          "n": 63099,
+          "gap_pp": 1.6
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.2,
+          "accuracy": 56.2,
+          "n": 2279,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.0,
+          "accuracy": 61.0,
+          "n": 1891,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 74.2,
+          "accuracy": 74.2,
+          "n": 66,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.0,
+          "accuracy": 75.0,
+          "n": 12,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 80.0,
+          "accuracy": 80.0,
+          "n": 5,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 87.5,
+          "n": 32,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 10,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.3,
+          "n": 10795,
+          "gap_pp": 2.2
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 49.7,
+          "n": 11037,
+          "gap_pp": 7.8
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 49.0,
+          "n": 11313,
+          "gap_pp": 13.5
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.4,
+          "accuracy": 51.1,
+          "n": 10770,
+          "gap_pp": 16.4
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.4,
+          "accuracy": 51.2,
+          "n": 9159,
+          "gap_pp": 21.2
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.3,
+          "accuracy": 52.1,
+          "n": 6709,
+          "gap_pp": 25.2
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.3,
+          "accuracy": 54.5,
+          "n": 4244,
+          "gap_pp": 27.9
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.1,
+          "accuracy": 57.1,
+          "n": 2286,
+          "gap_pp": 30.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.1,
+          "accuracy": 57.6,
+          "n": 870,
+          "gap_pp": 34.5
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.2,
+          "accuracy": 61.6,
+          "n": 211,
+          "gap_pp": 34.6
+        }
+      ],
+      "brier": {
+        "n": 67394,
+        "brier_before": 0.2803,
+        "brier_after": 0.2488
+      }
+    },
+    "24h": {
+      "n": 67388,
+      "auc": 0.5303924925836268,
+      "ece_before_pp": 17.53,
+      "ece_after_pp": 1.58,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.9,
+          "accuracy": 50.0,
+          "n": 56647,
+          "gap_pp": 1.9
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.0,
+          "accuracy": 56.0,
+          "n": 10065,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 64.4,
+          "accuracy": 64.4,
+          "n": 331,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.7,
+          "accuracy": 68.7,
+          "n": 249,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 70.3,
+          "accuracy": 70.3,
+          "n": 37,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 76.0,
+          "accuracy": 76.0,
+          "n": 50,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 9,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.1,
+          "n": 8779,
+          "gap_pp": 2.4
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 49.9,
+          "n": 9377,
+          "gap_pp": 7.6
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 50.3,
+          "n": 9770,
+          "gap_pp": 12.2
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 50.2,
+          "n": 9731,
+          "gap_pp": 17.3
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 52.8,
+          "n": 9422,
+          "gap_pp": 19.6
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.4,
+          "accuracy": 50.7,
+          "n": 8184,
+          "gap_pp": 26.7
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.4,
+          "accuracy": 51.7,
+          "n": 6310,
+          "gap_pp": 30.7
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.2,
+          "accuracy": 52.3,
+          "n": 3715,
+          "gap_pp": 34.9
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.0,
+          "accuracy": 56.3,
+          "n": 1737,
+          "gap_pp": 35.7
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.3,
+          "accuracy": 61.7,
+          "n": 363,
+          "gap_pp": 34.6
+        }
+      ],
+      "brier": {
+        "n": 67388,
+        "brier_before": 0.2908,
+        "brier_after": 0.2487
+      }
+    },
+    "30h": {
+      "n": 67382,
+      "auc": 0.5309358706711947,
+      "ece_before_pp": 18.62,
+      "ece_after_pp": 1.3,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.6,
+          "accuracy": 50.0,
+          "n": 54631,
+          "gap_pp": 1.6
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.0,
+          "accuracy": 57.0,
+          "n": 12603,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.0,
+          "accuracy": 66.0,
+          "n": 97,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 83.3,
+          "accuracy": 83.3,
+          "n": 42,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 9,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.2,
+          "n": 8255,
+          "gap_pp": 2.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 51.0,
+          "n": 8304,
+          "gap_pp": 6.4
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 51.6,
+          "n": 8710,
+          "gap_pp": 10.9
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 51.4,
+          "n": 8995,
+          "gap_pp": 16.1
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 50.8,
+          "n": 9059,
+          "gap_pp": 21.6
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 51.3,
+          "n": 8463,
+          "gap_pp": 26.2
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.4,
+          "accuracy": 52.0,
+          "n": 7624,
+          "gap_pp": 30.4
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.2,
+          "accuracy": 51.1,
+          "n": 5052,
+          "gap_pp": 36.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.1,
+          "accuracy": 55.8,
+          "n": 2377,
+          "gap_pp": 36.3
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.4,
+          "accuracy": 52.9,
+          "n": 543,
+          "gap_pp": 43.5
+        }
+      ],
+      "brier": {
+        "n": 67382,
+        "brier_before": 0.2969,
+        "brier_after": 0.2487
+      }
+    },
+    "36h": {
+      "n": 67376,
+      "auc": 0.5218871590624795,
+      "ece_before_pp": 20.06,
+      "ece_after_pp": 1.75,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.9,
+          "accuracy": 50.0,
+          "n": 62706,
+          "gap_pp": 1.9
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 58.2,
+          "accuracy": 58.2,
+          "n": 4430,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.4,
+          "accuracy": 60.4,
+          "n": 154,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 71.4,
+          "accuracy": 71.4,
+          "n": 42,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.0,
+          "accuracy": 75.0,
+          "n": 4,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.3,
+          "accuracy": 92.3,
+          "n": 13,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 27,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.2,
+          "n": 8252,
+          "gap_pp": 2.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 50.2,
+          "n": 8337,
+          "gap_pp": 7.3
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 49.9,
+          "n": 8368,
+          "gap_pp": 12.6
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 50.1,
+          "n": 8590,
+          "gap_pp": 17.4
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 51.5,
+          "n": 8166,
+          "gap_pp": 21.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 52.4,
+          "n": 7706,
+          "gap_pp": 25.1
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 51.1,
+          "n": 7356,
+          "gap_pp": 31.4
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.4,
+          "accuracy": 50.7,
+          "n": 6287,
+          "gap_pp": 36.7
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.1,
+          "accuracy": 46.3,
+          "n": 3492,
+          "gap_pp": 45.8
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.5,
+          "accuracy": 58.5,
+          "n": 822,
+          "gap_pp": 37.9
+        }
+      ],
+      "brier": {
+        "n": 67376,
+        "brier_before": 0.305,
+        "brier_after": 0.2488
+      }
+    },
+    "42h": {
+      "n": 67370,
+      "auc": 0.5237851230056001,
+      "ece_before_pp": 23.29,
+      "ece_after_pp": 2.79,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.0,
+          "accuracy": 48.9,
+          "n": 61779,
+          "gap_pp": 3.0
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 58.0,
+          "accuracy": 58.0,
+          "n": 5381,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 63.1,
+          "accuracy": 63.1,
+          "n": 187,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.7,
+          "accuracy": 66.7,
+          "n": 3,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.8,
+          "accuracy": 77.8,
+          "n": 9,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 83.3,
+          "accuracy": 83.3,
+          "n": 6,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 5,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.3,
+          "n": 5606,
+          "gap_pp": 3.2
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.6,
+          "accuracy": 48.4,
+          "n": 6202,
+          "gap_pp": 9.2
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.6,
+          "accuracy": 48.0,
+          "n": 6874,
+          "gap_pp": 14.6
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 49.1,
+          "n": 8357,
+          "gap_pp": 18.5
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 49.1,
+          "n": 9645,
+          "gap_pp": 23.4
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 50.7,
+          "n": 9635,
+          "gap_pp": 26.8
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.4,
+          "accuracy": 50.8,
+          "n": 8925,
+          "gap_pp": 31.6
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.4,
+          "accuracy": 52.3,
+          "n": 6963,
+          "gap_pp": 35.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.2,
+          "accuracy": 49.2,
+          "n": 4008,
+          "gap_pp": 43.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.6,
+          "accuracy": 48.1,
+          "n": 1155,
+          "gap_pp": 48.6
+        }
+      ],
+      "brier": {
+        "n": 67370,
+        "brier_before": 0.3164,
+        "brier_after": 0.2489
+      }
+    },
+    "48h": {
+      "n": 67364,
+      "auc": 0.5204921082005763,
+      "ece_before_pp": 23.22,
+      "ece_after_pp": 3.04,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.2,
+          "accuracy": 48.8,
+          "n": 60224,
+          "gap_pp": 3.4
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.3,
+          "accuracy": 56.3,
+          "n": 6783,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.2,
+          "accuracy": 61.2,
+          "n": 286,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.3,
+          "accuracy": 68.3,
+          "n": 63,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 8,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.3,
+          "n": 6457,
+          "gap_pp": 3.2
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 49.3,
+          "n": 6931,
+          "gap_pp": 8.3
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 49.3,
+          "n": 7285,
+          "gap_pp": 13.3
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 49.4,
+          "n": 7950,
+          "gap_pp": 18.1
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 49.3,
+          "n": 8476,
+          "gap_pp": 23.2
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 48.3,
+          "n": 8874,
+          "gap_pp": 29.2
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.4,
+          "accuracy": 49.8,
+          "n": 8227,
+          "gap_pp": 32.6
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.4,
+          "accuracy": 52.3,
+          "n": 6528,
+          "gap_pp": 35.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.3,
+          "accuracy": 51.7,
+          "n": 4119,
+          "gap_pp": 40.6
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.0,
+          "accuracy": 47.4,
+          "n": 2517,
+          "gap_pp": 49.6
+        }
+      ],
+      "brier": {
+        "n": 67364,
+        "brier_before": 0.3188,
+        "brier_after": 0.2489
+      }
+    },
+    "54h": {
+      "n": 67358,
+      "auc": 0.5206459183055184,
+      "ece_before_pp": 23.76,
+      "ece_after_pp": 2.74,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.0,
+          "accuracy": 48.6,
+          "n": 54958,
+          "gap_pp": 3.4
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 55.4,
+          "accuracy": 55.4,
+          "n": 12147,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 69.2,
+          "accuracy": 69.2,
+          "n": 26,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 73.6,
+          "accuracy": 73.6,
+          "n": 178,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 85.7,
+          "accuracy": 85.7,
+          "n": 28,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 21,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.4,
+          "n": 6058,
+          "gap_pp": 2.1
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.6,
+          "accuracy": 51.9,
+          "n": 6292,
+          "gap_pp": 5.6
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.6,
+          "accuracy": 48.1,
+          "n": 7000,
+          "gap_pp": 14.4
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 48.8,
+          "n": 7706,
+          "gap_pp": 18.7
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 50.6,
+          "n": 8092,
+          "gap_pp": 21.9
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 49.3,
+          "n": 8085,
+          "gap_pp": 28.3
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 49.4,
+          "n": 8535,
+          "gap_pp": 33.1
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 48.9,
+          "n": 7823,
+          "gap_pp": 38.5
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.2,
+          "accuracy": 53.9,
+          "n": 5797,
+          "gap_pp": 38.3
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.8,
+          "accuracy": 48.7,
+          "n": 1970,
+          "gap_pp": 48.1
+        }
+      ],
+      "brier": {
+        "n": 67358,
+        "brier_before": 0.3223,
+        "brier_after": 0.2488
+      }
+    },
+    "60h": {
+      "n": 67352,
+      "auc": 0.532091901122417,
+      "ece_before_pp": 23.6,
+      "ece_after_pp": 3.87,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.8,
+          "n": 40368,
+          "gap_pp": 2.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 55.1,
+          "accuracy": 49.2,
+          "n": 26259,
+          "gap_pp": 5.9
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.7,
+          "accuracy": 60.7,
+          "n": 563,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.7,
+          "accuracy": 66.7,
+          "n": 84,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 78.6,
+          "accuracy": 78.6,
+          "n": 14,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 80.0,
+          "accuracy": 80.0,
+          "n": 30,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 88.0,
+          "accuracy": 88.0,
+          "n": 25,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 9,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.5,
+          "n": 5802,
+          "gap_pp": 3.0
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 46.8,
+          "n": 6361,
+          "gap_pp": 10.7
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 47.1,
+          "n": 7090,
+          "gap_pp": 15.4
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 49.2,
+          "n": 7892,
+          "gap_pp": 18.4
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 47.8,
+          "n": 8623,
+          "gap_pp": 24.7
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 48.7,
+          "n": 9087,
+          "gap_pp": 28.8
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 53.4,
+          "n": 8878,
+          "gap_pp": 29.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.4,
+          "accuracy": 51.8,
+          "n": 7103,
+          "gap_pp": 35.6
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.2,
+          "accuracy": 54.8,
+          "n": 4465,
+          "gap_pp": 37.4
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.1,
+          "accuracy": 49.8,
+          "n": 2051,
+          "gap_pp": 47.2
+        }
+      ],
+      "brier": {
+        "n": 67352,
+        "brier_before": 0.3168,
+        "brier_after": 0.2483
+      }
+    },
+    "66h": {
+      "n": 67346,
+      "auc": 0.5368774053704778,
+      "ece_before_pp": 26.16,
+      "ece_after_pp": 5.42,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 53.2,
+          "accuracy": 50.4,
+          "n": 31560,
+          "gap_pp": 2.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 55.5,
+          "accuracy": 47.6,
+          "n": 35276,
+          "gap_pp": 7.9
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.0,
+          "accuracy": 62.0,
+          "n": 121,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.1,
+          "accuracy": 66.1,
+          "n": 189,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.0,
+          "accuracy": 77.0,
+          "n": 87,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.9,
+          "accuracy": 82.9,
+          "n": 35,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 85.7,
+          "accuracy": 85.7,
+          "n": 7,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 90.0,
+          "accuracy": 90.0,
+          "n": 40,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 31,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 47.2,
+          "n": 4873,
+          "gap_pp": 5.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 47.0,
+          "n": 5238,
+          "gap_pp": 10.5
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.6,
+          "accuracy": 46.6,
+          "n": 5625,
+          "gap_pp": 16.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.6,
+          "accuracy": 46.4,
+          "n": 6840,
+          "gap_pp": 21.1
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.6,
+          "accuracy": 47.1,
+          "n": 8214,
+          "gap_pp": 25.5
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 48.0,
+          "n": 9303,
+          "gap_pp": 29.5
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 48.9,
+          "n": 10183,
+          "gap_pp": 33.6
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 53.8,
+          "n": 8992,
+          "gap_pp": 33.6
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.1,
+          "accuracy": 55.4,
+          "n": 6121,
+          "gap_pp": 36.7
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.6,
+          "accuracy": 48.7,
+          "n": 1957,
+          "gap_pp": 47.9
+        }
+      ],
+      "brier": {
+        "n": 67346,
+        "brier_before": 0.3278,
+        "brier_after": 0.2475
+      }
+    },
+    "72h": {
+      "n": 67340,
+      "auc": 0.526408077933696,
+      "ece_before_pp": 25.21,
+      "ece_after_pp": 5.07,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 53.8,
+          "accuracy": 48.6,
+          "n": 66598,
+          "gap_pp": 5.1
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.0,
+          "accuracy": 56.0,
+          "n": 25,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.7,
+          "accuracy": 61.7,
+          "n": 373,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.4,
+          "accuracy": 68.4,
+          "n": 301,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.3,
+          "accuracy": 77.3,
+          "n": 22,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 85.7,
+          "accuracy": 85.7,
+          "n": 14,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 7,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 47.8,
+          "n": 5968,
+          "gap_pp": 4.8
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 47.9,
+          "n": 6143,
+          "gap_pp": 9.6
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 47.4,
+          "n": 6540,
+          "gap_pp": 15.1
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 46.6,
+          "n": 7346,
+          "gap_pp": 20.9
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 46.0,
+          "n": 8148,
+          "gap_pp": 26.5
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 47.6,
+          "n": 8815,
+          "gap_pp": 30.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 48.6,
+          "n": 9092,
+          "gap_pp": 33.8
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.4,
+          "accuracy": 52.4,
+          "n": 7380,
+          "gap_pp": 35.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.3,
+          "accuracy": 56.7,
+          "n": 5204,
+          "gap_pp": 35.6
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.4,
+          "accuracy": 50.5,
+          "n": 2704,
+          "gap_pp": 46.9
+        }
+      ],
+      "brier": {
+        "n": 67340,
+        "brier_before": 0.3249,
+        "brier_after": 0.2482
+      }
+    },
+    "78h": {
+      "n": 67334,
+      "auc": 0.5403687552220342,
+      "ece_before_pp": 24.33,
+      "ece_after_pp": 4.09,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 53.5,
+          "accuracy": 48.8,
+          "n": 50908,
+          "gap_pp": 4.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.8,
+          "accuracy": 54.5,
+          "n": 15751,
+          "gap_pp": 2.3
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 64.3,
+          "accuracy": 64.3,
+          "n": 28,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.4,
+          "accuracy": 66.4,
+          "n": 556,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 81.8,
+          "accuracy": 81.8,
+          "n": 55,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 36,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.2,
+          "n": 6214,
+          "gap_pp": 3.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 50.5,
+          "n": 6154,
+          "gap_pp": 7.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 50.9,
+          "n": 6189,
+          "gap_pp": 11.6
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 50.0,
+          "n": 6860,
+          "gap_pp": 17.6
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 49.4,
+          "n": 6964,
+          "gap_pp": 23.1
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.6,
+          "accuracy": 46.6,
+          "n": 7782,
+          "gap_pp": 31.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.6,
+          "accuracy": 48.1,
+          "n": 8908,
+          "gap_pp": 34.4
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 52.4,
+          "n": 9195,
+          "gap_pp": 35.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.2,
+          "accuracy": 55.0,
+          "n": 6666,
+          "gap_pp": 37.2
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 96.9,
+          "accuracy": 54.1,
+          "n": 2402,
+          "gap_pp": 42.9
+        }
+      ],
+      "brier": {
+        "n": 67334,
+        "brier_before": 0.3238,
+        "brier_after": 0.2475
+      }
+    },
+    "84h": {
+      "n": 67328,
+      "auc": 0.538313480274131,
+      "ece_before_pp": 23.08,
+      "ece_after_pp": 3.73,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.3,
+          "accuracy": 49.5,
+          "n": 42562,
+          "gap_pp": 2.8
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.2,
+          "accuracy": 50.8,
+          "n": 24038,
+          "gap_pp": 5.5
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.5,
+          "accuracy": 61.5,
+          "n": 135,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.8,
+          "accuracy": 66.8,
+          "n": 452,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 78.7,
+          "accuracy": 78.7,
+          "n": 61,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 81.9,
+          "accuracy": 81.9,
+          "n": 72,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 8,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.0,
+          "n": 6901,
+          "gap_pp": 3.5
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 46.8,
+          "n": 6907,
+          "gap_pp": 10.7
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 48.3,
+          "n": 7477,
+          "gap_pp": 14.2
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 50.3,
+          "n": 7886,
+          "gap_pp": 17.2
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 49.5,
+          "n": 7845,
+          "gap_pp": 23.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 49.3,
+          "n": 7651,
+          "gap_pp": 28.2
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 49.8,
+          "n": 7017,
+          "gap_pp": 32.6
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.4,
+          "accuracy": 54.4,
+          "n": 6525,
+          "gap_pp": 33.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.3,
+          "accuracy": 55.3,
+          "n": 5324,
+          "gap_pp": 37.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.4,
+          "accuracy": 50.9,
+          "n": 3795,
+          "gap_pp": 46.5
+        }
+      ],
+      "brier": {
+        "n": 67328,
+        "brier_before": 0.3165,
+        "brier_after": 0.2478
+      }
+    },
+    "90h": {
+      "n": 67322,
+      "auc": 0.5357723867111785,
+      "ece_before_pp": 22.35,
+      "ece_after_pp": 1.39,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.7,
+          "accuracy": 49.9,
+          "n": 52573,
+          "gap_pp": 1.8
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.1,
+          "accuracy": 56.1,
+          "n": 10549,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.6,
+          "accuracy": 61.6,
+          "n": 3972,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.8,
+          "accuracy": 68.8,
+          "n": 16,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 70.8,
+          "accuracy": 70.8,
+          "n": 178,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.0,
+          "accuracy": 75.0,
+          "n": 4,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.1,
+          "accuracy": 82.1,
+          "n": 28,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 2,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.5,
+          "n": 6752,
+          "gap_pp": 2.0
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 51.0,
+          "n": 6857,
+          "gap_pp": 6.5
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 50.5,
+          "n": 6960,
+          "gap_pp": 12.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.6,
+          "accuracy": 51.7,
+          "n": 6995,
+          "gap_pp": 15.9
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 51.0,
+          "n": 7648,
+          "gap_pp": 21.5
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 52.7,
+          "n": 7701,
+          "gap_pp": 24.8
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.4,
+          "accuracy": 54.6,
+          "n": 7157,
+          "gap_pp": 27.8
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 50.7,
+          "n": 6586,
+          "gap_pp": 36.7
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.4,
+          "accuracy": 50.8,
+          "n": 6362,
+          "gap_pp": 41.6
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.2,
+          "accuracy": 52.7,
+          "n": 4304,
+          "gap_pp": 44.4
+        }
+      ],
+      "brier": {
+        "n": 67322,
+        "brier_before": 0.317,
+        "brier_after": 0.248
+      }
+    },
+    "96h": {
+      "n": 67316,
+      "auc": 0.5420976165113562,
+      "ece_before_pp": 23.48,
+      "ece_after_pp": 2.64,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.3,
+          "accuracy": 50.4,
+          "n": 41037,
+          "gap_pp": 0.9
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.9,
+          "accuracy": 51.5,
+          "n": 25926,
+          "gap_pp": 5.3
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.3,
+          "accuracy": 61.3,
+          "n": 75,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 65.7,
+          "accuracy": 65.7,
+          "n": 99,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 74.7,
+          "accuracy": 74.7,
+          "n": 154,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 94.7,
+          "accuracy": 94.7,
+          "n": 19,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 6,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 51.6,
+          "n": 6277,
+          "gap_pp": 0.9
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 48.2,
+          "n": 6646,
+          "gap_pp": 9.4
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 48.8,
+          "n": 6796,
+          "gap_pp": 13.7
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 50.4,
+          "n": 7087,
+          "gap_pp": 17.1
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 50.8,
+          "n": 7404,
+          "gap_pp": 21.7
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 51.0,
+          "n": 7419,
+          "gap_pp": 26.6
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 51.7,
+          "n": 7437,
+          "gap_pp": 30.8
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 51.7,
+          "n": 7328,
+          "gap_pp": 35.7
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.4,
+          "accuracy": 52.1,
+          "n": 6928,
+          "gap_pp": 40.3
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.0,
+          "accuracy": 54.3,
+          "n": 3994,
+          "gap_pp": 42.6
+        }
+      ],
+      "brier": {
+        "n": 67316,
+        "brier_before": 0.3206,
+        "brier_after": 0.2477
+      }
+    },
+    "102h": {
+      "n": 67310,
+      "auc": 0.5278404355106794,
+      "ece_before_pp": 25.94,
+      "ece_after_pp": 3.1,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.4,
+          "accuracy": 48.8,
+          "n": 57727,
+          "gap_pp": 3.6
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.4,
+          "accuracy": 56.4,
+          "n": 9216,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.5,
+          "accuracy": 60.5,
+          "n": 114,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 65.9,
+          "accuracy": 65.9,
+          "n": 44,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.3,
+          "accuracy": 72.3,
+          "n": 137,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.0,
+          "accuracy": 75.0,
+          "n": 4,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 80.0,
+          "accuracy": 80.0,
+          "n": 15,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 53,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 48.8,
+          "n": 5511,
+          "gap_pp": 3.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 48.3,
+          "n": 5465,
+          "gap_pp": 9.2
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.6,
+          "accuracy": 47.9,
+          "n": 5895,
+          "gap_pp": 14.6
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.6,
+          "accuracy": 49.6,
+          "n": 6797,
+          "gap_pp": 18.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 49.4,
+          "n": 7586,
+          "gap_pp": 23.1
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 49.4,
+          "n": 7878,
+          "gap_pp": 28.1
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 51.2,
+          "n": 7793,
+          "gap_pp": 31.3
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 51.8,
+          "n": 7314,
+          "gap_pp": 35.7
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.5,
+          "accuracy": 51.9,
+          "n": 7794,
+          "gap_pp": 40.6
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.2,
+          "accuracy": 50.1,
+          "n": 5277,
+          "gap_pp": 47.0
+        }
+      ],
+      "brier": {
+        "n": 67310,
+        "brier_before": 0.333,
+        "brier_after": 0.2484
+      }
+    },
+    "108h": {
+      "n": 67304,
+      "auc": 0.5380681702667547,
+      "ece_before_pp": 23.26,
+      "ece_after_pp": 2.0,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.2,
+          "accuracy": 49.6,
+          "n": 52822,
+          "gap_pp": 2.5
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.9,
+          "accuracy": 57.9,
+          "n": 14166,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.5,
+          "accuracy": 61.5,
+          "n": 109,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.7,
+          "accuracy": 66.7,
+          "n": 63,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 80.0,
+          "accuracy": 80.0,
+          "n": 5,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 88.2,
+          "accuracy": 88.2,
+          "n": 85,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 54,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.7,
+          "n": 6330,
+          "gap_pp": 1.8
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 52.5,
+          "n": 6613,
+          "gap_pp": 5.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 51.1,
+          "n": 6658,
+          "gap_pp": 11.4
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 51.6,
+          "n": 6958,
+          "gap_pp": 15.9
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 50.5,
+          "n": 7018,
+          "gap_pp": 22.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 50.8,
+          "n": 7109,
+          "gap_pp": 26.7
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 53.2,
+          "n": 7642,
+          "gap_pp": 29.4
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 51.1,
+          "n": 7354,
+          "gap_pp": 36.3
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.3,
+          "accuracy": 51.1,
+          "n": 6713,
+          "gap_pp": 41.3
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.4,
+          "accuracy": 52.4,
+          "n": 4909,
+          "gap_pp": 45.0
+        }
+      ],
+      "brier": {
+        "n": 67304,
+        "brier_before": 0.3226,
+        "brier_after": 0.2477
+      }
+    },
+    "114h": {
+      "n": 67298,
+      "auc": 0.5417130298028008,
+      "ece_before_pp": 25.16,
+      "ece_after_pp": 3.29,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.6,
+          "accuracy": 50.5,
+          "n": 41988,
+          "gap_pp": 2.1
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.3,
+          "accuracy": 52.0,
+          "n": 25058,
+          "gap_pp": 5.3
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 63.6,
+          "accuracy": 63.6,
+          "n": 165,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 83.3,
+          "accuracy": 83.3,
+          "n": 48,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 85.2,
+          "accuracy": 85.2,
+          "n": 27,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 12,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.3,
+          "n": 5464,
+          "gap_pp": 2.2
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 51.7,
+          "n": 5798,
+          "gap_pp": 5.8
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 51.0,
+          "n": 6073,
+          "gap_pp": 11.5
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 51.3,
+          "n": 6253,
+          "gap_pp": 16.2
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 49.1,
+          "n": 6731,
+          "gap_pp": 23.4
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 48.3,
+          "n": 7290,
+          "gap_pp": 29.2
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 51.0,
+          "n": 7663,
+          "gap_pp": 31.5
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 54.6,
+          "n": 8088,
+          "gap_pp": 32.8
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.4,
+          "accuracy": 50.6,
+          "n": 7479,
+          "gap_pp": 41.8
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.3,
+          "accuracy": 52.9,
+          "n": 6459,
+          "gap_pp": 44.3
+        }
+      ],
+      "brier": {
+        "n": 67298,
+        "brier_before": 0.331,
+        "brier_after": 0.2474
+      }
+    },
+    "120h": {
+      "n": 67292,
+      "auc": 0.5354912301371701,
+      "ece_before_pp": 24.34,
+      "ece_after_pp": 2.61,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.6,
+          "accuracy": 49.6,
+          "n": 37764,
+          "gap_pp": 2.1
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 55.9,
+          "accuracy": 52.5,
+          "n": 29304,
+          "gap_pp": 3.3
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.7,
+          "accuracy": 66.7,
+          "n": 36,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 70.0,
+          "accuracy": 70.0,
+          "n": 20,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.0,
+          "accuracy": 75.0,
+          "n": 4,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.3,
+          "accuracy": 82.3,
+          "n": 113,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 88.5,
+          "accuracy": 88.5,
+          "n": 26,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 25,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.3,
+          "n": 6422,
+          "gap_pp": 2.2
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 48.1,
+          "n": 6743,
+          "gap_pp": 9.4
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 50.1,
+          "n": 6498,
+          "gap_pp": 12.4
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 51.6,
+          "n": 6419,
+          "gap_pp": 15.9
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 52.1,
+          "n": 6525,
+          "gap_pp": 20.4
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.6,
+          "accuracy": 52.8,
+          "n": 6765,
+          "gap_pp": 24.8
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 49.7,
+          "n": 7051,
+          "gap_pp": 32.7
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 50.4,
+          "n": 7205,
+          "gap_pp": 37.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.4,
+          "accuracy": 51.7,
+          "n": 7464,
+          "gap_pp": 40.8
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.2,
+          "accuracy": 52.9,
+          "n": 6200,
+          "gap_pp": 44.3
+        }
+      ],
+      "brier": {
+        "n": 67292,
+        "brier_before": 0.3273,
+        "brier_after": 0.2479
+      }
+    },
+    "126h": {
+      "n": 67286,
+      "auc": 0.5346538927023303,
+      "ece_before_pp": 25.9,
+      "ece_after_pp": 3.76,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.1,
+          "accuracy": 49.1,
+          "n": 35976,
+          "gap_pp": 3.0
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 55.6,
+          "accuracy": 50.7,
+          "n": 29311,
+          "gap_pp": 5.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 62.5,
+          "n": 1756,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 73.0,
+          "accuracy": 73.0,
+          "n": 137,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 99.1,
+          "accuracy": 99.1,
+          "n": 106,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.5,
+          "n": 5735,
+          "gap_pp": 2.0
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 50.5,
+          "n": 5902,
+          "gap_pp": 7.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 49.5,
+          "n": 6045,
+          "gap_pp": 13.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 49.0,
+          "n": 6376,
+          "gap_pp": 18.5
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 51.1,
+          "n": 6896,
+          "gap_pp": 21.4
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 50.2,
+          "n": 7221,
+          "gap_pp": 27.4
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 47.4,
+          "n": 7146,
+          "gap_pp": 35.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.6,
+          "accuracy": 49.5,
+          "n": 7521,
+          "gap_pp": 38.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.5,
+          "accuracy": 49.5,
+          "n": 7892,
+          "gap_pp": 43.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.3,
+          "accuracy": 56.0,
+          "n": 6552,
+          "gap_pp": 41.4
+        }
+      ],
+      "brier": {
+        "n": 67286,
+        "brier_before": 0.3351,
+        "brier_after": 0.2474
+      }
+    },
+    "132h": {
+      "n": 67280,
+      "auc": 0.537598917386743,
+      "ece_before_pp": 24.26,
+      "ece_after_pp": 2.75,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.8,
+          "accuracy": 48.6,
+          "n": 44416,
+          "gap_pp": 4.2
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.5,
+          "accuracy": 56.5,
+          "n": 22294,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.0,
+          "accuracy": 60.0,
+          "n": 5,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.7,
+          "accuracy": 66.7,
+          "n": 45,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 71.4,
+          "accuracy": 71.4,
+          "n": 7,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.3,
+          "accuracy": 75.3,
+          "n": 312,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.6,
+          "accuracy": 82.6,
+          "n": 92,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 88.9,
+          "accuracy": 88.9,
+          "n": 18,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 90.0,
+          "accuracy": 90.0,
+          "n": 10,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 81,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 52.0,
+          "n": 6488,
+          "gap_pp": 0.6
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 52.7,
+          "n": 6427,
+          "gap_pp": 4.9
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 52.7,
+          "n": 6642,
+          "gap_pp": 9.8
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.4,
+          "accuracy": 50.8,
+          "n": 6430,
+          "gap_pp": 16.6
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 48.4,
+          "n": 6168,
+          "gap_pp": 24.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 48.2,
+          "n": 6450,
+          "gap_pp": 29.4
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 49.8,
+          "n": 6295,
+          "gap_pp": 32.7
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 54.9,
+          "n": 6813,
+          "gap_pp": 32.6
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.6,
+          "accuracy": 48.1,
+          "n": 8077,
+          "gap_pp": 44.5
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.1,
+          "accuracy": 57.0,
+          "n": 7490,
+          "gap_pp": 40.1
+        }
+      ],
+      "brier": {
+        "n": 67280,
+        "brier_before": 0.329,
+        "brier_after": 0.2471
+      }
+    },
+    "138h": {
+      "n": 67274,
+      "auc": 0.5214323770832544,
+      "ece_before_pp": 23.88,
+      "ece_after_pp": 2.96,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.0,
+          "n": 57006,
+          "gap_pp": 3.5
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.0,
+          "accuracy": 56.0,
+          "n": 9643,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.9,
+          "accuracy": 60.9,
+          "n": 133,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.0,
+          "accuracy": 68.0,
+          "n": 378,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.8,
+          "accuracy": 75.8,
+          "n": 33,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 94.1,
+          "accuracy": 94.1,
+          "n": 17,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 64,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 48.8,
+          "n": 7807,
+          "gap_pp": 3.6
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 50.5,
+          "n": 7772,
+          "gap_pp": 7.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.4,
+          "accuracy": 50.2,
+          "n": 7007,
+          "gap_pp": 12.2
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 51.5,
+          "n": 6782,
+          "gap_pp": 15.9
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 49.6,
+          "n": 6413,
+          "gap_pp": 22.8
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 48.0,
+          "n": 6066,
+          "gap_pp": 29.5
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 49.1,
+          "n": 6097,
+          "gap_pp": 33.4
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 49.5,
+          "n": 6190,
+          "gap_pp": 38.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.4,
+          "accuracy": 53.1,
+          "n": 6014,
+          "gap_pp": 39.3
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.6,
+          "accuracy": 51.4,
+          "n": 7126,
+          "gap_pp": 46.2
+        }
+      ],
+      "brier": {
+        "n": 67274,
+        "brier_before": 0.3275,
+        "brier_after": 0.2484
+      }
+    },
+    "144h": {
+      "n": 67268,
+      "auc": 0.5353387001549841,
+      "ece_before_pp": 23.18,
+      "ece_after_pp": 1.89,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.1,
+          "accuracy": 49.3,
+          "n": 44198,
+          "gap_pp": 2.9
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 56.2,
+          "accuracy": 56.2,
+          "n": 22060,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 62.5,
+          "n": 288,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.0,
+          "accuracy": 68.0,
+          "n": 621,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 70.2,
+          "accuracy": 70.2,
+          "n": 84,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 17,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 51.3,
+          "n": 6822,
+          "gap_pp": 1.2
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 51.0,
+          "n": 7120,
+          "gap_pp": 6.5
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 51.7,
+          "n": 7110,
+          "gap_pp": 10.8
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 50.5,
+          "n": 6647,
+          "gap_pp": 16.9
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.4,
+          "accuracy": 50.8,
+          "n": 6149,
+          "gap_pp": 21.6
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 54.0,
+          "n": 6119,
+          "gap_pp": 23.5
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 52.6,
+          "n": 6183,
+          "gap_pp": 29.9
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.6,
+          "accuracy": 49.5,
+          "n": 6661,
+          "gap_pp": 38.1
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.5,
+          "accuracy": 52.9,
+          "n": 7509,
+          "gap_pp": 39.5
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.4,
+          "accuracy": 53.7,
+          "n": 6948,
+          "gap_pp": 43.7
+        }
+      ],
+      "brier": {
+        "n": 67268,
+        "brier_before": 0.3232,
+        "brier_after": 0.2479
+      }
+    },
+    "150h": {
+      "n": 67262,
+      "auc": 0.5259512682980545,
+      "ece_before_pp": 24.02,
+      "ece_after_pp": 2.69,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 53.5,
+          "accuracy": 50.8,
+          "n": 66677,
+          "gap_pp": 2.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 58.0,
+          "accuracy": 58.0,
+          "n": 119,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 60.6,
+          "accuracy": 60.6,
+          "n": 33,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.9,
+          "accuracy": 66.9,
+          "n": 166,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 74.1,
+          "accuracy": 74.1,
+          "n": 108,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 75.0,
+          "accuracy": 75.0,
+          "n": 16,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 85.7,
+          "accuracy": 85.7,
+          "n": 7,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 93.5,
+          "accuracy": 93.5,
+          "n": 46,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 98.9,
+          "accuracy": 98.9,
+          "n": 90,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 52.8,
+          "n": 6851,
+          "gap_pp": 0.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 53.2,
+          "n": 6750,
+          "gap_pp": 4.3
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 49.8,
+          "n": 6781,
+          "gap_pp": 12.7
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 48.4,
+          "n": 6681,
+          "gap_pp": 19.1
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 48.1,
+          "n": 6730,
+          "gap_pp": 24.4
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 50.7,
+          "n": 6485,
+          "gap_pp": 26.7
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 48.6,
+          "n": 6146,
+          "gap_pp": 33.9
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 50.4,
+          "n": 6914,
+          "gap_pp": 37.2
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.5,
+          "accuracy": 54.6,
+          "n": 8069,
+          "gap_pp": 38.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.4,
+          "accuracy": 52.6,
+          "n": 5855,
+          "gap_pp": 44.8
+        }
+      ],
+      "brier": {
+        "n": 67262,
+        "brier_before": 0.3274,
+        "brier_after": 0.248
+      }
+    },
+    "156h": {
+      "n": 67256,
+      "auc": 0.5355087972226638,
+      "ece_before_pp": 23.76,
+      "ece_after_pp": 2.15,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.0,
+          "accuracy": 48.9,
+          "n": 45945,
+          "gap_pp": 3.1
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.2,
+          "accuracy": 57.2,
+          "n": 20715,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 64.1,
+          "accuracy": 64.1,
+          "n": 117,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.9,
+          "accuracy": 68.9,
+          "n": 293,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 74.2,
+          "accuracy": 74.2,
+          "n": 31,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 79.5,
+          "accuracy": 79.5,
+          "n": 73,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 90.0,
+          "accuracy": 90.0,
+          "n": 10,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.2,
+          "accuracy": 97.2,
+          "n": 72,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 51.2,
+          "n": 6566,
+          "gap_pp": 1.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 52.9,
+          "n": 6853,
+          "gap_pp": 4.5
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 53.4,
+          "n": 6737,
+          "gap_pp": 9.1
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 54.3,
+          "n": 6678,
+          "gap_pp": 13.2
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.4,
+          "accuracy": 50.7,
+          "n": 6559,
+          "gap_pp": 21.7
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 50.4,
+          "n": 6025,
+          "gap_pp": 27.1
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 47.6,
+          "n": 6137,
+          "gap_pp": 34.9
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.6,
+          "accuracy": 51.2,
+          "n": 6618,
+          "gap_pp": 36.4
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.5,
+          "accuracy": 51.6,
+          "n": 7007,
+          "gap_pp": 40.9
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.5,
+          "accuracy": 52.6,
+          "n": 8076,
+          "gap_pp": 44.9
+        }
+      ],
+      "brier": {
+        "n": 67256,
+        "brier_before": 0.329,
+        "brier_after": 0.2475
+      }
+    },
+    "162h": {
+      "n": 67250,
+      "auc": 0.5459021353989921,
+      "ece_before_pp": 21.86,
+      "ece_after_pp": 1.12,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 50.8,
+          "n": 42918,
+          "gap_pp": 1.7
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.4,
+          "accuracy": 57.4,
+          "n": 23762,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.9,
+          "accuracy": 62.9,
+          "n": 245,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 66.7,
+          "accuracy": 66.7,
+          "n": 9,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 70.8,
+          "accuracy": 70.8,
+          "n": 65,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.8,
+          "accuracy": 77.8,
+          "n": 45,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 85.0,
+          "accuracy": 85.0,
+          "n": 20,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 85.7,
+          "accuracy": 85.7,
+          "n": 14,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.9,
+          "accuracy": 92.9,
+          "n": 14,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 158,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 49.7,
+          "n": 5747,
+          "gap_pp": 2.8
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 49.6,
+          "n": 5996,
+          "gap_pp": 7.9
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 52.1,
+          "n": 6160,
+          "gap_pp": 10.4
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.6,
+          "accuracy": 53.1,
+          "n": 6897,
+          "gap_pp": 14.5
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 56.0,
+          "n": 7927,
+          "gap_pp": 16.6
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.5,
+          "accuracy": 55.3,
+          "n": 8443,
+          "gap_pp": 22.2
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.4,
+          "accuracy": 54.8,
+          "n": 7627,
+          "gap_pp": 27.6
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.4,
+          "accuracy": 56.6,
+          "n": 6992,
+          "gap_pp": 30.8
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.4,
+          "accuracy": 50.4,
+          "n": 5509,
+          "gap_pp": 42.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.4,
+          "accuracy": 52.7,
+          "n": 5952,
+          "gap_pp": 44.7
+        }
+      ],
+      "brier": {
+        "n": 67250,
+        "brier_before": 0.3122,
+        "brier_after": 0.2467
+      }
+    },
+    "168h": {
+      "n": 67244,
+      "auc": 0.5424042415781505,
+      "ece_before_pp": 25.1,
+      "ece_after_pp": 2.5,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.7,
+          "accuracy": 51.2,
+          "n": 32591,
+          "gap_pp": 0.5
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 55.4,
+          "accuracy": 49.8,
+          "n": 26814,
+          "gap_pp": 5.6
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.6,
+          "accuracy": 61.6,
+          "n": 7375,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 68.6,
+          "accuracy": 68.6,
+          "n": 283,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.2,
+          "accuracy": 72.2,
+          "n": 18,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 83.3,
+          "accuracy": 83.3,
+          "n": 6,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 157,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.5,
+          "accuracy": 46.7,
+          "n": 4515,
+          "gap_pp": 5.8
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.5,
+          "accuracy": 46.8,
+          "n": 4872,
+          "gap_pp": 10.7
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 47.7,
+          "n": 5458,
+          "gap_pp": 14.8
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.6,
+          "accuracy": 49.5,
+          "n": 6127,
+          "gap_pp": 18.1
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.6,
+          "accuracy": 53.5,
+          "n": 6909,
+          "gap_pp": 19.1
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.6,
+          "accuracy": 52.8,
+          "n": 8275,
+          "gap_pp": 24.7
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 53.5,
+          "n": 8906,
+          "gap_pp": 29.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 58.1,
+          "n": 9410,
+          "gap_pp": 29.4
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.4,
+          "accuracy": 50.7,
+          "n": 7297,
+          "gap_pp": 41.7
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 97.4,
+          "accuracy": 53.0,
+          "n": 5475,
+          "gap_pp": 44.3
+        }
+      ],
+      "brier": {
+        "n": 67244,
+        "brier_before": 0.3237,
+        "brier_after": 0.2465
+      }
+    },
+    "30d": {
+      "n": 66692,
+      "auc": 0.5355269121379358,
+      "ece_before_pp": 31.54,
+      "ece_after_pp": 4.43,
+      "reliability_after": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 51.7,
+          "accuracy": 48.3,
+          "n": 33922,
+          "gap_pp": 3.3
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 59.1,
+          "accuracy": 53.2,
+          "n": 31149,
+          "gap_pp": 5.9
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 61.0,
+          "accuracy": 61.0,
+          "n": 461,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 69.3,
+          "accuracy": 69.3,
+          "n": 101,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 73.5,
+          "accuracy": 73.5,
+          "n": 754,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 78.4,
+          "accuracy": 78.4,
+          "n": 208,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 81.8,
+          "accuracy": 81.8,
+          "n": 44,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.0,
+          "accuracy": 87.0,
+          "n": 23,
+          "gap_pp": 0.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 100.0,
+          "accuracy": 100.0,
+          "n": 30,
+          "gap_pp": 0.0
+        }
+      ],
+      "reliability_before": [
+        {
+          "range": "50-55%",
+          "mean_confidence": 52.6,
+          "accuracy": 49.7,
+          "n": 3168,
+          "gap_pp": 2.8
+        },
+        {
+          "range": "55-60%",
+          "mean_confidence": 57.6,
+          "accuracy": 50.0,
+          "n": 3755,
+          "gap_pp": 7.6
+        },
+        {
+          "range": "60-65%",
+          "mean_confidence": 62.5,
+          "accuracy": 49.3,
+          "n": 4090,
+          "gap_pp": 13.2
+        },
+        {
+          "range": "65-70%",
+          "mean_confidence": 67.5,
+          "accuracy": 50.6,
+          "n": 4287,
+          "gap_pp": 16.9
+        },
+        {
+          "range": "70-75%",
+          "mean_confidence": 72.5,
+          "accuracy": 52.7,
+          "n": 5025,
+          "gap_pp": 19.9
+        },
+        {
+          "range": "75-80%",
+          "mean_confidence": 77.6,
+          "accuracy": 53.9,
+          "n": 5726,
+          "gap_pp": 23.6
+        },
+        {
+          "range": "80-85%",
+          "mean_confidence": 82.5,
+          "accuracy": 52.4,
+          "n": 6716,
+          "gap_pp": 30.1
+        },
+        {
+          "range": "85-90%",
+          "mean_confidence": 87.5,
+          "accuracy": 55.9,
+          "n": 6685,
+          "gap_pp": 31.5
+        },
+        {
+          "range": "90-95%",
+          "mean_confidence": 92.6,
+          "accuracy": 49.6,
+          "n": 7315,
+          "gap_pp": 43.0
+        },
+        {
+          "range": "95-100%",
+          "mean_confidence": 98.5,
+          "accuracy": 49.5,
+          "n": 19925,
+          "gap_pp": 49.0
+        }
+      ],
+      "brier": {
+        "n": 66692,
+        "brier_before": 0.372,
+        "brier_after": 0.2447
+      }
+    }
+  },
   "trading": {
-    "total_return_pct": 1316066.24,
-    "total_return_usd": 26321324.71,
-    "current_value": 26323324.71,
+    "total_return_pct": -1.7,
+    "total_return_usd": -34.07,
+    "current_value": 1965.93,
     "starting_balance": 2000.0,
-    "daily_returns_count": 10127,
-    "sharpe_ratio": 2.66,
-    "sortino_ratio": 5.97,
-    "max_drawdown_pct": 9.5,
-    "volatility_annual_pct": 11.21,
-    "total_trades": 509,
-    "winning_trades": 473,
-    "losing_trades": 36,
-    "win_rate_pct": 92.9,
-    "avg_win_usd": 60568.15,
-    "avg_loss_usd": 64650.23,
-    "largest_win_usd": 829606.4,
-    "largest_loss_usd": -974050.33,
-    "profit_factor": 12.31,
-    "expectancy_usd": 51711.84,
-    "avg_holding_hours": 22.5,
-    "total_fees_paid": 0.0,
+    "daily_returns_count": 906,
+    "sharpe_ratio": 0.23,
+    "sortino_ratio": 0.29,
+    "max_drawdown_pct": 66.68,
+    "volatility_annual_pct": 62.88,
+    "total_trades": 359,
+    "winning_trades": 225,
+    "losing_trades": 134,
+    "win_rate_pct": 62.7,
+    "avg_win_usd": 23.39,
+    "avg_loss_usd": 40.54,
+    "largest_win_usd": 230.32,
+    "largest_loss_usd": -388.39,
+    "profit_factor": 0.97,
+    "expectancy_usd": -0.47,
+    "avg_holding_hours": 232.4,
+    "total_fees_paid": 81.91,
     "exit_reasons": {
-      "take_profit": 27,
-      "stop_loss": 473,
-      "time_expired": 4,
-      "signal_flip": 5
+      "stop_loss": 86,
+      "time_expired": 189,
+      "take_profit": 84
     },
     "pnl_by_timeframe": {
-      "90d": 28551501.1,
-      "30d": -1925553.68,
-      "7d": 1750.06,
-      "24h": -306372.77
+      "30d": -492.83,
+      "114h": 180.64,
+      "120h": -146.4,
+      "162h": 15.27,
+      "108h": 198.84,
+      "42h": 129.96,
+      "30h": -13.73,
+      "66h": 92.59,
+      "150h": -162.62,
+      "156h": 448.16,
+      "72h": -862.27,
+      "48h": 165.59,
+      "84h": -82.79,
+      "54h": -24.23,
+      "78h": -130.21,
+      "144h": -47.45,
+      "126h": 20.09,
+      "168h": 482.13,
+      "138h": 56.26,
+      "24h": 53.19,
+      "132h": -31.67,
+      "60h": -100.84,
+      "96h": 25.31,
+      "102h": 0.37,
+      "90h": 57.95
     },
-    "buy_and_hold_return_pct": 26.75
+    "buy_and_hold_return_pct": 34.16,
+    "round_trip_cost_pct": 0.06,
+    "methodology": {
+      "prediction_source": "holdout model replay",
+      "promotion_safe": false,
+      "note": "Use purged walk-forward or live matured predictions for promotion decisions."
+    }
   }
 }
