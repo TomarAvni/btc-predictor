@@ -17,58 +17,44 @@ concurrency:
 jobs:
   predict-freshness:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Dispatch Predict if stale
-        uses: actions/github-script@v7
+      - uses: actions/checkout@v4
         with:
-          script: |
-            const workflowId = "predict.yml";
-            const ref = "master";
-            const staleAfterMs = 3 * 60 * 60 * 1000;
-            const now = Date.now();
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
+          ref: ${{ github.event.repository.default_branch }}
 
-            const { data } = await github.rest.actions.listWorkflowRuns({
-              owner,
-              repo,
-              workflow_id: workflowId,
-              branch: ref,
-              per_page: 20,
-            });
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-            const runs = data.workflow_runs || [];
-            const freshActiveRun = runs.find((run) => {
-              if (run.status === "completed") {
-                return false;
-              }
-              return now - new Date(run.updated_at).getTime() <= staleAfterMs;
-            });
+      - name: Check prediction log freshness
+        id: freshness
+        run: |
+          if python -m src.utils.prediction_freshness --max-age-hours 1; then
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          fi
 
-            if (freshActiveRun) {
-              core.info(
-                `Predict is already ${freshActiveRun.status}; last update ${freshActiveRun.updated_at}.`
-              );
-              return;
-            }
+      - name: Check active Predict runs
+        id: active
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          queued=$(gh run list --workflow predict.yml --status queued --json databaseId --jq 'length')
+          running=$(gh run list --workflow predict.yml --status in_progress --json databaseId --jq 'length')
+          active=$((queued + running))
+          echo "count=$active" >> "$GITHUB_OUTPUT"
+          if [ "$active" -gt 0 ]; then
+            echo "Predict already has $active queued/running run(s); not dispatching another."
+          fi
 
-            const lastSuccess = runs.find((run) => run.conclusion === "success");
-            if (lastSuccess) {
-              const ageMs = now - new Date(lastSuccess.updated_at).getTime();
-              if (ageMs <= staleAfterMs) {
-                core.info(`Predict is fresh; last success ${lastSuccess.updated_at}.`);
-                return;
-              }
-
-              core.warning(`Predict stale; last success ${lastSuccess.updated_at}.`);
-            } else {
-              core.warning("Predict has no recent successful runs.");
-            }
-
-            await github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo,
-              workflow_id: workflowId,
-              ref,
-            });
-            core.info("Dispatched Predict workflow.");
+      - name: Dispatch Predict recovery run
+        if: steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          gh workflow run predict.yml --ref "$DEFAULT_BRANCH"
+          echo "Prediction log was stale; dispatched Predict on $DEFAULT_BRANCH."
