@@ -5,6 +5,10 @@ on:
     # Independent guard for missed/delayed Predict schedules.
     - cron: '13,28,43,58 * * * *'
   workflow_dispatch:
+  workflow_run:
+    # Keep recovery checks alive when GitHub drops cron schedules.
+    workflows: ["Predict", "Predict Watchdog"]
+    types: [completed]
 
 permissions:
   actions: write
@@ -24,7 +28,7 @@ jobs:
           script: |
             const workflowId = "predict.yml";
             const ref = "master";
-            const staleAfterMs = 3 * 60 * 60 * 1000;
+            const staleAfterMs = 1 * 60 * 60 * 1000;
             const now = Date.now();
             const owner = context.repo.owner;
             const repo = context.repo.repo;
