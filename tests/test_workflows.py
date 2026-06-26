@@ -33,14 +33,28 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
         schedules = self.workflow["on"]["schedule"]
         self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
-        step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
-        script = step["with"]["script"]
+    def test_watchdog_checks_prediction_log_after_one_hour(self) -> None:
+        steps = self.workflow["jobs"]["predict-freshness"]["steps"]
+        freshness_step = next(
+            step for step in steps if step.get("name") == "Check prediction log freshness"
+        )
+        run = freshness_step["run"]
 
-        self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
-        self.assertIn("listWorkflowRuns", script)
-        self.assertIn("createWorkflowDispatch", script)
+        self.assertIn("python -m src.utils.prediction_freshness --max-age-hours 1", run)
+        self.assertIn('echo "stale=false" >> "$GITHUB_OUTPUT"', run)
+        self.assertIn('echo "stale=true" >> "$GITHUB_OUTPUT"', run)
+
+    def test_watchdog_dispatches_predict_when_stale(self) -> None:
+        steps = self.workflow["jobs"]["predict-freshness"]["steps"]
+        dispatch_step = next(
+            step for step in steps if step.get("name") == "Dispatch Predict recovery run"
+        )
+
+        self.assertEqual(
+            dispatch_step["if"],
+            "steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'",
+        )
+        self.assertIn('gh workflow run predict.yml --ref "$DEFAULT_BRANCH"', dispatch_step["run"])
 
 
 if __name__ == "__main__":
