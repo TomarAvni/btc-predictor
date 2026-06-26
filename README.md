@@ -156,7 +156,7 @@ Four workflows run a hands-off pipeline: **Download → Train → Predict**, wit
 **Setup (one time):** In GitHub Actions, run **Download** manually. When it finishes, **Train** starts automatically. After models are committed, **Predict** runs twice hourly on the schedule. If GitHub skips scheduled runs, **Predict Watchdog** auto-dispatches a recovery run when predictions go stale.
 
 Until Train has run at least once, Predict logs a warning and uses TA heuristics instead of ML models.
-Predict also has a 25-minute job timeout and a shared `predict-pipeline` concurrency group so delayed or stuck runs do not pile up. The watchdog uses `python -m src.utils.prediction_freshness --max-age-hours 3` as its stale-run detector.
+Predict also has a 25-minute job timeout and a shared `predict-pipeline` concurrency group so delayed or stuck runs do not pile up. The watchdog runs `python3 src/utils/prediction_freshness.py --max-age-hours 1` every 15 minutes as its stale-run detector.
 
 Predict also has a 25-minute job timeout and a shared `predict-pipeline`
 concurrency group. The watchdog uses the same group, so recovery checks do not

@@ -31,7 +31,8 @@ jobs:
       - name: Check prediction freshness
         id: freshness
         run: |
-          python3 -m src.utils.prediction_freshness \
+          # Stdlib-only script path avoids importing src.utils (needs pip deps).
+          python3 src/utils/prediction_freshness.py \
             --event-name "${{ github.event_name }}" \
             --threshold-minutes 25 \
             --output "$GITHUB_OUTPUT"
