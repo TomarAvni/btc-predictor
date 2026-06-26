@@ -3,9 +3,9 @@ name: Predict Watchdog
 on:
   schedule:
     # GitHub scheduled workflows can be delayed or dropped. This watchdog
-    # checks the committed prediction log twice hourly and restarts Predict
-    # when no run has landed in the last hour.
-    - cron: '17,47 * * * *'
+    # checks the committed prediction log every 15 minutes and restarts Predict
+    # when no run has landed in the last 45 minutes (Predict cadence is 30 min).
+    - cron: '4,19,34,49 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -32,7 +32,7 @@ jobs:
       - name: Check prediction log freshness
         id: freshness
         run: |
-          if python -m src.utils.prediction_freshness --max-age-hours 1; then
+          if python -m src.utils.prediction_freshness --max-age-minutes 45; then
             echo "stale=false" >> "$GITHUB_OUTPUT"
           else
             echo "stale=true" >> "$GITHUB_OUTPUT"

@@ -31,16 +31,39 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
 
     def test_watchdog_runs_off_peak_every_fifteen_minutes(self) -> None:
         schedules = self.workflow["on"]["schedule"]
-        self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
+        self.assertEqual(schedules[0]["cron"], "11,26,41,56 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
-        step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
-        script = step["with"]["script"]
+    def test_watchdog_checks_prediction_log_freshness(self) -> None:
+        steps = self.workflow["jobs"]["predict-freshness"]["steps"]
+        freshness_step = next(
+            step for step in steps if step.get("name") == "Check prediction log freshness"
+        )
+        run = freshness_step["run"]
+        self.assertIn("--max-age-minutes 45", run)
 
-        self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
-        self.assertIn("listWorkflowRuns", script)
-        self.assertIn("createWorkflowDispatch", script)
+    def test_watchdog_dispatches_predict_when_stale(self) -> None:
+        steps = self.workflow["jobs"]["predict-freshness"]["steps"]
+        dispatch_step = next(
+            step for step in steps if step.get("name") == "Dispatch Predict if stale"
+        )
+        run = dispatch_step["run"]
+        self.assertIn("gh workflow run predict.yml", run)
+
+
+class TestPredictWatchdogWorkflow(unittest.TestCase):
+    def setUp(self) -> None:
+        self.workflow = load_workflow("predict-watchdog.yml")
+
+    def test_watchdog_runs_every_fifteen_minutes(self) -> None:
+        schedules = self.workflow["on"]["schedule"]
+        self.assertEqual(schedules[0]["cron"], "4,19,34,49 * * * *")
+
+    def test_watchdog_uses_forty_five_minute_staleness_threshold(self) -> None:
+        steps = self.workflow["jobs"]["watchdog"]["steps"]
+        freshness_step = next(
+            step for step in steps if step.get("name") == "Check prediction log freshness"
+        )
+        self.assertIn("--max-age-minutes 45", freshness_step["run"])
 
 
 if __name__ == "__main__":
