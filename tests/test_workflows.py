@@ -20,6 +20,13 @@ def load_workflow(name: str) -> dict:
         return yaml.load(f, Loader=yaml.BaseLoader)
 
 
+def step_by_name(workflow: dict, job: str, name: str) -> dict:
+    for step in workflow["jobs"][job]["steps"]:
+        if step.get("name") == name:
+            return step
+    raise AssertionError(f"Step {name!r} not found in job {job!r}")
+
+
 class TestPipelineWatchdogWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         self.workflow = load_workflow("pipeline-watchdog.yml")
@@ -31,16 +38,44 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
 
     def test_watchdog_runs_off_peak_every_fifteen_minutes(self) -> None:
         schedules = self.workflow["on"]["schedule"]
-        self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
+        self.assertEqual(schedules[0]["cron"], "11,26,41,56 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
-        step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
-        script = step["with"]["script"]
+    def test_watchdog_checks_committed_prediction_log(self) -> None:
+        step = step_by_name(self.workflow, "predict-freshness", "Check prediction log freshness")
+        run = step["run"]
 
-        self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
-        self.assertIn("listWorkflowRuns", script)
-        self.assertIn("createWorkflowDispatch", script)
+        self.assertIn("python3 src/utils/prediction_freshness.py --max-age-minutes 60", run)
+        self.assertIn('echo "stale=false"', run)
+
+    def test_watchdog_dispatches_predict_when_log_is_stale(self) -> None:
+        dispatch = step_by_name(self.workflow, "predict-freshness", "Dispatch Predict if stale")
+        run = dispatch["run"]
+
+        self.assertEqual(
+            dispatch["if"],
+            "steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'",
+        )
+        self.assertIn("gh workflow run predict.yml", run)
+
+
+class TestPredictWatchdogWorkflow(unittest.TestCase):
+    def setUp(self) -> None:
+        self.workflow = load_workflow("predict-watchdog.yml")
+
+    def test_watchdog_runs_every_fifteen_minutes(self) -> None:
+        schedules = self.workflow["on"]["schedule"]
+        self.assertEqual(schedules[0]["cron"], "4,19,34,49 * * * *")
+
+    def test_watchdog_does_not_use_setup_python(self) -> None:
+        steps = self.workflow["jobs"]["watchdog"]["steps"]
+        uses = [step.get("uses", "") for step in steps]
+        self.assertFalse(any("setup-python" in value for value in uses))
+
+    def test_watchdog_checks_committed_prediction_log(self) -> None:
+        step = step_by_name(self.workflow, "watchdog", "Check prediction log freshness")
+        run = step["run"]
+
+        self.assertIn("python3 src/utils/prediction_freshness.py --max-age-minutes 60", run)
 
 
 if __name__ == "__main__":
