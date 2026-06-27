@@ -12,9 +12,11 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.utils.prediction_freshness import (  # noqa: E402
+    build_parser,
     check_prediction_freshness,
     latest_prediction_run_at,
     parse_prediction_timestamp,
+    _resolve_watchdog_max_age,
 )
 
 
@@ -90,6 +92,12 @@ class TestPredictionFreshness(unittest.TestCase):
             self.assertIsNone(missing_result.latest_run_at)
             self.assertFalse(corrupt_result.is_fresh)
             self.assertIsNone(corrupt_result.latest_run_at)
+
+    def test_resolve_watchdog_max_age_prefers_minutes(self) -> None:
+        parser = build_parser()
+        args = parser.parse_args(["--max-age-minutes", "60"])
+
+        self.assertEqual(_resolve_watchdog_max_age(args), timedelta(minutes=60))
 
 
 if __name__ == "__main__":
