@@ -91,6 +91,16 @@ class TestPredictionFreshness(unittest.TestCase):
             self.assertFalse(corrupt_result.is_fresh)
             self.assertIsNone(corrupt_result.latest_run_at)
 
+    def test_max_age_minutes_cli_flag(self) -> None:
+        from src.utils.prediction_freshness import _resolve_watchdog_max_age, build_parser
+
+        parser = build_parser()
+        args = parser.parse_args(["--max-age-minutes", "60"])
+        self.assertEqual(_resolve_watchdog_max_age(args), timedelta(hours=1))
+
+        args = parser.parse_args(["--max-age-hours", "2", "--max-age-minutes", "30"])
+        self.assertEqual(_resolve_watchdog_max_age(args), timedelta(minutes=30))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
