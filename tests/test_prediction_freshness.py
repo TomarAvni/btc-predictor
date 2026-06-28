@@ -12,8 +12,11 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.utils.prediction_freshness import (  # noqa: E402
+    _resolve_watchdog_max_age,
+    build_parser,
     check_prediction_freshness,
     latest_prediction_run_at,
+    main,
     parse_prediction_timestamp,
 )
 
@@ -90,6 +93,32 @@ class TestPredictionFreshness(unittest.TestCase):
             self.assertIsNone(missing_result.latest_run_at)
             self.assertFalse(corrupt_result.is_fresh)
             self.assertIsNone(corrupt_result.latest_run_at)
+
+    def test_resolve_watchdog_max_age_prefers_minutes(self) -> None:
+        args = build_parser().parse_args(["--max-age-minutes", "60"])
+        self.assertEqual(_resolve_watchdog_max_age(args), timedelta(minutes=60))
+
+    def test_main_watchdog_mode_uses_max_age_minutes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            jsonl_path = Path(tmp) / "missing.jsonl"
+            log_path.write_text(
+                "[2026-06-17 00:26 UTC] -- Prediction Run #41",
+                encoding="utf-8",
+            )
+
+            exit_code = main(
+                [
+                    "--log-path",
+                    str(log_path),
+                    "--jsonl-path",
+                    str(jsonl_path),
+                    "--max-age-minutes",
+                    "30",
+                ]
+            )
+
+            self.assertEqual(exit_code, 1)
 
 
 if __name__ == "__main__":
