@@ -1,6 +1,6 @@
 {
-  "n_total": 2096,
-  "ece": 0.2927,
+  "n_total": 2112,
+  "ece": 0.2916,
   "bins": [
     {
       "confidence_lo": 0.0,
@@ -22,8 +22,8 @@
       "confidence_lo": 20.0,
       "confidence_hi": 30.0,
       "mean_confidence": 22.6,
-      "accuracy_pct": 75.0,
-      "n": 16,
+      "accuracy_pct": 70.6,
+      "n": 17,
       "n_correct": 12
     },
     {
@@ -46,9 +46,9 @@
       "confidence_lo": 50.0,
       "confidence_hi": 60.0,
       "mean_confidence": 55.0,
-      "accuracy_pct": 27.5,
-      "n": 1638,
-      "n_correct": 451
+      "accuracy_pct": 27.6,
+      "n": 1653,
+      "n_correct": 456
     },
     {
       "confidence_lo": 60.0,
@@ -83,5 +83,5 @@
       "n_correct": 0
     }
   ],
-  "updated_at": "2026-06-28T16:51:33.682102+00:00"
+  "updated_at": "2026-06-28T17:23:50.021589+00:00"
 }
