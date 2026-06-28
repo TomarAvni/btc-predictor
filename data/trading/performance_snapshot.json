@@ -1,7 +1,7 @@
 {
-  "total_return_pct": 10.27,
-  "total_return_usd": 205.33,
-  "current_value": 2205.33,
+  "total_return_pct": 10.81,
+  "total_return_usd": 216.22,
+  "current_value": 2216.22,
   "starting_balance": 2000.0,
   "daily_returns_count": 0,
   "sharpe_ratio": 0.0,
@@ -55,5 +55,5 @@
     "96h": -69.33
   },
   "buy_and_hold_return_pct": 0.0,
-  "snapshot_at": "2026-06-28T09:49:54.409194+00:00"
+  "snapshot_at": "2026-06-28T10:43:28.864560+00:00"
 }
