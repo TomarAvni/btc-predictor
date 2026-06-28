@@ -1,6 +1,6 @@
 {
-  "n_total": 1842,
-  "ece": 0.3203,
+  "n_total": 1904,
+  "ece": 0.3142,
   "bins": [
     {
       "confidence_lo": 0.0,
@@ -37,25 +37,25 @@
     {
       "confidence_lo": 40.0,
       "confidence_hi": 50.0,
-      "mean_confidence": 47.6,
+      "mean_confidence": 47.5,
       "accuracy_pct": 100.0,
-      "n": 24,
-      "n_correct": 24
+      "n": 25,
+      "n_correct": 25
     },
     {
       "confidence_lo": 50.0,
       "confidence_hi": 60.0,
-      "mean_confidence": 55.2,
-      "accuracy_pct": 24.2,
-      "n": 1394,
-      "n_correct": 338
+      "mean_confidence": 55.1,
+      "accuracy_pct": 24.9,
+      "n": 1454,
+      "n_correct": 362
     },
     {
       "confidence_lo": 60.0,
       "confidence_hi": 70.0,
       "mean_confidence": 63.0,
-      "accuracy_pct": 30.0,
-      "n": 330,
+      "accuracy_pct": 29.9,
+      "n": 331,
       "n_correct": 99
     },
     {
@@ -83,5 +83,5 @@
       "n_correct": 0
     }
   ],
-  "updated_at": "2026-06-28T01:57:26.480002+00:00"
+  "updated_at": "2026-06-28T05:07:32.107210+00:00"
 }
