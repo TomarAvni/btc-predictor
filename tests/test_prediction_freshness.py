@@ -91,6 +91,25 @@ class TestPredictionFreshness(unittest.TestCase):
             self.assertFalse(corrupt_result.is_fresh)
             self.assertIsNone(corrupt_result.latest_run_at)
 
+    def test_watchdog_mode_accepts_max_age_minutes(self) -> None:
+        from src.utils.prediction_freshness import main
+
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            now = datetime.now(timezone.utc)
+            ts = now.strftime("%Y-%m-%d %H:%M UTC")
+            log_path.write_text(f"[{ts}] -- Prediction Run #1", encoding="utf-8")
+            exit_code = main(
+                [
+                    "--log-path",
+                    str(log_path),
+                    "--max-age-minutes",
+                    "60",
+                ]
+            )
+
+            self.assertEqual(exit_code, 0)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
