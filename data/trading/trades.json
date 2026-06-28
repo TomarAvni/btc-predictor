@@ -1,6 +1,6 @@
 [
   {
-    "id": "ce001e9cb88e",
+    "id": "9a2cdc6428e6",
     "entry_time": "2024-01-03T20:00:00+00:00",
     "exit_time": "2024-01-28T04:00:00+00:00",
     "entry_price": 42720.7275,
@@ -12,12 +12,12 @@
     "pnl_usd": 0.5701899619957651,
     "pnl_pct": 0.030016001200017114,
     "exit_reason": "stop_loss",
-    "prediction_id": "8a2b0ef7d008",
+    "prediction_id": "b033cb8cdfce",
     "fees_paid": 0.7596580152045599,
     "used_ml": true
   },
   {
-    "id": "85050582e003",
+    "id": "28551a76e382",
     "entry_time": "2024-01-04T00:00:00+00:00",
     "exit_time": "2024-01-29T16:00:00+00:00",
     "entry_price": 42898.7097,
@@ -29,12 +29,12 @@
     "pnl_usd": 0.030124035992166683,
     "pnl_pct": 0.030016001200007535,
     "exit_reason": "stop_loss",
-    "prediction_id": "c3fab84062d5",
+    "prediction_id": "fd35e83d44b2",
     "fees_paid": 0.04013393240328096,
     "used_ml": true
   },
   {
-    "id": "20400d785f6f",
+    "id": "7bac542b0096",
     "entry_time": "2024-04-19T00:00:00+00:00",
     "exit_time": "2024-06-03T04:00:00+00:00",
     "entry_price": 62731.7262,
@@ -46,12 +46,12 @@
     "pnl_usd": -174.37815572920113,
     "pnl_pct": -9.176880532517535,
     "exit_reason": "time_expired",
-    "prediction_id": "7f79a29625cb",
+    "prediction_id": "49f3a5da6895",
     "fees_paid": 0.7948686194173966,
     "used_ml": true
   },
   {
-    "id": "9339845c4a65",
+    "id": "ac5a6385d89b",
     "entry_time": "2024-04-19T04:00:00+00:00",
     "exit_time": "2024-06-03T08:00:00+00:00",
     "entry_price": 62434.755900000004,
@@ -63,12 +63,12 @@
     "pnl_usd": -10.813268664283555,
     "pnl_pct": -10.771223633117456,
     "exit_reason": "time_expired",
-    "prediction_id": "91acf127fc68",
+    "prediction_id": "2f1152209d1a",
     "fees_paid": 0.042314344842680075,
     "used_ml": true
   },
   {
-    "id": "71bec1eb6155",
+    "id": "706c87897679",
     "entry_time": "2024-06-03T04:00:00+00:00",
     "exit_time": "2024-06-10T00:00:00+00:00",
     "entry_price": 68461.1532,
@@ -80,12 +80,12 @@
     "pnl_usd": -26.876673838795316,
     "pnl_pct": -1.6165551399738929,
     "exit_reason": "time_expired",
-    "prediction_id": "18ad4f35f26e",
+    "prediction_id": "a71d9aa9f7b6",
     "fees_paid": 0.6703435156943679,
     "used_ml": true
   },
   {
-    "id": "499f13c0285d",
+    "id": "b8ad1541c4be",
     "entry_time": "2024-06-04T08:00:00+00:00",
     "exit_time": "2024-06-13T20:00:00+00:00",
     "entry_price": 68815.1178,
@@ -97,12 +97,12 @@
     "pnl_usd": 1.9193468710221842,
     "pnl_pct": 3.0866984384934106,
     "exit_reason": "time_expired",
-    "prediction_id": "9b92dfcbc4ce",
+    "prediction_id": "4be1a4cdeac8",
     "fees_paid": 0.024486210242791205,
     "used_ml": true
   },
   {
-    "id": "e6ae477a2b0d",
+    "id": "e69b6f5ddd0b",
     "entry_time": "2024-06-10T00:00:00+00:00",
     "exit_time": "2024-06-17T04:00:00+00:00",
     "entry_price": 69540.0453,
@@ -114,12 +114,12 @@
     "pnl_usd": 71.01335966187173,
     "pnl_pct": 4.4767325911707365,
     "exit_reason": "time_expired",
-    "prediction_id": "8ec98bd08179",
+    "prediction_id": "7618b3b51d9b",
     "fees_paid": 0.620247352893184,
     "used_ml": true
   },
   {
-    "id": "f8defffe288b",
+    "id": "8b9c5d218b27",
     "entry_time": "2024-06-11T08:00:00+00:00",
     "exit_time": "2024-06-17T20:00:00+00:00",
     "entry_price": 67483.251,
@@ -131,12 +131,12 @@
     "pnl_usd": 0.8569604161569461,
     "pnl_pct": 1.618680719131346,
     "exit_reason": "time_expired",
-    "prediction_id": "31def497e5a4",
+    "prediction_id": "d820cdc0f699",
     "fees_paid": 0.021003287122903284,
     "used_ml": true
   },
   {
-    "id": "bf7c149ccc58",
+    "id": "e77d21a1e5fc",
     "entry_time": "2024-06-11T12:00:00+00:00",
     "exit_time": "2024-06-18T00:00:00+00:00",
     "entry_price": 66987.3006,
@@ -148,12 +148,12 @@
     "pnl_usd": 0.9650989164763404,
     "pnl_pct": 1.8250859105374964,
     "exit_reason": "time_expired",
-    "prediction_id": "e1a189e6e9a7",
+    "prediction_id": "a62bbb9aad9e",
     "fees_paid": 0.02095676130585556,
     "used_ml": true
   },
   {
-    "id": "d03c98327958",
+    "id": "6ac067165dd7",
     "entry_time": "2024-06-11T16:00:00+00:00",
     "exit_time": "2024-06-18T04:00:00+00:00",
     "entry_price": 66455.3538,
@@ -165,12 +165,12 @@
     "pnl_usd": 0.7515053490313964,
     "pnl_pct": 1.3056616796463303,
     "exit_reason": "time_expired",
-    "prediction_id": "298af0c9cdea",
+    "prediction_id": "265d319a1bff",
     "fees_paid": 0.02287040042593406,
     "used_ml": true
   },
   {
-    "id": "cdd4d34b659a",
+    "id": "16f7114da55b",
     "entry_time": "2024-06-11T04:00:00+00:00",
     "exit_time": "2024-06-19T04:00:00+00:00",
     "entry_price": 67987.2006,
@@ -182,12 +182,12 @@
     "pnl_usd": 5.818242609480298,
     "pnl_pct": 3.7294809449177353,
     "exit_reason": "time_expired",
-    "prediction_id": "85da2bb13895",
+    "prediction_id": "89769545bf1f",
     "fees_paid": 0.06123305152479387,
     "used_ml": true
   },
   {
-    "id": "0261342ffd64",
+    "id": "1f25eab95d0d",
     "entry_time": "2024-06-17T04:00:00+00:00",
     "exit_time": "2024-06-24T08:00:00+00:00",
     "entry_price": 66400.3593,
@@ -199,12 +199,12 @@
     "pnl_usd": 81.30987197733471,
     "pnl_pct": 5.598702907500678,
     "exit_reason": "time_expired",
-    "prediction_id": "c59cd4613995",
+    "prediction_id": "2f243074acca",
     "fees_paid": 0.5646025515351818,
     "used_ml": true
   },
   {
-    "id": "83a1a732531c",
+    "id": "c0fd46ea4a86",
     "entry_time": "2024-06-14T16:00:00+00:00",
     "exit_time": "2024-06-24T12:00:00+00:00",
     "entry_price": 65236.4757,
@@ -216,12 +216,12 @@
     "pnl_usd": 12.051798955567262,
     "pnl_pct": 6.226773646633405,
     "exit_reason": "time_expired",
-    "prediction_id": "65e7c8a42a56",
+    "prediction_id": "be3bc5fdcecd",
     "fees_paid": 0.07500160171157083,
     "used_ml": true
   },
   {
-    "id": "c3c7e48d510c",
+    "id": "847d8e4b82f3",
     "entry_time": "2024-06-19T04:00:00+00:00",
     "exit_time": "2024-06-24T20:00:00+00:00",
     "entry_price": 65425.4568,
@@ -233,12 +233,12 @@
     "pnl_usd": 6.845879526895806,
     "pnl_pct": 10.588377625496651,
     "exit_reason": "take_profit",
-    "prediction_id": "4f5319e69074",
+    "prediction_id": "afe974ce42c4",
     "fees_paid": 0.02449037610611384,
     "used_ml": true
   },
   {
-    "id": "49956ab67c05",
+    "id": "72bdd60339a3",
     "entry_time": "2024-06-17T12:00:00+00:00",
     "exit_time": "2024-06-27T16:00:00+00:00",
     "entry_price": 65535.4458,
@@ -250,12 +250,12 @@
     "pnl_usd": 5.738474805465539,
     "pnl_pct": 5.914283819795118,
     "exit_reason": "time_expired",
-    "prediction_id": "4a213a39fede",
+    "prediction_id": "49671b1fced7",
     "fees_paid": 0.03765960735814235,
     "used_ml": true
   },
   {
-    "id": "acba8b182e6a",
+    "id": "9a6ce52fb6fa",
     "entry_time": "2024-06-18T00:00:00+00:00",
     "exit_time": "2024-06-28T04:00:00+00:00",
     "entry_price": 65738.4255,
@@ -267,12 +267,12 @@
     "pnl_usd": 5.003914251958227,
     "pnl_pct": 6.148490530002113,
     "exit_reason": "time_expired",
-    "prediction_id": "899cd18ea92b",
+    "prediction_id": "ce6dc9a4aaf9",
     "fees_paid": 0.03154993636463431,
     "used_ml": true
   },
   {
-    "id": "ff74802fd50c",
+    "id": "b8a4a0b97a9a",
     "entry_time": "2024-06-18T04:00:00+00:00",
     "exit_time": "2024-06-28T08:00:00+00:00",
     "entry_price": 65561.4432,
@@ -284,12 +284,12 @@
     "pnl_usd": 4.906281594619491,
     "pnl_pct": 6.308616268929233,
     "exit_reason": "time_expired",
-    "prediction_id": "240d9db649aa",
+    "prediction_id": "6dfba6d4f8e6",
     "fees_paid": 0.030124278087323736,
     "used_ml": true
   },
   {
-    "id": "95b87205d522",
+    "id": "bec9c33df7b2",
     "entry_time": "2024-06-18T16:00:00+00:00",
     "exit_time": "2024-06-28T20:00:00+00:00",
     "entry_price": 64654.5339,
@@ -301,12 +301,12 @@
     "pnl_usd": 7.29421732252669,
     "pnl_pct": 6.987131025655733,
     "exit_reason": "time_expired",
-    "prediction_id": "a8c1924e3475",
+    "prediction_id": "1b995a3a40a2",
     "fees_paid": 0.04029528408987923,
     "used_ml": true
   },
   {
-    "id": "1f42a7cfbfd6",
+    "id": "8d4a9e925a9e",
     "entry_time": "2024-06-24T20:00:00+00:00",
     "exit_time": "2024-06-29T20:00:00+00:00",
     "entry_price": 59473.0521,
@@ -318,12 +318,12 @@
     "pnl_usd": -7.346442865107324,
     "pnl_pct": -2.504045557265088,
     "exit_reason": "time_expired",
-    "prediction_id": "7b0da6786262",
+    "prediction_id": "1915f6c85dff",
     "fees_paid": 0.11881044403656738,
     "used_ml": true
   },
   {
-    "id": "01a8f4fded87",
+    "id": "890147dc3a3f",
     "entry_time": "2024-06-28T20:00:00+00:00",
     "exit_time": "2024-06-30T20:00:00+00:00",
     "entry_price": 60125.0119,
@@ -335,12 +335,12 @@
     "pnl_usd": 5.430582399414504,
     "pnl_pct": 2.7544767882310985,
     "exit_reason": "take_profit",
-    "prediction_id": "c151bc6bc417",
+    "prediction_id": "b32b6b802102",
     "fees_paid": 0.07995612984719248,
     "used_ml": true
   },
   {
-    "id": "1f6625bcac04",
+    "id": "2715a1630d86",
     "entry_time": "2024-06-28T16:00:00+00:00",
     "exit_time": "2024-07-02T00:00:00+00:00",
     "entry_price": 60816.081,
@@ -352,12 +352,12 @@
     "pnl_usd": 1.971919423820978,
     "pnl_pct": 3.316663329621646,
     "exit_reason": "signal_flip",
-    "prediction_id": "576156cd072a",
+    "prediction_id": "0e9345835783",
     "fees_paid": 0.024178808177666464,
     "used_ml": true
   },
   {
-    "id": "9d9b88006bc2",
+    "id": "e46bb4c81abb",
     "entry_time": "2024-05-20T00:00:00+00:00",
     "exit_time": "2024-07-04T04:00:00+00:00",
     "entry_price": 66441.3552,
@@ -369,12 +369,12 @@
     "pnl_usd": 198.59561637417482,
     "pnl_pct": 11.269597374618284,
     "exit_reason": "time_expired",
-    "prediction_id": "630599735eb7",
+    "prediction_id": "b481f5d4e8c1",
     "fees_paid": 0.6651081809410424,
     "used_ml": true
   },
   {
-    "id": "cf963f31a10b",
+    "id": "f9d0371fa0e3",
     "entry_time": "2024-06-24T08:00:00+00:00",
     "exit_time": "2024-07-04T04:00:00+00:00",
     "entry_price": 62657.7336,
@@ -386,12 +386,12 @@
     "pnl_usd": 104.72254361232315,
     "pnl_pct": 5.9115633593233,
     "exit_reason": "time_expired",
-    "prediction_id": "d64ed17bc5d0",
+    "prediction_id": "2996bf24b945",
     "fees_paid": 0.6875834121498388,
     "used_ml": true
   },
   {
-    "id": "577ab8acc26d",
+    "id": "784b984deb22",
     "entry_time": "2024-07-02T16:00:00+00:00",
     "exit_time": "2024-07-04T08:00:00+00:00",
     "entry_price": 61840.8153,
@@ -403,12 +403,12 @@
     "pnl_usd": 4.827163774255799,
     "pnl_pct": 7.169947684111213,
     "exit_reason": "take_profit",
-    "prediction_id": "b1486b690764",
+    "prediction_id": "a95a2cb30f44",
     "fees_paid": 0.025962048284875118,
     "used_ml": true
   },
   {
-    "id": "471b72755cb3",
+    "id": "83f10d33a59a",
     "entry_time": "2024-06-24T12:00:00+00:00",
     "exit_time": "2024-07-04T08:00:00+00:00",
     "entry_price": 61149.8844,
@@ -420,12 +420,12 @@
     "pnl_usd": 22.083353982566383,
     "pnl_pct": 5.703346427094807,
     "exit_reason": "time_expired",
-    "prediction_id": "919457d72286",
+    "prediction_id": "72ef5b4391e5",
     "fees_paid": 0.1504487037329312,
     "used_ml": true
   },
   {
-    "id": "41ae560fab78",
+    "id": "b2c677e26978",
     "entry_time": "2024-07-04T08:00:00+00:00",
     "exit_time": "2024-07-05T00:00:00+00:00",
     "entry_price": 57650.7645,
@@ -437,12 +437,12 @@
     "pnl_usd": 0.34617999920760667,
     "pnl_pct": 0.029984001200005037,
     "exit_reason": "stop_loss",
-    "prediction_id": "3102cb2db6e7",
+    "prediction_id": "2cc713f28e64",
     "fees_paid": 0.46193505864981144,
     "used_ml": true
   },
   {
-    "id": "42fe83dc7ee0",
+    "id": "abc60107e449",
     "entry_time": "2024-07-04T12:00:00+00:00",
     "exit_time": "2024-07-05T00:00:00+00:00",
     "entry_price": 57223.7218,
@@ -454,12 +454,12 @@
     "pnl_usd": 0.016780103765107413,
     "pnl_pct": 0.02998400119996958,
     "exit_reason": "stop_loss",
-    "prediction_id": "ed6d4b390d78",
+    "prediction_id": "f20bd302cd09",
     "fees_paid": 0.022391005357433887,
     "used_ml": true
   },
   {
-    "id": "b62a1c343abb",
+    "id": "5c6eea8182ae",
     "entry_time": "2024-07-03T20:00:00+00:00",
     "exit_time": "2024-07-05T00:00:00+00:00",
     "entry_price": 59516.9511,
@@ -471,12 +471,12 @@
     "pnl_usd": -2.1732999779772015,
     "pnl_pct": -3.6899594361781785,
     "exit_reason": "time_expired",
-    "prediction_id": "71a2b879e99c",
+    "prediction_id": "67983bd5e780",
     "fees_paid": 0.023126675764863915,
     "used_ml": true
   },
   {
-    "id": "91e08023f262",
+    "id": "90af6cf2a6a0",
     "entry_time": "2024-06-29T20:00:00+00:00",
     "exit_time": "2024-07-05T04:00:00+00:00",
     "entry_price": 60937.9056,
@@ -488,12 +488,12 @@
     "pnl_usd": 13.55832376468945,
     "pnl_pct": 7.223525918138394,
     "exit_reason": "take_profit",
-    "prediction_id": "5fbd1c9f468e",
+    "prediction_id": "5ec7326fb46c",
     "fees_paid": 0.07236007321204938,
     "used_ml": true
   },
   {
-    "id": "32d60a0e39e8",
+    "id": "0da1094bb0d4",
     "entry_time": "2024-07-03T04:00:00+00:00",
     "exit_time": "2024-07-05T04:00:00+00:00",
     "entry_price": 60786.9207,
@@ -505,12 +505,12 @@
     "pnl_usd": 10.714814828075689,
     "pnl_pct": 7.624821300793777,
     "exit_reason": "take_profit",
-    "prediction_id": "98fb9780c39f",
+    "prediction_id": "26d96bdcfe37",
     "fees_paid": 0.05406202765858671,
     "used_ml": true
   },
   {
-    "id": "fa58c5f57824",
+    "id": "11c3c2e96e94",
     "entry_time": "2024-07-03T12:00:00+00:00",
     "exit_time": "2024-07-05T04:00:00+00:00",
     "entry_price": 59949.994399999996,
@@ -522,12 +522,12 @@
     "pnl_usd": -12.325245744798451,
     "pnl_pct": -10.523761138900948,
     "exit_reason": "stop_loss",
-    "prediction_id": "ca7d96e746af",
+    "prediction_id": "3a5f0b6c70df",
     "fees_paid": 0.04438644669685153,
     "used_ml": true
   },
   {
-    "id": "4938341cba24",
+    "id": "3cb7820f6189",
     "entry_time": "2024-07-05T04:00:00+00:00",
     "exit_time": "2024-07-05T08:00:00+00:00",
     "entry_price": 53926.3921,
@@ -539,12 +539,12 @@
     "pnl_usd": 7.6057962072371765,
     "pnl_pct": 0.7451798633294475,
     "exit_reason": "take_profit",
-    "prediction_id": "b364846f0ab5",
+    "prediction_id": "d09203cdb063",
     "fees_paid": 0.40982862873415427,
     "used_ml": true
   },
   {
-    "id": "a6266bda3f6f",
+    "id": "27be0e68a67e",
     "entry_time": "2024-07-05T08:00:00+00:00",
     "exit_time": "2024-07-05T12:00:00+00:00",
     "entry_price": 54045.594900000004,
@@ -556,12 +556,12 @@
     "pnl_usd": -22.94289915390406,
     "pnl_pct": -2.025391985069099,
     "exit_reason": "stop_loss",
-    "prediction_id": "97b5f2733918",
+    "prediction_id": "5673419e47e1",
     "fees_paid": 0.45764772162253636,
     "used_ml": true
   },
   {
-    "id": "734c12f89d01",
+    "id": "78ce57b67036",
     "entry_time": "2024-07-04T04:00:00+00:00",
     "exit_time": "2024-07-10T04:00:00+00:00",
     "entry_price": 58941.893599999996,
@@ -573,12 +573,12 @@
     "pnl_usd": 3.46410793352527,
     "pnl_pct": 0.6621819611849267,
     "exit_reason": "signal_flip",
-    "prediction_id": "42075025422e",
+    "prediction_id": "d682ce70cb19",
     "fees_paid": 0.2099680305787408,
     "used_ml": true
   },
   {
-    "id": "0b443cd0634d",
+    "id": "ecfce335e9e2",
     "entry_time": "2024-07-05T00:00:00+00:00",
     "exit_time": "2024-07-10T04:00:00+00:00",
     "entry_price": 57343.7338,
@@ -590,12 +590,12 @@
     "pnl_usd": 18.15559696302148,
     "pnl_pct": 3.4676193111792006,
     "exit_reason": "signal_flip",
-    "prediction_id": "9ce2a26cf9b5",
+    "prediction_id": "6f2c3641ad9e",
     "fees_paid": 0.21308289856175663,
     "used_ml": true
   },
   {
-    "id": "733e0f58f10a",
+    "id": "e219eda844e5",
     "entry_time": "2024-07-10T04:00:00+00:00",
     "exit_time": "2024-07-14T20:00:00+00:00",
     "entry_price": 59344.065,
@@ -607,12 +607,12 @@
     "pnl_usd": -14.04153528570435,
     "pnl_pct": -1.3143150913574915,
     "exit_reason": "time_expired",
-    "prediction_id": "b4525022b4c1",
+    "prediction_id": "8c37526e3d2f",
     "fees_paid": 0.4301065418248029,
     "used_ml": true
   },
   {
-    "id": "6900428e0620",
+    "id": "ea4f2b85faa4",
     "entry_time": "2024-06-30T20:00:00+00:00",
     "exit_time": "2024-07-15T04:00:00+00:00",
     "entry_price": 61878.8115,
@@ -624,12 +624,12 @@
     "pnl_usd": 0.025632060741901577,
     "pnl_pct": 0.030016001200008722,
     "exit_reason": "stop_loss",
-    "prediction_id": "503fd01194ac",
+    "prediction_id": "17b3bf448db1",
     "fees_paid": 0.03414932160616629,
     "used_ml": true
   },
   {
-    "id": "e128be53ffc3",
+    "id": "e0ccf6c781d2",
     "entry_time": "2024-07-05T12:00:00+00:00",
     "exit_time": "2024-07-19T16:00:00+00:00",
     "entry_price": 55047.4947,
@@ -641,12 +641,12 @@
     "pnl_usd": -244.38518279049742,
     "pnl_pct": -20.610179739971333,
     "exit_reason": "stop_loss",
-    "prediction_id": "eb30b2011c0b",
+    "prediction_id": "1999923e39dd",
     "fees_paid": 0.5231197970317731,
     "used_ml": true
   },
   {
-    "id": "fc26812ac256",
+    "id": "a0b06e2028bb",
     "entry_time": "2024-07-16T08:00:00+00:00",
     "exit_time": "2024-07-23T12:00:00+00:00",
     "entry_price": 62823.717000000004,
@@ -658,12 +658,12 @@
     "pnl_usd": -7.740855581883893,
     "pnl_pct": -5.886685962946126,
     "exit_reason": "time_expired",
-    "prediction_id": "d7751bd3724c",
+    "prediction_id": "0775320aff6a",
     "fees_paid": 0.05414167544772767,
     "used_ml": true
   },
   {
-    "id": "3f309275a46d",
+    "id": "d6a7473b081b",
     "entry_time": "2024-07-15T20:00:00+00:00",
     "exit_time": "2024-07-24T04:00:00+00:00",
     "entry_price": 63777.6216,
@@ -675,12 +675,12 @@
     "pnl_usd": -59.84608286297571,
     "pnl_pct": -3.294474401002133,
     "exit_reason": "time_expired",
-    "prediction_id": "d22097f06a79",
+    "prediction_id": "95bd9c7b470b",
     "fees_paid": 0.7385179165558845,
     "used_ml": true
   },
   {
-    "id": "61bbdb4dff38",
+    "id": "9130a141dff7",
     "entry_time": "2024-07-23T12:00:00+00:00",
     "exit_time": "2024-07-30T16:00:00+00:00",
     "entry_price": 66495.3498,
@@ -692,12 +692,12 @@
     "pnl_usd": 0.6124066486308971,
     "pnl_pct": 0.48048724886923105,
     "exit_reason": "time_expired",
-    "prediction_id": "ed121da0bffe",
+    "prediction_id": "0e0b49020f78",
     "fees_paid": 0.0508545812955607,
     "used_ml": true
   },
   {
-    "id": "5ece7d837175",
+    "id": "847f2cf35754",
     "entry_time": "2024-07-24T04:00:00+00:00",
     "exit_time": "2024-07-31T08:00:00+00:00",
     "entry_price": 65852.4141,
@@ -709,12 +709,12 @@
     "pnl_usd": -12.7700330473423,
     "pnl_pct": -0.7022912253417312,
     "exit_reason": "time_expired",
-    "prediction_id": "244bb373cb23",
+    "prediction_id": "0cd2657c9382",
     "fees_paid": 0.7298162517947244,
     "used_ml": true
   },
   {
-    "id": "813792b4aac7",
+    "id": "1e6f24254463",
     "entry_time": "2024-07-23T16:00:00+00:00",
     "exit_time": "2024-08-02T12:00:00+00:00",
     "entry_price": 65879.4114,
@@ -726,12 +726,12 @@
     "pnl_usd": 1.165375805197761,
     "pnl_pct": 1.5922528472681527,
     "exit_reason": "time_expired",
-    "prediction_id": "b16f796683ed",
+    "prediction_id": "e01772887056",
     "fees_paid": 0.029040193795489624,
     "used_ml": true
   },
   {
-    "id": "78c04178e9a4",
+    "id": "99f4abab5674",
     "entry_time": "2024-08-04T16:00:00+00:00",
     "exit_time": "2024-08-04T20:00:00+00:00",
     "entry_price": 58624.861899999996,
@@ -743,12 +743,12 @@
     "pnl_usd": 2.9018363350795084,
     "pnl_pct": 1.1241563337880445,
     "exit_reason": "take_profit",
-    "prediction_id": "1d89dbf57114",
+    "prediction_id": "252ce1615a08",
     "fees_paid": 0.10384464652441636,
     "used_ml": true
   },
   {
-    "id": "651c579be254",
+    "id": "8a408c8713b4",
     "entry_time": "2024-08-01T04:00:00+00:00",
     "exit_time": "2024-08-05T00:00:00+00:00",
     "entry_price": 63693.63,
@@ -760,12 +760,12 @@
     "pnl_usd": 162.89116250824299,
     "pnl_pct": 8.781732051902797,
     "exit_reason": "take_profit",
-    "prediction_id": "af4cc1962dc4",
+    "prediction_id": "a2ae8b68d935",
     "fees_paid": 0.709308702180578,
     "used_ml": true
   },
   {
-    "id": "868fcc25df12",
+    "id": "bdad6afea0b0",
     "entry_time": "2024-08-01T16:00:00+00:00",
     "exit_time": "2024-08-05T00:00:00+00:00",
     "entry_price": 62853.714,
@@ -777,12 +777,12 @@
     "pnl_usd": 8.351004803917409,
     "pnl_pct": 7.977043527589377,
     "exit_reason": "take_profit",
-    "prediction_id": "3105faa3c157",
+    "prediction_id": "493041ab6051",
     "fees_paid": 0.04020113367366766,
     "used_ml": true
   },
   {
-    "id": "484329771cde",
+    "id": "990cd581dded",
     "entry_time": "2024-08-02T20:00:00+00:00",
     "exit_time": "2024-08-05T00:00:00+00:00",
     "entry_price": 62527.7466,
@@ -794,12 +794,12 @@
     "pnl_usd": 9.001929111752828,
     "pnl_pct": 8.199314401669996,
     "exit_reason": "take_profit",
-    "prediction_id": "c5590f2d1089",
+    "prediction_id": "478a27e4b80d",
     "fees_paid": 0.04211110459152581,
     "used_ml": true
   },
   {
-    "id": "c88becf6531f",
+    "id": "9ae276f02a2e",
     "entry_time": "2024-08-03T00:00:00+00:00",
     "exit_time": "2024-08-05T00:00:00+00:00",
     "entry_price": 61090.8903,
@@ -811,12 +811,12 @@
     "pnl_usd": 9.455139528496815,
     "pnl_pct": 5.090797110724196,
     "exit_reason": "take_profit",
-    "prediction_id": "b1f706e287a9",
+    "prediction_id": "6a8d2a836621",
     "fees_paid": 0.07239393865299423,
     "used_ml": true
   },
   {
-    "id": "cc2f99dbfe7d",
+    "id": "ac095178d6be",
     "entry_time": "2024-08-04T04:00:00+00:00",
     "exit_time": "2024-08-05T00:00:00+00:00",
     "entry_price": 60550.0544,
@@ -828,12 +828,12 @@
     "pnl_usd": -3.5895061272961186,
     "pnl_pct": -4.796482492960365,
     "exit_reason": "stop_loss",
-    "prediction_id": "126b39f44286",
+    "prediction_id": "b85f7be41ecc",
     "fees_paid": 0.029219436684433227,
     "used_ml": true
   },
   {
-    "id": "abb2999ca1c3",
+    "id": "ed411a468605",
     "entry_time": "2024-07-25T04:00:00+00:00",
     "exit_time": "2024-08-05T04:00:00+00:00",
     "entry_price": 64198.5795,
@@ -845,12 +845,12 @@
     "pnl_usd": 33.160343844974896,
     "pnl_pct": 16.805646881655935,
     "exit_reason": "take_profit",
-    "prediction_id": "bd56dffd4e25",
+    "prediction_id": "27b2e105fc49",
     "fees_paid": 0.07228803678065276,
     "used_ml": true
   },
   {
-    "id": "5374b38bcc60",
+    "id": "9d2d20516f27",
     "entry_time": "2024-08-05T00:00:00+00:00",
     "exit_time": "2024-08-05T04:00:00+00:00",
     "entry_price": 56103.6098,
@@ -862,12 +862,12 @@
     "pnl_usd": -8.373211965524774,
     "pnl_pct": -4.588221507138797,
     "exit_reason": "stop_loss",
-    "prediction_id": "131d78548623",
+    "prediction_id": "2eb0c2ff86cc",
     "fees_paid": 0.0713297756835165,
     "used_ml": true
   },
   {
-    "id": "f9863da6d3e0",
+    "id": "522266db2020",
     "entry_time": "2024-08-05T04:00:00+00:00",
     "exit_time": "2024-08-05T12:00:00+00:00",
     "entry_price": 53545.354,
@@ -879,12 +879,12 @@
     "pnl_usd": -12.189100845344,
     "pnl_pct": -3.01297984018271,
     "exit_reason": "stop_loss",
-    "prediction_id": "43d2f212367e",
+    "prediction_id": "6eaf3bbabc73",
     "fees_paid": 0.159399084330875,
     "used_ml": true
   },
   {
-    "id": "6c1e9217dd96",
+    "id": "76f3b4c80c12",
     "entry_time": "2024-07-14T20:00:00+00:00",
     "exit_time": "2024-08-05T12:00:00+00:00",
     "entry_price": 60099.9894,
@@ -896,12 +896,12 @@
     "pnl_usd": 180.1816751909455,
     "pnl_pct": 17.089926814063634,
     "exit_reason": "signal_flip",
-    "prediction_id": "47775c6f6a57",
+    "prediction_id": "40fe990046dc",
     "fees_paid": 0.38565473774974973,
     "used_ml": true
   },
   {
-    "id": "e883d17680a5",
+    "id": "4c45d78bfa09",
     "entry_time": "2024-07-15T04:00:00+00:00",
     "exit_time": "2024-08-05T12:00:00+00:00",
     "entry_price": 62628.7365,
@@ -913,12 +913,12 @@
     "pnl_usd": 17.497433958127967,
     "pnl_pct": 20.437569108104235,
     "exit_reason": "signal_flip",
-    "prediction_id": "73e88fc39ea1",
+    "prediction_id": "7ee3dddd9687",
     "fees_paid": 0.03074341559187182,
     "used_ml": true
   },
   {
-    "id": "d75fa56efc7d",
+    "id": "cc7113b4cbe7",
     "entry_time": "2024-07-19T16:00:00+00:00",
     "exit_time": "2024-08-05T12:00:00+00:00",
     "entry_price": 66462.35310000001,
@@ -930,12 +930,12 @@
     "pnl_usd": 168.1720139818087,
     "pnl_pct": 25.026811612723364,
     "exit_reason": "signal_flip",
-    "prediction_id": "a642ea6578d8",
+    "prediction_id": "2c481f17c187",
     "fees_paid": 0.23513240731604856,
     "used_ml": true
   },
   {
-    "id": "e7a4fce0bbe8",
+    "id": "8c46fdc1e0d7",
     "entry_time": "2024-08-05T12:00:00+00:00",
     "exit_time": "2024-08-05T16:00:00+00:00",
     "entry_price": 49818.9814,
@@ -947,12 +947,12 @@
     "pnl_usd": 264.21837729588015,
     "pnl_pct": 10.823336044943996,
     "exit_reason": "take_profit",
-    "prediction_id": "efd774bc48a7",
+    "prediction_id": "eb7c1b2c6489",
     "fees_paid": 1.0294285791084377,
     "used_ml": true
   },
   {
-    "id": "cda5fd7af9bb",
+    "id": "da377d7c4a63",
     "entry_time": "2024-08-05T20:00:00+00:00",
     "exit_time": "2024-08-06T16:00:00+00:00",
     "entry_price": 54401.5593,
@@ -964,12 +964,12 @@
     "pnl_usd": -22.762074719899477,
     "pnl_pct": -3.579545933383947,
     "exit_reason": "stop_loss",
-    "prediction_id": "6b3baf6e3a42",
+    "prediction_id": "6e7b2b625ef1",
     "fees_paid": 0.2588831924173365,
     "used_ml": true
   },
   {
-    "id": "dcfe2b44c04a",
+    "id": "ea7aa8ec4d2f",
     "entry_time": "2024-08-05T16:00:00+00:00",
     "exit_time": "2024-08-08T12:00:00+00:00",
     "entry_price": 54082.5912,
@@ -981,12 +981,12 @@
     "pnl_usd": -82.69480239211714,
     "pnl_pct": -6.4847229796664285,
     "exit_reason": "stop_loss",
-    "prediction_id": "958915d690c9",
+    "prediction_id": "034078b06dc0",
     "fees_paid": 0.5265746161513531,
     "used_ml": true
   },
   {
-    "id": "aea3df75b0e0",
+    "id": "46caf120a8d0",
     "entry_time": "2024-08-06T00:00:00+00:00",
     "exit_time": "2024-08-09T00:00:00+00:00",
     "entry_price": 56046.3948,
@@ -998,12 +998,12 @@
     "pnl_usd": -84.68415252166854,
     "pnl_pct": -9.173802468351239,
     "exit_reason": "stop_loss",
-    "prediction_id": "e3605ac38e33",
+    "prediction_id": "c2b67e5b9aa3",
     "fees_paid": 0.38613993628969556,
     "used_ml": true
   },
   {
-    "id": "9694789e0a1d",
+    "id": "150e7d540779",
     "entry_time": "2024-08-06T16:00:00+00:00",
     "exit_time": "2024-08-11T16:00:00+00:00",
     "entry_price": 56800.3194,
@@ -1015,12 +1015,12 @@
     "pnl_usd": -36.918122253167404,
     "pnl_pct": -6.020639391052436,
     "exit_reason": "time_expired",
-    "prediction_id": "5b4adb204acb",
+    "prediction_id": "bb3b946d40b2",
     "fees_paid": 0.25263471195314063,
     "used_ml": true
   },
   {
-    "id": "2da079e788f9",
+    "id": "ab383a5b199a",
     "entry_time": "2024-08-08T12:00:00+00:00",
     "exit_time": "2024-08-13T04:00:00+00:00",
     "entry_price": 57940.2054,
@@ -1032,12 +1032,12 @@
     "pnl_usd": -27.095068065561797,
     "pnl_pct": -2.2722865334888898,
     "exit_reason": "time_expired",
-    "prediction_id": "214d45444d9c",
+    "prediction_id": "98d7d02558cc",
     "fees_paid": 0.48233593664751995,
     "used_ml": true
   },
   {
-    "id": "4c5161bdb878",
+    "id": "d7bd676729b9",
     "entry_time": "2024-08-09T00:00:00+00:00",
     "exit_time": "2024-08-14T12:00:00+00:00",
     "entry_price": 61231.8762,
@@ -1049,12 +1049,12 @@
     "pnl_usd": 0.2516827199980704,
     "pnl_pct": 0.030016001200005048,
     "exit_reason": "stop_loss",
-    "prediction_id": "de450ed6cb87",
+    "prediction_id": "00d628dbe96f",
     "fees_paid": 0.33531420803321,
     "used_ml": true
   },
   {
-    "id": "9b94aa6d7ea9",
+    "id": "35d17b397294",
     "entry_time": "2024-08-13T04:00:00+00:00",
     "exit_time": "2024-08-16T20:00:00+00:00",
     "entry_price": 59233.0761,
@@ -1066,12 +1066,12 @@
     "pnl_usd": 0.3497468564931967,
     "pnl_pct": 0.03001600119999909,
     "exit_reason": "stop_loss",
-    "prediction_id": "0bdc833f47cb",
+    "prediction_id": "d8d0def78f2c",
     "fees_paid": 0.4659640129367777,
     "used_ml": true
   },
   {
-    "id": "49cec5089d2f",
+    "id": "9338a2619aa4",
     "entry_time": "2024-08-11T16:00:00+00:00",
     "exit_time": "2024-08-18T12:00:00+00:00",
     "entry_price": 60195.9798,
@@ -1083,12 +1083,12 @@
     "pnl_usd": 0.17299033085288196,
     "pnl_pct": 0.030016001200014,
     "exit_reason": "stop_loss",
-    "prediction_id": "22ba99c97379",
+    "prediction_id": "740435232213",
     "fees_paid": 0.23047317586111787,
     "used_ml": true
   },
   {
-    "id": "e9936d91e474",
+    "id": "1c50a53f740a",
     "entry_time": "2024-08-14T12:00:00+00:00",
     "exit_time": "2024-08-21T16:00:00+00:00",
     "entry_price": 61107.8886,
@@ -1100,12 +1100,12 @@
     "pnl_usd": 16.841729436970965,
     "pnl_pct": 2.0078070619838133,
     "exit_reason": "time_expired",
-    "prediction_id": "086de32ce08f",
+    "prediction_id": "e475e5a05366",
     "fees_paid": 0.33212363893185093,
     "used_ml": true
   },
   {
-    "id": "5503277ee816",
+    "id": "c00932112ed8",
     "entry_time": "2024-08-21T16:00:00+00:00",
     "exit_time": "2024-08-23T20:00:00+00:00",
     "entry_price": 59857.0137,
@@ -1117,12 +1117,12 @@
     "pnl_usd": -12.673975951870137,
     "pnl_pct": -4.746512619957674,
     "exit_reason": "stop_loss",
-    "prediction_id": "a224eacb6a41",
+    "prediction_id": "605ddc3d7f3d",
     "fees_paid": 0.10933024420497303,
     "used_ml": true
   },
   {
-    "id": "a02ed68bcb99",
+    "id": "c27073d28db3",
     "entry_time": "2024-08-18T12:00:00+00:00",
     "exit_time": "2024-08-26T20:00:00+00:00",
     "entry_price": 59982.0012,
@@ -1134,12 +1134,12 @@
     "pnl_usd": -33.4830345408731,
     "pnl_pct": -5.8067983715755025,
     "exit_reason": "time_expired",
-    "prediction_id": "80ccb92de605",
+    "prediction_id": "134c5a10f5a5",
     "fees_paid": 0.23731933822584397,
     "used_ml": true
   },
   {
-    "id": "46129d8f3406",
+    "id": "09b0493b8285",
     "entry_time": "2024-08-24T00:00:00+00:00",
     "exit_time": "2024-08-28T00:00:00+00:00",
     "entry_price": 64005.5988,
@@ -1151,12 +1151,12 @@
     "pnl_usd": 150.4711668601594,
     "pnl_pct": 6.638065134109078,
     "exit_reason": "take_profit",
-    "prediction_id": "6e7561109a62",
+    "prediction_id": "d0d8810b3267",
     "fees_paid": 0.8765381563396267,
     "used_ml": true
   },
   {
-    "id": "27f5b5443c8f",
+    "id": "ce3ceaa82bf6",
     "entry_time": "2024-08-21T20:00:00+00:00",
     "exit_time": "2024-08-28T08:00:00+00:00",
     "entry_price": 61243.875,
@@ -1168,12 +1168,12 @@
     "pnl_usd": 25.164178856212477,
     "pnl_pct": 4.275006394835948,
     "exit_reason": "take_profit",
-    "prediction_id": "1a44ac1f60b3",
+    "prediction_id": "d12c717106b7",
     "fees_paid": 0.23039858278680903,
     "used_ml": true
   },
   {
-    "id": "e2f857a4cdad",
+    "id": "b7cc4ddb4050",
     "entry_time": "2024-08-28T08:00:00+00:00",
     "exit_time": "2024-08-29T16:00:00+00:00",
     "entry_price": 59274.9269,
@@ -1185,12 +1185,12 @@
     "pnl_usd": 11.373676464449431,
     "pnl_pct": 2.379761844001306,
     "exit_reason": "take_profit",
-    "prediction_id": "30ef8eab120b",
+    "prediction_id": "6c0c434c8927",
     "fees_paid": 0.19346766765027335,
     "used_ml": true
   },
   {
-    "id": "511503f90c15",
+    "id": "4941fa968058",
     "entry_time": "2024-08-23T20:00:00+00:00",
     "exit_time": "2024-08-30T16:00:00+00:00",
     "entry_price": 63712.6281,
@@ -1202,12 +1202,12 @@
     "pnl_usd": 23.33128657747998,
     "pnl_pct": 9.17076188822949,
     "exit_reason": "take_profit",
-    "prediction_id": "e18f6a610276",
+    "prediction_id": "2ef481f32072",
     "fees_paid": 0.0970882888065068,
     "used_ml": true
   },
   {
-    "id": "c1585fa4441e",
+    "id": "0247bb8fb26d",
     "entry_time": "2024-08-27T00:00:00+00:00",
     "exit_time": "2024-09-02T00:00:00+00:00",
     "entry_price": 62727.7266,
@@ -1219,12 +1219,12 @@
     "pnl_usd": 9.913618361822893,
     "pnl_pct": 8.797167131785995,
     "exit_reason": "take_profit",
-    "prediction_id": "158010915260",
+    "prediction_id": "952cd74875e2",
     "fees_paid": 0.04308957855420778,
     "used_ml": true
   },
   {
-    "id": "7b724bf4e42f",
+    "id": "bce65d611300",
     "entry_time": "2024-08-27T12:00:00+00:00",
     "exit_time": "2024-09-02T00:00:00+00:00",
     "entry_price": 62408.7585,
@@ -1236,12 +1236,12 @@
     "pnl_usd": 3.954935645043071,
     "pnl_pct": 7.659360869384073,
     "exit_reason": "take_profit",
-    "prediction_id": "27091fa0ee8f",
+    "prediction_id": "28724b9e1923",
     "fees_paid": 0.0198612348212103,
     "used_ml": true
   },
   {
-    "id": "23cf2ef74ccb",
+    "id": "4599f8ab1569",
     "entry_time": "2024-08-29T16:00:00+00:00",
     "exit_time": "2024-09-02T00:00:00+00:00",
     "entry_price": 60333.032699999996,
@@ -1253,12 +1253,12 @@
     "pnl_usd": -22.919282935922183,
     "pnl_pct": -4.684050372009143,
     "exit_reason": "stop_loss",
-    "prediction_id": "61f4ae957a4a",
+    "prediction_id": "b2d89b3d0a2f",
     "fees_paid": 0.19115671941614568,
     "used_ml": true
   },
   {
-    "id": "1a03bb15ce58",
+    "id": "e8a216c83539",
     "entry_time": "2024-08-30T16:00:00+00:00",
     "exit_time": "2024-09-03T20:00:00+00:00",
     "entry_price": 58554.8549,
@@ -1270,12 +1270,12 @@
     "pnl_usd": -1.880070332601349,
     "pnl_pct": -0.6768124302533461,
     "exit_reason": "time_expired",
-    "prediction_id": "1c10ba85c2d5",
+    "prediction_id": "95500a32508a",
     "fees_paid": 0.11074825141602723,
     "used_ml": true
   },
   {
-    "id": "a7c3ef126e89",
+    "id": "10b1eb2be42e",
     "entry_time": "2024-09-02T00:00:00+00:00",
     "exit_time": "2024-09-04T00:00:00+00:00",
     "entry_price": 57472.746699999996,
@@ -1287,12 +1287,12 @@
     "pnl_usd": 0.19324900368769704,
     "pnl_pct": 0.029984001199999867,
     "exit_reason": "stop_loss",
-    "prediction_id": "4288b20fdb65",
+    "prediction_id": "1a9644f586ca",
     "fees_paid": 0.2578672657485749,
     "used_ml": true
   },
   {
-    "id": "35bdc67b072a",
+    "id": "a9d929e51edf",
     "entry_time": "2024-09-03T20:00:00+00:00",
     "exit_time": "2024-09-04T00:00:00+00:00",
     "entry_price": 58170.1824,
@@ -1304,12 +1304,12 @@
     "pnl_usd": 3.4085669632418196,
     "pnl_pct": 1.2350922148122727,
     "exit_reason": "take_profit",
-    "prediction_id": "c87fb4ef229b",
+    "prediction_id": "4c6cbcddff3a",
     "fees_paid": 0.10969807340809494,
     "used_ml": true
   },
   {
-    "id": "fe1e217df6c8",
+    "id": "01e88dd56913",
     "entry_time": "2024-09-04T00:00:00+00:00",
     "exit_time": "2024-09-05T04:00:00+00:00",
     "entry_price": 57121.7116,
@@ -1321,12 +1321,12 @@
     "pnl_usd": 0.27703896898287894,
     "pnl_pct": 0.029984001200008832,
     "exit_reason": "stop_loss",
-    "prediction_id": "76f294c0555f",
+    "prediction_id": "2534f5437d7d",
     "fees_paid": 0.3696747723100732,
     "used_ml": true
   },
   {
-    "id": "4465d5189349",
+    "id": "72620ced0b06",
     "entry_time": "2024-09-05T04:00:00+00:00",
     "exit_time": "2024-09-05T12:00:00+00:00",
     "entry_price": 57203.7198,
@@ -1338,12 +1338,12 @@
     "pnl_usd": -3.2492227111685565,
     "pnl_pct": -0.6308350031456991,
     "exit_reason": "stop_loss",
-    "prediction_id": "ea49ddd7779b",
+    "prediction_id": "7e6f5effd32d",
     "fees_paid": 0.20539741866285888,
     "used_ml": true
   },
   {
-    "id": "fe0a1f019c32",
+    "id": "453ad6e45117",
     "entry_time": "2024-09-05T08:00:00+00:00",
     "exit_time": "2024-09-05T12:00:00+00:00",
     "entry_price": 57003.6998,
@@ -1355,12 +1355,12 @@
     "pnl_usd": -3.8931738812048025,
     "pnl_pct": -0.9512506143559083,
     "exit_reason": "stop_loss",
-    "prediction_id": "35dce7ad9bec",
+    "prediction_id": "472124df3c11",
     "fees_paid": 0.16294518368282762,
     "used_ml": true
   },
   {
-    "id": "ea0f85fb6d8d",
+    "id": "492e5da3dafc",
     "entry_time": "2024-08-26T12:00:00+00:00",
     "exit_time": "2024-09-06T04:00:00+00:00",
     "entry_price": 63643.635,
@@ -1372,12 +1372,12 @@
     "pnl_usd": 6.228772432238045,
     "pnl_pct": 10.991899767164467,
     "exit_reason": "time_expired",
-    "prediction_id": "e3f5778debf9",
+    "prediction_id": "d8abb1f79d9a",
     "fees_paid": 0.021419001429549257,
     "used_ml": true
   },
   {
-    "id": "672af376c045",
+    "id": "4b6d9562441e",
     "entry_time": "2024-08-26T20:00:00+00:00",
     "exit_time": "2024-09-06T08:00:00+00:00",
     "entry_price": 63439.6554,
@@ -1389,12 +1389,12 @@
     "pnl_usd": 74.70439761310283,
     "pnl_pct": 12.278150643977408,
     "exit_reason": "take_profit",
-    "prediction_id": "36a97402d43e",
+    "prediction_id": "b551e36117fd",
     "fees_paid": 0.22841122742423123,
     "used_ml": true
   },
   {
-    "id": "a82f13078108",
+    "id": "b3c3916c4cf3",
     "entry_time": "2024-09-06T04:00:00+00:00",
     "exit_time": "2024-09-06T08:00:00+00:00",
     "entry_price": 56636.6631,
@@ -1406,12 +1406,12 @@
     "pnl_usd": -1.0636230095498576,
     "pnl_pct": -1.6865091017703764,
     "exit_reason": "stop_loss",
-    "prediction_id": "7dbce0a9f825",
+    "prediction_id": "ce609e98748a",
     "fees_paid": 0.02501637372533138,
     "used_ml": true
   },
   {
-    "id": "3646fc1bd36f",
+    "id": "ebe162bdb464",
     "entry_time": "2024-09-06T08:00:00+00:00",
     "exit_time": "2024-09-06T12:00:00+00:00",
     "entry_price": 55787.578199999996,
@@ -1423,12 +1423,12 @@
     "pnl_usd": 0.22338216830257807,
     "pnl_pct": 0.02998400120000356,
     "exit_reason": "stop_loss",
-    "prediction_id": "e11b2ca8519b",
+    "prediction_id": "337e5476a882",
     "fees_paid": 0.2980763049638114,
     "used_ml": true
   },
   {
-    "id": "358ef6c954f5",
+    "id": "d620a59aff01",
     "entry_time": "2024-08-16T20:00:00+00:00",
     "exit_time": "2024-09-06T16:00:00+00:00",
     "entry_price": 59307.0687,
@@ -1440,12 +1440,12 @@
     "pnl_usd": 83.54071538662643,
     "pnl_pct": 7.167888083526064,
     "exit_reason": "take_profit",
-    "prediction_id": "8a6219a479b5",
+    "prediction_id": "8f6c46a46306",
     "fees_paid": 0.44944289445525953,
     "used_ml": true
   },
   {
-    "id": "180666e26621",
+    "id": "d40435ddf463",
     "entry_time": "2024-09-05T12:00:00+00:00",
     "exit_time": "2024-09-06T16:00:00+00:00",
     "entry_price": 56678.6673,
@@ -1457,12 +1457,12 @@
     "pnl_usd": -32.921315425882085,
     "pnl_pct": -3.5897506429183963,
     "exit_reason": "stop_loss",
-    "prediction_id": "438858f75c15",
+    "prediction_id": "829345ff5979",
     "fees_paid": 0.36028790479623307,
     "used_ml": true
   },
   {
-    "id": "bb0cc00946ce",
+    "id": "4859b7bb0928",
     "entry_time": "2024-09-06T12:00:00+00:00",
     "exit_time": "2024-09-06T16:00:00+00:00",
     "entry_price": 56869.6864,
@@ -1474,12 +1474,12 @@
     "pnl_usd": -15.987705597660693,
     "pnl_pct": -2.4686082681223853,
     "exit_reason": "stop_loss",
-    "prediction_id": "898a6b1879e8",
+    "prediction_id": "8e5d961dadde",
     "fees_paid": 0.25588390844431674,
     "used_ml": true
   },
   {
-    "id": "981848d55031",
+    "id": "5a20327873d8",
     "entry_time": "2024-09-06T20:00:00+00:00",
     "exit_time": "2024-09-13T16:00:00+00:00",
     "entry_price": 52858.285299999996,
@@ -1491,12 +1491,12 @@
     "pnl_usd": 169.96524992386958,
     "pnl_pct": 11.319333413093718,
     "exit_reason": "take_profit",
-    "prediction_id": "2b63c43044f8",
+    "prediction_id": "f3a6dc99a24d",
     "fees_paid": 0.6346792138198449,
     "used_ml": true
   },
   {
-    "id": "bf260307d043",
+    "id": "df14c9ad4cae",
     "entry_time": "2024-09-06T16:00:00+00:00",
     "exit_time": "2024-09-13T20:00:00+00:00",
     "entry_price": 54052.4047,
@@ -1508,12 +1508,12 @@
     "pnl_usd": 146.2037797694079,
     "pnl_pct": 10.744449076397885,
     "exit_reason": "signal_flip",
-    "prediction_id": "d23df466777a",
+    "prediction_id": "972cf23f7dd0",
     "fees_paid": 0.5735961648749366,
     "used_ml": true
   },
   {
-    "id": "72bca39d45d8",
+    "id": "eff87a2d139c",
     "entry_time": "2024-09-13T16:00:00+00:00",
     "exit_time": "2024-09-23T20:00:00+00:00",
     "entry_price": 59455.0539,
@@ -1525,12 +1525,12 @@
     "pnl_usd": -110.28732584048176,
     "pnl_pct": -6.598186041136528,
     "exit_reason": "time_expired",
-    "prediction_id": "e3d9010a05a1",
+    "prediction_id": "b24cd898a38e",
     "fees_paid": 0.6905780014179328,
     "used_ml": true
   },
   {
-    "id": "7d7f2d2f3090",
+    "id": "990b178fb394",
     "entry_time": "2024-09-13T20:00:00+00:00",
     "exit_time": "2024-09-24T12:00:00+00:00",
     "entry_price": 59872.0122,
@@ -1542,12 +1542,12 @@
     "pnl_usd": -90.41096437601182,
     "pnl_pct": -5.9995019991995555,
     "exit_reason": "time_expired",
-    "prediction_id": "ffd784abab9e",
+    "prediction_id": "0ef440fa2158",
     "fees_paid": 0.6208081043738174,
     "used_ml": true
   },
   {
-    "id": "316238f1a4fa",
+    "id": "503c284a8379",
     "entry_time": "2024-09-19T12:00:00+00:00",
     "exit_time": "2024-09-27T20:00:00+00:00",
     "entry_price": 62932.7061,
@@ -1559,12 +1559,12 @@
     "pnl_usd": -130.28339938119507,
     "pnl_pct": -4.606569454733804,
     "exit_reason": "time_expired",
-    "prediction_id": "c9a6fb3e716d",
+    "prediction_id": "e24b54b5a810",
     "fees_paid": 1.157221855063305,
     "used_ml": true
   },
   {
-    "id": "76cf5ef3f474",
+    "id": "31363d605336",
     "entry_time": "2024-10-02T12:00:00+00:00",
     "exit_time": "2024-10-02T20:00:00+00:00",
     "entry_price": 60813.0807,
@@ -1576,12 +1576,12 @@
     "pnl_usd": 0.1733239686637944,
     "pnl_pct": 0.029984001199987523,
     "exit_reason": "stop_loss",
-    "prediction_id": "1f07273c7e7c",
+    "prediction_id": "13a758311101",
     "fees_paid": 0.23127973254792084,
     "used_ml": true
   },
   {
-    "id": "8549109dc29c",
+    "id": "94c097f28943",
     "entry_time": "2024-09-24T00:00:00+00:00",
     "exit_time": "2024-10-03T12:00:00+00:00",
     "entry_price": 62894.7099,
@@ -1593,12 +1593,12 @@
     "pnl_usd": 3.2656539957549215,
     "pnl_pct": 3.7468217809523687,
     "exit_reason": "time_expired",
-    "prediction_id": "123a3681fc6c",
+    "prediction_id": "fc5072f5abbe",
     "fees_paid": 0.03420670422830768,
     "used_ml": true
   },
   {
-    "id": "3955e03b2407",
+    "id": "cdc8f3ef3363",
     "entry_time": "2024-09-23T20:00:00+00:00",
     "exit_time": "2024-10-04T08:00:00+00:00",
     "entry_price": 63352.6641,
@@ -1610,12 +1610,12 @@
     "pnl_usd": 47.26792299678928,
     "pnl_pct": 2.97734672698634,
     "exit_reason": "signal_flip",
-    "prediction_id": "4840685d5b14",
+    "prediction_id": "e79ba0aafa35",
     "fees_paid": 0.6255189891506088,
     "used_ml": true
   },
   {
-    "id": "25a6921cfc58",
+    "id": "3838567bcc61",
     "entry_time": "2024-09-24T12:00:00+00:00",
     "exit_time": "2024-10-04T08:00:00+00:00",
     "entry_price": 63438.6555,
@@ -1627,12 +1627,12 @@
     "pnl_usd": 43.54531819099465,
     "pnl_pct": 3.108861396093111,
     "exit_reason": "signal_flip",
-    "prediction_id": "9d23191bf62a",
+    "prediction_id": "629b5fa041a6",
     "fees_paid": 0.5515101849125982,
     "used_ml": true
   },
   {
-    "id": "400825ae022d",
+    "id": "a638bf502dc4",
     "entry_time": "2024-09-27T20:00:00+00:00",
     "exit_time": "2024-10-04T08:00:00+00:00",
     "entry_price": 65805.4188,
@@ -1644,12 +1644,12 @@
     "pnl_usd": 149.52029703000804,
     "pnl_pct": 6.593656343449937,
     "exit_reason": "signal_flip",
-    "prediction_id": "775ccc855a88",
+    "prediction_id": "8c44344baffe",
     "fees_paid": 0.8770666766527451,
     "used_ml": true
   },
   {
-    "id": "8cac9c1fdaee",
+    "id": "bb299ded9c3f",
     "entry_time": "2024-09-30T00:00:00+00:00",
     "exit_time": "2024-10-04T08:00:00+00:00",
     "entry_price": 65464.452900000004,
@@ -1661,12 +1661,12 @@
     "pnl_usd": 3.5258646660814774,
     "pnl_pct": 6.107157539599635,
     "exit_reason": "signal_flip",
-    "prediction_id": "1932e2f928db",
+    "prediction_id": "0273b8ad053b",
     "fees_paid": 0.022385986290781208,
     "used_ml": true
   },
   {
-    "id": "5eeba9894362",
+    "id": "a9eea226f535",
     "entry_time": "2024-09-30T04:00:00+00:00",
     "exit_time": "2024-10-04T08:00:00+00:00",
     "entry_price": 64446.5547,
@@ -1678,12 +1678,12 @@
     "pnl_usd": 8.052924238020845,
     "pnl_pct": 4.624171276358393,
     "exit_reason": "signal_flip",
-    "prediction_id": "7f292e62ed5d",
+    "prediction_id": "71cdc21ced26",
     "fees_paid": 0.06804216680063792,
     "used_ml": true
   },
   {
-    "id": "fe605772419c",
+    "id": "1d2143f49704",
     "entry_time": "2024-09-26T00:00:00+00:00",
     "exit_time": "2024-10-05T12:00:00+00:00",
     "entry_price": 62871.7122,
@@ -1695,12 +1695,12 @@
     "pnl_usd": 0.9186084683179717,
     "pnl_pct": 0.8668740436179885,
     "exit_reason": "time_expired",
-    "prediction_id": "7d77ce2958f5",
+    "prediction_id": "b42a7733c1a1",
     "fees_paid": 0.042199248647204556,
     "used_ml": true
   },
   {
-    "id": "44eb75ffa8ef",
+    "id": "8cf86b6c3b88",
     "entry_time": "2024-10-02T20:00:00+00:00",
     "exit_time": "2024-10-06T16:00:00+00:00",
     "entry_price": 60894.0888,
@@ -1712,12 +1712,12 @@
     "pnl_usd": 16.468743859944084,
     "pnl_pct": 2.920387553693439,
     "exit_reason": "take_profit",
-    "prediction_id": "614a59a406ca",
+    "prediction_id": "69f5dd3fc832",
     "fees_paid": 0.228886261624279,
     "used_ml": true
   },
   {
-    "id": "c5ad1765622c",
+    "id": "7c37fcd3ffd4",
     "entry_time": "2024-10-03T08:00:00+00:00",
     "exit_time": "2024-10-07T00:00:00+00:00",
     "entry_price": 60359.035299999996,
@@ -1729,12 +1729,12 @@
     "pnl_usd": 4.932232369982543,
     "pnl_pct": 5.436140038968682,
     "exit_reason": "take_profit",
-    "prediction_id": "1c0c886f7865",
+    "prediction_id": "e31d2121f485",
     "fees_paid": 0.037282439396865666,
     "used_ml": true
   },
   {
-    "id": "3069500d9263",
+    "id": "0876ca5eb8c1",
     "entry_time": "2024-10-03T12:00:00+00:00",
     "exit_time": "2024-10-07T00:00:00+00:00",
     "entry_price": 60526.051999999996,
@@ -1746,12 +1746,12 @@
     "pnl_usd": 3.0128703511818955,
     "pnl_pct": 5.102543775847898,
     "exit_reason": "take_profit",
-    "prediction_id": "fbcdd376a462",
+    "prediction_id": "0e08f68810bd",
     "fees_paid": 0.024223632171703834,
     "used_ml": true
   },
   {
-    "id": "9d1e9dd619d0",
+    "id": "c7a83e554445",
     "entry_time": "2024-10-03T16:00:00+00:00",
     "exit_time": "2024-10-07T00:00:00+00:00",
     "entry_price": 60158.0152,
@@ -1763,12 +1763,12 @@
     "pnl_usd": 3.2614984755146565,
     "pnl_pct": 5.3958703500812915,
     "exit_reason": "take_profit",
-    "prediction_id": "b3ee15c35000",
+    "prediction_id": "4f8ac1239089",
     "fees_paid": 0.024832586330043552,
     "used_ml": true
   },
   {
-    "id": "36f1abc88ca5",
+    "id": "339e1387a657",
     "entry_time": "2024-10-04T16:00:00+00:00",
     "exit_time": "2024-10-07T00:00:00+00:00",
     "entry_price": 62248.2242,
@@ -1780,12 +1780,12 @@
     "pnl_usd": 10.447863180446461,
     "pnl_pct": 1.401536417259643,
     "exit_reason": "take_profit",
-    "prediction_id": "b64209baa0f4",
+    "prediction_id": "4a585d7eb7c7",
     "fees_paid": 0.30030295312558886,
     "used_ml": true
   },
   {
-    "id": "3e2522a9d1d4",
+    "id": "c9e42781615f",
     "entry_time": "2024-10-05T12:00:00+00:00",
     "exit_time": "2024-10-07T00:00:00+00:00",
     "entry_price": 62314.2308,
@@ -1797,12 +1797,12 @@
     "pnl_usd": 1.1464984012945934,
     "pnl_pct": 1.071351138890161,
     "exit_reason": "take_profit",
-    "prediction_id": "49ca10db3086",
+    "prediction_id": "0f11cb85009a",
     "fees_paid": 0.043039327541158426,
     "used_ml": true
   },
   {
-    "id": "cc31e03b7c4a",
+    "id": "3e759fe7fbd7",
     "entry_time": "2024-10-04T08:00:00+00:00",
     "exit_time": "2024-10-07T00:00:00+00:00",
     "entry_price": 61454.1448,
@@ -1814,12 +1814,12 @@
     "pnl_usd": 25.011082861523164,
     "pnl_pct": 3.566491699515114,
     "exit_reason": "time_expired",
-    "prediction_id": "9cbbf3cf3762",
+    "prediction_id": "00a1df48f07c",
     "fees_paid": 0.2855431604157478,
     "used_ml": true
   },
   {
-    "id": "357d65f7f107",
+    "id": "60a4d4f2cb5d",
     "entry_time": "2024-10-04T12:00:00+00:00",
     "exit_time": "2024-10-09T12:00:00+00:00",
     "entry_price": 61904.1898,
@@ -1831,12 +1831,12 @@
     "pnl_usd": 0.2109132477548883,
     "pnl_pct": 0.029984001199991023,
     "exit_reason": "stop_loss",
-    "prediction_id": "c69cf70fab96",
+    "prediction_id": "888732888f16",
     "fees_paid": 0.28143804868776856,
     "used_ml": true
   },
   {
-    "id": "9d4f210ba6e9",
+    "id": "07590b87006f",
     "entry_time": "2024-10-07T00:00:00+00:00",
     "exit_time": "2024-10-09T20:00:00+00:00",
     "entry_price": 63658.6335,
@@ -1848,12 +1848,12 @@
     "pnl_usd": 67.26477859057407,
     "pnl_pct": 3.713129420749291,
     "exit_reason": "take_profit",
-    "prediction_id": "dcb2657142c0",
+    "prediction_id": "0d3fe6ad4146",
     "fees_paid": 0.7110927904633365,
     "used_ml": true
   },
   {
-    "id": "171f0c387f4e",
+    "id": "d0697df39c52",
     "entry_time": "2024-10-09T12:00:00+00:00",
     "exit_time": "2024-10-09T20:00:00+00:00",
     "entry_price": 61931.1925,
@@ -1865,12 +1865,12 @@
     "pnl_usd": -15.705326152954967,
     "pnl_pct": -2.2313399686120543,
     "exit_reason": "stop_loss",
-    "prediction_id": "66e1ff495e52",
+    "prediction_id": "c84ebfaf3591",
     "fees_paid": 0.2784271793175942,
     "used_ml": true
   },
   {
-    "id": "6abc49abf8a1",
+    "id": "ef0536880a23",
     "entry_time": "2024-09-30T12:00:00+00:00",
     "exit_time": "2024-10-10T08:00:00+00:00",
     "entry_price": 64034.5959,
@@ -1882,12 +1882,12 @@
     "pnl_usd": 3.7075937004913593,
     "pnl_pct": 5.0993831367022,
     "exit_reason": "time_expired",
-    "prediction_id": "d9b027a3252a",
+    "prediction_id": "1f7d1b5afd5b",
     "fees_paid": 0.02833840578046727,
     "used_ml": true
   },
   {
-    "id": "48a1f026adec",
+    "id": "5fdf0ee317e2",
     "entry_time": "2024-10-10T08:00:00+00:00",
     "exit_time": "2024-10-14T04:00:00+00:00",
     "entry_price": 60757.0751,
@@ -1899,12 +1899,12 @@
     "pnl_usd": 4.10796633631432,
     "pnl_pct": 5.361191806487429,
     "exit_reason": "take_profit",
-    "prediction_id": "215d1c349bab",
+    "prediction_id": "f5e788fa7668",
     "fees_paid": 0.03147447338360802,
     "used_ml": true
   },
   {
-    "id": "03cdc624541b",
+    "id": "1b164d719d8b",
     "entry_time": "2024-10-06T16:00:00+00:00",
     "exit_time": "2024-10-14T12:00:00+00:00",
     "entry_price": 62614.2608,
@@ -1916,12 +1916,12 @@
     "pnl_usd": 20.493795768426935,
     "pnl_pct": 3.5316028148335357,
     "exit_reason": "signal_flip",
-    "prediction_id": "d3e549b9783a",
+    "prediction_id": "231d974b016d",
     "fees_paid": 0.2362417154600862,
     "used_ml": true
   },
   {
-    "id": "54718bc42db0",
+    "id": "066af6def9e6",
     "entry_time": "2024-10-09T20:00:00+00:00",
     "exit_time": "2024-10-18T00:00:00+00:00",
     "entry_price": 60396.039,
@@ -1933,12 +1933,12 @@
     "pnl_usd": 162.10906166030213,
     "pnl_pct": 11.247094605293578,
     "exit_reason": "signal_flip",
-    "prediction_id": "d43d2af876c0",
+    "prediction_id": "37cc9e842106",
     "fees_paid": 0.6090226327916588,
     "used_ml": true
   },
   {
-    "id": "6ab528f14733",
+    "id": "4a870ede4c18",
     "entry_time": "2024-10-10T00:00:00+00:00",
     "exit_time": "2024-10-18T00:00:00+00:00",
     "entry_price": 60393.0387,
@@ -1950,12 +1950,12 @@
     "pnl_usd": 126.65094991043043,
     "pnl_pct": 11.25262131276067,
     "exit_reason": "signal_flip",
-    "prediction_id": "4a12bb4c03fb",
+    "prediction_id": "dbea5b5372eb",
     "fees_paid": 0.4755898742232081,
     "used_ml": true
   },
   {
-    "id": "a87033dfcd74",
+    "id": "b64ebee203ef",
     "entry_time": "2024-10-14T04:00:00+00:00",
     "exit_time": "2024-10-18T08:00:00+00:00",
     "entry_price": 64105.5888,
@@ -1967,12 +1967,12 @@
     "pnl_usd": -4.794062472627227,
     "pnl_pct": -5.938296846031,
     "exit_reason": "time_expired",
-    "prediction_id": "6e6608bf48a2",
+    "prediction_id": "18d4f354470d",
     "fees_paid": 0.033247900249189916,
     "used_ml": true
   },
   {
-    "id": "84beaef4f43b",
+    "id": "797b2accc912",
     "entry_time": "2024-10-14T12:00:00+00:00",
     "exit_time": "2024-10-21T16:00:00+00:00",
     "entry_price": 64838.5155,
@@ -1984,12 +1984,12 @@
     "pnl_usd": -22.796518415787496,
     "pnl_pct": -3.795073848629364,
     "exit_reason": "time_expired",
-    "prediction_id": "7aa4409afd2d",
+    "prediction_id": "ca56be8c9b17",
     "fees_paid": 0.24480920270260403,
     "used_ml": true
   },
   {
-    "id": "5e08cf2dfba1",
+    "id": "23e00d285f63",
     "entry_time": "2024-10-18T00:00:00+00:00",
     "exit_time": "2024-10-25T04:00:00+00:00",
     "entry_price": 67202.2791,
@@ -2001,12 +2001,12 @@
     "pnl_usd": -21.924263952514632,
     "pnl_pct": -0.7678782042378602,
     "exit_reason": "time_expired",
-    "prediction_id": "f30f0ccf08fe",
+    "prediction_id": "c936e08f2347",
     "fees_paid": 1.1463396582131749,
     "used_ml": true
   },
   {
-    "id": "aa8cd9fe7e57",
+    "id": "819c8668ec2c",
     "entry_time": "2024-10-18T08:00:00+00:00",
     "exit_time": "2024-10-25T12:00:00+00:00",
     "entry_price": 67885.2108,
@@ -2018,12 +2018,12 @@
     "pnl_usd": -0.17938403580377094,
     "pnl_pct": -0.23451022483972275,
     "exit_reason": "time_expired",
-    "prediction_id": "d920324dfe3a",
+    "prediction_id": "8828d79f20b8",
     "fees_paid": 0.030630032614356588,
     "used_ml": true
   },
   {
-    "id": "6cb891a319b5",
+    "id": "c8de00ff2f36",
     "entry_time": "2024-10-21T16:00:00+00:00",
     "exit_time": "2024-10-28T12:00:00+00:00",
     "entry_price": 67272.2721,
@@ -2035,12 +2035,12 @@
     "pnl_usd": -13.599383887499487,
     "pnl_pct": -2.353688566288211,
     "exit_reason": "time_expired",
-    "prediction_id": "8062a35f520c",
+    "prediction_id": "91420a5a774b",
     "fees_paid": 0.2338123401304453,
     "used_ml": true
   },
   {
-    "id": "7294956e8d48",
+    "id": "7e9483a4b297",
     "entry_time": "2024-10-25T04:00:00+00:00",
     "exit_time": "2024-11-01T08:00:00+00:00",
     "entry_price": 67691.2302,
@@ -2052,12 +2052,12 @@
     "pnl_usd": -68.61385561397631,
     "pnl_pct": -2.422122011013461,
     "exit_reason": "time_expired",
-    "prediction_id": "fc24c81ac8a2",
+    "prediction_id": "41120d1e903d",
     "fees_paid": 1.1467264617801933,
     "used_ml": true
   },
   {
-    "id": "1dbf578eb711",
+    "id": "3a6da177763b",
     "entry_time": "2024-10-25T12:00:00+00:00",
     "exit_time": "2024-11-01T16:00:00+00:00",
     "entry_price": 68017.1976,
@@ -2069,12 +2069,12 @@
     "pnl_usd": -2.171766882694397,
     "pnl_pct": -2.8254313117422587,
     "exit_reason": "time_expired",
-    "prediction_id": "deb9b43b41d3",
+    "prediction_id": "828b652619a2",
     "fees_paid": 0.03117717986758628,
     "used_ml": true
   },
   {
-    "id": "a645ca5ad724",
+    "id": "fb166a8ea933",
     "entry_time": "2024-10-30T12:00:00+00:00",
     "exit_time": "2024-11-03T16:00:00+00:00",
     "entry_price": 71850.81420000001,
@@ -2086,12 +2086,12 @@
     "pnl_usd": 4.402304951515294,
     "pnl_pct": 5.148687010118819,
     "exit_reason": "time_expired",
-    "prediction_id": "3b7257c6f4e8",
+    "prediction_id": "1766143c0a47",
     "fees_paid": 0.03331767505452176,
     "used_ml": true
   },
   {
-    "id": "390b9a0cedc4",
+    "id": "3f3b9429e229",
     "entry_time": "2024-10-29T16:00:00+00:00",
     "exit_time": "2024-11-04T16:00:00+00:00",
     "entry_price": 72715.7277,
@@ -2103,12 +2103,12 @@
     "pnl_usd": 204.03134331907262,
     "pnl_pct": 6.85183526672868,
     "exit_reason": "take_profit",
-    "prediction_id": "31470858419c",
+    "prediction_id": "6b2bf7229abf",
     "fees_paid": 1.1501875835369926,
     "used_ml": true
   },
   {
-    "id": "8a7eb864c9c4",
+    "id": "d6a43146eff4",
     "entry_time": "2024-10-28T12:00:00+00:00",
     "exit_time": "2024-11-04T16:00:00+00:00",
     "entry_price": 68828.1165,
@@ -2120,12 +2120,12 @@
     "pnl_usd": 9.046427429417923,
     "pnl_pct": 1.603710811874403,
     "exit_reason": "time_expired",
-    "prediction_id": "6e28715e3fb2",
+    "prediction_id": "d99dd81ca5a4",
     "fees_paid": 0.22380589165312925,
     "used_ml": true
   },
   {
-    "id": "82c61db2e465",
+    "id": "0b7a679128c0",
     "entry_time": "2024-10-29T20:00:00+00:00",
     "exit_time": "2024-11-04T20:00:00+00:00",
     "entry_price": 72309.7683,
@@ -2137,12 +2137,12 @@
     "pnl_usd": 5.111826395159027,
     "pnl_pct": 6.834827106083609,
     "exit_reason": "take_profit",
-    "prediction_id": "770fcd74052e",
+    "prediction_id": "09fb84c025ee",
     "fees_paid": 0.02889119459228872,
     "used_ml": true
   },
   {
-    "id": "e0a48e29282b",
+    "id": "cd8e9bcd3e44",
     "entry_time": "2024-10-31T16:00:00+00:00",
     "exit_time": "2024-11-05T16:00:00+00:00",
     "entry_price": 70318.9674,
@@ -2154,12 +2154,12 @@
     "pnl_usd": 0.08675510678815829,
     "pnl_pct": 0.03001600120000867,
     "exit_reason": "stop_loss",
-    "prediction_id": "e15154c0a309",
+    "prediction_id": "b27436c902b8",
     "fees_paid": 0.11558290503904031,
     "used_ml": true
   },
   {
-    "id": "3581eafb1aa4",
+    "id": "6442e2fd5d79",
     "entry_time": "2024-10-31T20:00:00+00:00",
     "exit_time": "2024-11-05T16:00:00+00:00",
     "entry_price": 69917.0076,
@@ -2171,12 +2171,12 @@
     "pnl_usd": 0.02375644893835232,
     "pnl_pct": 0.03001600120001872,
     "exit_reason": "stop_loss",
-    "prediction_id": "783bf9829b37",
+    "prediction_id": "791eb275cf1c",
     "fees_paid": 0.03165046397107613,
     "used_ml": true
   },
   {
-    "id": "703c75e18b9a",
+    "id": "b804103a35be",
     "entry_time": "2024-11-01T08:00:00+00:00",
     "exit_time": "2024-11-05T16:00:00+00:00",
     "entry_price": 69303.069,
@@ -2188,12 +2188,12 @@
     "pnl_usd": 0.8863026002577464,
     "pnl_pct": 0.030016001200005797,
     "exit_reason": "stop_loss",
-    "prediction_id": "ad4d3fd7f74e",
+    "prediction_id": "385664caac1b",
     "fees_paid": 1.1808115173162146,
     "used_ml": true
   },
   {
-    "id": "847165682d98",
+    "id": "3e49119a8d89",
     "entry_time": "2024-11-03T16:00:00+00:00",
     "exit_time": "2024-11-06T04:00:00+00:00",
     "entry_price": 68124.1869,
@@ -2205,12 +2205,12 @@
     "pnl_usd": -22.532964683579742,
     "pnl_pct": -7.556582433985234,
     "exit_reason": "stop_loss",
-    "prediction_id": "08f21d059372",
+    "prediction_id": "fd2e545b94f4",
     "fees_paid": 0.12376972171934364,
     "used_ml": true
   },
   {
-    "id": "48a2ee9e6403",
+    "id": "d317600bcf92",
     "entry_time": "2024-11-01T20:00:00+00:00",
     "exit_time": "2024-11-09T00:00:00+00:00",
     "entry_price": 69181.0812,
@@ -2222,12 +2222,12 @@
     "pnl_usd": -10.560636131708018,
     "pnl_pct": -10.599527360118786,
     "exit_reason": "time_expired",
-    "prediction_id": "ac588133193e",
+    "prediction_id": "954987866267",
     "fees_paid": 0.041960954462270175,
     "used_ml": true
   },
   {
-    "id": "72520222ae9e",
+    "id": "e9bbdc3bc7b6",
     "entry_time": "2024-11-05T16:00:00+00:00",
     "exit_time": "2024-11-09T20:00:00+00:00",
     "entry_price": 70163.9829,
@@ -2239,12 +2239,12 @@
     "pnl_usd": -284.6105067365718,
     "pnl_pct": -8.816370552048577,
     "exit_reason": "time_expired",
-    "prediction_id": "0887fef61302",
+    "prediction_id": "918f63626fbf",
     "fees_paid": 1.3480635794282265,
     "used_ml": true
   },
   {
-    "id": "f51f5d5475c7",
+    "id": "018651d7afc1",
     "entry_time": "2024-11-06T12:00:00+00:00",
     "exit_time": "2024-11-11T16:00:00+00:00",
     "entry_price": 74207.5785,
@@ -2256,12 +2256,12 @@
     "pnl_usd": -430.26401357222426,
     "pnl_pct": -13.375836023474196,
     "exit_reason": "stop_loss",
-    "prediction_id": "6897572bf2cd",
+    "prediction_id": "44b4d16602e6",
     "fees_paid": 1.3725974075655127,
     "used_ml": true
   },
   {
-    "id": "c6a4d173ee00",
+    "id": "d013d9ff67f5",
     "entry_time": "2024-11-06T04:00:00+00:00",
     "exit_time": "2024-11-11T20:00:00+00:00",
     "entry_price": 74274.5718,
@@ -2273,12 +2273,12 @@
     "pnl_usd": -40.155948143427274,
     "pnl_pct": -14.536224914339337,
     "exit_reason": "stop_loss",
-    "prediction_id": "88f8cfd8bfac",
+    "prediction_id": "6886cf594255",
     "fees_paid": 0.11851750912086602,
     "used_ml": true
   },
   {
-    "id": "450b3b91c256",
+    "id": "cd8cc4a441d8",
     "entry_time": "2024-11-10T00:00:00+00:00",
     "exit_time": "2024-11-12T20:00:00+00:00",
     "entry_price": 76934.3058,
@@ -2290,12 +2290,12 @@
     "pnl_usd": -487.3993585393982,
     "pnl_pct": -16.997430442312268,
     "exit_reason": "stop_loss",
-    "prediction_id": "0ebf0625a21f",
+    "prediction_id": "98cdb3ebf5c8",
     "fees_paid": 1.244341091992815,
     "used_ml": true
   },
   {
-    "id": "b060382d4112",
+    "id": "2ea0a87af497",
     "entry_time": "2024-11-12T20:00:00+00:00",
     "exit_time": "2024-11-17T00:00:00+00:00",
     "entry_price": 89601.039,
@@ -2307,12 +2307,12 @@
     "pnl_usd": -5.186669042535151,
     "pnl_pct": -1.4176353656791725,
     "exit_reason": "time_expired",
-    "prediction_id": "a828e367a923",
+    "prediction_id": "49c6b5f8e594",
     "fees_paid": 0.1473695502180128,
     "used_ml": true
   },
   {
-    "id": "371c6eb020bb",
+    "id": "42a2b9ce2e50",
     "entry_time": "2024-11-13T16:00:00+00:00",
     "exit_time": "2024-11-17T20:00:00+00:00",
     "entry_price": 92447.7543,
@@ -2324,12 +2324,12 @@
     "pnl_usd": 58.631967854623454,
     "pnl_pct": 3.0134447595770344,
     "exit_reason": "time_expired",
-    "prediction_id": "fa3499f72691",
+    "prediction_id": "5e9ef7163dce",
     "fees_paid": 0.7664698191559098,
     "used_ml": true
   },
   {
-    "id": "7b800f3c3716",
+    "id": "adf10904b7dc",
     "entry_time": "2024-11-11T16:00:00+00:00",
     "exit_time": "2024-11-18T20:00:00+00:00",
     "entry_price": 84345.5646,
@@ -2341,12 +2341,12 @@
     "pnl_usd": -171.03855423781206,
     "pnl_pct": -8.615642999323768,
     "exit_reason": "time_expired",
-    "prediction_id": "34a55a21c010",
+    "prediction_id": "0a350926de3b",
     "fees_paid": 0.8282052360627488,
     "used_ml": true
   },
   {
-    "id": "7c173eea16d2",
+    "id": "7851f946efb5",
     "entry_time": "2024-11-14T20:00:00+00:00",
     "exit_time": "2024-11-20T16:00:00+00:00",
     "entry_price": 87580.2411,
@@ -2358,12 +2358,12 @@
     "pnl_usd": -14.218415067155634,
     "pnl_pct": -8.246995560477407,
     "exit_reason": "stop_loss",
-    "prediction_id": "a2dd4d9e4359",
+    "prediction_id": "129ca635c37f",
     "fees_paid": 0.07179910402679507,
     "used_ml": true
   },
   {
-    "id": "8590ff225aa1",
+    "id": "72bea56b2d15",
     "entry_time": "2024-11-13T20:00:00+00:00",
     "exit_time": "2024-11-21T00:00:00+00:00",
     "entry_price": 89805.0186,
@@ -2375,12 +2375,12 @@
     "pnl_usd": -14.501475941576702,
     "pnl_pct": -5.63825427101465,
     "exit_reason": "time_expired",
-    "prediction_id": "f8f4ddccb0dc",
+    "prediction_id": "95e824b6b134",
     "fees_paid": 0.10576862031395998,
     "used_ml": true
   },
   {
-    "id": "f6cf68553ab9",
+    "id": "431a13851a53",
     "entry_time": "2024-11-14T16:00:00+00:00",
     "exit_time": "2024-11-23T20:00:00+00:00",
     "entry_price": 89232.0759,
@@ -2392,12 +2392,12 @@
     "pnl_usd": -5.7123356639708955,
     "pnl_pct": -9.675082384494878,
     "exit_reason": "time_expired",
-    "prediction_id": "c2fd6b1c99c0",
+    "prediction_id": "cec261c84258",
     "fees_paid": 0.024756568021547132,
     "used_ml": true
   },
   {
-    "id": "4ad4a0bf383c",
+    "id": "10f93e5bde4c",
     "entry_time": "2024-11-17T20:00:00+00:00",
     "exit_time": "2024-11-25T00:00:00+00:00",
     "entry_price": 89626.0365,
@@ -2409,12 +2409,12 @@
     "pnl_usd": -189.09499629371302,
     "pnl_pct": -9.326923944829351,
     "exit_reason": "time_expired",
-    "prediction_id": "1cb1e9ff62b3",
+    "prediction_id": "c0499daba821",
     "fees_paid": 0.8486943891371461,
     "used_ml": true
   },
   {
-    "id": "5f5147dfd3f3",
+    "id": "f92dd95566d0",
     "entry_time": "2024-11-21T00:00:00+00:00",
     "exit_time": "2024-11-25T04:00:00+00:00",
     "entry_price": 94830.516,
@@ -2426,12 +2426,12 @@
     "pnl_usd": -3.811970278595834,
     "pnl_pct": -3.278331795853556,
     "exit_reason": "time_expired",
-    "prediction_id": "d0644c4143d5",
+    "prediction_id": "2ff273faf9ff",
     "fees_paid": 0.04726868933929651,
     "used_ml": true
   },
   {
-    "id": "4b544c4ee59e",
+    "id": "7c0a919b94cf",
     "entry_time": "2024-11-25T16:00:00+00:00",
     "exit_time": "2024-11-26T00:00:00+00:00",
     "entry_price": 95943.4047,
@@ -2443,12 +2443,12 @@
     "pnl_usd": 5.271579623432587,
     "pnl_pct": 2.8036304555881073,
     "exit_reason": "take_profit",
-    "prediction_id": "0c1d3ffcf9df",
+    "prediction_id": "876296989651",
     "fees_paid": 0.07414913803951895,
     "used_ml": true
   },
   {
-    "id": "192787b0b4b2",
+    "id": "578c3af5a76f",
     "entry_time": "2024-11-18T20:00:00+00:00",
     "exit_time": "2024-11-26T00:00:00+00:00",
     "entry_price": 91575.8415,
@@ -2460,12 +2460,12 @@
     "pnl_usd": -43.69835360846045,
     "pnl_pct": -2.4551225946637967,
     "exit_reason": "time_expired",
-    "prediction_id": "79de21fb2165",
+    "prediction_id": "ea39ade041ab",
     "fees_paid": 0.7206206574960038,
     "used_ml": true
   },
   {
-    "id": "ccb624dc74eb",
+    "id": "ace813b8e642",
     "entry_time": "2024-11-25T00:00:00+00:00",
     "exit_time": "2024-11-26T20:00:00+00:00",
     "entry_price": 97946.2044,
@@ -2477,12 +2477,12 @@
     "pnl_usd": 3.9101875623070437,
     "pnl_pct": 6.302241010258607,
     "exit_reason": "take_profit",
-    "prediction_id": "ad8048eacbdf",
+    "prediction_id": "4b0a7557f4e9",
     "fees_paid": 0.024033397209196755,
     "used_ml": true
   },
   {
-    "id": "c2735b759c0e",
+    "id": "380f974afd1c",
     "entry_time": "2024-11-25T20:00:00+00:00",
     "exit_time": "2024-11-27T16:00:00+00:00",
     "entry_price": 94933.5057,
@@ -2494,12 +2494,12 @@
     "pnl_usd": 0.025078431700668265,
     "pnl_pct": 0.030016001199996603,
     "exit_reason": "stop_loss",
-    "prediction_id": "ba501de55e34",
+    "prediction_id": "016a3807c2f4",
     "fees_paid": 0.03341172752937255,
     "used_ml": true
   },
   {
-    "id": "ba19f2dfae40",
+    "id": "b51d00f79aab",
     "entry_time": "2024-11-25T04:00:00+00:00",
     "exit_time": "2024-11-29T08:00:00+00:00",
     "entry_price": 97900.209,
@@ -2511,12 +2511,12 @@
     "pnl_usd": 2.158833903078295,
     "pnl_pct": 1.9197195791073394,
     "exit_reason": "time_expired",
-    "prediction_id": "d4b7ab134619",
+    "prediction_id": "865fb6c0593f",
     "fees_paid": 0.04454609831751054,
     "used_ml": true
   },
   {
-    "id": "28a82758968f",
+    "id": "8e0ff27be8bb",
     "entry_time": "2024-11-25T08:00:00+00:00",
     "exit_time": "2024-11-29T12:00:00+00:00",
     "entry_price": 98329.1661,
@@ -2528,12 +2528,12 @@
     "pnl_usd": 23.592989275833126,
     "pnl_pct": 1.361829774309457,
     "exit_reason": "time_expired",
-    "prediction_id": "2aeed636f17c",
+    "prediction_id": "cd6b6ce6371a",
     "fees_paid": 0.6881921613869335,
     "used_ml": true
   },
   {
-    "id": "260830caa080",
+    "id": "6c17b53983ee",
     "entry_time": "2024-11-27T16:00:00+00:00",
     "exit_time": "2024-12-04T12:00:00+00:00",
     "entry_price": 95780.421,
@@ -2545,12 +2545,12 @@
     "pnl_usd": -0.22268273749520148,
     "pnl_pct": -0.29692051648008533,
     "exit_reason": "time_expired",
-    "prediction_id": "d4cde5d43f9f",
+    "prediction_id": "a6ee4dc937ce",
     "fees_paid": 0.030040497784256208,
     "used_ml": true
   },
   {
-    "id": "9a09b808608a",
+    "id": "d797cefc8611",
     "entry_time": "2024-12-04T12:00:00+00:00",
     "exit_time": "2024-12-08T16:00:00+00:00",
     "entry_price": 96026.3964,
@@ -2562,12 +2562,12 @@
     "pnl_usd": -3.0287308830129054,
     "pnl_pct": -4.048439745136582,
     "exit_reason": "time_expired",
-    "prediction_id": "895d2b9b832f",
+    "prediction_id": "15a585feafa9",
     "fees_paid": 0.03052755311412727,
     "used_ml": true
   },
   {
-    "id": "fd2908877712",
+    "id": "d25d49615d45",
     "entry_time": "2024-12-05T04:00:00+00:00",
     "exit_time": "2024-12-09T20:00:00+00:00",
     "entry_price": 103390.6599,
@@ -2579,12 +2579,12 @@
     "pnl_usd": 118.7712092326389,
     "pnl_pct": 6.887262042884008,
     "exit_reason": "time_expired",
-    "prediction_id": "d4d7e563a0f5",
+    "prediction_id": "d950225e72c3",
     "fees_paid": 0.6659837213212377,
     "used_ml": true
   },
   {
-    "id": "ec9c5f659f90",
+    "id": "6936d7c9af61",
     "entry_time": "2024-12-05T16:00:00+00:00",
     "exit_time": "2024-12-09T20:00:00+00:00",
     "entry_price": 101133.8856,
@@ -2596,12 +2596,12 @@
     "pnl_usd": 8.098873123217103,
     "pnl_pct": 4.809477403466828,
     "exit_reason": "time_expired",
-    "prediction_id": "225ea1ddac5b",
+    "prediction_id": "2eb70d4716d5",
     "fees_paid": 0.06573142935914947,
     "used_ml": true
   },
   {
-    "id": "726aca56ba69",
+    "id": "062f91ce4131",
     "entry_time": "2024-12-05T20:00:00+00:00",
     "exit_time": "2024-12-13T20:00:00+00:00",
     "entry_price": 99139.0851,
@@ -2613,12 +2613,12 @@
     "pnl_usd": -4.0361230765609735,
     "pnl_pct": -2.5957688948251185,
     "exit_reason": "time_expired",
-    "prediction_id": "ac1b068830f3",
+    "prediction_id": "24be4b204adf",
     "fees_paid": 0.06299625967551917,
     "used_ml": true
   },
   {
-    "id": "7d08ef1857d7",
+    "id": "7a91e0354359",
     "entry_time": "2024-12-09T04:00:00+00:00",
     "exit_time": "2024-12-16T00:00:00+00:00",
     "entry_price": 99432.0558,
@@ -2630,12 +2630,12 @@
     "pnl_usd": -3.0288642830091685,
     "pnl_pct": -6.020756947620109,
     "exit_reason": "time_expired",
-    "prediction_id": "ef0ea87f6c36",
+    "prediction_id": "f6376fe7ed73",
     "fees_paid": 0.020726453701783422,
     "used_ml": true
   },
   {
-    "id": "a0fb5d87d284",
+    "id": "78bdb471e9a1",
     "entry_time": "2024-12-11T20:00:00+00:00",
     "exit_time": "2024-12-16T00:00:00+00:00",
     "entry_price": 101377.8612,
@@ -2647,12 +2647,12 @@
     "pnl_usd": -76.66971466427901,
     "pnl_pct": -3.9858376966232596,
     "exit_reason": "time_expired",
-    "prediction_id": "e270b0da6574",
+    "prediction_id": "485d4110389f",
     "fees_paid": 0.7846752912663758,
     "used_ml": true
   },
   {
-    "id": "6bb38be93a02",
+    "id": "715a51f0258d",
     "entry_time": "2024-12-12T04:00:00+00:00",
     "exit_time": "2024-12-16T08:00:00+00:00",
     "entry_price": 100719.927,
@@ -2664,12 +2664,12 @@
     "pnl_usd": -2.039720190609893,
     "pnl_pct": -3.7901406442838277,
     "exit_reason": "time_expired",
-    "prediction_id": "5fc90768c596",
+    "prediction_id": "204eff9b4f21",
     "fees_paid": 0.021932301274547608,
     "used_ml": true
   },
   {
-    "id": "033486ddc16b",
+    "id": "f97f855cffd9",
     "entry_time": "2024-12-16T00:00:00+00:00",
     "exit_time": "2024-12-19T20:00:00+00:00",
     "entry_price": 105376.4613,
@@ -2681,12 +2681,12 @@
     "pnl_usd": 141.24989447314718,
     "pnl_pct": 8.451510060723159,
     "exit_reason": "take_profit",
-    "prediction_id": "a0694388806b",
+    "prediction_id": "767bd6f7997c",
     "fees_paid": 0.6402079171715551,
     "used_ml": true
   },
   {
-    "id": "80f2ade200a7",
+    "id": "35407f788e04",
     "entry_time": "2024-12-16T04:00:00+00:00",
     "exit_time": "2024-12-19T20:00:00+00:00",
     "entry_price": 104645.5344,
@@ -2698,12 +2698,12 @@
     "pnl_usd": 4.598235466343522,
     "pnl_pct": 8.502027989665951,
     "exit_reason": "take_profit",
-    "prediction_id": "c5e535d681ef",
+    "prediction_id": "94cede134e4b",
     "fees_paid": 0.02071196751369847,
     "used_ml": true
   },
   {
-    "id": "ce5dde420d15",
+    "id": "98d9bd5e96a0",
     "entry_time": "2024-12-16T08:00:00+00:00",
     "exit_time": "2024-12-20T08:00:00+00:00",
     "entry_price": 104495.5494,
@@ -2715,12 +2715,12 @@
     "pnl_usd": 5.752020273496119,
     "pnl_pct": 8.84583628540038,
     "exit_reason": "take_profit",
-    "prediction_id": "bf828bb43daf",
+    "prediction_id": "cf7628fecc25",
     "fees_paid": 0.024857294356966535,
     "used_ml": true
   },
   {
-    "id": "46a3df9b0ac8",
+    "id": "3816c48a5603",
     "entry_time": "2024-12-19T20:00:00+00:00",
     "exit_time": "2024-12-20T08:00:00+00:00",
     "entry_price": 96280.371,
@@ -2732,12 +2732,12 @@
     "pnl_usd": 0.03518210282351754,
     "pnl_pct": 0.03001600120000184,
     "exit_reason": "stop_loss",
-    "prediction_id": "68ee6ceba120",
+    "prediction_id": "bcc7708a7127",
     "fees_paid": 0.04687274098635953,
     "used_ml": true
   },
   {
-    "id": "19b632088cad",
+    "id": "87bd50f2c4fc",
     "entry_time": "2024-11-17T16:00:00+00:00",
     "exit_time": "2025-01-01T20:00:00+00:00",
     "entry_price": 90447.9543,
@@ -2749,12 +2749,12 @@
     "pnl_usd": -2.3929136663506805,
     "pnl_pct": -4.61859720794149,
     "exit_reason": "time_expired",
-    "prediction_id": "c2174d5994b6",
+    "prediction_id": "563c23d15f07",
     "fees_paid": 0.021200574848315133,
     "used_ml": true
   },
   {
-    "id": "2e91f256324b",
+    "id": "246f22a38f6d",
     "entry_time": "2024-12-13T20:00:00+00:00",
     "exit_time": "2025-01-06T16:00:00+00:00",
     "entry_price": 101671.8318,
@@ -2766,12 +2766,12 @@
     "pnl_usd": 0.02295700213199902,
     "pnl_pct": 0.030016001199998463,
     "exit_reason": "stop_loss",
-    "prediction_id": "0beed37c60d3",
+    "prediction_id": "714e6e4377c8",
     "fees_paid": 0.03058536950319303,
     "used_ml": true
   },
   {
-    "id": "874396070e6f",
+    "id": "1d84b6e71186",
     "entry_time": "2025-01-07T12:00:00+00:00",
     "exit_time": "2025-01-08T16:00:00+00:00",
     "entry_price": 100745.9244,
@@ -2783,12 +2783,12 @@
     "pnl_usd": 6.9986911594575245,
     "pnl_pct": 6.081032371125452,
     "exit_reason": "take_profit",
-    "prediction_id": "43aac378498d",
+    "prediction_id": "8b6692fc3fa4",
     "fees_paid": 0.044632142895882146,
     "used_ml": true
   },
   {
-    "id": "77c3e594ee73",
+    "id": "3c390d8bfcea",
     "entry_time": "2025-01-06T16:00:00+00:00",
     "exit_time": "2025-01-08T20:00:00+00:00",
     "entry_price": 102161.7828,
@@ -2800,12 +2800,12 @@
     "pnl_usd": 10.127183154518463,
     "pnl_pct": 8.041569411600436,
     "exit_reason": "take_profit",
-    "prediction_id": "14d63cec793f",
+    "prediction_id": "dc0098504495",
     "fees_paid": 0.04834409470092965,
     "used_ml": true
   },
   {
-    "id": "16189dad7d68",
+    "id": "781ee67ec303",
     "entry_time": "2025-01-06T20:00:00+00:00",
     "exit_time": "2025-01-08T20:00:00+00:00",
     "entry_price": 102126.7863,
@@ -2817,12 +2817,12 @@
     "pnl_usd": 147.76748849525032,
     "pnl_pct": 7.539506233942498,
     "exit_reason": "take_profit",
-    "prediction_id": "b9de82afd147",
+    "prediction_id": "f3aa6251f9d9",
     "fees_paid": 0.7543377757485685,
     "used_ml": true
   },
   {
-    "id": "dd055ee86a08",
+    "id": "ce05cf71efba",
     "entry_time": "2025-01-07T16:00:00+00:00",
     "exit_time": "2025-01-09T08:00:00+00:00",
     "entry_price": 97705.2285,
@@ -2834,12 +2834,12 @@
     "pnl_usd": 13.03778449762108,
     "pnl_pct": 5.007233992216881,
     "exit_reason": "take_profit",
-    "prediction_id": "94752d843690",
+    "prediction_id": "acc9cc5ea751",
     "fees_paid": 0.10153414105445382,
     "used_ml": true
   },
   {
-    "id": "420670130b97",
+    "id": "8a2bdd8cb8e2",
     "entry_time": "2025-01-08T20:00:00+00:00",
     "exit_time": "2025-01-10T04:00:00+00:00",
     "entry_price": 93920.607,
@@ -2851,12 +2851,12 @@
     "pnl_usd": 0.6442499975546219,
     "pnl_pct": 0.03001600120000286,
     "exit_reason": "stop_loss",
-    "prediction_id": "8282d0813cec",
+    "prediction_id": "ab463035aec0",
     "fees_paid": 0.8583274120173903,
     "used_ml": true
   },
   {
-    "id": "5d66f5c2a07a",
+    "id": "0abc5004a8d9",
     "entry_time": "2024-11-29T08:00:00+00:00",
     "exit_time": "2025-01-13T12:00:00+00:00",
     "entry_price": 95982.4008,
@@ -2868,12 +2868,12 @@
     "pnl_usd": 6.35491805451403,
     "pnl_pct": 5.54498433356546,
     "exit_reason": "time_expired",
-    "prediction_id": "4e34a04c0cc7",
+    "prediction_id": "03dc3d54d8b2",
     "fees_paid": 0.04456732747100092,
     "used_ml": true
   },
   {
-    "id": "0b761b6575cb",
+    "id": "1db4816fb55f",
     "entry_time": "2024-11-29T12:00:00+00:00",
     "exit_time": "2025-01-13T16:00:00+00:00",
     "entry_price": 96951.3039,
@@ -2885,12 +2885,12 @@
     "pnl_usd": 86.92370135212919,
     "pnl_pct": 5.820362952725588,
     "exit_reason": "time_expired",
-    "prediction_id": "ce9559cbc18b",
+    "prediction_id": "e1e1417dddab",
     "fees_paid": 0.5799355110774387,
     "used_ml": true
   },
   {
-    "id": "8e453363854c",
+    "id": "72bbbdccfaa1",
     "entry_time": "2025-01-09T08:00:00+00:00",
     "exit_time": "2025-01-13T20:00:00+00:00",
     "entry_price": 92975.7015,
@@ -2902,12 +2902,12 @@
     "pnl_usd": 0.10724467257812302,
     "pnl_pct": 0.030016001200005638,
     "exit_reason": "stop_loss",
-    "prediction_id": "c24ed3e590a4",
+    "prediction_id": "a28feb75b042",
     "fees_paid": 0.14288093537605293,
     "used_ml": true
   },
   {
-    "id": "ff222bc38f08",
+    "id": "d7e398c900fe",
     "entry_time": "2024-11-29T16:00:00+00:00",
     "exit_time": "2025-01-13T20:00:00+00:00",
     "entry_price": 97871.2119,
@@ -2919,12 +2919,12 @@
     "pnl_usd": 11.539162306189922,
     "pnl_pct": 4.394701307627308,
     "exit_reason": "time_expired",
-    "prediction_id": "65e399f78d90",
+    "prediction_id": "22dd12195672",
     "fees_paid": 0.10271008356143024,
     "used_ml": true
   },
   {
-    "id": "7a6183e02230",
+    "id": "e6c5ffa66cf9",
     "entry_time": "2025-01-08T16:00:00+00:00",
     "exit_time": "2025-01-14T00:00:00+00:00",
     "entry_price": 94747.5243,
@@ -2936,12 +2936,12 @@
     "pnl_usd": 0.11538644650415304,
     "pnl_pct": 0.030016001200011706,
     "exit_reason": "stop_loss",
-    "prediction_id": "92333114fdec",
+    "prediction_id": "c7cece68be22",
     "fees_paid": 0.15372813408721295,
     "used_ml": true
   },
   {
-    "id": "b0879b08f102",
+    "id": "3d16698c3f35",
     "entry_time": "2025-01-13T16:00:00+00:00",
     "exit_time": "2025-01-14T12:00:00+00:00",
     "entry_price": 91271.8719,
@@ -2953,12 +2953,12 @@
     "pnl_usd": -61.18855834367409,
     "pnl_pct": -5.31761963826001,
     "exit_reason": "stop_loss",
-    "prediction_id": "a86b77b135dc",
+    "prediction_id": "0cb6a95ce19a",
     "fees_paid": 0.4724595369286454,
     "used_ml": true
   },
   {
-    "id": "d594cc02f785",
+    "id": "f38ed152eb5a",
     "entry_time": "2025-01-09T20:00:00+00:00",
     "exit_time": "2025-01-14T20:00:00+00:00",
     "entry_price": 91886.8104,
@@ -2970,12 +2970,12 @@
     "pnl_usd": -6.086195427023801,
     "pnl_pct": -5.374198077863971,
     "exit_reason": "stop_loss",
-    "prediction_id": "67057df81e2e",
+    "prediction_id": "09981dcf4806",
     "fees_paid": 0.04651184221785977,
     "used_ml": true
   },
   {
-    "id": "797609ed5534",
+    "id": "feebe361202c",
     "entry_time": "2025-01-13T20:00:00+00:00",
     "exit_time": "2025-01-20T12:00:00+00:00",
     "entry_price": 93532.6458,
@@ -2987,12 +2987,12 @@
     "pnl_usd": -101.11735768063672,
     "pnl_pct": -16.009415524829944,
     "exit_reason": "stop_loss",
-    "prediction_id": "0a2dd9f5f7b5",
+    "prediction_id": "e420ddd921f5",
     "fees_paid": 0.27283888851723104,
     "used_ml": true
   },
   {
-    "id": "a6e56d089129",
+    "id": "f500389b4d22",
     "entry_time": "2025-01-14T12:00:00+00:00",
     "exit_time": "2025-01-21T08:00:00+00:00",
     "entry_price": 95951.4039,
@@ -3004,12 +3004,12 @@
     "pnl_usd": -73.0152548261291,
     "pnl_pct": -6.702667689722038,
     "exit_reason": "time_expired",
-    "prediction_id": "9f6d9d8ec98e",
+    "prediction_id": "d832b7fb7879",
     "fees_paid": 0.4502950401323491,
     "used_ml": true
   },
   {
-    "id": "1c207f58bd99",
+    "id": "3216bb2823f3",
     "entry_time": "2025-01-14T00:00:00+00:00",
     "exit_time": "2025-01-24T16:00:00+00:00",
     "entry_price": 94442.5548,
@@ -3021,12 +3021,12 @@
     "pnl_usd": -45.88117032353138,
     "pnl_pct": -11.930162983646866,
     "exit_reason": "time_expired",
-    "prediction_id": "2e29d7946f27",
+    "prediction_id": "e4968513f995",
     "fees_paid": 0.16299152033174297,
     "used_ml": true
   },
   {
-    "id": "139d2e4b5eb9",
+    "id": "a1874429ff62",
     "entry_time": "2025-01-14T20:00:00+00:00",
     "exit_time": "2025-01-25T12:00:00+00:00",
     "entry_price": 96449.3541,
@@ -3038,12 +3038,12 @@
     "pnl_usd": -9.258920358021777,
     "pnl_pct": -8.624286675985115,
     "exit_reason": "time_expired",
-    "prediction_id": "f994def09684",
+    "prediction_id": "f223d27e473e",
     "fees_paid": 0.044790592408253296,
     "used_ml": true
   },
   {
-    "id": "248194d5d8bc",
+    "id": "7a0f633af295",
     "entry_time": "2025-01-15T20:00:00+00:00",
     "exit_time": "2025-01-26T12:00:00+00:00",
     "entry_price": 99608.0382,
@@ -3055,12 +3055,12 @@
     "pnl_usd": -115.01523648958667,
     "pnl_pct": -5.303208147291876,
     "exit_reason": "time_expired",
-    "prediction_id": "162195e4d3eb",
+    "prediction_id": "e4caf89022ab",
     "fees_paid": 0.8904261183439673,
     "used_ml": true
   },
   {
-    "id": "cd4aca993040",
+    "id": "7c06e6a44f94",
     "entry_time": "2025-01-16T08:00:00+00:00",
     "exit_time": "2025-01-27T00:00:00+00:00",
     "entry_price": 98943.1047,
@@ -3072,12 +3072,12 @@
     "pnl_usd": -1.720969546429891,
     "pnl_pct": -2.751467968338373,
     "exit_reason": "time_expired",
-    "prediction_id": "61e9cf5eb053",
+    "prediction_id": "f1ccfbef12a7",
     "fees_paid": 0.025360552732190553,
     "used_ml": true
   },
   {
-    "id": "b5dcdb1a412e",
+    "id": "f02f9a3e717d",
     "entry_time": "2025-01-20T20:00:00+00:00",
     "exit_time": "2025-01-28T20:00:00+00:00",
     "entry_price": 103509.648,
@@ -3089,12 +3089,12 @@
     "pnl_usd": 2.821757648559025,
     "pnl_pct": 2.190406807064021,
     "exit_reason": "time_expired",
-    "prediction_id": "9023784136f5",
+    "prediction_id": "dc2a9d0090f4",
     "fees_paid": 0.05095998997032483,
     "used_ml": true
   },
   {
-    "id": "9a42adb01d9c",
+    "id": "d735b064a67c",
     "entry_time": "2025-01-21T00:00:00+00:00",
     "exit_time": "2025-01-29T00:00:00+00:00",
     "entry_price": 101027.8962,
@@ -3106,12 +3106,12 @@
     "pnl_usd": -1.405519749420378,
     "pnl_pct": -0.6717042114552098,
     "exit_reason": "time_expired",
-    "prediction_id": "ae1b89f286ec",
+    "prediction_id": "f7d9ee5b69fd",
     "fees_paid": 0.08397141034833777,
     "used_ml": true
   },
   {
-    "id": "766da22e7402",
+    "id": "d8522694e60a",
     "entry_time": "2025-01-21T08:00:00+00:00",
     "exit_time": "2025-02-01T00:00:00+00:00",
     "entry_price": 102341.7648,
@@ -3123,12 +3123,12 @@
     "pnl_usd": -1.5767561364759501,
     "pnl_pct": -0.16218241874600559,
     "exit_reason": "time_expired",
-    "prediction_id": "022cb4405192",
+    "prediction_id": "7dec40a381d9",
     "fees_paid": 0.38916101006267,
     "used_ml": true
   },
   {
-    "id": "6d71af877586",
+    "id": "e9d7782670ad",
     "entry_time": "2025-02-01T00:00:00+00:00",
     "exit_time": "2025-02-02T20:00:00+00:00",
     "entry_price": 102466.75230000001,
@@ -3140,12 +3140,12 @@
     "pnl_usd": 41.838758177067746,
     "pnl_pct": 4.3111309686935915,
     "exit_reason": "take_profit",
-    "prediction_id": "10d51fa77963",
+    "prediction_id": "214bedfd15fa",
     "fees_paid": 0.3797879854827649,
     "used_ml": true
   },
   {
-    "id": "3aca416c6464",
+    "id": "0d23ac1d9ccb",
     "entry_time": "2025-01-28T20:00:00+00:00",
     "exit_time": "2025-02-03T00:00:00+00:00",
     "entry_price": 101201.8788,
@@ -3157,12 +3157,12 @@
     "pnl_usd": 5.347238685682367,
     "pnl_pct": 4.062292773401169,
     "exit_reason": "take_profit",
-    "prediction_id": "4aa9634de262",
+    "prediction_id": "5da5e3087313",
     "fees_paid": 0.05157792245195163,
     "used_ml": true
   },
   {
-    "id": "9e7eb9ebd234",
+    "id": "0ca0aa40a814",
     "entry_time": "2025-01-27T00:00:00+00:00",
     "exit_time": "2025-02-03T04:00:00+00:00",
     "entry_price": 101624.8365,
@@ -3174,12 +3174,12 @@
     "pnl_usd": 3.8950724346320267,
     "pnl_pct": 6.40040974004846,
     "exit_reason": "take_profit",
-    "prediction_id": "c8db84e53478",
+    "prediction_id": "be430a61022e",
     "fees_paid": 0.023561351761684928,
     "used_ml": true
   },
   {
-    "id": "5e7d8682bce1",
+    "id": "5e14e687b27f",
     "entry_time": "2025-01-29T00:00:00+00:00",
     "exit_time": "2025-02-03T04:00:00+00:00",
     "entry_price": 101665.8324,
@@ -3191,12 +3191,12 @@
     "pnl_usd": 13.306948771211868,
     "pnl_pct": 6.402925810703104,
     "exit_reason": "take_profit",
-    "prediction_id": "69dde6769af9",
+    "prediction_id": "8b30db5820ba",
     "fees_paid": 0.08046125712414078,
     "used_ml": true
   },
   {
-    "id": "938cf88820a1",
+    "id": "06c8a2d8de7a",
     "entry_time": "2025-02-03T00:00:00+00:00",
     "exit_time": "2025-02-03T04:00:00+00:00",
     "entry_price": 96470.352,
@@ -3208,12 +3208,12 @@
     "pnl_usd": 4.527500222312017,
     "pnl_pct": 3.301049515344877,
     "exit_reason": "take_profit",
-    "prediction_id": "d9161a728717",
+    "prediction_id": "1358abef4a76",
     "fees_paid": 0.053950538730983,
     "used_ml": true
   },
   {
-    "id": "4c09626d9d25",
+    "id": "458d3fd5e9d5",
     "entry_time": "2024-12-20T08:00:00+00:00",
     "exit_time": "2025-02-03T12:00:00+00:00",
     "entry_price": 95288.4702,
@@ -3225,12 +3225,12 @@
     "pnl_usd": 0.7675321227319785,
     "pnl_pct": 0.40824141867690267,
     "exit_reason": "time_expired",
-    "prediction_id": "afe1ec2e9267",
+    "prediction_id": "6f446ec2f25a",
     "fees_paid": 0.07504275373252683,
     "used_ml": true
   },
   {
-    "id": "bfcd2d73d696",
+    "id": "764a8d3d8599",
     "entry_time": "2025-02-03T04:00:00+00:00",
     "exit_time": "2025-02-11T04:00:00+00:00",
     "entry_price": 92821.7169,
@@ -3242,12 +3242,12 @@
     "pnl_usd": -24.505548779216923,
     "pnl_pct": -5.732191926585665,
     "exit_reason": "time_expired",
-    "prediction_id": "93f2f5003bb2",
+    "prediction_id": "f0bf58782891",
     "fees_paid": 0.17588602153653865,
     "used_ml": true
   },
   {
-    "id": "614456f0d0d8",
+    "id": "7de82e9e3b3d",
     "entry_time": "2025-02-03T12:00:00+00:00",
     "exit_time": "2025-02-11T12:00:00+00:00",
     "entry_price": 94861.5129,
@@ -3259,12 +3259,12 @@
     "pnl_usd": -5.903569322004282,
     "pnl_pct": -3.1264823481009465,
     "exit_reason": "time_expired",
-    "prediction_id": "ba03e0d0ccb0",
+    "prediction_id": "e26c0d5c1af8",
     "fees_paid": 0.07670278592075949,
     "used_ml": true
   },
   {
-    "id": "231167a86d86",
+    "id": "d0c5a335459a",
     "entry_time": "2025-02-11T12:00:00+00:00",
     "exit_time": "2025-02-11T16:00:00+00:00",
     "entry_price": 97788.2202,
@@ -3276,12 +3276,12 @@
     "pnl_usd": 1.7531408325031486,
     "pnl_pct": 0.9581832566581133,
     "exit_reason": "take_profit",
-    "prediction_id": "962d87c69eb8",
+    "prediction_id": "effaa5831398",
     "fees_paid": 0.0728281597444415,
     "used_ml": true
   },
   {
-    "id": "6106c521f0e8",
+    "id": "37d92a11b68f",
     "entry_time": "2025-02-11T04:00:00+00:00",
     "exit_time": "2025-02-11T20:00:00+00:00",
     "entry_price": 98103.1887,
@@ -3293,12 +3293,12 @@
     "pnl_usd": 9.93365465648139,
     "pnl_pct": 2.465176978281023,
     "exit_reason": "take_profit",
-    "prediction_id": "a7df96a07151",
+    "prediction_id": "6a727deaf53e",
     "fees_paid": 0.1591811861875033,
     "used_ml": true
   },
   {
-    "id": "3bf5d47dc59f",
+    "id": "5bd052970053",
     "entry_time": "2025-02-11T16:00:00+00:00",
     "exit_time": "2025-02-12T08:00:00+00:00",
     "entry_price": 96303.3687,
@@ -3310,12 +3310,12 @@
     "pnl_usd": 0.05544492034289021,
     "pnl_pct": 0.03001600120000998,
     "exit_reason": "stop_loss",
-    "prediction_id": "8bc5c159386d",
+    "prediction_id": "89cba853872e",
     "fees_paid": 0.0738686770167619,
     "used_ml": true
   },
   {
-    "id": "2031a31abd97",
+    "id": "2cdf02c9c4ab",
     "entry_time": "2025-02-11T20:00:00+00:00",
     "exit_time": "2025-02-13T00:00:00+00:00",
     "entry_price": 95273.4717,
@@ -3327,12 +3327,12 @@
     "pnl_usd": -11.19935258357274,
     "pnl_pct": -2.7127118948417954,
     "exit_reason": "stop_loss",
-    "prediction_id": "19e9c7e3b86d",
+    "prediction_id": "aff241d66207",
     "fees_paid": 0.16736175491598154,
     "used_ml": true
   },
   {
-    "id": "c1cb03883503",
+    "id": "9b9f3fdd4fa9",
     "entry_time": "2025-02-12T08:00:00+00:00",
     "exit_time": "2025-02-13T20:00:00+00:00",
     "entry_price": 96340.365,
@@ -3344,12 +3344,12 @@
     "pnl_usd": 0.05547525441681985,
     "pnl_pct": 0.030016001200001422,
     "exit_reason": "stop_loss",
-    "prediction_id": "1753c62f582c",
+    "prediction_id": "fabf6aa3dc56",
     "fees_paid": 0.07390909078049396,
     "used_ml": true
   },
   {
-    "id": "4752974c0309",
+    "id": "52c8ddb5c465",
     "entry_time": "2025-02-13T00:00:00+00:00",
     "exit_time": "2025-02-14T20:00:00+00:00",
     "entry_price": 97814.2176,
@@ -3361,12 +3361,12 @@
     "pnl_usd": 0.12054557816684303,
     "pnl_pct": 0.030016001200004912,
     "exit_reason": "stop_loss",
-    "prediction_id": "bd7d175fbde5",
+    "prediction_id": "bd5d888d27e2",
     "fees_paid": 0.1606015902690119,
     "used_ml": true
   },
   {
-    "id": "3f746c0f7f8c",
+    "id": "03985c858cca",
     "entry_time": "2025-02-13T20:00:00+00:00",
     "exit_time": "2025-02-19T12:00:00+00:00",
     "entry_price": 96294.3696,
@@ -3378,12 +3378,12 @@
     "pnl_usd": 0.05550491660430848,
     "pnl_pct": 0.030016001200000218,
     "exit_reason": "stop_loss",
-    "prediction_id": "d0c9df2bc7fd",
+    "prediction_id": "b0f8f84d2c0b",
     "fees_paid": 0.07394860939705654,
     "used_ml": true
   },
   {
-    "id": "47ec2eebd581",
+    "id": "ca1cd82672bf",
     "entry_time": "2025-02-19T12:00:00+00:00",
     "exit_time": "2025-02-24T20:00:00+00:00",
     "entry_price": 96148.3842,
@@ -3395,12 +3395,12 @@
     "pnl_usd": 4.1279501584651666,
     "pnl_pct": 2.2311241508102313,
     "exit_reason": "time_expired",
-    "prediction_id": "e3e64f6b980b",
+    "prediction_id": "e6ece743c8c6",
     "fees_paid": 0.07317381789225536,
     "used_ml": true
   },
   {
-    "id": "75868caf596a",
+    "id": "23c61f836932",
     "entry_time": "2025-02-24T20:00:00+00:00",
     "exit_time": "2025-02-25T08:00:00+00:00",
     "entry_price": 93965.60250000001,
@@ -3412,12 +3412,12 @@
     "pnl_usd": 7.407234884786893,
     "pnl_pct": 3.9161937323559672,
     "exit_reason": "take_profit",
-    "prediction_id": "1f2827c2da0c",
+    "prediction_id": "3351002db91c",
     "fees_paid": 0.07416877686755208,
     "used_ml": true
   },
   {
-    "id": "5c212687252a",
+    "id": "ee02decb75a8",
     "entry_time": "2025-02-25T08:00:00+00:00",
     "exit_time": "2025-02-25T16:00:00+00:00",
     "entry_price": 89359.0632,
@@ -3429,12 +3429,12 @@
     "pnl_usd": 4.371260580529589,
     "pnl_pct": 2.224000039264358,
     "exit_reason": "take_profit",
-    "prediction_id": "b70c5cc3863a",
+    "prediction_id": "8a9c338a30f4",
     "fees_paid": 0.07773785551793494,
     "used_ml": true
   },
   {
-    "id": "bf8ddd01d57b",
+    "id": "a5194f1719a4",
     "entry_time": "2025-02-25T16:00:00+00:00",
     "exit_time": "2025-02-26T20:00:00+00:00",
     "entry_price": 87336.2655,
@@ -3446,12 +3446,12 @@
     "pnl_usd": 9.63272047716419,
     "pnl_pct": 4.794309545525375,
     "exit_reason": "take_profit",
-    "prediction_id": "12d90bccf8e1",
+    "prediction_id": "0a254ba752ff",
     "fees_paid": 0.07843375370578899,
     "used_ml": true
   },
   {
-    "id": "6d04a9fc89a2",
+    "id": "23ecc0dc3cb8",
     "entry_time": "2025-01-24T16:00:00+00:00",
     "exit_time": "2025-02-28T04:00:00+00:00",
     "entry_price": 105667.4322,
@@ -3463,12 +3463,12 @@
     "pnl_usd": 22.984268536524382,
     "pnl_pct": 22.446172644266298,
     "exit_reason": "take_profit",
-    "prediction_id": "0c9c16074057",
+    "prediction_id": "a9e4df406a7f",
     "fees_paid": 0.03635887935096939,
     "used_ml": true
   },
   {
-    "id": "983c584f837e",
+    "id": "0551a5877ad2",
     "entry_time": "2025-01-26T12:00:00+00:00",
     "exit_time": "2025-02-28T04:00:00+00:00",
     "entry_price": 104848.5141,
@@ -3480,12 +3480,12 @@
     "pnl_usd": 46.88055270869316,
     "pnl_pct": 22.101556344041082,
     "exit_reason": "take_profit",
-    "prediction_id": "9bf0bf82212b",
+    "prediction_id": "a985490778af",
     "fees_paid": 0.07546298546966333,
     "used_ml": true
   },
   {
-    "id": "44f3b5e89fb5",
+    "id": "bcdd4eae1d4a",
     "entry_time": "2025-02-02T20:00:00+00:00",
     "exit_time": "2025-02-28T04:00:00+00:00",
     "entry_price": 97764.22260000001,
@@ -3497,12 +3497,12 @@
     "pnl_usd": 183.17721530963806,
     "pnl_pct": 18.094926321229256,
     "exit_reason": "take_profit",
-    "prediction_id": "fd3a54f13a4f",
+    "prediction_id": "758e10fba4a2",
     "fees_paid": 0.36825642975318673,
     "used_ml": true
   },
   {
-    "id": "c5f3ad20c786",
+    "id": "802305ce4595",
     "entry_time": "2025-02-26T20:00:00+00:00",
     "exit_time": "2025-02-28T04:00:00+00:00",
     "entry_price": 84208.5783,
@@ -3514,12 +3514,12 @@
     "pnl_usd": 7.325625717064921,
     "pnl_pct": 3.479269835270581,
     "exit_reason": "take_profit",
-    "prediction_id": "1a16cb690122",
+    "prediction_id": "33d508db25cb",
     "fees_paid": 0.08274701281097263,
     "used_ml": true
   },
   {
-    "id": "429542c9474c",
+    "id": "b1baad085913",
     "entry_time": "2025-01-25T12:00:00+00:00",
     "exit_time": "2025-02-28T08:00:00+00:00",
     "entry_price": 104725.5264,
@@ -3531,12 +3531,12 @@
     "pnl_usd": 44.37795436824396,
     "pnl_pct": 24.48460675522844,
     "exit_reason": "take_profit",
-    "prediction_id": "39b197445c43",
+    "prediction_id": "063632dad0bd",
     "fees_paid": 0.0636182894868392,
     "used_ml": true
   },
   {
-    "id": "8e1eb3eee268",
+    "id": "1e2151a6641d",
     "entry_time": "2025-03-01T04:00:00+00:00",
     "exit_time": "2025-03-04T16:00:00+00:00",
     "entry_price": 86145.3846,
@@ -3548,12 +3548,12 @@
     "pnl_usd": 66.4483339752001,
     "pnl_pct": 3.0359507268367394,
     "exit_reason": "time_expired",
-    "prediction_id": "e9c1f129da99",
+    "prediction_id": "0d4da25b684c",
     "fees_paid": 0.8621117891865689,
     "used_ml": true
   },
   {
-    "id": "d9189075a7d9",
+    "id": "9d8ea2b93d88",
     "entry_time": "2025-03-01T08:00:00+00:00",
     "exit_time": "2025-03-04T20:00:00+00:00",
     "entry_price": 85275.4716,
@@ -3565,12 +3565,12 @@
     "pnl_usd": -1.6936535586780976,
     "pnl_pct": -1.7725594556782174,
     "exit_reason": "time_expired",
-    "prediction_id": "75a6f3bc60a6",
+    "prediction_id": "0840283bdc28",
     "fees_paid": 0.03855423248827237,
     "used_ml": true
   },
   {
-    "id": "1684ac5b9ef2",
+    "id": "40095627f8ed",
     "entry_time": "2025-03-01T12:00:00+00:00",
     "exit_time": "2025-03-05T00:00:00+00:00",
     "entry_price": 84708.5283,
@@ -3582,12 +3582,12 @@
     "pnl_usd": -1.5741330651396703,
     "pnl_pct": -2.4773275816904956,
     "exit_reason": "time_expired",
-    "prediction_id": "8e78fa80abb2",
+    "prediction_id": "f58d712cc536",
     "fees_paid": 0.025728854149458594,
     "used_ml": true
   },
   {
-    "id": "d5194c9e6756",
+    "id": "7e0d004ea3f5",
     "entry_time": "2025-03-09T12:00:00+00:00",
     "exit_time": "2025-03-10T00:00:00+00:00",
     "entry_price": 84547.5444,
@@ -3599,12 +3599,12 @@
     "pnl_usd": 3.9815580196994707,
     "pnl_pct": 3.7041962967198665,
     "exit_reason": "take_profit",
-    "prediction_id": "4f9b42e4eeb0",
+    "prediction_id": "d77ff795d539",
     "fees_paid": 0.042194657233878,
     "used_ml": true
   },
   {
-    "id": "1a93d0232025",
+    "id": "04cef8e350d1",
     "entry_time": "2025-03-04T20:00:00+00:00",
     "exit_time": "2025-03-10T16:00:00+00:00",
     "entry_price": 86752.3239,
@@ -3616,12 +3616,12 @@
     "pnl_usd": 171.2240610151266,
     "pnl_pct": 8.359233467577216,
     "exit_reason": "take_profit",
-    "prediction_id": "be88f2c99be5",
+    "prediction_id": "316fb8d4a94f",
     "fees_paid": 0.7850091239985753,
     "used_ml": true
   },
   {
-    "id": "af5543bd6651",
+    "id": "1eb696799690",
     "entry_time": "2025-03-07T00:00:00+00:00",
     "exit_time": "2025-03-10T16:00:00+00:00",
     "entry_price": 85484.4507,
@@ -3633,12 +3633,12 @@
     "pnl_usd": 10.046923070232472,
     "pnl_pct": 7.004691209554653,
     "exit_reason": "take_profit",
-    "prediction_id": "ca49fe6f1c43",
+    "prediction_id": "0d6bcb63220f",
     "fees_paid": 0.05535782053350975,
     "used_ml": true
   },
   {
-    "id": "152c5b5bfd27",
+    "id": "0e580ca18d8d",
     "entry_time": "2025-03-05T00:00:00+00:00",
     "exit_time": "2025-03-10T20:00:00+00:00",
     "entry_price": 86772.3219,
@@ -3650,12 +3650,12 @@
     "pnl_usd": 5.663786443548448,
     "pnl_pct": 9.24535300881953,
     "exit_reason": "take_profit",
-    "prediction_id": "2a8f9fe5c05c",
+    "prediction_id": "0d2851e063a5",
     "fees_paid": 0.023369379194295894,
     "used_ml": true
   },
   {
-    "id": "6c0abf0bc788",
+    "id": "92555a84649c",
     "entry_time": "2025-02-14T20:00:00+00:00",
     "exit_time": "2025-03-11T00:00:00+00:00",
     "entry_price": 97222.2768,
@@ -3667,12 +3667,12 @@
     "pnl_usd": 82.8015896881281,
     "pnl_pct": 20.613738658158084,
     "exit_reason": "take_profit",
-    "prediction_id": "22c9766f19c8",
+    "prediction_id": "52bac094bddb",
     "fees_paid": 0.14409955859791304,
     "used_ml": true
   },
   {
-    "id": "879a92d6653b",
+    "id": "3062aca4ff85",
     "entry_time": "2025-03-04T04:00:00+00:00",
     "exit_time": "2025-03-11T00:00:00+00:00",
     "entry_price": 83345.6646,
@@ -3684,12 +3684,12 @@
     "pnl_usd": 9.75991103905761,
     "pnl_pct": 6.3052288143497215,
     "exit_reason": "take_profit",
-    "prediction_id": "4125e62b8dde",
+    "prediction_id": "64c5f503479d",
     "fees_paid": 0.059958518150684634,
     "used_ml": true
   },
   {
-    "id": "e2b0efb43482",
+    "id": "324cc36a9c87",
     "entry_time": "2025-03-10T00:00:00+00:00",
     "exit_time": "2025-03-11T00:00:00+00:00",
     "entry_price": 81262.8729,
@@ -3701,12 +3701,12 @@
     "pnl_usd": 21.96484434678703,
     "pnl_pct": 4.461792802512665,
     "exit_reason": "take_profit",
-    "prediction_id": "0a0f25b517a4",
+    "prediction_id": "1a7f38a424d8",
     "fees_paid": 0.1925031870631266,
     "used_ml": true
   },
   {
-    "id": "0955d66d4c63",
+    "id": "edba541a088b",
     "entry_time": "2025-03-10T20:00:00+00:00",
     "exit_time": "2025-03-20T00:00:00+00:00",
     "entry_price": 79252.07400000001,
@@ -3718,12 +3718,12 @@
     "pnl_usd": -212.43253911345792,
     "pnl_pct": -8.510278147738381,
     "exit_reason": "stop_loss",
-    "prediction_id": "5a2e1ad77cf7",
+    "prediction_id": "911a270b91aa",
     "fees_paid": 1.040853371614565,
     "used_ml": true
   },
   {
-    "id": "112ae9c36d33",
+    "id": "633657bab64b",
     "entry_time": "2025-03-20T00:00:00+00:00",
     "exit_time": "2025-04-07T08:00:00+00:00",
     "entry_price": 86053.3938,
@@ -3735,12 +3735,12 @@
     "pnl_usd": 193.86855015585067,
     "pnl_pct": 11.991069605675245,
     "exit_reason": "take_profit",
-    "prediction_id": "cb3da79cc26b",
+    "prediction_id": "abc2bdcea8be",
     "fees_paid": 0.6078791667467844,
     "used_ml": true
   },
   {
-    "id": "c43c6ab0a4e6",
+    "id": "8fa29d4f878f",
     "entry_time": "2025-02-28T04:00:00+00:00",
     "exit_time": "2025-04-08T04:00:00+00:00",
     "entry_price": 80304.9687,
@@ -3752,12 +3752,12 @@
     "pnl_usd": 0.3525994704983523,
     "pnl_pct": 0.030016001199997627,
     "exit_reason": "stop_loss",
-    "prediction_id": "630dbd430582",
+    "prediction_id": "c30407b79596",
     "fees_paid": 0.46976452020233994,
     "used_ml": true
   },
   {
-    "id": "37d6a706f199",
+    "id": "3e4121cc6918",
     "entry_time": "2025-03-29T20:00:00+00:00",
     "exit_time": "2025-04-09T20:00:00+00:00",
     "entry_price": 82456.7535,
@@ -3769,12 +3769,12 @@
     "pnl_usd": 0.04680926385830678,
     "pnl_pct": 0.030016001200001752,
     "exit_reason": "stop_loss",
-    "prediction_id": "962d3cca0b53",
+    "prediction_id": "bec851f1cb24",
     "fees_paid": 0.062363483831499256,
     "used_ml": true
   },
   {
-    "id": "4af36355067c",
+    "id": "6ae58bdd7ca2",
     "entry_time": "2025-03-20T16:00:00+00:00",
     "exit_time": "2025-04-11T20:00:00+00:00",
     "entry_price": 83749.6242,
@@ -3786,12 +3786,12 @@
     "pnl_usd": 0.054682750133144026,
     "pnl_pct": 0.030016001200009856,
     "exit_reason": "stop_loss",
-    "prediction_id": "d271e7ef25f6",
+    "prediction_id": "1672fa3e90cf",
     "fees_paid": 0.07285324576161101,
     "used_ml": true
   },
   {
-    "id": "c051bb55fd9b",
+    "id": "b6b0320b0e38",
     "entry_time": "2025-03-20T12:00:00+00:00",
     "exit_time": "2025-04-12T20:00:00+00:00",
     "entry_price": 85316.4675,
@@ -3803,12 +3803,12 @@
     "pnl_usd": 0.02528199332173958,
     "pnl_pct": 0.030016001200013836,
     "exit_reason": "stop_loss",
-    "prediction_id": "f795a1827920",
+    "prediction_id": "8afe9c391924",
     "fees_paid": 0.033682930509661216,
     "used_ml": true
   },
   {
-    "id": "ccac3d976344",
+    "id": "7f05471b30ba",
     "entry_time": "2025-02-28T08:00:00+00:00",
     "exit_time": "2025-04-14T12:00:00+00:00",
     "entry_price": 78882.111,
@@ -3820,12 +3820,12 @@
     "pnl_usd": -67.22513878572897,
     "pnl_pct": -7.922483846964985,
     "exit_reason": "time_expired",
-    "prediction_id": "4805d6a112b3",
+    "prediction_id": "0a272d386862",
     "fees_paid": 0.352822861431141,
     "used_ml": true
   },
   {
-    "id": "eb4f901cf30e",
+    "id": "78446225ab85",
     "entry_time": "2025-03-11T04:00:00+00:00",
     "exit_time": "2025-04-25T08:00:00+00:00",
     "entry_price": 79733.02590000001,
@@ -3837,12 +3837,12 @@
     "pnl_usd": -181.72266615586125,
     "pnl_pct": -17.557451277012166,
     "exit_reason": "time_expired",
-    "prediction_id": "a98ba831609b",
+    "prediction_id": "3a81f53fb6f3",
     "fees_paid": 0.4503028115879065,
     "used_ml": true
   },
   {
-    "id": "cf96f8942b02",
+    "id": "188b0fee70ca",
     "entry_time": "2025-04-24T08:00:00+00:00",
     "exit_time": "2025-05-04T04:00:00+00:00",
     "entry_price": 92033.7957,
@@ -3854,12 +3854,12 @@
     "pnl_usd": -83.25444936103469,
     "pnl_pct": -4.070169535580721,
     "exit_reason": "time_expired",
-    "prediction_id": "9af8b742c423",
+    "prediction_id": "604ef9c6729e",
     "fees_paid": 0.8347572224086696,
     "used_ml": true
   },
   {
-    "id": "d228115d8089",
+    "id": "f511b5a0a0dc",
     "entry_time": "2025-04-25T08:00:00+00:00",
     "exit_time": "2025-05-05T04:00:00+00:00",
     "entry_price": 93694.6296,
@@ -3871,12 +3871,12 @@
     "pnl_usd": -6.8422406141768075,
     "pnl_pct": -0.8044199455376205,
     "exit_reason": "time_expired",
-    "prediction_id": "8130582052a5",
+    "prediction_id": "c501b563c850",
     "fees_paid": 0.34156642864039544,
     "used_ml": true
   },
   {
-    "id": "635a43d5318d",
+    "id": "3f23b6eaf1d5",
     "entry_time": "2025-05-04T20:00:00+00:00",
     "exit_time": "2025-05-13T04:00:00+00:00",
     "entry_price": 95701.4289,
@@ -3888,12 +3888,12 @@
     "pnl_usd": -135.58217049421975,
     "pnl_pct": -7.384837024894199,
     "exit_reason": "time_expired",
-    "prediction_id": "b9d75c8c8fde",
+    "prediction_id": "4c1bb71ba37a",
     "fees_paid": 0.7614189703863885,
     "used_ml": true
   },
   {
-    "id": "e9ff685b91e8",
+    "id": "f805be54d8d6",
     "entry_time": "2025-05-05T04:00:00+00:00",
     "exit_time": "2025-05-13T12:00:00+00:00",
     "entry_price": 94410.558,
@@ -3905,12 +3905,12 @@
     "pnl_usd": -96.16390950442428,
     "pnl_pct": -9.867066534973764,
     "exit_reason": "time_expired",
-    "prediction_id": "479091e2ab85",
+    "prediction_id": "254730fc8a55",
     "fees_paid": 0.4090278482647014,
     "used_ml": true
   },
   {
-    "id": "b64bc08e4c5a",
+    "id": "af6d99d058e2",
     "entry_time": "2025-03-31T00:00:00+00:00",
     "exit_time": "2025-05-15T04:00:00+00:00",
     "entry_price": 81582.8409,
@@ -3922,12 +3922,12 @@
     "pnl_usd": -28.467159398198625,
     "pnl_pct": -26.18447105128942,
     "exit_reason": "time_expired",
-    "prediction_id": "abb8bd21da56",
+    "prediction_id": "e8e16d9da31c",
     "fees_paid": 0.04917503278312639,
     "used_ml": true
   },
   {
-    "id": "682524ce96b8",
+    "id": "e3276d9471a0",
     "entry_time": "2025-05-13T12:00:00+00:00",
     "exit_time": "2025-05-17T16:00:00+00:00",
     "entry_price": 103684.6305,
@@ -3939,12 +3939,12 @@
     "pnl_usd": 5.8794466581162705,
     "pnl_pct": 0.6555805207021531,
     "exit_reason": "time_expired",
-    "prediction_id": "809f2543b9cf",
+    "prediction_id": "dc2c878137bc",
     "fees_paid": 0.35752071613794423,
     "used_ml": true
   },
   {
-    "id": "7d81b60a3c87",
+    "id": "aff77dff6b05",
     "entry_time": "2025-05-13T04:00:00+00:00",
     "exit_time": "2025-05-21T12:00:00+00:00",
     "entry_price": 102727.7262,
@@ -3956,12 +3956,12 @@
     "pnl_usd": -38.4843757778661,
     "pnl_pct": -3.809349994334828,
     "exit_reason": "time_expired",
-    "prediction_id": "6a3bf06b4316",
+    "prediction_id": "c03eca2b15bc",
     "fees_paid": 0.4117593172615134,
     "used_ml": true
   },
   {
-    "id": "d0e897f45393",
+    "id": "8bf2be1d1c51",
     "entry_time": "2025-05-17T16:00:00+00:00",
     "exit_time": "2025-05-22T00:00:00+00:00",
     "entry_price": 102963.7026,
@@ -3973,12 +3973,12 @@
     "pnl_usd": -62.20489345697604,
     "pnl_pct": -6.977884752479516,
     "exit_reason": "stop_loss",
-    "prediction_id": "3ff6c5045d05",
+    "prediction_id": "65f7b7b596ed",
     "fees_paid": 0.368985934339135,
     "used_ml": true
   },
   {
-    "id": "e149c4c10704",
+    "id": "7cfb51eedf11",
     "entry_time": "2025-04-08T04:00:00+00:00",
     "exit_time": "2025-05-23T08:00:00+00:00",
     "entry_price": 80268.9723,
@@ -3990,12 +3990,12 @@
     "pnl_usd": -137.98331246287017,
     "pnl_pct": -38.243058231679896,
     "exit_reason": "time_expired",
-    "prediction_id": "dce35415b661",
+    "prediction_id": "1d5714dd1aee",
     "fees_paid": 0.17189918161251966,
     "used_ml": true
   },
   {
-    "id": "ddd5e9cea730",
+    "id": "06bc5f70b0a4",
     "entry_time": "2025-04-09T20:00:00+00:00",
     "exit_time": "2025-05-25T00:00:00+00:00",
     "entry_price": 83176.6815,
@@ -4007,12 +4007,12 @@
     "pnl_usd": -45.61294751092958,
     "pnl_pct": -29.23242176856982,
     "exit_reason": "time_expired",
-    "prediction_id": "cd278c402286",
+    "prediction_id": "a8d07fd6a353",
     "fees_paid": 0.07152871428927862,
     "used_ml": true
   },
   {
-    "id": "22fe28f449ec",
+    "id": "2b93061fc3e0",
     "entry_time": "2025-05-21T12:00:00+00:00",
     "exit_time": "2025-05-25T16:00:00+00:00",
     "entry_price": 106598.3391,
@@ -4024,12 +4024,12 @@
     "pnl_usd": -4.480204741212049,
     "pnl_pct": -0.616172775303585,
     "exit_reason": "time_expired",
-    "prediction_id": "3fa25fef6c7f",
+    "prediction_id": "2647a2a0dab3",
     "fees_paid": 0.2917075944505062,
     "used_ml": true
   },
   {
-    "id": "82aeb1ba176b",
+    "id": "70018a88f176",
     "entry_time": "2025-04-11T20:00:00+00:00",
     "exit_time": "2025-05-27T00:00:00+00:00",
     "entry_price": 83836.6155,
@@ -4041,12 +4041,12 @@
     "pnl_usd": -55.16218224880338,
     "pnl_pct": -30.270951579193937,
     "exit_reason": "time_expired",
-    "prediction_id": "e3f83547c708",
+    "prediction_id": "b7c32b0fcf43",
     "fees_paid": 0.08391418582120602,
     "used_ml": true
   },
   {
-    "id": "e2df1b3b5a0b",
+    "id": "798a219f0f46",
     "entry_time": "2025-04-12T20:00:00+00:00",
     "exit_time": "2025-05-28T00:00:00+00:00",
     "entry_price": 85499.4492,
@@ -4058,12 +4058,12 @@
     "pnl_usd": -23.44421238828682,
     "pnl_pct": -27.819276974991315,
     "exit_reason": "time_expired",
-    "prediction_id": "5c378ae474e4",
+    "prediction_id": "4d0f70d4edf9",
     "fees_paid": 0.038393839751724064,
     "used_ml": true
   },
   {
-    "id": "bc59f4025c92",
+    "id": "8aed9d1a0e03",
     "entry_time": "2025-04-14T12:00:00+00:00",
     "exit_time": "2025-05-29T16:00:00+00:00",
     "entry_price": 85097.4894,
@@ -4075,12 +4075,12 @@
     "pnl_usd": -199.2417541641541,
     "pnl_pct": -25.505504202806705,
     "exit_reason": "time_expired",
-    "prediction_id": "c93f7e179133",
+    "prediction_id": "41256abcc84d",
     "fees_paid": 0.3522777804076508,
     "used_ml": true
   },
   {
-    "id": "6998fbf70073",
+    "id": "2a8ea30c454a",
     "entry_time": "2025-05-29T16:00:00+00:00",
     "exit_time": "2025-06-03T16:00:00+00:00",
     "entry_price": 106759.323,
@@ -4092,12 +4092,12 @@
     "pnl_usd": 0.2804171757034125,
     "pnl_pct": 0.030016001200005454,
     "exit_reason": "stop_loss",
-    "prediction_id": "67715d7f0483",
+    "prediction_id": "dd54d64167f7",
     "fees_paid": 0.373596817416066,
     "used_ml": true
   },
   {
-    "id": "94970ff95284",
+    "id": "483c005269bc",
     "entry_time": "2025-06-03T16:00:00+00:00",
     "exit_time": "2025-06-07T20:00:00+00:00",
     "entry_price": 105889.41,
@@ -4109,12 +4109,12 @@
     "pnl_usd": -0.600496253942601,
     "pnl_pct": -0.06173329179943527,
     "exit_reason": "time_expired",
-    "prediction_id": "a5f81c95417d",
+    "prediction_id": "a00c6cc30ef6",
     "fees_paid": 0.38917188104287836,
     "used_ml": true
   },
   {
-    "id": "5ed51cad5528",
+    "id": "d2769fae2ab7",
     "entry_time": "2025-06-08T00:00:00+00:00",
     "exit_time": "2025-06-16T00:00:00+00:00",
     "entry_price": 105526.4463,
@@ -4126,12 +4126,12 @@
     "pnl_usd": 0.3724599555405106,
     "pnl_pct": 0.037722952203691394,
     "exit_reason": "time_expired",
-    "prediction_id": "fc283967d4a2",
+    "prediction_id": "dc792f3dc45b",
     "fees_paid": 0.39482856758830853,
     "used_ml": true
   },
   {
-    "id": "e31d4f3ae75a",
+    "id": "bf5a8512a7e8",
     "entry_time": "2025-06-16T00:00:00+00:00",
     "exit_time": "2025-06-20T04:00:00+00:00",
     "entry_price": 105444.4545,
@@ -4143,12 +4143,12 @@
     "pnl_usd": 10.704185784458476,
     "pnl_pct": 1.0794023449568908,
     "exit_reason": "time_expired",
-    "prediction_id": "0a49bd99e137",
+    "prediction_id": "0f093d0bdf08",
     "fees_paid": 0.39449076853639675,
     "used_ml": true
   },
   {
-    "id": "d24b50b6613f",
+    "id": "22b38fdacbf2",
     "entry_time": "2025-06-20T08:00:00+00:00",
     "exit_time": "2025-06-23T12:00:00+00:00",
     "entry_price": 105977.40120000001,
@@ -4160,12 +4160,12 @@
     "pnl_usd": 39.5821914006275,
     "pnl_pct": 3.998858641402512,
     "exit_reason": "time_expired",
-    "prediction_id": "76a07666a005",
+    "prediction_id": "79aa6be6e0fc",
     "fees_paid": 0.3879804490479993,
     "used_ml": true
   },
   {
-    "id": "a8bfea784132",
+    "id": "3f17f74487f9",
     "entry_time": "2025-06-23T20:00:00+00:00",
     "exit_time": "2025-06-28T12:00:00+00:00",
     "entry_price": 103802.6187,
@@ -4177,12 +4177,12 @@
     "pnl_usd": -40.58302500389432,
     "pnl_pct": -3.4870030189325023,
     "exit_reason": "time_expired",
-    "prediction_id": "b906ce9a7d3c",
+    "prediction_id": "3d75328cd6ff",
     "fees_paid": 0.47360316532479063,
     "used_ml": true
   },
   {
-    "id": "cbf95f9f04b4",
+    "id": "1d2544ffdecc",
     "entry_time": "2025-05-15T04:00:00+00:00",
     "exit_time": "2025-06-29T08:00:00+00:00",
     "entry_price": 102903.7086,
@@ -4194,12 +4194,12 @@
     "pnl_usd": -7.9394399770273925,
     "pnl_pct": -4.704016230412132,
     "exit_reason": "time_expired",
-    "prediction_id": "5cf86669ab1f",
+    "prediction_id": "43ed9252bd72",
     "fees_paid": 0.06909283239313907,
     "used_ml": true
   },
   {
-    "id": "4d8ec8aedd98",
+    "id": "c722cb7ca671",
     "entry_time": "2025-06-29T08:00:00+00:00",
     "exit_time": "2025-07-05T20:00:00+00:00",
     "entry_price": 107701.2288,
@@ -4211,12 +4211,12 @@
     "pnl_usd": -0.6465498240263874,
     "pnl_pct": -0.4338057865501317,
     "exit_reason": "time_expired",
-    "prediction_id": "e5ba5349dc00",
+    "prediction_id": "f3d7768d103f",
     "fees_paid": 0.05973984736151799,
     "used_ml": true
   },
   {
-    "id": "6a144857c3a8",
+    "id": "6c66774c9668",
     "entry_time": "2025-05-22T00:00:00+00:00",
     "exit_time": "2025-07-06T04:00:00+00:00",
     "entry_price": 109925.0064,
@@ -4228,12 +4228,12 @@
     "pnl_usd": 11.006848885114893,
     "pnl_pct": 1.6953335737263173,
     "exit_reason": "time_expired",
-    "prediction_id": "fa5a42539558",
+    "prediction_id": "655c6c50e80a",
     "fees_paid": 0.25747064397724906,
     "used_ml": true
   },
   {
-    "id": "6905cb015123",
+    "id": "e80cf68ef85b",
     "entry_time": "2025-06-28T12:00:00+00:00",
     "exit_time": "2025-07-06T12:00:00+00:00",
     "entry_price": 107379.261,
@@ -4245,12 +4245,12 @@
     "pnl_usd": -7.976144630213755,
     "pnl_pct": -0.8607085360924549,
     "exit_reason": "time_expired",
-    "prediction_id": "13ad2a9f01e4",
+    "prediction_id": "f2d89d4c3cba",
     "fees_paid": 0.37223592677184747,
     "used_ml": true
   },
   {
-    "id": "33d5af4fa83b",
+    "id": "d38a9b0e2f28",
     "entry_time": "2025-05-23T08:00:00+00:00",
     "exit_time": "2025-07-07T12:00:00+00:00",
     "entry_price": 110921.9067,
@@ -4262,12 +4262,12 @@
     "pnl_usd": 6.771188664256571,
     "pnl_pct": 2.2992778515048813,
     "exit_reason": "time_expired",
-    "prediction_id": "bf8b67ac1fc5",
+    "prediction_id": "60315c4840fb",
     "fees_paid": 0.11643104414748334,
     "used_ml": true
   },
   {
-    "id": "bceb9c722929",
+    "id": "30c65c9fe667",
     "entry_time": "2025-05-25T00:00:00+00:00",
     "exit_time": "2025-07-09T04:00:00+00:00",
     "entry_price": 107448.2541,
@@ -4279,12 +4279,12 @@
     "pnl_usd": -4.00929146644142,
     "pnl_pct": -1.075233265628267,
     "exit_reason": "time_expired",
-    "prediction_id": "be36b69be0f7",
+    "prediction_id": "5ee6bc4d346f",
     "fees_paid": 0.1499373597906533,
     "used_ml": true
   },
   {
-    "id": "b5f32d426f5c",
+    "id": "76d9f9d90479",
     "entry_time": "2025-07-06T12:00:00+00:00",
     "exit_time": "2025-07-09T16:00:00+00:00",
     "entry_price": 108260.1729,
@@ -4296,12 +4296,12 @@
     "pnl_usd": -10.183483917897805,
     "pnl_pct": -1.1173641758889141,
     "exit_reason": "time_expired",
-    "prediction_id": "e514657d65d8",
+    "prediction_id": "4997b39b77e2",
     "fees_paid": 0.36655364180374805,
     "used_ml": true
   },
   {
-    "id": "cb2b038784e4",
+    "id": "bbd10d7693df",
     "entry_time": "2025-05-25T16:00:00+00:00",
     "exit_time": "2025-07-09T20:00:00+00:00",
     "entry_price": 107212.2777,
@@ -4313,12 +4313,12 @@
     "pnl_usd": -24.790531628842988,
     "pnl_pct": -3.3409912484491495,
     "exit_reason": "time_expired",
-    "prediction_id": "b7e0d1ca3e7c",
+    "prediction_id": "1b63517e4186",
     "fees_paid": 0.3017319488135075,
     "used_ml": true
   },
   {
-    "id": "085a9fe8b194",
+    "id": "dda7d570205d",
     "entry_time": "2025-07-07T12:00:00+00:00",
     "exit_time": "2025-07-10T16:00:00+00:00",
     "entry_price": 108328.1661,
@@ -4330,12 +4330,12 @@
     "pnl_usd": -11.831615332566479,
     "pnl_pct": -4.0771016562238245,
     "exit_reason": "time_expired",
-    "prediction_id": "9ff980068d16",
+    "prediction_id": "494786952aa2",
     "fees_paid": 0.11843293288975473,
     "used_ml": true
   },
   {
-    "id": "ce6efbc198ea",
+    "id": "e8b7fea9042f",
     "entry_time": "2025-07-05T20:00:00+00:00",
     "exit_time": "2025-07-11T04:00:00+00:00",
     "entry_price": 108125.1864,
@@ -4347,12 +4347,12 @@
     "pnl_usd": -9.934358319309704,
     "pnl_pct": -8.054992897126931,
     "exit_reason": "stop_loss",
-    "prediction_id": "2679a562cc17",
+    "prediction_id": "18c90e5920f9",
     "fees_paid": 0.051314215356411036,
     "used_ml": true
   },
   {
-    "id": "29ed82c5dc33",
+    "id": "65f19e4ef398",
     "entry_time": "2025-05-27T00:00:00+00:00",
     "exit_time": "2025-07-11T04:00:00+00:00",
     "entry_price": 109171.0818,
@@ -4364,12 +4364,12 @@
     "pnl_usd": -3.7916831483260873,
     "pnl_pct": -7.147499237091923,
     "exit_reason": "time_expired",
-    "prediction_id": "5acd83dfe072",
+    "prediction_id": "be8dc7e61a14",
     "fees_paid": 0.021975698587658313,
     "used_ml": true
   },
   {
-    "id": "6ffc97341692",
+    "id": "72f3ce3bfc84",
     "entry_time": "2025-05-28T00:00:00+00:00",
     "exit_time": "2025-07-12T04:00:00+00:00",
     "entry_price": 109241.0748,
@@ -4381,12 +4381,12 @@
     "pnl_usd": -6.204241881015032,
     "pnl_pct": -7.77293400809711,
     "exit_reason": "time_expired",
-    "prediction_id": "fe44ecc891a8",
+    "prediction_id": "7964bf81b585",
     "fees_paid": 0.033164821274493675,
     "used_ml": true
   },
   {
-    "id": "8ce009ce09a2",
+    "id": "ace783293a65",
     "entry_time": "2025-07-09T04:00:00+00:00",
     "exit_time": "2025-07-12T08:00:00+00:00",
     "entry_price": 108560.1429,
@@ -4398,12 +4398,12 @@
     "pnl_usd": -31.284627167840846,
     "pnl_pct": -8.721669948962449,
     "exit_reason": "time_expired",
-    "prediction_id": "bcf56df89aa4",
+    "prediction_id": "996e711ae457",
     "fees_paid": 0.14972131568961117,
     "used_ml": true
   },
   {
-    "id": "3a85241358d5",
+    "id": "555f5abc6241",
     "entry_time": "2025-07-09T16:00:00+00:00",
     "exit_time": "2025-07-12T20:00:00+00:00",
     "entry_price": 109426.0563,
@@ -4415,12 +4415,12 @@
     "pnl_usd": -60.40097274203215,
     "pnl_pct": -7.030383349089046,
     "exit_reason": "time_expired",
-    "prediction_id": "9d04c0d7198e",
+    "prediction_id": "32a63d59089e",
     "fees_paid": 0.3557002010066874,
     "used_ml": true
   },
   {
-    "id": "828dea8ab23d",
+    "id": "1094aff13c0e",
     "entry_time": "2025-07-09T20:00:00+00:00",
     "exit_time": "2025-07-13T00:00:00+00:00",
     "entry_price": 110749.9239,
@@ -4432,12 +4432,12 @@
     "pnl_usd": -39.80312317747042,
     "pnl_pct": -5.993037117599321,
     "exit_reason": "time_expired",
-    "prediction_id": "4cf737d30c54",
+    "prediction_id": "7223f17b9ecf",
     "fees_paid": 0.2735949224794741,
     "used_ml": true
   },
   {
-    "id": "2e826c62ce7a",
+    "id": "7b60ba0db0e2",
     "entry_time": "2025-07-10T16:00:00+00:00",
     "exit_time": "2025-07-13T20:00:00+00:00",
     "entry_price": 112699.7289,
@@ -4449,12 +4449,12 @@
     "pnl_usd": -10.29453183110602,
     "pnl_pct": -5.725842151817275,
     "exit_reason": "time_expired",
-    "prediction_id": "baa98496152c",
+    "prediction_id": "b3d664fdb2e7",
     "fees_paid": 0.07396758549337984,
     "used_ml": true
   },
   {
-    "id": "519b8a866ba7",
+    "id": "224d09ca0459",
     "entry_time": "2025-07-06T04:00:00+00:00",
     "exit_time": "2025-07-14T04:00:00+00:00",
     "entry_price": 108018.1971,
@@ -4466,12 +4466,12 @@
     "pnl_usd": -81.65537708428072,
     "pnl_pct": -12.463861821759654,
     "exit_reason": "time_expired",
-    "prediction_id": "f20af33157bf",
+    "prediction_id": "4e5114f6dcc0",
     "fees_paid": 0.27835643098998786,
     "used_ml": true
   },
   {
-    "id": "37c81991fba2",
+    "id": "8edb3ee8b71f",
     "entry_time": "2025-07-14T04:00:00+00:00",
     "exit_time": "2025-07-18T20:00:00+00:00",
     "entry_price": 121432.8555,
@@ -4483,12 +4483,12 @@
     "pnl_usd": 17.654714217088262,
     "pnl_pct": 3.222857548894588,
     "exit_reason": "time_expired",
-    "prediction_id": "9aa91eca44bd",
+    "prediction_id": "61c0d89d3514",
     "fees_paid": 0.21556662157728218,
     "used_ml": true
   },
   {
-    "id": "188df86fe340",
+    "id": "93f1ac092c15",
     "entry_time": "2025-07-14T20:00:00+00:00",
     "exit_time": "2025-07-19T20:00:00+00:00",
     "entry_price": 120172.9815,
@@ -4500,12 +4500,12 @@
     "pnl_usd": 1.0524025259660876,
     "pnl_pct": 1.9535523833200392,
     "exit_reason": "time_expired",
-    "prediction_id": "bb52048b0f73",
+    "prediction_id": "93b267a78297",
     "fees_paid": 0.021335895650460672,
     "used_ml": true
   },
   {
-    "id": "f142b2452028",
+    "id": "87ae18dc68a4",
     "entry_time": "2025-07-12T20:00:00+00:00",
     "exit_time": "2025-07-20T00:00:00+00:00",
     "entry_price": 117072.2916,
@@ -4517,12 +4517,12 @@
     "pnl_usd": -7.471813345769955,
     "pnl_pct": -0.8277898611835197,
     "exit_reason": "time_expired",
-    "prediction_id": "10eadaa5687d",
+    "prediction_id": "2511690d9011",
     "fees_paid": 0.3625067635364741,
     "used_ml": true
   },
   {
-    "id": "c59831bb55c9",
+    "id": "4458341e7325",
     "entry_time": "2025-07-13T20:00:00+00:00",
     "exit_time": "2025-07-20T00:00:00+00:00",
     "entry_price": 119105.0883,
@@ -4534,12 +4534,12 @@
     "pnl_usd": 0.856497000598468,
     "pnl_pct": 0.8930635584609199,
     "exit_reason": "time_expired",
-    "prediction_id": "c1db7178b4ac",
+    "prediction_id": "e9286663ac1b",
     "fees_paid": 0.038187096244380575,
     "used_ml": true
   },
   {
-    "id": "b3ed193ce15f",
+    "id": "225386f906b9",
     "entry_time": "2025-07-13T00:00:00+00:00",
     "exit_time": "2025-07-20T04:00:00+00:00",
     "entry_price": 117340.2648,
@@ -4551,12 +4551,12 @@
     "pnl_usd": -4.015345798497372,
     "pnl_pct": -0.6171336512784064,
     "exit_reason": "time_expired",
-    "prediction_id": "a1e9e1af6dd8",
+    "prediction_id": "3bcc38ba63fc",
     "fees_paid": 0.26103466459331903,
     "used_ml": true
   },
   {
-    "id": "520717eefd55",
+    "id": "49484cf5ad0a",
     "entry_time": "2025-07-15T04:00:00+00:00",
     "exit_time": "2025-07-20T04:00:00+00:00",
     "entry_price": 117480.2508,
@@ -4568,12 +4568,12 @@
     "pnl_usd": -0.5845219047214334,
     "pnl_pct": -0.49724124404065445,
     "exit_reason": "time_expired",
-    "prediction_id": "cac12da9c17a",
+    "prediction_id": "3d22ace2ae80",
     "fees_paid": 0.04713337219277327,
     "used_ml": true
   },
   {
-    "id": "c44979845f53",
+    "id": "679aa8657971",
     "entry_time": "2025-07-12T08:00:00+00:00",
     "exit_time": "2025-07-20T16:00:00+00:00",
     "entry_price": 117981.2007,
@@ -4585,12 +4585,12 @@
     "pnl_usd": -1.8054177748496583,
     "pnl_pct": -0.5444749400316966,
     "exit_reason": "time_expired",
-    "prediction_id": "e89ea9b5eb91",
+    "prediction_id": "ea64c2af4d6b",
     "fees_paid": 0.1329832597939751,
     "used_ml": true
   },
   {
-    "id": "a3d5f05cfc2e",
+    "id": "3afdf6ee4eb0",
     "entry_time": "2025-07-20T00:00:00+00:00",
     "exit_time": "2025-07-26T04:00:00+00:00",
     "entry_price": 117994.1994,
@@ -4602,12 +4602,12 @@
     "pnl_usd": 3.544473817060573,
     "pnl_pct": 0.34487411332865753,
     "exit_reason": "time_expired",
-    "prediction_id": "f235af029fd0",
+    "prediction_id": "4dbe99cbc976",
     "fees_paid": 0.4103536379967122,
     "used_ml": true
   },
   {
-    "id": "65b3c6ce06d3",
+    "id": "4ee0c934c75c",
     "entry_time": "2025-07-20T04:00:00+00:00",
     "exit_time": "2025-07-26T12:00:00+00:00",
     "entry_price": 118017.1971,
@@ -4619,12 +4619,12 @@
     "pnl_usd": 0.2300831551341568,
     "pnl_pct": 0.030016001200005887,
     "exit_reason": "stop_loss",
-    "prediction_id": "c335738bcc8e",
+    "prediction_id": "ea0202494692",
     "fees_paid": 0.3065373377488184,
     "used_ml": true
   },
   {
-    "id": "440425930872",
+    "id": "7f2cd3010b69",
     "entry_time": "2025-07-18T20:00:00+00:00",
     "exit_time": "2025-07-27T04:00:00+00:00",
     "entry_price": 117472.2516,
@@ -4636,12 +4636,12 @@
     "pnl_usd": -3.782477200749314,
     "pnl_pct": -0.6905674777753207,
     "exit_reason": "time_expired",
-    "prediction_id": "f0c7c4c55875",
+    "prediction_id": "ff27750b108c",
     "fees_paid": 0.21982829009311178,
     "used_ml": true
   },
   {
-    "id": "d00d5d4313ba",
+    "id": "55917986ffe0",
     "entry_time": "2025-07-20T16:00:00+00:00",
     "exit_time": "2025-07-27T12:00:00+00:00",
     "entry_price": 118576.1412,
@@ -4653,12 +4653,12 @@
     "pnl_usd": 0.959101223129585,
     "pnl_pct": 0.31345946398531727,
     "exit_reason": "time_expired",
-    "prediction_id": "d4f690fc3495",
+    "prediction_id": "921437addb13",
     "fees_paid": 0.12218516854645056,
     "used_ml": true
   },
   {
-    "id": "317569e30868",
+    "id": "5bf0d39ecb9f",
     "entry_time": "2025-07-21T00:00:00+00:00",
     "exit_time": "2025-07-28T04:00:00+00:00",
     "entry_price": 117387.2601,
@@ -4670,12 +4670,12 @@
     "pnl_usd": -0.8559094400161633,
     "pnl_pct": -1.603676994485026,
     "exit_reason": "time_expired",
-    "prediction_id": "02632fab17d1",
+    "prediction_id": "1836eb94352a",
     "fees_paid": 0.021517687370148336,
     "used_ml": true
   },
   {
-    "id": "1e1b2452aec1",
+    "id": "2ffa2aa4d7e4",
     "entry_time": "2025-07-26T12:00:00+00:00",
     "exit_time": "2025-08-02T08:00:00+00:00",
     "entry_price": 117966.2022,
@@ -4687,12 +4687,12 @@
     "pnl_usd": 13.632886894717032,
     "pnl_pct": 3.6180708093694993,
     "exit_reason": "time_expired",
-    "prediction_id": "e6a5bf9d39e2",
+    "prediction_id": "9dc5fce5d4f5",
     "fees_paid": 0.1479788555630218,
     "used_ml": true
   },
   {
-    "id": "12af7f9e768a",
+    "id": "0d3ae61abcdf",
     "entry_time": "2025-07-25T04:00:00+00:00",
     "exit_time": "2025-08-02T12:00:00+00:00",
     "entry_price": 116122.3866,
@@ -4704,12 +4704,12 @@
     "pnl_usd": 1.2419091080419102,
     "pnl_pct": 2.1436905500355965,
     "exit_reason": "time_expired",
-    "prediction_id": "f83a242ca13d",
+    "prediction_id": "486747f230b5",
     "fees_paid": 0.02292264169538521,
     "used_ml": true
   },
   {
-    "id": "a7c9eead1865",
+    "id": "11028979b1b7",
     "entry_time": "2025-07-27T12:00:00+00:00",
     "exit_time": "2025-08-02T20:00:00+00:00",
     "entry_price": 118157.1831,
@@ -4721,12 +4721,12 @@
     "pnl_usd": 14.646597967777101,
     "pnl_pct": 4.771197945999405,
     "exit_reason": "take_profit",
-    "prediction_id": "65f7890a1323",
+    "prediction_id": "110ab7de6b08",
     "fees_paid": 0.1198507757573668,
     "used_ml": true
   },
   {
-    "id": "52f8426fcf76",
+    "id": "e125f09b6406",
     "entry_time": "2025-07-27T04:00:00+00:00",
     "exit_time": "2025-08-03T00:00:00+00:00",
     "entry_price": 118236.1752,
@@ -4738,12 +4738,12 @@
     "pnl_usd": 24.304611227455762,
     "pnl_pct": 4.4684270551573135,
     "exit_reason": "time_expired",
-    "prediction_id": "2e2d940ffa3c",
+    "prediction_id": "cb78beab10d1",
     "fees_paid": 0.2126857852111757,
     "used_ml": true
   },
   {
-    "id": "182555138db2",
+    "id": "6139fa516f4f",
     "entry_time": "2025-07-28T04:00:00+00:00",
     "exit_time": "2025-08-04T00:00:00+00:00",
     "entry_price": 119222.0766,
@@ -4755,12 +4755,12 @@
     "pnl_usd": 1.889582167269115,
     "pnl_pct": 3.594639368963986,
     "exit_reason": "time_expired",
-    "prediction_id": "c06b02db2143",
+    "prediction_id": "f7e148c45eda",
     "fees_paid": 0.020646724359809042,
     "used_ml": true
   },
   {
-    "id": "5fdba5132671",
+    "id": "2ca359babe4d",
     "entry_time": "2025-08-04T00:00:00+00:00",
     "exit_time": "2025-08-07T04:00:00+00:00",
     "entry_price": 114890.5098,
@@ -4772,12 +4772,12 @@
     "pnl_usd": 0.22423381849757146,
     "pnl_pct": 0.4109933128001497,
     "exit_reason": "time_expired",
-    "prediction_id": "88a629e71c6f",
+    "prediction_id": "88f915463d41",
     "fees_paid": 0.021776578038771532,
     "used_ml": true
   },
   {
-    "id": "51567270ce1d",
+    "id": "fdc3e843ad12",
     "entry_time": "2025-08-02T08:00:00+00:00",
     "exit_time": "2025-08-08T20:00:00+00:00",
     "entry_price": 113652.6336,
@@ -4789,12 +4789,12 @@
     "pnl_usd": -11.325800964388835,
     "pnl_pct": -2.9013346491427012,
     "exit_reason": "time_expired",
-    "prediction_id": "09cc70abf75d",
+    "prediction_id": "991c0b594001",
     "fees_paid": 0.1583951779519981,
     "used_ml": true
   },
   {
-    "id": "3dbaa1711536",
+    "id": "192310798025",
     "entry_time": "2025-08-02T20:00:00+00:00",
     "exit_time": "2025-08-09T08:00:00+00:00",
     "entry_price": 112740.7248,
@@ -4806,12 +4806,12 @@
     "pnl_usd": -12.568532255337209,
     "pnl_pct": -3.908446703759358,
     "exit_reason": "time_expired",
-    "prediction_id": "5f99e597d0d5",
+    "prediction_id": "24fa7553d059",
     "fees_paid": 0.1311297781782676,
     "used_ml": true
   },
   {
-    "id": "0a212a911dd4",
+    "id": "52f80bc0cf15",
     "entry_time": "2025-08-03T00:00:00+00:00",
     "exit_time": "2025-08-09T12:00:00+00:00",
     "entry_price": 112907.7081,
@@ -4823,12 +4823,12 @@
     "pnl_usd": -21.404114404559763,
     "pnl_pct": -3.7671759653050607,
     "exit_reason": "time_expired",
-    "prediction_id": "08d4653a481d",
+    "prediction_id": "b988cfafbc76",
     "fees_paid": 0.2315268448483615,
     "used_ml": true
   },
   {
-    "id": "d9b9a6d160c0",
+    "id": "21d45b5cfebd",
     "entry_time": "2025-08-07T04:00:00+00:00",
     "exit_time": "2025-08-10T08:00:00+00:00",
     "entry_price": 114372.5616,
@@ -4840,12 +4840,12 @@
     "pnl_usd": -1.9058658273256828,
     "pnl_pct": -3.4789249367656065,
     "exit_reason": "time_expired",
-    "prediction_id": "b77411111221",
+    "prediction_id": "beda60e02b84",
     "fees_paid": 0.022292179403915573,
     "used_ml": true
   },
   {
-    "id": "a7591adaf38d",
+    "id": "8497226013a3",
     "entry_time": "2025-08-02T12:00:00+00:00",
     "exit_time": "2025-08-10T12:00:00+00:00",
     "entry_price": 113587.6401,
@@ -4857,12 +4857,12 @@
     "pnl_usd": -2.5863110743195787,
     "pnl_pct": -4.365717577946225,
     "exit_reason": "time_expired",
-    "prediction_id": "25e4890ead8b",
+    "prediction_id": "ff6b80c82b09",
     "fees_paid": 0.024211339167030232,
     "used_ml": true
   },
   {
-    "id": "8fcd498116ae",
+    "id": "0c0483afd8e8",
     "entry_time": "2025-08-08T20:00:00+00:00",
     "exit_time": "2025-08-12T00:00:00+00:00",
     "entry_price": 116903.3085,
@@ -4874,12 +4874,12 @@
     "pnl_usd": -6.854377688417727,
     "pnl_pct": -1.8086643626856778,
     "exit_reason": "time_expired",
-    "prediction_id": "7cf98edb89e6",
+    "prediction_id": "ba4fc1abd601",
     "fees_paid": 0.15294526676950573,
     "used_ml": true
   },
   {
-    "id": "0f34b40d9824",
+    "id": "29124da31bb8",
     "entry_time": "2025-08-09T08:00:00+00:00",
     "exit_time": "2025-08-12T12:00:00+00:00",
     "entry_price": 117100.2888,
@@ -4891,12 +4891,12 @@
     "pnl_usd": -5.825417415683692,
     "pnl_pct": -1.8851321444734221,
     "exit_reason": "time_expired",
-    "prediction_id": "9e5a6bf54b75",
+    "prediction_id": "62e44598f263",
     "fees_paid": 0.1247601116198726,
     "used_ml": true
   },
   {
-    "id": "b675d6157b1a",
+    "id": "131d71cfc436",
     "entry_time": "2025-08-09T12:00:00+00:00",
     "exit_time": "2025-08-12T16:00:00+00:00",
     "entry_price": 117114.2874,
@@ -4908,12 +4908,12 @@
     "pnl_usd": -12.042354061356917,
     "pnl_pct": -2.2026453393764185,
     "exit_reason": "time_expired",
-    "prediction_id": "65f06ab82871",
+    "prediction_id": "c4907c9a4a1b",
     "fees_paid": 0.221075059241392,
     "used_ml": true
   },
   {
-    "id": "0bf79f362610",
+    "id": "854bef5e8e41",
     "entry_time": "2025-08-10T08:00:00+00:00",
     "exit_time": "2025-08-13T12:00:00+00:00",
     "entry_price": 118304.1684,
@@ -4925,12 +4925,12 @@
     "pnl_usd": -0.8982404587984301,
     "pnl_pct": -1.6955583498104339,
     "exit_reason": "time_expired",
-    "prediction_id": "6af1185c3877",
+    "prediction_id": "add90b662933",
     "fees_paid": 0.021367928167160558,
     "used_ml": true
   },
   {
-    "id": "5635efb9ecce",
+    "id": "4955c1825d81",
     "entry_time": "2025-08-10T12:00:00+00:00",
     "exit_time": "2025-08-13T16:00:00+00:00",
     "entry_price": 118499.1489,
@@ -4942,12 +4942,12 @@
     "pnl_usd": -1.4306109325670258,
     "pnl_pct": -2.5251574014469558,
     "exit_reason": "time_expired",
-    "prediction_id": "7c4f866189a4",
+    "prediction_id": "0f019e9291b9",
     "fees_paid": 0.022945530070792804,
     "used_ml": true
   },
   {
-    "id": "1fa415f119ab",
+    "id": "625f70f5108d",
     "entry_time": "2025-08-12T00:00:00+00:00",
     "exit_time": "2025-08-15T04:00:00+00:00",
     "entry_price": 118970.1018,
@@ -4959,12 +4959,12 @@
     "pnl_usd": -0.09253658508476978,
     "pnl_pct": -0.02487160961645391,
     "exit_reason": "time_expired",
-    "prediction_id": "0f8e5d1d5f3d",
+    "prediction_id": "328163f51069",
     "fees_paid": 0.1488264572686558,
     "used_ml": true
   },
   {
-    "id": "f743692cee20",
+    "id": "eee5ff29011d",
     "entry_time": "2025-08-12T12:00:00+00:00",
     "exit_time": "2025-08-15T16:00:00+00:00",
     "entry_price": 119260.0728,
@@ -4976,12 +4976,12 @@
     "pnl_usd": 4.550498017076576,
     "pnl_pct": 1.5007872368999575,
     "exit_reason": "time_expired",
-    "prediction_id": "c7af335f3504",
+    "prediction_id": "d89abcd4298c",
     "fees_paid": 0.12036091801608462,
     "used_ml": true
   },
   {
-    "id": "1c833249b2bd",
+    "id": "eab78a2a1480",
     "entry_time": "2025-08-12T16:00:00+00:00",
     "exit_time": "2025-08-15T20:00:00+00:00",
     "entry_price": 119646.0342,
@@ -4993,12 +4993,12 @@
     "pnl_usd": 10.039840339627988,
     "pnl_pct": 1.8778914551937569,
     "exit_reason": "time_expired",
-    "prediction_id": "040d3fa51271",
+    "prediction_id": "e4877789caa0",
     "fees_paid": 0.21182452749077613,
     "used_ml": true
   },
   {
-    "id": "147cf9424985",
+    "id": "515eb279d961",
     "entry_time": "2025-08-13T12:00:00+00:00",
     "exit_time": "2025-08-16T16:00:00+00:00",
     "entry_price": 120261.97260000001,
@@ -5010,12 +5010,12 @@
     "pnl_usd": 1.0380123509798558,
     "pnl_pct": 1.989506734001474,
     "exit_reason": "time_expired",
-    "prediction_id": "3cab7b797c7d",
+    "prediction_id": "b60b8cd1846f",
     "fees_paid": 0.02066009538640657,
     "used_ml": true
   },
   {
-    "id": "2d688e930e0f",
+    "id": "e0f43f185970",
     "entry_time": "2025-08-13T16:00:00+00:00",
     "exit_time": "2025-08-16T20:00:00+00:00",
     "entry_price": 121442.8545,
@@ -5027,12 +5027,12 @@
     "pnl_usd": 1.6695372187507513,
     "pnl_pct": 3.0232584373912266,
     "exit_reason": "time_expired",
-    "prediction_id": "6e8e5040cc4c",
+    "prediction_id": "72c77151c179",
     "fees_paid": 0.0217531933373084,
     "used_ml": true
   },
   {
-    "id": "02eae4a0bb50",
+    "id": "bda19344b8b8",
     "entry_time": "2025-08-15T16:00:00+00:00",
     "exit_time": "2025-08-21T20:00:00+00:00",
     "entry_price": 117423.2565,
@@ -5044,12 +5044,12 @@
     "pnl_usd": 13.012209592534857,
     "pnl_pct": 4.227890538447134,
     "exit_reason": "time_expired",
-    "prediction_id": "ebc9d4c8673f",
+    "prediction_id": "74579c53b941",
     "fees_paid": 0.12049406227569809,
     "used_ml": true
   },
   {
-    "id": "95ebedf877e6",
+    "id": "648ffe1d491f",
     "entry_time": "2025-08-15T04:00:00+00:00",
     "exit_time": "2025-08-22T08:00:00+00:00",
     "entry_price": 118952.1036,
@@ -5061,12 +5061,12 @@
     "pnl_usd": 18.66262764511886,
     "pnl_pct": 5.01816820414768,
     "exit_reason": "time_expired",
-    "prediction_id": "9f692a45bea0",
+    "prediction_id": "77d6b105beb2",
     "fees_paid": 0.1450138267641211,
     "used_ml": true
   },
   {
-    "id": "4772d1d2fd51",
+    "id": "0ff03abb1596",
     "entry_time": "2025-08-15T20:00:00+00:00",
     "exit_time": "2025-08-22T08:00:00+00:00",
     "entry_price": 117352.2636,
@@ -5078,12 +5078,12 @@
     "pnl_usd": 20.278064472622482,
     "pnl_pct": 3.7232998384361906,
     "exit_reason": "time_expired",
-    "prediction_id": "2d40fb6f3338",
+    "prediction_id": "667ec44ba144",
     "fees_paid": 0.21377387640482176,
     "used_ml": true
   },
   {
-    "id": "113b1c1b4884",
+    "id": "296912b6e33e",
     "entry_time": "2025-08-16T20:00:00+00:00",
     "exit_time": "2025-08-23T08:00:00+00:00",
     "entry_price": 117724.2264,
@@ -5095,12 +5095,12 @@
     "pnl_usd": 0.9614613213037686,
     "pnl_pct": 1.68997847498279,
     "exit_reason": "time_expired",
-    "prediction_id": "3af7d8ce4269",
+    "prediction_id": "3c9fabe17eda",
     "fees_paid": 0.022562241788152963,
     "used_ml": true
   },
   {
-    "id": "f5c9b935fbc0",
+    "id": "b48eb01168ea",
     "entry_time": "2025-08-16T16:00:00+00:00",
     "exit_time": "2025-08-23T12:00:00+00:00",
     "entry_price": 117822.2166,
@@ -5112,12 +5112,12 @@
     "pnl_usd": 1.1875741992028699,
     "pnl_pct": 2.2276489718832844,
     "exit_reason": "time_expired",
-    "prediction_id": "5f9c1b566cfb",
+    "prediction_id": "15b8bc585a02",
     "fees_paid": 0.021084661597953233,
     "used_ml": true
   },
   {
-    "id": "466433cbcb7a",
+    "id": "db9c62ab22c3",
     "entry_time": "2025-08-23T12:00:00+00:00",
     "exit_time": "2025-08-26T16:00:00+00:00",
     "entry_price": 115151.4837,
@@ -5129,12 +5129,12 @@
     "pnl_usd": 2.349569631014876,
     "pnl_pct": 4.311221303803308,
     "exit_reason": "time_expired",
-    "prediction_id": "c7edc0f7276e",
+    "prediction_id": "4a833d1aa4b1",
     "fees_paid": 0.02132757391280318,
     "used_ml": true
   },
   {
-    "id": "19f0f82b1ef9",
+    "id": "c09943a1148b",
     "entry_time": "2025-08-21T20:00:00+00:00",
     "exit_time": "2025-08-27T20:00:00+00:00",
     "entry_price": 112413.7575,
@@ -5146,12 +5146,12 @@
     "pnl_usd": 0.09627036922474401,
     "pnl_pct": 0.030016001200007802,
     "exit_reason": "stop_loss",
-    "prediction_id": "7d5a34267712",
+    "prediction_id": "594699372922",
     "fees_paid": 0.12825998786847292,
     "used_ml": true
   },
   {
-    "id": "b8522b472ef4",
+    "id": "8ae8c1ed92c7",
     "entry_time": "2025-08-23T08:00:00+00:00",
     "exit_time": "2025-08-28T00:00:00+00:00",
     "entry_price": 115688.43000000001,
@@ -5163,12 +5163,12 @@
     "pnl_usd": 2.1600340307912282,
     "pnl_pct": 3.722086187028385,
     "exit_reason": "time_expired",
-    "prediction_id": "64954e5827f6",
+    "prediction_id": "b32a31e36b23",
     "fees_paid": 0.0227789130949709,
     "used_ml": true
   },
   {
-    "id": "4827f7f64dd2",
+    "id": "0d578bc8a189",
     "entry_time": "2025-08-22T08:00:00+00:00",
     "exit_time": "2025-08-28T04:00:00+00:00",
     "entry_price": 112937.7051,
@@ -5180,12 +5180,12 @@
     "pnl_usd": 0.286755192930697,
     "pnl_pct": 0.030016001199996985,
     "exit_reason": "stop_loss",
-    "prediction_id": "2165fc7c27ea",
+    "prediction_id": "7ede9ca34f14",
     "fees_paid": 0.38204089028332977,
     "used_ml": true
   },
   {
-    "id": "966a94a8e523",
+    "id": "57268079105c",
     "entry_time": "2025-08-27T20:00:00+00:00",
     "exit_time": "2025-08-31T00:00:00+00:00",
     "entry_price": 112411.7577,
@@ -5197,12 +5197,12 @@
     "pnl_usd": 8.503424077557062,
     "pnl_pct": 2.650911143986146,
     "exit_reason": "time_expired",
-    "prediction_id": "310601937f2b",
+    "prediction_id": "17991d7c7037",
     "fees_paid": 0.12659628148284152,
     "used_ml": true
   },
   {
-    "id": "ec16bfd0ce62",
+    "id": "c63d1ad73ee2",
     "entry_time": "2025-08-28T04:00:00+00:00",
     "exit_time": "2025-08-31T08:00:00+00:00",
     "entry_price": 112964.7024,
@@ -5214,12 +5214,12 @@
     "pnl_usd": 27.006912190063975,
     "pnl_pct": 3.4559395426159227,
     "exit_reason": "time_expired",
-    "prediction_id": "b7044488f452",
+    "prediction_id": "909075bb7b57",
     "fees_paid": 0.307153915725882,
     "used_ml": true
   },
   {
-    "id": "72e0730a39b1",
+    "id": "7e68c60754b1",
     "entry_time": "2025-08-28T08:00:00+00:00",
     "exit_time": "2025-08-31T12:00:00+00:00",
     "entry_price": 113123.6865,
@@ -5231,12 +5231,12 @@
     "pnl_usd": 7.310839226089846,
     "pnl_pct": 4.198220443567315,
     "exit_reason": "time_expired",
-    "prediction_id": "af1981add9be",
+    "prediction_id": "096455137fb5",
     "fees_paid": 0.06818771427026839,
     "used_ml": true
   },
   {
-    "id": "cf8f9bd10221",
+    "id": "46254fb0668d",
     "entry_time": "2025-08-26T16:00:00+00:00",
     "exit_time": "2025-09-01T20:00:00+00:00",
     "entry_price": 110142.9846,
@@ -5248,12 +5248,12 @@
     "pnl_usd": 0.6391337904902787,
     "pnl_pct": 1.1242847895007912,
     "exit_reason": "time_expired",
-    "prediction_id": "39c44fe36949",
+    "prediction_id": "4769a699d43c",
     "fees_paid": 0.02260913861879105,
     "used_ml": true
   },
   {
-    "id": "61f93d7547ff",
+    "id": "4022043006b0",
     "entry_time": "2025-08-28T00:00:00+00:00",
     "exit_time": "2025-09-03T12:00:00+00:00",
     "entry_price": 111337.8651,
@@ -5265,12 +5265,12 @@
     "pnl_usd": 0.0841510494167013,
     "pnl_pct": 0.1396812996910922,
     "exit_reason": "time_expired",
-    "prediction_id": "129d785d8042",
+    "prediction_id": "25c028dfeee7",
     "fees_paid": 0.0240787782738592,
     "used_ml": true
   },
   {
-    "id": "97a4a62191ab",
+    "id": "f737d1425dfb",
     "entry_time": "2025-09-01T20:00:00+00:00",
     "exit_time": "2025-09-06T00:00:00+00:00",
     "entry_price": 108861.1128,
@@ -5282,12 +5282,12 @@
     "pnl_usd": -1.0402055085496622,
     "pnl_pct": -1.8070069883577284,
     "exit_reason": "time_expired",
-    "prediction_id": "014686679e5a",
+    "prediction_id": "9f0713652906",
     "fees_paid": 0.02323174020674261,
     "used_ml": true
   },
   {
-    "id": "a0f6f6478426",
+    "id": "ed38bf75e242",
     "entry_time": "2025-08-31T00:00:00+00:00",
     "exit_time": "2025-09-06T12:00:00+00:00",
     "entry_price": 109388.0601,
@@ -5299,12 +5299,12 @@
     "pnl_usd": -4.494357336111528,
     "pnl_pct": -1.3650452486267233,
     "exit_reason": "time_expired",
-    "prediction_id": "87a25bc0fead",
+    "prediction_id": "a1376507d0ff",
     "fees_paid": 0.13258393790714343,
     "used_ml": true
   },
   {
-    "id": "929385575194",
+    "id": "6af59a7ea6a2",
     "entry_time": "2025-08-31T08:00:00+00:00",
     "exit_time": "2025-09-06T12:00:00+00:00",
     "entry_price": 109017.0972,
@@ -5316,12 +5316,12 @@
     "pnl_usd": -9.280201547242084,
     "pnl_pct": -1.7099697798227498,
     "exit_reason": "time_expired",
-    "prediction_id": "a801b79e057e",
+    "prediction_id": "5ed0938daff9",
     "fees_paid": 0.21891853945899664,
     "used_ml": true
   },
   {
-    "id": "899244ff14d1",
+    "id": "347162638d05",
     "entry_time": "2025-08-31T12:00:00+00:00",
     "exit_time": "2025-09-07T00:00:00+00:00",
     "entry_price": 108331.1658,
@@ -5333,12 +5333,12 @@
     "pnl_usd": -8.623132914442769,
     "pnl_pct": -1.9283024347735784,
     "exit_reason": "time_expired",
-    "prediction_id": "514883957fdd",
+    "prediction_id": "0cd4e7d47055",
     "fees_paid": 0.1805815111339609,
     "used_ml": true
   },
   {
-    "id": "7210db14d9af",
+    "id": "1c2702a64844",
     "entry_time": "2025-09-03T12:00:00+00:00",
     "exit_time": "2025-09-13T16:00:00+00:00",
     "entry_price": 111137.8851,
@@ -5350,12 +5350,12 @@
     "pnl_usd": -2.3285836369342583,
     "pnl_pct": -3.8598315093005167,
     "exit_reason": "time_expired",
-    "prediction_id": "f222aa71d18d",
+    "prediction_id": "3636921b835f",
     "fees_paid": 0.02459466467114417,
     "used_ml": true
   },
   {
-    "id": "cc2853152dbd",
+    "id": "a96be9718590",
     "entry_time": "2025-09-06T00:00:00+00:00",
     "exit_time": "2025-09-14T08:00:00+00:00",
     "entry_price": 110783.92050000001,
@@ -5367,12 +5367,12 @@
     "pnl_usd": -2.6725405405195506,
     "pnl_pct": -4.728012780284295,
     "exit_reason": "time_expired",
-    "prediction_id": "4fd628c86d04",
+    "prediction_id": "f92f9126b4b2",
     "fees_paid": 0.02314240559746529,
     "used_ml": true
   },
   {
-    "id": "9efc6a096fd9",
+    "id": "53d1eedfa07c",
     "entry_time": "2025-09-06T12:00:00+00:00",
     "exit_time": "2025-09-14T20:00:00+00:00",
     "entry_price": 110836.9152,
@@ -5384,12 +5384,12 @@
     "pnl_usd": -39.13110054061676,
     "pnl_pct": -4.560614311593538,
     "exit_reason": "time_expired",
-    "prediction_id": "7fe5d25a2886",
+    "prediction_id": "710421518aa0",
     "fees_paid": 0.35099937278969545,
     "used_ml": true
   },
   {
-    "id": "223ea0c90ec9",
+    "id": "63f364bf5796",
     "entry_time": "2025-09-07T00:00:00+00:00",
     "exit_time": "2025-09-15T08:00:00+00:00",
     "entry_price": 110375.9613,
@@ -5401,12 +5401,12 @@
     "pnl_usd": -17.57547640324772,
     "pnl_pct": -4.006733117603211,
     "exit_reason": "time_expired",
-    "prediction_id": "8b62116c28d5",
+    "prediction_id": "75faee7b756e",
     "fees_paid": 0.17895626677945792,
     "used_ml": true
   },
   {
-    "id": "50b600d2e0d3",
+    "id": "778e34f02a01",
     "entry_time": "2025-09-14T08:00:00+00:00",
     "exit_time": "2025-09-17T12:00:00+00:00",
     "entry_price": 115975.4013,
@@ -5418,12 +5418,12 @@
     "pnl_usd": -0.1358108631845696,
     "pnl_pct": -0.2521835849512981,
     "exit_reason": "time_expired",
-    "prediction_id": "5e5bac6787e9",
+    "prediction_id": "abf424ea5fb9",
     "fees_paid": 0.02156658958584126,
     "used_ml": true
   },
   {
-    "id": "5380a6c97c31",
+    "id": "48780819836b",
     "entry_time": "2025-09-13T16:00:00+00:00",
     "exit_time": "2025-09-21T16:00:00+00:00",
     "entry_price": 115381.4607,
@@ -5435,12 +5435,12 @@
     "pnl_usd": -0.01769554869845611,
     "pnl_pct": -0.03046954634367826,
     "exit_reason": "time_expired",
-    "prediction_id": "2de476d9525c",
+    "prediction_id": "3706585c1694",
     "fees_paid": 0.023231687975211725,
     "used_ml": true
   },
   {
-    "id": "37ac1bc2bfbe",
+    "id": "0d489b7b2862",
     "entry_time": "2025-09-14T20:00:00+00:00",
     "exit_time": "2025-09-22T20:00:00+00:00",
     "entry_price": 115845.4143,
@@ -5452,12 +5452,12 @@
     "pnl_usd": 20.980317510874457,
     "pnl_pct": 2.5625176111438055,
     "exit_reason": "time_expired",
-    "prediction_id": "ac7efb25a6e8",
+    "prediction_id": "36dd918fc69c",
     "fees_paid": 0.3232674209882162,
     "used_ml": true
   },
   {
-    "id": "c4f4feca98c3",
+    "id": "99987b14add6",
     "entry_time": "2025-09-15T08:00:00+00:00",
     "exit_time": "2025-09-23T08:00:00+00:00",
     "entry_price": 114752.5236,
@@ -5469,12 +5469,12 @@
     "pnl_usd": 5.591619491951933,
     "pnl_pct": 1.3276944055808135,
     "exit_reason": "time_expired",
-    "prediction_id": "d9ab569e6f22",
+    "prediction_id": "0cf2b880531f",
     "fees_paid": 0.16732609646788565,
     "used_ml": true
   },
   {
-    "id": "89ceb057adce",
+    "id": "2f348ce0a175",
     "entry_time": "2025-09-23T00:00:00+00:00",
     "exit_time": "2025-09-25T16:00:00+00:00",
     "entry_price": 112473.7515,
@@ -5486,12 +5486,12 @@
     "pnl_usd": 0.80012558306018,
     "pnl_pct": 1.2869237140542937,
     "exit_reason": "time_expired",
-    "prediction_id": "66a44863a84c",
+    "prediction_id": "22eb29d63e84",
     "fees_paid": 0.024706922543414406,
     "used_ml": true
   },
   {
-    "id": "87eb513dca06",
+    "id": "7f7300bfb7f9",
     "entry_time": "2025-09-17T12:00:00+00:00",
     "exit_time": "2025-09-25T20:00:00+00:00",
     "entry_price": 116221.37670000001,
@@ -5503,12 +5503,12 @@
     "pnl_usd": 3.2318168764692445,
     "pnl_pct": 6.008027881053322,
     "exit_reason": "time_expired",
-    "prediction_id": "69402cf3698e",
+    "prediction_id": "ab9de98a2d53",
     "fees_paid": 0.020868271618722005,
     "used_ml": true
   },
   {
-    "id": "8b010b0fb716",
+    "id": "56606ff43d18",
     "entry_time": "2025-09-22T20:00:00+00:00",
     "exit_time": "2025-09-26T00:00:00+00:00",
     "entry_price": 112831.7157,
@@ -5520,12 +5520,12 @@
     "pnl_usd": 22.560754192488393,
     "pnl_pct": 2.9015387997862385,
     "exit_reason": "time_expired",
-    "prediction_id": "fecda6207609",
+    "prediction_id": "a94afb38440e",
     "fees_paid": 0.30647543985193193,
     "used_ml": true
   },
   {
-    "id": "83d47e31c970",
+    "id": "f4567e7d4ad9",
     "entry_time": "2025-09-23T08:00:00+00:00",
     "exit_time": "2025-09-26T12:00:00+00:00",
     "entry_price": 113183.6805,
@@ -5537,12 +5537,12 @@
     "pnl_usd": 14.034118872015808,
     "pnl_pct": 3.2892108606063557,
     "exit_reason": "time_expired",
-    "prediction_id": "9b48cdd4d998",
+    "prediction_id": "53ee802284b2",
     "fees_paid": 0.1678451956599944,
     "used_ml": true
   },
   {
-    "id": "116d31477774",
+    "id": "4dda94130500",
     "entry_time": "2025-09-21T16:00:00+00:00",
     "exit_time": "2025-09-28T04:00:00+00:00",
     "entry_price": 115370.4618,
@@ -5554,12 +5554,12 @@
     "pnl_usd": 2.975904628056055,
     "pnl_pct": 5.125776840324656,
     "exit_reason": "time_expired",
-    "prediction_id": "565ccc41b4ff",
+    "prediction_id": "e88cb0121803",
     "fees_paid": 0.022625668834862077,
     "used_ml": true
   },
   {
-    "id": "20ca8d4360c0",
+    "id": "78b00eb806f9",
     "entry_time": "2025-09-25T20:00:00+00:00",
     "exit_time": "2025-09-28T12:00:00+00:00",
     "entry_price": 109195.0794,
@@ -5571,12 +5571,12 @@
     "pnl_usd": -0.10117090125916404,
     "pnl_pct": -0.17741604125798613,
     "exit_reason": "time_expired",
-    "prediction_id": "991603f69163",
+    "prediction_id": "f0a2f98006ed",
     "fees_paid": 0.022827815169887133,
     "used_ml": true
   },
   {
-    "id": "6f3bfcfeea20",
+    "id": "ebf79214a346",
     "entry_time": "2025-09-25T16:00:00+00:00",
     "exit_time": "2025-10-02T04:00:00+00:00",
     "entry_price": 110981.9007,
@@ -5588,12 +5588,12 @@
     "pnl_usd": -4.4217600660873035,
     "pnl_pct": -7.013504567416365,
     "exit_reason": "time_expired",
-    "prediction_id": "859e0d25f1c7",
+    "prediction_id": "677930244fd0",
     "fees_paid": 0.026100201979042316,
     "used_ml": true
   },
   {
-    "id": "529f2c93a1da",
+    "id": "9820ff53e069",
     "entry_time": "2025-09-26T00:00:00+00:00",
     "exit_time": "2025-10-02T12:00:00+00:00",
     "entry_price": 109514.0475,
@@ -5605,12 +5605,12 @@
     "pnl_usd": -73.05916635424396,
     "pnl_pct": -9.132891275523356,
     "exit_reason": "time_expired",
-    "prediction_id": "1ab319b55635",
+    "prediction_id": "9b633f4dc908",
     "fees_paid": 0.3345595588559741,
     "used_ml": true
   },
   {
-    "id": "5012b876f26a",
+    "id": "77d8fe5cc58a",
     "entry_time": "2025-09-26T12:00:00+00:00",
     "exit_time": "2025-10-03T00:00:00+00:00",
     "entry_price": 109417.0572,
@@ -5622,12 +5622,12 @@
     "pnl_usd": -43.748653315540686,
     "pnl_pct": -9.925342339420915,
     "exit_reason": "time_expired",
-    "prediction_id": "0aee3d5e721b",
+    "prediction_id": "829068094b6a",
     "fees_paid": 0.18504126276566774,
     "used_ml": true
   },
   {
-    "id": "95577b074862",
+    "id": "90cf5aa0324e",
     "entry_time": "2025-09-28T04:00:00+00:00",
     "exit_time": "2025-10-03T16:00:00+00:00",
     "entry_price": 109413.0576,
@@ -5639,12 +5639,12 @@
     "pnl_usd": -7.025528643158635,
     "pnl_pct": -11.496625541260142,
     "exit_reason": "stop_loss",
-    "prediction_id": "1294f6b07c63",
+    "prediction_id": "a08fb6f6af72",
     "fees_paid": 0.02584617481223178,
     "used_ml": true
   },
   {
-    "id": "e63ce16c2190",
+    "id": "7ac1ba33ee5d",
     "entry_time": "2025-09-28T12:00:00+00:00",
     "exit_time": "2025-10-03T16:00:00+00:00",
     "entry_price": 109345.0644,
@@ -5656,12 +5656,12 @@
     "pnl_usd": -6.301686878856129,
     "pnl_pct": -11.070287266172524,
     "exit_reason": "stop_loss",
-    "prediction_id": "b071c887cb34",
+    "prediction_id": "90556bc9a347",
     "fees_paid": 0.024027540925750282,
     "used_ml": true
   },
   {
-    "id": "03f27ac38d3c",
+    "id": "f5e2d69239ad",
     "entry_time": "2025-10-02T04:00:00+00:00",
     "exit_time": "2025-10-11T08:00:00+00:00",
     "entry_price": 118718.12700000001,
@@ -5673,12 +5673,12 @@
     "pnl_usd": 3.5750363350149064,
     "pnl_pct": 6.098218910663922,
     "exit_reason": "time_expired",
-    "prediction_id": "370560320f17",
+    "prediction_id": "438c146925f6",
     "fees_paid": 0.022732499306508572,
     "used_ml": true
   },
   {
-    "id": "c3f8792bbe01",
+    "id": "63fe13586970",
     "entry_time": "2025-10-02T12:00:00+00:00",
     "exit_time": "2025-10-11T16:00:00+00:00",
     "entry_price": 119468.052,
@@ -5690,12 +5690,12 @@
     "pnl_usd": 45.457459182445724,
     "pnl_pct": 6.254777771684091,
     "exit_reason": "time_expired",
-    "prediction_id": "6208faf79c3f",
+    "prediction_id": "cd98903a2766",
     "fees_paid": 0.2815867721985128,
     "used_ml": true
   },
   {
-    "id": "7dc07e7564af",
+    "id": "6e36d3130678",
     "entry_time": "2025-10-03T00:00:00+00:00",
     "exit_time": "2025-10-17T08:00:00+00:00",
     "entry_price": 120228.9759,
@@ -5707,12 +5707,12 @@
     "pnl_usd": 42.539877873265894,
     "pnl_pct": 10.7127826522264,
     "exit_reason": "take_profit",
-    "prediction_id": "78c2d9d4f581",
+    "prediction_id": "86079b7a6ac2",
     "fees_paid": 0.1503156718242072,
     "used_ml": true
   },
   {
-    "id": "273ede8775a2",
+    "id": "5706a2de0257",
     "entry_time": "2025-10-03T16:00:00+00:00",
     "exit_time": "2025-10-17T08:00:00+00:00",
     "entry_price": 122612.7375,
@@ -5724,12 +5724,12 @@
     "pnl_usd": 14.301230698962517,
     "pnl_pct": 13.650761389671661,
     "exit_reason": "take_profit",
-    "prediction_id": "255a8c2bb97e",
+    "prediction_id": "15c37570d629",
     "fees_paid": 0.03904216688262167,
     "used_ml": true
   },
   {
-    "id": "e824805013a1",
+    "id": "1a6957cfe81c",
     "entry_time": "2025-10-11T08:00:00+00:00",
     "exit_time": "2025-11-17T20:00:00+00:00",
     "entry_price": 111433.8555,
@@ -5741,12 +5741,12 @@
     "pnl_usd": 11.168300375017433,
     "pnl_pct": 17.95320977443521,
     "exit_reason": "take_profit",
-    "prediction_id": "35ec6375b771",
+    "prediction_id": "7c6b8c4a0d1c",
     "fees_paid": 0.02264742665066799,
     "used_ml": true
   },
   {
-    "id": "9fa30cbe5e45",
+    "id": "1d2dd4e3d519",
     "entry_time": "2025-10-11T16:00:00+00:00",
     "exit_time": "2025-11-18T04:00:00+00:00",
     "entry_price": 111950.8038,
@@ -5758,12 +5758,12 @@
     "pnl_usd": 146.11350341311405,
     "pnl_pct": 18.924677294163907,
     "exit_reason": "take_profit",
-    "prediction_id": "4faef9b60ddc",
+    "prediction_id": "879d8b49bfdd",
     "fees_paid": 0.2795839591329079,
     "used_ml": true
   },
   {
-    "id": "1db775d9de37",
+    "id": "89f52b51c303",
     "entry_time": "2025-10-17T08:00:00+00:00",
     "exit_time": "2025-11-21T12:00:00+00:00",
     "entry_price": 104878.5111,
@@ -5775,12 +5775,12 @@
     "pnl_usd": 128.80175099628352,
     "pnl_pct": 23.052038642059593,
     "exit_reason": "take_profit",
-    "prediction_id": "fe14b2d2cf26",
+    "prediction_id": "180ba27eeff2",
     "fees_paid": 0.19771982688312587,
     "used_ml": true
   },
   {
-    "id": "7f1d5a665c8a",
+    "id": "204eee101dac",
     "entry_time": "2025-11-17T20:00:00+00:00",
     "exit_time": "2026-01-02T00:00:00+00:00",
     "entry_price": 91828.8162,
@@ -5792,12 +5792,12 @@
     "pnl_usd": 2.4652987560323587,
     "pnl_pct": 3.3553717156380025,
     "exit_reason": "time_expired",
-    "prediction_id": "a896e0eb6721",
+    "prediction_id": "4d0b36474519",
     "fees_paid": 0.028893377933821275,
     "used_ml": true
   },
   {
-    "id": "caf3dafe793c",
+    "id": "fc1505f2758a",
     "entry_time": "2025-11-18T04:00:00+00:00",
     "exit_time": "2026-01-02T08:00:00+00:00",
     "entry_price": 89958.0033,
@@ -5809,12 +5809,12 @@
     "pnl_usd": 8.952719786582946,
     "pnl_pct": 0.9752165307564061,
     "exit_reason": "time_expired",
-    "prediction_id": "46ff65af20a7",
+    "prediction_id": "230317b579c6",
     "fees_paid": 0.3653826177106503,
     "used_ml": true
   },
   {
-    "id": "78049c156b8d",
+    "id": "e1fb15b8266d",
     "entry_time": "2025-11-21T12:00:00+00:00",
     "exit_time": "2026-01-05T16:00:00+00:00",
     "entry_price": 83159.6832,
@@ -5826,12 +5826,12 @@
     "pnl_usd": -87.25913933212254,
     "pnl_pct": -12.69055360434562,
     "exit_reason": "time_expired",
-    "prediction_id": "da0ce73d9597",
+    "prediction_id": "e8f9c104fa88",
     "fees_paid": 0.29245735004566287,
     "used_ml": true
   },
   {
-    "id": "933dcba18fbb",
+    "id": "611af8a4ced2",
     "entry_time": "2026-01-02T00:00:00+00:00",
     "exit_time": "2026-02-05T16:00:00+00:00",
     "entry_price": 88712.1279,
@@ -5843,12 +5843,12 @@
     "pnl_usd": 17.17992634871965,
     "pnl_pct": 22.587089772213485,
     "exit_reason": "take_profit",
-    "prediction_id": "7b0be2c15e13",
+    "prediction_id": "a4e8804739d9",
     "fees_paid": 0.026985989123243955,
     "used_ml": true
   },
   {
-    "id": "eb17f80e80ed",
+    "id": "9b23be3489ef",
     "entry_time": "2026-01-02T08:00:00+00:00",
     "exit_time": "2026-02-05T16:00:00+00:00",
     "entry_price": 89045.0946,
@@ -5860,12 +5860,12 @@
     "pnl_usd": 209.27053456416263,
     "pnl_pct": 22.579748092684362,
     "exit_reason": "take_profit",
-    "prediction_id": "ad82b79fe9fc",
+    "prediction_id": "fe31bb505fbe",
     "fees_paid": 0.3288397292937175,
     "used_ml": true
   },
   {
-    "id": "1aa3d9ed504a",
+    "id": "4ce691c5c985",
     "entry_time": "2026-01-05T16:00:00+00:00",
     "exit_time": "2026-02-05T20:00:00+00:00",
     "entry_price": 93675.6315,
@@ -5877,12 +5877,12 @@
     "pnl_usd": 173.9232964562042,
     "pnl_pct": 28.96802811276089,
     "exit_reason": "take_profit",
-    "prediction_id": "7c4b4f4670c2",
+    "prediction_id": "1f6585628596",
     "fees_paid": 0.20535725735543361,
     "used_ml": true
   },
   {
-    "id": "d42ef1a08868",
+    "id": "5c170b3a0f71",
     "entry_time": "2026-02-05T16:00:00+00:00",
     "exit_time": "2026-02-06T00:00:00+00:00",
     "entry_price": 68149.1844,
@@ -5894,12 +5894,12 @@
     "pnl_usd": 119.71217501162455,
     "pnl_pct": 9.739096220519436,
     "exit_reason": "take_profit",
-    "prediction_id": "3ac5ea5eaba4",
+    "prediction_id": "1084447c7d29",
     "fees_paid": 0.46768992649318153,
     "used_ml": true
   },
   {
-    "id": "994436995379",
+    "id": "6211ad8acc58",
     "entry_time": "2026-02-05T20:00:00+00:00",
     "exit_time": "2026-02-13T12:00:00+00:00",
     "entry_price": 63625.6368,
@@ -5911,12 +5911,12 @@
     "pnl_usd": -41.71708835987869,
     "pnl_pct": -5.386939311010548,
     "exit_reason": "time_expired",
-    "prediction_id": "fc1f0879e67c",
+    "prediction_id": "b229789fd997",
     "fees_paid": 0.31807545951973093,
     "used_ml": true
   },
   {
-    "id": "42247be051b4",
+    "id": "16bbf7380547",
     "entry_time": "2026-02-06T00:00:00+00:00",
     "exit_time": "2026-02-13T16:00:00+00:00",
     "entry_price": 63394.6599,
@@ -5928,12 +5928,12 @@
     "pnl_usd": -117.9123161738219,
     "pnl_pct": -8.742086931394681,
     "exit_reason": "time_expired",
-    "prediction_id": "141463737d6c",
+    "prediction_id": "bb7e5d99604d",
     "fees_paid": 0.5630394493371458,
     "used_ml": true
   },
   {
-    "id": "bb2e72c3385c",
+    "id": "c53978873b16",
     "entry_time": "2026-02-11T04:00:00+00:00",
     "exit_time": "2026-02-18T00:00:00+00:00",
     "entry_price": 67530.2463,
@@ -5945,12 +5945,12 @@
     "pnl_usd": 0.4018367246735227,
     "pnl_pct": 0.36141605880682887,
     "exit_reason": "time_expired",
-    "prediction_id": "4ad9264ec530",
+    "prediction_id": "41b412ca3dff",
     "fees_paid": 0.04438879050752717,
     "used_ml": true
   },
   {
-    "id": "58adeceb70ed",
+    "id": "117a94d722cf",
     "entry_time": "2026-02-11T08:00:00+00:00",
     "exit_time": "2026-02-18T04:00:00+00:00",
     "entry_price": 66954.3039,
@@ -5962,12 +5962,12 @@
     "pnl_usd": -0.8881793647333719,
     "pnl_pct": -1.2486552868186906,
     "exit_reason": "time_expired",
-    "prediction_id": "73326a430c9e",
+    "prediction_id": "d59695541231",
     "fees_paid": 0.02862710355626542,
     "used_ml": true
   },
   {
-    "id": "634030e7890f",
+    "id": "7b452dc1588e",
     "entry_time": "2026-02-11T16:00:00+00:00",
     "exit_time": "2026-02-18T12:00:00+00:00",
     "entry_price": 65987.4006,
@@ -5979,12 +5979,12 @@
     "pnl_usd": -2.6983123538011826,
     "pnl_pct": -2.2213795896364017,
     "exit_reason": "time_expired",
-    "prediction_id": "0db32ed38002",
+    "prediction_id": "8626c099e600",
     "fees_paid": 0.04912274293717332,
     "used_ml": true
   },
   {
-    "id": "907ffdbe19a3",
+    "id": "e967a6345269",
     "entry_time": "2026-02-12T20:00:00+00:00",
     "exit_time": "2026-02-19T16:00:00+00:00",
     "entry_price": 65347.4646,
@@ -5996,12 +5996,12 @@
     "pnl_usd": -1.2009856971520085,
     "pnl_pct": -1.4513486197596,
     "exit_reason": "time_expired",
-    "prediction_id": "f6b787ed928e",
+    "prediction_id": "fe79f1225f48",
     "fees_paid": 0.033336694109144555,
     "used_ml": true
   },
   {
-    "id": "8d2aedfcc2dd",
+    "id": "842d1287c70f",
     "entry_time": "2026-02-13T12:00:00+00:00",
     "exit_time": "2026-02-20T08:00:00+00:00",
     "entry_price": 67026.2967,
@@ -6013,12 +6013,12 @@
     "pnl_usd": -6.9566985698279735,
     "pnl_pct": -1.2592962740846119,
     "exit_reason": "time_expired",
-    "prediction_id": "b7dc3a0a63d7",
+    "prediction_id": "a300eb7287b4",
     "fees_paid": 0.22233995755501035,
     "used_ml": true
   },
   {
-    "id": "eb653152ef2e",
+    "id": "99aa4b98db91",
     "entry_time": "2026-02-13T16:00:00+00:00",
     "exit_time": "2026-02-21T08:00:00+00:00",
     "entry_price": 68909.1084,
@@ -6030,12 +6030,12 @@
     "pnl_usd": 13.771204282934905,
     "pnl_pct": 1.2359700466825272,
     "exit_reason": "time_expired",
-    "prediction_id": "0d984f44cdcb",
+    "prediction_id": "8dd3752137c2",
     "fees_paid": 0.44288259289121606,
     "used_ml": true
   },
   {
-    "id": "cd9f70d9f60e",
+    "id": "73df7ff65613",
     "entry_time": "2026-02-18T00:00:00+00:00",
     "exit_time": "2026-02-24T12:00:00+00:00",
     "entry_price": 67259.2734,
@@ -6047,12 +6047,12 @@
     "pnl_usd": 18.96665436604601,
     "pnl_pct": 6.347646390988232,
     "exit_reason": "time_expired",
-    "prediction_id": "228811873348",
+    "prediction_id": "5fee170fde0e",
     "fees_paid": 0.11571476571095055,
     "used_ml": true
   },
   {
-    "id": "b1a33ac4f950",
+    "id": "7942f26f008c",
     "entry_time": "2026-02-18T12:00:00+00:00",
     "exit_time": "2026-02-25T08:00:00+00:00",
     "entry_price": 67426.2567,
@@ -6064,12 +6064,12 @@
     "pnl_usd": 4.845154258508499,
     "pnl_pct": 2.8202720764416997,
     "exit_reason": "time_expired",
-    "prediction_id": "bccba6b13cde",
+    "prediction_id": "7c33520756a1",
     "fees_paid": 0.06774325463813952,
     "used_ml": true
   },
   {
-    "id": "9b2f627014ff",
+    "id": "1b12b3a7f003",
     "entry_time": "2026-02-18T20:00:00+00:00",
     "exit_time": "2026-02-25T08:00:00+00:00",
     "entry_price": 66209.3784,
@@ -6081,12 +6081,12 @@
     "pnl_usd": 1.4932020802949517,
     "pnl_pct": 1.0341821754665559,
     "exit_reason": "time_expired",
-    "prediction_id": "57ac529be49d",
+    "prediction_id": "a693865f5834",
     "fees_paid": 0.05744957336283783,
     "used_ml": true
   },
   {
-    "id": "cf50d29b526f",
+    "id": "4c3c1774d70a",
     "entry_time": "2026-02-21T08:00:00+00:00",
     "exit_time": "2026-02-25T16:00:00+00:00",
     "entry_price": 68030.1963,
@@ -6098,12 +6098,12 @@
     "pnl_usd": 0.3276160028961153,
     "pnl_pct": 0.03001600119999571,
     "exit_reason": "stop_loss",
-    "prediction_id": "aedbd384a7d8",
+    "prediction_id": "c26eac8f173a",
     "fees_paid": 0.4364793123301953,
     "used_ml": true
   },
   {
-    "id": "3028250f86a2",
+    "id": "b4930ced270b",
     "entry_time": "2026-02-07T08:00:00+00:00",
     "exit_time": "2026-02-25T20:00:00+00:00",
     "entry_price": 68455.1538,
@@ -6115,12 +6115,12 @@
     "pnl_usd": 0.05042106945438262,
     "pnl_pct": 0.03001600119999697,
     "exit_reason": "stop_loss",
-    "prediction_id": "03be5c7846d4",
+    "prediction_id": "e5b824d8e6e1",
     "fees_paid": 0.06717545397005385,
     "used_ml": true
   },
   {
-    "id": "7836caa48241",
+    "id": "07d64e2fd46f",
     "entry_time": "2026-02-19T16:00:00+00:00",
     "exit_time": "2026-02-26T12:00:00+00:00",
     "entry_price": 66269.37240000001,
@@ -6132,12 +6132,12 @@
     "pnl_usd": -2.1874935497093446,
     "pnl_pct": -2.9049334462687515,
     "exit_reason": "time_expired",
-    "prediction_id": "45b26fae2f79",
+    "prediction_id": "a4e468557efe",
     "fees_paid": 0.030555482908890225,
     "used_ml": true
   },
   {
-    "id": "c0734729a246",
+    "id": "70a441d33975",
     "entry_time": "2026-02-06T16:00:00+00:00",
     "exit_time": "2026-03-02T16:00:00+00:00",
     "entry_price": 69912.0081,
@@ -6149,12 +6149,12 @@
     "pnl_usd": 0.508044661383796,
     "pnl_pct": 0.03001600119999274,
     "exit_reason": "stop_loss",
-    "prediction_id": "1483280bffe5",
+    "prediction_id": "bb8bbfba7bcb",
     "fees_paid": 0.6768624928989315,
     "used_ml": true
   },
   {
-    "id": "bb02c7a1f0f4",
+    "id": "2872b1d3269c",
     "entry_time": "2026-02-25T20:00:00+00:00",
     "exit_time": "2026-03-02T16:00:00+00:00",
     "entry_price": 69162.0831,
@@ -6166,12 +6166,12 @@
     "pnl_usd": 0.02166484864578453,
     "pnl_pct": 0.030016001199989244,
     "exit_reason": "stop_loss",
-    "prediction_id": "5ae2f399e525",
+    "prediction_id": "c51c3b714375",
     "fees_paid": 0.028863847171868295,
     "used_ml": true
   },
   {
-    "id": "3364d6b3a9df",
+    "id": "966308108225",
     "entry_time": "2026-02-26T12:00:00+00:00",
     "exit_time": "2026-03-05T00:00:00+00:00",
     "entry_price": 68167.1826,
@@ -6183,12 +6183,12 @@
     "pnl_usd": -6.543327862326662,
     "pnl_pct": -6.81655934514155,
     "exit_reason": "time_expired",
-    "prediction_id": "fed3c6b97cfc",
+    "prediction_id": "c2c736e55e37",
     "fees_paid": 0.03970122542587673,
     "used_ml": true
   },
   {
-    "id": "89f124fc5f6e",
+    "id": "032e8a350ead",
     "entry_time": "2026-02-24T12:00:00+00:00",
     "exit_time": "2026-03-05T04:00:00+00:00",
     "entry_price": 62964.702900000004,
@@ -6200,12 +6200,12 @@
     "pnl_usd": -139.654534097566,
     "pnl_pct": -15.705860110776449,
     "exit_reason": "time_expired",
-    "prediction_id": "b193bedb70a0",
+    "prediction_id": "b45f4c949db5",
     "fees_paid": 0.3835647339281387,
     "used_ml": true
   },
   {
-    "id": "2c5deda0b10d",
+    "id": "e82fa3b683ed",
     "entry_time": "2026-02-20T08:00:00+00:00",
     "exit_time": "2026-04-06T12:00:00+00:00",
     "entry_price": 67843.215,
@@ -6217,12 +6217,12 @@
     "pnl_usd": -8.062772974344096,
     "pnl_pct": -2.247226177208733,
     "exit_reason": "time_expired",
-    "prediction_id": "dfc8816534f6",
+    "prediction_id": "c7920de532f0",
     "fees_paid": 0.14511299660257343,
     "used_ml": true
   },
   {
-    "id": "f8f8c2ad954d",
+    "id": "467979d7039e",
     "entry_time": "2026-02-25T16:00:00+00:00",
     "exit_time": "2026-04-11T20:00:00+00:00",
     "entry_price": 68301.1692,
@@ -6234,12 +6234,12 @@
     "pnl_usd": -53.19263003025954,
     "pnl_pct": -7.411051122709021,
     "exit_reason": "time_expired",
-    "prediction_id": "1a3956544c8a",
+    "prediction_id": "8ceafa05fb7c",
     "fees_paid": 0.2977066722961071,
     "used_ml": true
   },
   {
-    "id": "0bafe72b9b80",
+    "id": "847cec71a2b7",
     "entry_time": "2026-02-26T00:00:00+00:00",
     "exit_time": "2026-04-12T04:00:00+00:00",
     "entry_price": 68347.1646,
@@ -6251,12 +6251,12 @@
     "pnl_usd": -4.2726616293825534,
     "pnl_pct": -4.656066200820859,
     "exit_reason": "time_expired",
-    "prediction_id": "95c7f8932497",
+    "prediction_id": "21a98c71717f",
     "fees_paid": 0.037556884694364204,
     "used_ml": true
   },
   {
-    "id": "4099923a5aa7",
+    "id": "d4cfb7029ab3",
     "entry_time": "2026-02-26T16:00:00+00:00",
     "exit_time": "2026-04-12T20:00:00+00:00",
     "entry_price": 66633.336,
@@ -6268,12 +6268,12 @@
     "pnl_usd": -12.681812095520732,
     "pnl_pct": -7.137682296681044,
     "exit_reason": "time_expired",
-    "prediction_id": "65f6f6328f00",
+    "prediction_id": "1cdb78c9695a",
     "fees_paid": 0.0735983858613492,
     "used_ml": true
   },
   {
-    "id": "c57098187f4a",
+    "id": "7dac84687baa",
     "entry_time": "2026-04-06T12:00:00+00:00",
     "exit_time": "2026-04-13T16:00:00+00:00",
     "entry_price": 69340.0653,
@@ -6285,12 +6285,12 @@
     "pnl_usd": -23.554228193286082,
     "pnl_pct": -4.227874796939372,
     "exit_reason": "time_expired",
-    "prediction_id": "a599104a878e",
+    "prediction_id": "bb84cfee8a0e",
     "fees_paid": 0.22753460280470933,
     "used_ml": true
   },
   {
-    "id": "38f579b8aeb7",
+    "id": "3e50fc83c886",
     "entry_time": "2026-03-02T16:00:00+00:00",
     "exit_time": "2026-04-16T20:00:00+00:00",
     "entry_price": 69429.0564,
@@ -6302,12 +6302,12 @@
     "pnl_usd": -117.96573086743244,
     "pnl_pct": -8.400685688679472,
     "exit_reason": "time_expired",
-    "prediction_id": "0f3f535b09d2",
+    "prediction_id": "13ba7aa5209f",
     "fees_paid": 0.5852279947062464,
     "used_ml": true
   },
   {
-    "id": "53da04cbd291",
+    "id": "024f01e9e632",
     "entry_time": "2026-03-03T04:00:00+00:00",
     "exit_time": "2026-04-17T08:00:00+00:00",
     "entry_price": 68102.1891,
@@ -6319,12 +6319,12 @@
     "pnl_usd": -16.674930761476347,
     "pnl_pct": -11.31027815321725,
     "exit_reason": "time_expired",
-    "prediction_id": "0a6468916033",
+    "prediction_id": "5cde4082e501",
     "fees_paid": 0.062301086952199616,
     "used_ml": true
   },
   {
-    "id": "1f0d7d827d61",
+    "id": "f1860865b62a",
     "entry_time": "2026-04-11T20:00:00+00:00",
     "exit_time": "2026-04-18T08:00:00+00:00",
     "entry_price": 73333.6659,
@@ -6336,12 +6336,12 @@
     "pnl_usd": -13.876887291889409,
     "pnl_pct": -4.724116942720571,
     "exit_reason": "time_expired",
-    "prediction_id": "b552e1704145",
+    "prediction_id": "1eb2034102a9",
     "fees_paid": 0.12026132885162993,
     "used_ml": true
   },
   {
-    "id": "cc32c074b556",
+    "id": "d1341baeb8f1",
     "entry_time": "2026-03-05T04:00:00+00:00",
     "exit_time": "2026-04-19T08:00:00+00:00",
     "entry_price": 72824.7168,
@@ -6353,12 +6353,12 @@
     "pnl_usd": -14.999446213122582,
     "pnl_pct": -3.4148727452106074,
     "exit_reason": "time_expired",
-    "prediction_id": "dab5db996bf7",
+    "prediction_id": "a179e9d24d40",
     "fees_paid": 0.1786772450504745,
     "used_ml": true
   },
   {
-    "id": "44a25e10dd32",
+    "id": "73fa305ddaa8",
     "entry_time": "2026-04-12T20:00:00+00:00",
     "exit_time": "2026-04-19T08:00:00+00:00",
     "entry_price": 71360.8632,
@@ -6370,12 +6370,12 @@
     "pnl_usd": -10.585093150074034,
     "pnl_pct": -5.536262915861137,
     "exit_reason": "time_expired",
-    "prediction_id": "c7ebd4841035",
+    "prediction_id": "1530af2d61d8",
     "fees_paid": 0.07858720382989262,
     "used_ml": true
   },
   {
-    "id": "77759379746a",
+    "id": "6c93b8e927f8",
     "entry_time": "2026-03-05T16:00:00+00:00",
     "exit_time": "2026-04-19T20:00:00+00:00",
     "entry_price": 71315.8677,
@@ -6387,12 +6387,12 @@
     "pnl_usd": -6.871585905124975,
     "pnl_pct": -4.721995541561648,
     "exit_reason": "time_expired",
-    "prediction_id": "91c2a4e050f3",
+    "prediction_id": "c45309474fca",
     "fees_paid": 0.05957739155797875,
     "used_ml": true
   },
   {
-    "id": "3d9a5e3d35eb",
+    "id": "2b711d7dcc8c",
     "entry_time": "2026-04-13T16:00:00+00:00",
     "exit_time": "2026-04-19T20:00:00+00:00",
     "entry_price": 72242.775,
@@ -6404,12 +6404,12 @@
     "pnl_usd": -15.895422199506239,
     "pnl_pct": -3.3783652319834214,
     "exit_reason": "time_expired",
-    "prediction_id": "384703f300a0",
+    "prediction_id": "5feba31578ed",
     "fees_paid": 0.1913621634611859,
     "used_ml": true
   },
   {
-    "id": "25e14cdbff4c",
+    "id": "9481a386a2fb",
     "entry_time": "2026-04-19T20:00:00+00:00",
     "exit_time": "2026-04-26T08:00:00+00:00",
     "entry_price": 74653.5339,
@@ -6421,12 +6421,12 @@
     "pnl_usd": -30.65394831100085,
     "pnl_pct": -4.594404955824873,
     "exit_reason": "time_expired",
-    "prediction_id": "c660b8499bd5",
+    "prediction_id": "56971dd22239",
     "fees_paid": 0.27298356398524887,
     "used_ml": true
   },
   {
-    "id": "845d59190c69",
+    "id": "913f6866de53",
     "entry_time": "2026-04-26T08:00:00+00:00",
     "exit_time": "2026-05-03T04:00:00+00:00",
     "entry_price": 78052.194,
@@ -6438,12 +6438,12 @@
     "pnl_usd": -0.6660116053652367,
     "pnl_pct": -0.17329014899951806,
     "exit_reason": "time_expired",
-    "prediction_id": "45b356966081",
+    "prediction_id": "c20dfb1275fe",
     "fees_paid": 0.1538510924554854,
     "used_ml": true
   },
   {
-    "id": "9bff35475a42",
+    "id": "282ca809e479",
     "entry_time": "2026-04-29T16:00:00+00:00",
     "exit_time": "2026-05-06T04:00:00+00:00",
     "entry_price": 75752.424,
@@ -6455,12 +6455,12 @@
     "pnl_usd": -4.890269252293938,
     "pnl_pct": -7.396432524218641,
     "exit_reason": "time_expired",
-    "prediction_id": "4458b61de678",
+    "prediction_id": "bdb7489cee78",
     "fees_paid": 0.027421851688564272,
     "used_ml": true
   },
   {
-    "id": "239fd8203804",
+    "id": "da0de40c49b3",
     "entry_time": "2026-05-16T12:00:00+00:00",
     "exit_time": "2026-05-23T00:00:00+00:00",
     "entry_price": 77972.202,
@@ -6472,12 +6472,12 @@
     "pnl_usd": 2.539135777416856,
     "pnl_pct": 3.433221876364087,
     "exit_reason": "time_expired",
-    "prediction_id": "a6ea651688c8",
+    "prediction_id": "3b95701ccc7e",
     "fees_paid": 0.029072441428542088,
     "used_ml": true
   },
   {
-    "id": "c8c60e173926",
+    "id": "05482f38b126",
     "entry_time": "2026-04-12T04:00:00+00:00",
     "exit_time": "2026-05-27T08:00:00+00:00",
     "entry_price": 71500.8492,
@@ -6489,12 +6489,12 @@
     "pnl_usd": -15.652349295595545,
     "pnl_pct": -5.970371624537031,
     "exit_reason": "time_expired",
-    "prediction_id": "245823a995a1",
+    "prediction_id": "436914af7a8b",
     "fees_paid": 0.10798619359781175,
     "used_ml": true
   },
   {
-    "id": "5c187ae2de40",
+    "id": "eac1cd27e11e",
     "entry_time": "2026-04-16T20:00:00+00:00",
     "exit_time": "2026-06-01T00:00:00+00:00",
     "entry_price": 75231.4761,
@@ -6506,12 +6506,12 @@
     "pnl_usd": 21.27308718575445,
     "pnl_pct": 1.8990727105874194,
     "exit_reason": "time_expired",
-    "prediction_id": "e135c7e785df",
+    "prediction_id": "bf7ba92eb932",
     "fees_paid": 0.4437745828117253,
     "used_ml": true
   },
   {
-    "id": "27ce4975cda3",
+    "id": "a7d57d4d3b2b",
     "entry_time": "2026-04-17T08:00:00+00:00",
     "exit_time": "2026-06-01T12:00:00+00:00",
     "entry_price": 75774.4218,
@@ -6523,12 +6523,12 @@
     "pnl_usd": 4.868446602485899,
     "pnl_pct": 4.786565881106075,
     "exit_reason": "time_expired",
-    "prediction_id": "6ece7478424c",
+    "prediction_id": "be5299aba5f9",
     "fees_paid": 0.0397066921853429,
     "used_ml": true
   },
   {
-    "id": "d423d7b809a7",
+    "id": "7048facd0da8",
     "entry_time": "2026-04-18T08:00:00+00:00",
     "exit_time": "2026-06-02T12:00:00+00:00",
     "entry_price": 76767.3225,
@@ -6540,12 +6540,12 @@
     "pnl_usd": 21.64039235765806,
     "pnl_pct": 10.219388167367702,
     "exit_reason": "time_expired",
-    "prediction_id": "6664cb762527",
+    "prediction_id": "f941e8c2331f",
     "fees_paid": 0.08036759803711532,
     "used_ml": true
   },
   {
-    "id": "1778da4ca853",
+    "id": "6afff2b823ff",
     "entry_time": "2026-05-23T00:00:00+00:00",
     "exit_time": "2026-06-02T16:00:00+00:00",
     "entry_price": 75265.132734,
@@ -6557,12 +6557,12 @@
     "pnl_usd": 29.180927139003995,
     "pnl_pct": 10.55152645515241,
     "exit_reason": "time_expired",
-    "prediction_id": "a9b43bd439ba",
+    "prediction_id": "ada288444455",
     "fees_paid": 0.10477650211296818,
     "used_ml": true
   },
   {
-    "id": "59a144abbe3f",
+    "id": "6b181a03c9dc",
     "entry_time": "2026-05-27T08:00:00+00:00",
     "exit_time": "2026-06-02T20:00:00+00:00",
     "entry_price": 75739.415301,
@@ -6574,12 +6574,12 @@
     "pnl_usd": 24.347329827781536,
     "pnl_pct": 10.876291373034466,
     "exit_reason": "time_expired",
-    "prediction_id": "58c00c801100",
+    "prediction_id": "15beca13ce36",
     "fees_paid": 0.08466531938493198,
     "used_ml": true
   },
   {
-    "id": "97b2378fe9c6",
+    "id": "00d0a1c7dd7a",
     "entry_time": "2026-04-19T08:00:00+00:00",
     "exit_time": "2026-06-03T12:00:00+00:00",
     "entry_price": 75281.4711,
@@ -6591,12 +6591,12 @@
     "pnl_usd": 82.30352966422934,
     "pnl_pct": 10.99524815651509,
     "exit_reason": "time_expired",
-    "prediction_id": "28a94625aa1c",
+    "prediction_id": "56a6dd4ce326",
     "fees_paid": 0.2829275554408469,
     "used_ml": true
   },
   {
-    "id": "1c58c020d9ce",
+    "id": "6becd85358de",
     "entry_time": "2026-04-27T16:00:00+00:00",
     "exit_time": "2026-06-04T00:00:00+00:00",
     "entry_price": 76601.3391,
@@ -6608,12 +6608,12 @@
     "pnl_usd": 17.395889608095768,
     "pnl_pct": 15.977994621684388,
     "exit_reason": "take_profit",
-    "prediction_id": "3013dbdd6e2c",
+    "prediction_id": "cdaaca9f9ef5",
     "fees_paid": 0.04006678306957538,
     "used_ml": true
   },
   {
-    "id": "202cd20a68d1",
+    "id": "e7eb8dfcc6f4",
     "entry_time": "2026-05-03T04:00:00+00:00",
     "exit_time": "2026-06-05T16:00:00+00:00",
     "entry_price": 78156.1836,
@@ -6625,12 +6625,12 @@
     "pnl_usd": 42.216800501066345,
     "pnl_pct": 21.91755836272397,
     "exit_reason": "take_profit",
-    "prediction_id": "fcc4716c2baf",
+    "prediction_id": "09be46fc3ab7",
     "fees_paid": 0.068597164342775,
     "used_ml": true
   },
   {
-    "id": "e0a1b7a0de9f",
+    "id": "38d52c9af41b",
     "entry_time": "2026-06-01T00:00:00+00:00",
     "exit_time": "2026-06-05T16:00:00+00:00",
     "entry_price": 73773.261936,
@@ -6642,12 +6642,12 @@
     "pnl_usd": 232.05467613822933,
     "pnl_pct": 18.208762420268908,
     "exit_reason": "take_profit",
-    "prediction_id": "8d78a6fa02db",
+    "prediction_id": "078aac14827b",
     "fees_paid": 0.4633122289035799,
     "used_ml": true
   },
   {
-    "id": "9ce58fca36fa",
+    "id": "915733a9787d",
     "entry_time": "2026-06-01T12:00:00+00:00",
     "exit_time": "2026-06-05T16:00:00+00:00",
     "entry_price": 72118.577421,
@@ -6659,12 +6659,12 @@
     "pnl_usd": 40.57092406227221,
     "pnl_pct": 16.900035543211107,
     "exit_reason": "take_profit",
-    "prediction_id": "579e670eb626",
+    "prediction_id": "f07eece9f59a",
     "fees_paid": 0.08790349086722693,
     "used_ml": true
   },
   {
-    "id": "8c9530e2f92e",
+    "id": "6725e2084073",
     "entry_time": "2026-06-02T12:00:00+00:00",
     "exit_time": "2026-06-09T00:00:00+00:00",
     "entry_price": 68894.60985000001,
@@ -6676,12 +6676,12 @@
     "pnl_usd": 45.49174074209476,
     "pnl_pct": 9.206465768726915,
     "exit_reason": "time_expired",
-    "prediction_id": "3b3a83eb31ad",
+    "prediction_id": "6959c4bd1400",
     "fees_paid": 0.18853497762397703,
     "used_ml": true
   },
   {
-    "id": "bc81e372369f",
+    "id": "90df9bd8fc11",
     "entry_time": "2026-06-02T16:00:00+00:00",
     "exit_time": "2026-06-09T04:00:00+00:00",
     "entry_price": 67296.589668,
@@ -6693,12 +6693,12 @@
     "pnl_usd": 26.052669484742452,
     "pnl_pct": 6.051758230234007,
     "exit_reason": "time_expired",
-    "prediction_id": "d146f4dd0adc",
+    "prediction_id": "258246eb68ab",
     "fees_paid": 0.16697230210287145,
     "used_ml": true
   },
   {
-    "id": "d7cb3dccac2f",
+    "id": "30d5dff0936b",
     "entry_time": "2026-06-02T20:00:00+00:00",
     "exit_time": "2026-06-09T08:00:00+00:00",
     "entry_price": 67474.781847,
@@ -6710,12 +6710,12 @@
     "pnl_usd": 14.124832749586055,
     "pnl_pct": 6.872263676430657,
     "exit_reason": "time_expired",
-    "prediction_id": "e0c30e868099",
+    "prediction_id": "dccf1c87bc45",
     "fees_paid": 0.07938094558558338,
     "used_ml": true
   },
   {
-    "id": "21cb9ee4b07b",
+    "id": "3eee0864eef7",
     "entry_time": "2026-06-03T12:00:00+00:00",
     "exit_time": "2026-06-15T16:00:00+00:00",
     "entry_price": 66977.291601,
@@ -6727,12 +6727,12 @@
     "pnl_usd": 0.23976015325954367,
     "pnl_pct": 0.03001600119998859,
     "exit_reason": "stop_loss",
-    "prediction_id": "1c664fa5b5a9",
+    "prediction_id": "4302c82480a8",
     "fees_paid": 0.31942989931452337,
     "used_ml": true
   },
   {
-    "id": "8683ad2e2b14",
+    "id": "3ab6c6c40b45",
     "entry_time": "2026-06-09T00:00:00+00:00",
     "exit_time": "2026-06-15T20:00:00+00:00",
     "entry_price": 62526.836691,
@@ -6744,7 +6744,7 @@
     "pnl_usd": -9.025875481722839,
     "pnl_pct": -6.357428979310543,
     "exit_reason": "time_expired",
-    "prediction_id": "f0b89fa8ccc9",
+    "prediction_id": "b0ba808c057a",
     "fees_paid": 0.058588605845712995,
     "used_ml": true
   }

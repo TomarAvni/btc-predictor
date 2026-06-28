@@ -191,7 +191,7 @@ TRADING AGENT RESULTS (Test Period):
   Starting Balance:  $2,000.00
   Ending Balance:    $2,215.71
   Total Return:      +10.8%
-  BTC Buy & Hold:    +39.6% (comparison benchmark)
+  BTC Buy & Hold:    +39.5% (comparison benchmark)
   Total Trades:      397
   Win Rate:          57.4%
   Max Drawdown:      67.1%
@@ -216,7 +216,7 @@ FEATURE IMPORTANCE (Top 10):
 
 CONCLUSION:
   Ensemble does not consistently beat baseline -- more data or feature engineering needed
-  Trading agent underperforms buy-and-hold: +10.8% vs +39.6%
+  Trading agent underperforms buy-and-hold: +10.8% vs +39.5%
   Confidence needs adjustment: 1/4 bins well-calibrated
 
 ================================================================================
