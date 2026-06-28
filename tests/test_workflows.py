@@ -20,6 +20,18 @@ def load_workflow(name: str) -> dict:
         return yaml.load(f, Loader=yaml.BaseLoader)
 
 
+def workflow_step_scripts(workflow: dict) -> list[str]:
+    scripts: list[str] = []
+    for job in workflow.get("jobs", {}).values():
+        for step in job.get("steps", []):
+            if "run" in step:
+                scripts.append(step["run"])
+            script = step.get("with", {}).get("script")
+            if script:
+                scripts.append(script)
+    return scripts
+
+
 class TestPipelineWatchdogWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         self.workflow = load_workflow("pipeline-watchdog.yml")
@@ -29,18 +41,42 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
         self.assertEqual(permissions["actions"], "write")
         self.assertEqual(permissions["contents"], "read")
 
-    def test_watchdog_runs_off_peak_every_fifteen_minutes(self) -> None:
+    def test_watchdog_runs_every_fifteen_minutes(self) -> None:
         schedules = self.workflow["on"]["schedule"]
-        self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
+        self.assertEqual(schedules[0]["cron"], "11,26,41,56 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
-        step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
-        script = step["with"]["script"]
+    def test_watchdog_checks_prediction_log_freshness(self) -> None:
+        scripts = workflow_step_scripts(self.workflow)
+        freshness_scripts = [s for s in scripts if "prediction_freshness.py" in s]
+        self.assertTrue(freshness_scripts, "expected a log freshness check step")
+        self.assertIn("--max-age-minutes 60", freshness_scripts[0])
 
-        self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
-        self.assertIn("listWorkflowRuns", script)
-        self.assertIn("createWorkflowDispatch", script)
+    def test_watchdog_dispatches_predict_when_stale(self) -> None:
+        scripts = workflow_step_scripts(self.workflow)
+        dispatch_scripts = [s for s in scripts if "gh workflow run predict.yml" in s]
+        self.assertTrue(dispatch_scripts, "expected a Predict dispatch step")
+
+
+class TestPredictWatchdogWorkflow(unittest.TestCase):
+    def setUp(self) -> None:
+        self.workflow = load_workflow("predict-watchdog.yml")
+
+    def test_watchdog_runs_every_fifteen_minutes(self) -> None:
+        schedules = self.workflow["on"]["schedule"]
+        self.assertEqual(schedules[0]["cron"], "4,19,34,49 * * * *")
+
+    def test_watchdog_checks_prediction_log_freshness(self) -> None:
+        scripts = workflow_step_scripts(self.workflow)
+        freshness_scripts = [s for s in scripts if "prediction_freshness.py" in s]
+        self.assertTrue(freshness_scripts, "expected a log freshness check step")
+        self.assertIn("--max-age-minutes 60", freshness_scripts[0])
+
+    def test_watchdog_uses_direct_python3_without_setup_python(self) -> None:
+        steps = self.workflow["jobs"]["watchdog"]["steps"]
+        uses = [step.get("uses", "") for step in steps]
+        self.assertNotIn("actions/setup-python@v5", uses)
+        freshness_step = next(step for step in steps if step.get("name") == "Check prediction log freshness")
+        self.assertIn("python3 src/utils/prediction_freshness.py", freshness_step["run"])
 
 
 if __name__ == "__main__":
