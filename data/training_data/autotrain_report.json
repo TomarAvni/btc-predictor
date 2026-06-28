@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-06-25T07:56:27.871194+00:00",
+  "generated_at": "2026-06-28T07:59:36.286694+00:00",
   "dry_run": false,
   "labeled_rows_added": 0,
-  "labeled_total_rows": 223,
+  "labeled_total_rows": 376,
   "labeled_per_horizon": {
-    "168h": 8,
-    "24h": 26,
+    "168h": 23,
+    "24h": 56,
     "102h": 2,
     "108h": 2,
     "114h": 2,
     "120h": 2,
     "126h": 2,
-    "12h": 26,
+    "12h": 52,
     "132h": 2,
     "138h": 2,
     "144h": 2,
     "150h": 2,
     "156h": 2,
-    "18h": 23,
-    "30h": 18,
-    "36h": 17,
-    "42h": 14,
+    "18h": 43,
+    "30h": 34,
+    "36h": 26,
+    "42h": 18,
     "48h": 11,
     "54h": 10,
     "60h": 8,
     "66h": 5,
-    "6h": 27,
+    "6h": 60,
     "72h": 2,
     "78h": 2,
     "84h": 2,
@@ -34,32 +34,68 @@
   },
   "calibration": {
     "horizons": {
+      "12h": {
+        "status": "skipped",
+        "reason": "insufficient_data",
+        "n": 26
+      },
       "168h": {
         "status": "skipped",
         "reason": "insufficient_data",
-        "n": 8
+        "n": 23
+      },
+      "18h": {
+        "status": "skipped",
+        "reason": "insufficient_data",
+        "n": 20
       },
       "24h": {
         "status": "skipped",
         "reason": "insufficient_data",
-        "n": 26
+        "n": 56
+      },
+      "30h": {
+        "status": "skipped",
+        "reason": "insufficient_data",
+        "n": 16
+      },
+      "36h": {
+        "status": "skipped",
+        "reason": "insufficient_data",
+        "n": 9
+      },
+      "42h": {
+        "status": "skipped",
+        "reason": "insufficient_data",
+        "n": 4
+      },
+      "6h": {
+        "status": "skipped",
+        "reason": "insufficient_data",
+        "n": 33
       }
     },
     "promoted_horizons": [],
     "kept_horizons": [],
     "skipped_horizons": [
+      "12h",
       "168h",
-      "24h"
+      "18h",
+      "24h",
+      "30h",
+      "36h",
+      "42h",
+      "6h"
     ],
     "n_promoted": 0,
     "n_kept": 0,
-    "n_skipped": 2,
+    "n_skipped": 8,
     "written": false
   },
   "models": {
     "status": "skipped",
     "reason": "insufficient_live_data_per_horizon",
-    "max_rows_any_horizon": 27,
+    "max_rows_any_horizon": 60,
     "min_required": 400,
     "horizons": {}
   },
