@@ -1,92 +1,92 @@
 {
-  "updated_at": "2026-06-28T05:07:31.545226+00:00",
+  "updated_at": "2026-06-28T06:39:58.148664+00:00",
   "timeframes": {
     "6h": {
       "last_7d": {
-        "direction_accuracy_pct": 50.0,
+        "direction_accuracy_pct": 51.0,
         "n_scored": 104,
-        "n_correct": 52,
-        "mean_magnitude_error": -0.38,
+        "n_correct": 53,
+        "mean_magnitude_error": -0.36,
         "mean_actual_return_pct": -0.48,
-        "mean_predicted_edge_pct": -0.2889
+        "mean_predicted_edge_pct": -0.2841
       },
       "last_30d": {
         "direction_accuracy_pct": 52.9,
-        "n_scored": 155,
-        "n_correct": 82,
-        "mean_magnitude_error": -0.99,
-        "mean_actual_return_pct": -0.99,
-        "mean_predicted_edge_pct": -0.8594
+        "n_scored": 157,
+        "n_correct": 83,
+        "mean_magnitude_error": -0.96,
+        "mean_actual_return_pct": -0.98,
+        "mean_predicted_edge_pct": -0.8484
       },
       "all_time": {
         "direction_accuracy_pct": 52.9,
-        "n_scored": 155,
-        "n_correct": 82,
-        "mean_magnitude_error": -0.99,
-        "mean_actual_return_pct": -0.99,
-        "mean_predicted_edge_pct": -0.8594
+        "n_scored": 157,
+        "n_correct": 83,
+        "mean_magnitude_error": -0.96,
+        "mean_actual_return_pct": -0.98,
+        "mean_predicted_edge_pct": -0.8484
       }
     },
     "12h": {
       "last_7d": {
-        "direction_accuracy_pct": 51.7,
+        "direction_accuracy_pct": 52.9,
         "n_scored": 87,
-        "n_correct": 45,
+        "n_correct": 46,
         "mean_magnitude_error": -0.55,
-        "mean_actual_return_pct": -0.49,
-        "mean_predicted_edge_pct": -0.4322
+        "mean_actual_return_pct": -0.51,
+        "mean_predicted_edge_pct": -0.4295
       },
       "last_30d": {
         "direction_accuracy_pct": 51.4,
-        "n_scored": 138,
-        "n_correct": 71,
-        "mean_magnitude_error": -1.19,
+        "n_scored": 140,
+        "n_correct": 72,
+        "mean_magnitude_error": -1.17,
         "mean_actual_return_pct": -1.02,
-        "mean_predicted_edge_pct": -0.9846
+        "mean_predicted_edge_pct": -0.9706
       },
       "all_time": {
         "direction_accuracy_pct": 51.4,
-        "n_scored": 138,
-        "n_correct": 71,
-        "mean_magnitude_error": -1.19,
+        "n_scored": 140,
+        "n_correct": 72,
+        "mean_magnitude_error": -1.17,
         "mean_actual_return_pct": -1.02,
-        "mean_predicted_edge_pct": -0.9846
+        "mean_predicted_edge_pct": -0.9706
       }
     },
     "18h": {
       "last_7d": {
-        "direction_accuracy_pct": 51.4,
+        "direction_accuracy_pct": 52.7,
         "n_scored": 74,
-        "n_correct": 38,
-        "mean_magnitude_error": -0.18,
-        "mean_actual_return_pct": -0.53,
-        "mean_predicted_edge_pct": -0.5028
+        "n_correct": 39,
+        "mean_magnitude_error": -0.14,
+        "mean_actual_return_pct": -0.54,
+        "mean_predicted_edge_pct": -0.5018
       },
       "last_30d": {
         "direction_accuracy_pct": 52.8,
-        "n_scored": 125,
-        "n_correct": 66,
-        "mean_magnitude_error": -1.01,
-        "mean_actual_return_pct": -1.07,
-        "mean_predicted_edge_pct": -1.0553
+        "n_scored": 127,
+        "n_correct": 67,
+        "mean_magnitude_error": -0.97,
+        "mean_actual_return_pct": -1.06,
+        "mean_predicted_edge_pct": -1.0387
       },
       "all_time": {
         "direction_accuracy_pct": 52.8,
-        "n_scored": 125,
-        "n_correct": 66,
-        "mean_magnitude_error": -1.01,
-        "mean_actual_return_pct": -1.07,
-        "mean_predicted_edge_pct": -1.0553
+        "n_scored": 127,
+        "n_correct": 67,
+        "mean_magnitude_error": -0.97,
+        "mean_actual_return_pct": -1.06,
+        "mean_predicted_edge_pct": -1.0387
       }
     },
     "24h": {
       "last_7d": {
-        "direction_accuracy_pct": 54.7,
-        "n_scored": 64,
-        "n_correct": 35,
+        "direction_accuracy_pct": 54.8,
+        "n_scored": 62,
+        "n_correct": 34,
         "mean_magnitude_error": 0.07,
-        "mean_actual_return_pct": -0.74,
-        "mean_predicted_edge_pct": 0.2175
+        "mean_actual_return_pct": -0.78,
+        "mean_predicted_edge_pct": 0.2245
       },
       "last_30d": {
         "direction_accuracy_pct": 57.7,
@@ -107,142 +107,142 @@
     },
     "30h": {
       "last_7d": {
-        "direction_accuracy_pct": 45.8,
-        "n_scored": 59,
-        "n_correct": 27,
-        "mean_magnitude_error": -0.11,
-        "mean_actual_return_pct": -1.11,
-        "mean_predicted_edge_pct": -1.0219
+        "direction_accuracy_pct": 46.7,
+        "n_scored": 60,
+        "n_correct": 28,
+        "mean_magnitude_error": 0.07,
+        "mean_actual_return_pct": -1.04,
+        "mean_predicted_edge_pct": -0.9415
       },
       "last_30d": {
         "direction_accuracy_pct": 50.0,
-        "n_scored": 110,
-        "n_correct": 55,
-        "mean_magnitude_error": -1.11,
-        "mean_actual_return_pct": -1.37,
-        "mean_predicted_edge_pct": -1.3262
+        "n_scored": 112,
+        "n_correct": 56,
+        "mean_magnitude_error": -1.02,
+        "mean_actual_return_pct": -1.35,
+        "mean_predicted_edge_pct": -1.3026
       },
       "all_time": {
         "direction_accuracy_pct": 50.0,
-        "n_scored": 110,
-        "n_correct": 55,
-        "mean_magnitude_error": -1.11,
-        "mean_actual_return_pct": -1.37,
-        "mean_predicted_edge_pct": -1.3262
+        "n_scored": 112,
+        "n_correct": 56,
+        "mean_magnitude_error": -1.02,
+        "mean_actual_return_pct": -1.35,
+        "mean_predicted_edge_pct": -1.3026
       }
     },
     "36h": {
       "last_7d": {
-        "direction_accuracy_pct": 44.4,
-        "n_scored": 45,
-        "n_correct": 20,
-        "mean_magnitude_error": -1.22,
-        "mean_actual_return_pct": -1.6,
-        "mean_predicted_edge_pct": -1.2603
+        "direction_accuracy_pct": 45.7,
+        "n_scored": 46,
+        "n_correct": 21,
+        "mean_magnitude_error": -0.97,
+        "mean_actual_return_pct": -1.5,
+        "mean_predicted_edge_pct": -1.1502
       },
       "last_30d": {
         "direction_accuracy_pct": 52.6,
-        "n_scored": 95,
-        "n_correct": 50,
-        "mean_magnitude_error": -1.87,
-        "mean_actual_return_pct": -1.64,
-        "mean_predicted_edge_pct": -1.4751
+        "n_scored": 97,
+        "n_correct": 51,
+        "mean_magnitude_error": -1.76,
+        "mean_actual_return_pct": -1.61,
+        "mean_predicted_edge_pct": -1.4447
       },
       "all_time": {
         "direction_accuracy_pct": 52.6,
-        "n_scored": 95,
-        "n_correct": 50,
-        "mean_magnitude_error": -1.87,
-        "mean_actual_return_pct": -1.64,
-        "mean_predicted_edge_pct": -1.4751
+        "n_scored": 97,
+        "n_correct": 51,
+        "mean_magnitude_error": -1.76,
+        "mean_actual_return_pct": -1.61,
+        "mean_predicted_edge_pct": -1.4447
       }
     },
     "42h": {
       "last_7d": {
-        "direction_accuracy_pct": 42.9,
-        "n_scored": 35,
-        "n_correct": 15,
-        "mean_magnitude_error": -2.2,
-        "mean_actual_return_pct": -2.42,
-        "mean_predicted_edge_pct": -1.7058
+        "direction_accuracy_pct": 44.4,
+        "n_scored": 36,
+        "n_correct": 16,
+        "mean_magnitude_error": -1.87,
+        "mean_actual_return_pct": -2.2,
+        "mean_predicted_edge_pct": -1.5528
       },
       "last_30d": {
         "direction_accuracy_pct": 47.6,
-        "n_scored": 82,
-        "n_correct": 39,
-        "mean_magnitude_error": -2.54,
-        "mean_actual_return_pct": -2.18,
-        "mean_predicted_edge_pct": -1.8739
+        "n_scored": 84,
+        "n_correct": 40,
+        "mean_magnitude_error": -2.4,
+        "mean_actual_return_pct": -2.11,
+        "mean_predicted_edge_pct": -1.8293
       },
       "all_time": {
         "direction_accuracy_pct": 47.6,
-        "n_scored": 82,
-        "n_correct": 39,
-        "mean_magnitude_error": -2.54,
-        "mean_actual_return_pct": -2.18,
-        "mean_predicted_edge_pct": -1.8739
+        "n_scored": 84,
+        "n_correct": 40,
+        "mean_magnitude_error": -2.4,
+        "mean_actual_return_pct": -2.11,
+        "mean_predicted_edge_pct": -1.8293
       }
     },
     "48h": {
       "last_7d": {
-        "direction_accuracy_pct": 37.9,
-        "n_scored": 29,
-        "n_correct": 11,
-        "mean_magnitude_error": -3.05,
-        "mean_actual_return_pct": -3.03,
-        "mean_predicted_edge_pct": -2.1466
+        "direction_accuracy_pct": 43.3,
+        "n_scored": 30,
+        "n_correct": 13,
+        "mean_magnitude_error": -2.81,
+        "mean_actual_return_pct": -2.8,
+        "mean_predicted_edge_pct": -1.9469
       },
       "last_30d": {
-        "direction_accuracy_pct": 39.7,
-        "n_scored": 73,
-        "n_correct": 29,
-        "mean_magnitude_error": -3.01,
-        "mean_actual_return_pct": -2.73,
-        "mean_predicted_edge_pct": -2.3825
+        "direction_accuracy_pct": 41.3,
+        "n_scored": 75,
+        "n_correct": 31,
+        "mean_magnitude_error": -2.92,
+        "mean_actual_return_pct": -2.66,
+        "mean_predicted_edge_pct": -2.3184
       },
       "all_time": {
-        "direction_accuracy_pct": 39.7,
-        "n_scored": 73,
-        "n_correct": 29,
-        "mean_magnitude_error": -3.01,
-        "mean_actual_return_pct": -2.73,
-        "mean_predicted_edge_pct": -2.3825
+        "direction_accuracy_pct": 41.3,
+        "n_scored": 75,
+        "n_correct": 31,
+        "mean_magnitude_error": -2.92,
+        "mean_actual_return_pct": -2.66,
+        "mean_predicted_edge_pct": -2.3184
       }
     },
     "54h": {
       "last_7d": {
-        "direction_accuracy_pct": 14.3,
-        "n_scored": 21,
-        "n_correct": 3,
-        "mean_magnitude_error": -4.1,
-        "mean_actual_return_pct": -4.47,
-        "mean_predicted_edge_pct": -3.2527
+        "direction_accuracy_pct": 22.7,
+        "n_scored": 22,
+        "n_correct": 5,
+        "mean_magnitude_error": -3.74,
+        "mean_actual_return_pct": -4.08,
+        "mean_predicted_edge_pct": -2.9224
       },
       "last_30d": {
-        "direction_accuracy_pct": 29.7,
-        "n_scored": 64,
-        "n_correct": 19,
-        "mean_magnitude_error": -3.48,
-        "mean_actual_return_pct": -3.23,
-        "mean_predicted_edge_pct": -2.8286
+        "direction_accuracy_pct": 31.8,
+        "n_scored": 66,
+        "n_correct": 21,
+        "mean_magnitude_error": -3.36,
+        "mean_actual_return_pct": -3.13,
+        "mean_predicted_edge_pct": -2.7396
       },
       "all_time": {
-        "direction_accuracy_pct": 29.7,
-        "n_scored": 64,
-        "n_correct": 19,
-        "mean_magnitude_error": -3.48,
-        "mean_actual_return_pct": -3.23,
-        "mean_predicted_edge_pct": -2.8286
+        "direction_accuracy_pct": 31.8,
+        "n_scored": 66,
+        "n_correct": 21,
+        "mean_magnitude_error": -3.36,
+        "mean_actual_return_pct": -3.13,
+        "mean_predicted_edge_pct": -2.7396
       }
     },
     "60h": {
       "last_7d": {
-        "direction_accuracy_pct": 14.3,
-        "n_scored": 21,
+        "direction_accuracy_pct": 15.0,
+        "n_scored": 20,
         "n_correct": 3,
-        "mean_magnitude_error": -4.03,
-        "mean_actual_return_pct": -4.51,
-        "mean_predicted_edge_pct": -3.2952
+        "mean_magnitude_error": -4.09,
+        "mean_actual_return_pct": -4.54,
+        "mean_predicted_edge_pct": -3.2699
       },
       "last_30d": {
         "direction_accuracy_pct": 24.2,
@@ -263,12 +263,12 @@
     },
     "66h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -4.3,
-        "mean_actual_return_pct": -5.08,
-        "mean_predicted_edge_pct": -3.7422
+        "mean_magnitude_error": -4.38,
+        "mean_actual_return_pct": -5.15,
+        "mean_predicted_edge_pct": -3.7389
       },
       "last_30d": {
         "direction_accuracy_pct": 14.0,
@@ -289,12 +289,12 @@
     },
     "72h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -4.61,
-        "mean_actual_return_pct": -5.42,
-        "mean_predicted_edge_pct": -4.0833
+        "mean_magnitude_error": -4.7,
+        "mean_actual_return_pct": -5.51,
+        "mean_predicted_edge_pct": -4.099
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -315,12 +315,12 @@
     },
     "78h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -4.79,
-        "mean_actual_return_pct": -5.61,
-        "mean_predicted_edge_pct": -4.2697
+        "mean_magnitude_error": -4.89,
+        "mean_actual_return_pct": -5.71,
+        "mean_predicted_edge_pct": -4.2957
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -341,12 +341,12 @@
     },
     "84h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.04,
-        "mean_actual_return_pct": -5.89,
-        "mean_predicted_edge_pct": -4.55
+        "mean_magnitude_error": -5.16,
+        "mean_actual_return_pct": -6.01,
+        "mean_predicted_edge_pct": -4.5916
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -367,12 +367,12 @@
     },
     "90h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.47,
-        "mean_actual_return_pct": -6.33,
-        "mean_predicted_edge_pct": -4.9505
+        "mean_magnitude_error": -5.62,
+        "mean_actual_return_pct": -6.47,
+        "mean_predicted_edge_pct": -5.0144
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -393,12 +393,12 @@
     },
     "96h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.89,
-        "mean_actual_return_pct": -6.79,
-        "mean_predicted_edge_pct": -5.5408
+        "mean_magnitude_error": -6.06,
+        "mean_actual_return_pct": -6.96,
+        "mean_predicted_edge_pct": -5.6374
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -419,12 +419,12 @@
     },
     "102h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.83,
-        "mean_actual_return_pct": -6.74,
-        "mean_predicted_edge_pct": -5.5673
+        "mean_magnitude_error": -5.94,
+        "mean_actual_return_pct": -6.85,
+        "mean_predicted_edge_pct": -5.6107
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -445,12 +445,12 @@
     },
     "108h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.69,
-        "mean_actual_return_pct": -6.63,
-        "mean_predicted_edge_pct": -5.2974
+        "mean_magnitude_error": -5.63,
+        "mean_actual_return_pct": -6.57,
+        "mean_predicted_edge_pct": -5.1578
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -471,12 +471,12 @@
     },
     "114h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.67,
-        "mean_actual_return_pct": -6.6,
-        "mean_predicted_edge_pct": -5.4599
+        "mean_magnitude_error": -5.6,
+        "mean_actual_return_pct": -6.53,
+        "mean_predicted_edge_pct": -5.3261
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -497,12 +497,12 @@
     },
     "120h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
         "mean_magnitude_error": -5.45,
         "mean_actual_return_pct": -6.39,
-        "mean_predicted_edge_pct": -5.2137
+        "mean_predicted_edge_pct": -5.1472
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -523,12 +523,12 @@
     },
     "126h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.32,
-        "mean_actual_return_pct": -6.28,
-        "mean_predicted_edge_pct": -5.2353
+        "mean_magnitude_error": -5.23,
+        "mean_actual_return_pct": -6.19,
+        "mean_predicted_edge_pct": -5.0811
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -549,12 +549,12 @@
     },
     "132h": {
       "last_7d": {
-        "direction_accuracy_pct": 10.5,
-        "n_scored": 19,
+        "direction_accuracy_pct": 11.1,
+        "n_scored": 18,
         "n_correct": 2,
-        "mean_magnitude_error": -5.09,
-        "mean_actual_return_pct": -6.06,
-        "mean_predicted_edge_pct": -5.0055
+        "mean_magnitude_error": -5.03,
+        "mean_actual_return_pct": -5.99,
+        "mean_predicted_edge_pct": -4.8827
       },
       "last_30d": {
         "direction_accuracy_pct": 3.8,
@@ -575,12 +575,12 @@
     },
     "138h": {
       "last_7d": {
-        "direction_accuracy_pct": 12.5,
-        "n_scored": 16,
+        "direction_accuracy_pct": 13.3,
+        "n_scored": 15,
         "n_correct": 2,
-        "mean_magnitude_error": -4.68,
-        "mean_actual_return_pct": -5.63,
-        "mean_predicted_edge_pct": -4.4749
+        "mean_magnitude_error": -4.65,
+        "mean_actual_return_pct": -5.6,
+        "mean_predicted_edge_pct": -4.3697
       },
       "last_30d": {
         "direction_accuracy_pct": 4.0,
@@ -601,90 +601,90 @@
     },
     "144h": {
       "last_7d": {
-        "direction_accuracy_pct": 14.3,
-        "n_scored": 14,
+        "direction_accuracy_pct": 13.3,
+        "n_scored": 15,
         "n_correct": 2,
-        "mean_magnitude_error": -4.77,
-        "mean_actual_return_pct": -5.68,
-        "mean_predicted_edge_pct": -4.1778
+        "mean_magnitude_error": -4.84,
+        "mean_actual_return_pct": -5.79,
+        "mean_predicted_edge_pct": -4.3822
       },
       "last_30d": {
-        "direction_accuracy_pct": 4.2,
-        "n_scored": 48,
+        "direction_accuracy_pct": 4.0,
+        "n_scored": 50,
         "n_correct": 2,
-        "mean_magnitude_error": -4.7,
-        "mean_actual_return_pct": -5.79,
-        "mean_predicted_edge_pct": -5.352
+        "mean_magnitude_error": -4.73,
+        "mean_actual_return_pct": -5.83,
+        "mean_predicted_edge_pct": -5.405
       },
       "all_time": {
-        "direction_accuracy_pct": 4.2,
-        "n_scored": 48,
+        "direction_accuracy_pct": 4.0,
+        "n_scored": 50,
         "n_correct": 2,
-        "mean_magnitude_error": -4.7,
-        "mean_actual_return_pct": -5.79,
-        "mean_predicted_edge_pct": -5.352
+        "mean_magnitude_error": -4.73,
+        "mean_actual_return_pct": -5.83,
+        "mean_predicted_edge_pct": -5.405
       }
     },
     "150h": {
       "last_7d": {
-        "direction_accuracy_pct": 8.3,
-        "n_scored": 12,
-        "n_correct": 1,
-        "mean_magnitude_error": -5.29,
-        "mean_actual_return_pct": -6.18,
-        "mean_predicted_edge_pct": -5.1892
+        "direction_accuracy_pct": 15.4,
+        "n_scored": 13,
+        "n_correct": 2,
+        "mean_magnitude_error": -5.12,
+        "mean_actual_return_pct": -6.06,
+        "mean_predicted_edge_pct": -4.3227
       },
       "last_30d": {
-        "direction_accuracy_pct": 2.2,
-        "n_scored": 46,
-        "n_correct": 1,
-        "mean_magnitude_error": -4.53,
-        "mean_actual_return_pct": -5.62,
-        "mean_predicted_edge_pct": -5.3664
+        "direction_accuracy_pct": 4.2,
+        "n_scored": 48,
+        "n_correct": 2,
+        "mean_magnitude_error": -4.51,
+        "mean_actual_return_pct": -5.61,
+        "mean_predicted_edge_pct": -5.1428
       },
       "all_time": {
-        "direction_accuracy_pct": 2.2,
-        "n_scored": 46,
-        "n_correct": 1,
-        "mean_magnitude_error": -4.53,
-        "mean_actual_return_pct": -5.62,
-        "mean_predicted_edge_pct": -5.3664
+        "direction_accuracy_pct": 4.2,
+        "n_scored": 48,
+        "n_correct": 2,
+        "mean_magnitude_error": -4.51,
+        "mean_actual_return_pct": -5.61,
+        "mean_predicted_edge_pct": -5.1428
       }
     },
     "156h": {
       "last_7d": {
         "direction_accuracy_pct": 0.0,
-        "n_scored": 6,
+        "n_scored": 7,
         "n_correct": 0,
-        "mean_magnitude_error": -5.65,
-        "mean_actual_return_pct": -6.49,
-        "mean_predicted_edge_pct": -6.4919
+        "mean_magnitude_error": -5.72,
+        "mean_actual_return_pct": -6.51,
+        "mean_predicted_edge_pct": -6.5131
       },
       "last_30d": {
         "direction_accuracy_pct": 0.0,
-        "n_scored": 40,
+        "n_scored": 42,
         "n_correct": 0,
-        "mean_magnitude_error": -4.34,
-        "mean_actual_return_pct": -5.5,
-        "mean_predicted_edge_pct": -5.4978
+        "mean_magnitude_error": -4.41,
+        "mean_actual_return_pct": -5.55,
+        "mean_predicted_edge_pct": -5.5476
       },
       "all_time": {
         "direction_accuracy_pct": 0.0,
-        "n_scored": 40,
+        "n_scored": 42,
         "n_correct": 0,
-        "mean_magnitude_error": -4.34,
-        "mean_actual_return_pct": -5.5,
-        "mean_predicted_edge_pct": -5.4978
+        "mean_magnitude_error": -4.41,
+        "mean_actual_return_pct": -5.55,
+        "mean_predicted_edge_pct": -5.5476
       }
     },
     "162h": {
       "last_7d": {
         "direction_accuracy_pct": 0.0,
-        "n_scored": 2,
+        "n_scored": 1,
         "n_correct": 0,
-        "mean_magnitude_error": -5.54,
-        "mean_actual_return_pct": -6.56,
-        "mean_predicted_edge_pct": -6.5601
+        "mean_magnitude_error": -5.74,
+        "mean_actual_return_pct": -6.76,
+        "mean_predicted_edge_pct": -6.7575
       },
       "last_30d": {
         "direction_accuracy_pct": 0.0,
@@ -761,80 +761,80 @@
       "timeframes": {
         "6h": {
           "last_7d": {
-            "direction_accuracy_pct": 59.4,
-            "n_scored": 32,
-            "n_correct": 19,
-            "mean_magnitude_error": 1.47,
-            "mean_actual_return_pct": 0.14,
-            "mean_predicted_edge_pct": 0.1635
+            "direction_accuracy_pct": 60.6,
+            "n_scored": 33,
+            "n_correct": 20,
+            "mean_magnitude_error": 1.49,
+            "mean_actual_return_pct": 0.13,
+            "mean_predicted_edge_pct": 0.1624
           },
           "last_30d": {
-            "direction_accuracy_pct": 59.4,
-            "n_scored": 32,
-            "n_correct": 19,
-            "mean_magnitude_error": 1.47,
-            "mean_actual_return_pct": 0.14,
-            "mean_predicted_edge_pct": 0.1635
+            "direction_accuracy_pct": 60.6,
+            "n_scored": 33,
+            "n_correct": 20,
+            "mean_magnitude_error": 1.49,
+            "mean_actual_return_pct": 0.13,
+            "mean_predicted_edge_pct": 0.1624
           },
           "all_time": {
-            "direction_accuracy_pct": 59.4,
-            "n_scored": 32,
-            "n_correct": 19,
-            "mean_magnitude_error": 1.47,
-            "mean_actual_return_pct": 0.14,
-            "mean_predicted_edge_pct": 0.1635
+            "direction_accuracy_pct": 60.6,
+            "n_scored": 33,
+            "n_correct": 20,
+            "mean_magnitude_error": 1.49,
+            "mean_actual_return_pct": 0.13,
+            "mean_predicted_edge_pct": 0.1624
           }
         },
         "12h": {
           "last_7d": {
-            "direction_accuracy_pct": 41.7,
-            "n_scored": 24,
-            "n_correct": 10,
-            "mean_magnitude_error": 1.74,
-            "mean_actual_return_pct": 0.36,
-            "mean_predicted_edge_pct": -0.1881
+            "direction_accuracy_pct": 44.0,
+            "n_scored": 25,
+            "n_correct": 11,
+            "mean_magnitude_error": 1.71,
+            "mean_actual_return_pct": 0.3,
+            "mean_predicted_edge_pct": -0.1414
           },
           "last_30d": {
-            "direction_accuracy_pct": 41.7,
-            "n_scored": 24,
-            "n_correct": 10,
-            "mean_magnitude_error": 1.74,
-            "mean_actual_return_pct": 0.36,
-            "mean_predicted_edge_pct": -0.1881
+            "direction_accuracy_pct": 44.0,
+            "n_scored": 25,
+            "n_correct": 11,
+            "mean_magnitude_error": 1.71,
+            "mean_actual_return_pct": 0.3,
+            "mean_predicted_edge_pct": -0.1414
           },
           "all_time": {
-            "direction_accuracy_pct": 41.7,
-            "n_scored": 24,
-            "n_correct": 10,
-            "mean_magnitude_error": 1.74,
-            "mean_actual_return_pct": 0.36,
-            "mean_predicted_edge_pct": -0.1881
+            "direction_accuracy_pct": 44.0,
+            "n_scored": 25,
+            "n_correct": 11,
+            "mean_magnitude_error": 1.71,
+            "mean_actual_return_pct": 0.3,
+            "mean_predicted_edge_pct": -0.1414
           }
         },
         "18h": {
           "last_7d": {
-            "direction_accuracy_pct": 26.3,
-            "n_scored": 19,
-            "n_correct": 5,
-            "mean_magnitude_error": 3.9,
-            "mean_actual_return_pct": 0.77,
-            "mean_predicted_edge_pct": -0.4796
+            "direction_accuracy_pct": 30.0,
+            "n_scored": 20,
+            "n_correct": 6,
+            "mean_magnitude_error": 3.88,
+            "mean_actual_return_pct": 0.7,
+            "mean_predicted_edge_pct": -0.4214
           },
           "last_30d": {
-            "direction_accuracy_pct": 26.3,
-            "n_scored": 19,
-            "n_correct": 5,
-            "mean_magnitude_error": 3.9,
-            "mean_actual_return_pct": 0.77,
-            "mean_predicted_edge_pct": -0.4796
+            "direction_accuracy_pct": 30.0,
+            "n_scored": 20,
+            "n_correct": 6,
+            "mean_magnitude_error": 3.88,
+            "mean_actual_return_pct": 0.7,
+            "mean_predicted_edge_pct": -0.4214
           },
           "all_time": {
-            "direction_accuracy_pct": 26.3,
-            "n_scored": 19,
-            "n_correct": 5,
-            "mean_magnitude_error": 3.9,
-            "mean_actual_return_pct": 0.77,
-            "mean_predicted_edge_pct": -0.4796
+            "direction_accuracy_pct": 30.0,
+            "n_scored": 20,
+            "n_correct": 6,
+            "mean_magnitude_error": 3.88,
+            "mean_actual_return_pct": 0.7,
+            "mean_predicted_edge_pct": -0.4214
           }
         },
         "24h": {
@@ -865,80 +865,80 @@
         },
         "30h": {
           "last_7d": {
-            "direction_accuracy_pct": 0.0,
-            "n_scored": 14,
-            "n_correct": 0,
-            "mean_magnitude_error": 6.39,
-            "mean_actual_return_pct": 0.72,
-            "mean_predicted_edge_pct": -0.7184
+            "direction_accuracy_pct": 6.7,
+            "n_scored": 15,
+            "n_correct": 1,
+            "mean_magnitude_error": 6.45,
+            "mean_actual_return_pct": 0.66,
+            "mean_predicted_edge_pct": -0.6561
           },
           "last_30d": {
-            "direction_accuracy_pct": 0.0,
-            "n_scored": 14,
-            "n_correct": 0,
-            "mean_magnitude_error": 6.39,
-            "mean_actual_return_pct": 0.72,
-            "mean_predicted_edge_pct": -0.7184
+            "direction_accuracy_pct": 6.7,
+            "n_scored": 15,
+            "n_correct": 1,
+            "mean_magnitude_error": 6.45,
+            "mean_actual_return_pct": 0.66,
+            "mean_predicted_edge_pct": -0.6561
           },
           "all_time": {
-            "direction_accuracy_pct": 0.0,
-            "n_scored": 14,
-            "n_correct": 0,
-            "mean_magnitude_error": 6.39,
-            "mean_actual_return_pct": 0.72,
-            "mean_predicted_edge_pct": -0.7184
+            "direction_accuracy_pct": 6.7,
+            "n_scored": 15,
+            "n_correct": 1,
+            "mean_magnitude_error": 6.45,
+            "mean_actual_return_pct": 0.66,
+            "mean_predicted_edge_pct": -0.6561
           }
         },
         "36h": {
           "last_7d": {
-            "direction_accuracy_pct": 0.0,
-            "n_scored": 7,
-            "n_correct": 0,
-            "mean_magnitude_error": 5.98,
-            "mean_actual_return_pct": 0.73,
-            "mean_predicted_edge_pct": -0.7337
+            "direction_accuracy_pct": 12.5,
+            "n_scored": 8,
+            "n_correct": 1,
+            "mean_magnitude_error": 6.08,
+            "mean_actual_return_pct": 0.59,
+            "mean_predicted_edge_pct": -0.5939
           },
           "last_30d": {
-            "direction_accuracy_pct": 0.0,
-            "n_scored": 7,
-            "n_correct": 0,
-            "mean_magnitude_error": 5.98,
-            "mean_actual_return_pct": 0.73,
-            "mean_predicted_edge_pct": -0.7337
+            "direction_accuracy_pct": 12.5,
+            "n_scored": 8,
+            "n_correct": 1,
+            "mean_magnitude_error": 6.08,
+            "mean_actual_return_pct": 0.59,
+            "mean_predicted_edge_pct": -0.5939
           },
           "all_time": {
-            "direction_accuracy_pct": 0.0,
-            "n_scored": 7,
-            "n_correct": 0,
-            "mean_magnitude_error": 5.98,
-            "mean_actual_return_pct": 0.73,
-            "mean_predicted_edge_pct": -0.7337
+            "direction_accuracy_pct": 12.5,
+            "n_scored": 8,
+            "n_correct": 1,
+            "mean_magnitude_error": 6.08,
+            "mean_actual_return_pct": 0.59,
+            "mean_predicted_edge_pct": -0.5939
           }
         },
         "42h": {
           "last_7d": {
-            "direction_accuracy_pct": 50.0,
-            "n_scored": 2,
+            "direction_accuracy_pct": 33.3,
+            "n_scored": 3,
             "n_correct": 1,
-            "mean_magnitude_error": 6.54,
-            "mean_actual_return_pct": 0.08,
-            "mean_predicted_edge_pct": -0.0765
+            "mean_magnitude_error": 6.55,
+            "mean_actual_return_pct": 0.36,
+            "mean_predicted_edge_pct": -0.3579
           },
           "last_30d": {
-            "direction_accuracy_pct": 50.0,
-            "n_scored": 2,
+            "direction_accuracy_pct": 33.3,
+            "n_scored": 3,
             "n_correct": 1,
-            "mean_magnitude_error": 6.54,
-            "mean_actual_return_pct": 0.08,
-            "mean_predicted_edge_pct": -0.0765
+            "mean_magnitude_error": 6.55,
+            "mean_actual_return_pct": 0.36,
+            "mean_predicted_edge_pct": -0.3579
           },
           "all_time": {
-            "direction_accuracy_pct": 50.0,
-            "n_scored": 2,
+            "direction_accuracy_pct": 33.3,
+            "n_scored": 3,
             "n_correct": 1,
-            "mean_magnitude_error": 6.54,
-            "mean_actual_return_pct": 0.08,
-            "mean_predicted_edge_pct": -0.0765
+            "mean_magnitude_error": 6.55,
+            "mean_actual_return_pct": 0.36,
+            "mean_predicted_edge_pct": -0.3579
           }
         },
         "48h": {
@@ -1515,8 +1515,8 @@
         }
       },
       "calibration": {
-        "n_total": 127,
-        "ece": 0.2613,
+        "n_total": 133,
+        "ece": 0.2343,
         "bins": [
           {
             "confidence_lo": 0.0,
@@ -1561,10 +1561,10 @@
           {
             "confidence_lo": 50.0,
             "confidence_hi": 60.0,
-            "mean_confidence": 51.9,
-            "accuracy_pct": 31.3,
-            "n": 115,
-            "n_correct": 36
+            "mean_confidence": 51.8,
+            "accuracy_pct": 33.9,
+            "n": 121,
+            "n_correct": 41
           },
           {
             "confidence_lo": 60.0,
@@ -1600,7 +1600,7 @@
           }
         ]
       },
-      "n_scored": 127
+      "n_scored": 133
     },
     "heuristic": {
       "timeframes": {
@@ -1788,54 +1788,54 @@
         },
         "48h": {
           "last_7d": {
-            "direction_accuracy_pct": 46.7,
-            "n_scored": 15,
-            "n_correct": 7,
-            "mean_magnitude_error": -4.09,
-            "mean_actual_return_pct": -3.63,
-            "mean_predicted_edge_pct": -1.9357
+            "direction_accuracy_pct": 50.0,
+            "n_scored": 16,
+            "n_correct": 8,
+            "mean_magnitude_error": -3.82,
+            "mean_actual_return_pct": -3.41,
+            "mean_predicted_edge_pct": -1.8134
           },
           "last_30d": {
-            "direction_accuracy_pct": 21.9,
-            "n_scored": 32,
-            "n_correct": 7,
-            "mean_magnitude_error": -4.73,
-            "mean_actual_return_pct": -4.87,
-            "mean_predicted_edge_pct": -4.0715
+            "direction_accuracy_pct": 24.2,
+            "n_scored": 33,
+            "n_correct": 8,
+            "mean_magnitude_error": -4.58,
+            "mean_actual_return_pct": -4.72,
+            "mean_predicted_edge_pct": -3.9475
           },
           "all_time": {
-            "direction_accuracy_pct": 21.9,
-            "n_scored": 32,
-            "n_correct": 7,
-            "mean_magnitude_error": -4.73,
-            "mean_actual_return_pct": -4.87,
-            "mean_predicted_edge_pct": -4.0715
+            "direction_accuracy_pct": 24.2,
+            "n_scored": 33,
+            "n_correct": 8,
+            "mean_magnitude_error": -4.58,
+            "mean_actual_return_pct": -4.72,
+            "mean_predicted_edge_pct": -3.9475
           }
         },
         "54h": {
           "last_7d": {
-            "direction_accuracy_pct": 27.3,
-            "n_scored": 11,
-            "n_correct": 3,
-            "mean_magnitude_error": -5.33,
-            "mean_actual_return_pct": -5.24,
-            "mean_predicted_edge_pct": -2.9259
+            "direction_accuracy_pct": 33.3,
+            "n_scored": 12,
+            "n_correct": 4,
+            "mean_magnitude_error": -4.88,
+            "mean_actual_return_pct": -4.8,
+            "mean_predicted_edge_pct": -2.6732
           },
           "last_30d": {
-            "direction_accuracy_pct": 10.7,
-            "n_scored": 28,
-            "n_correct": 3,
-            "mean_magnitude_error": -5.31,
-            "mean_actual_return_pct": -5.68,
-            "mean_predicted_edge_pct": -4.7656
+            "direction_accuracy_pct": 13.8,
+            "n_scored": 29,
+            "n_correct": 4,
+            "mean_magnitude_error": -5.13,
+            "mean_actual_return_pct": -5.48,
+            "mean_predicted_edge_pct": -4.5976
           },
           "all_time": {
-            "direction_accuracy_pct": 10.7,
-            "n_scored": 28,
-            "n_correct": 3,
-            "mean_magnitude_error": -5.31,
-            "mean_actual_return_pct": -5.68,
-            "mean_predicted_edge_pct": -4.7656
+            "direction_accuracy_pct": 13.8,
+            "n_scored": 29,
+            "n_correct": 4,
+            "mean_magnitude_error": -5.13,
+            "mean_actual_return_pct": -5.48,
+            "mean_predicted_edge_pct": -4.5976
           }
         },
         "60h": {
@@ -2204,80 +2204,80 @@
         },
         "144h": {
           "last_7d": {
-            "direction_accuracy_pct": 33.3,
-            "n_scored": 6,
+            "direction_accuracy_pct": 28.6,
+            "n_scored": 7,
             "n_correct": 2,
-            "mean_magnitude_error": -4.83,
-            "mean_actual_return_pct": -5.6,
-            "mean_predicted_edge_pct": -2.0915
+            "mean_magnitude_error": -4.88,
+            "mean_actual_return_pct": -5.75,
+            "mean_predicted_edge_pct": -2.7468
           },
           "last_30d": {
-            "direction_accuracy_pct": 8.7,
-            "n_scored": 23,
+            "direction_accuracy_pct": 8.3,
+            "n_scored": 24,
             "n_correct": 2,
-            "mean_magnitude_error": -4.58,
-            "mean_actual_return_pct": -5.7,
-            "mean_predicted_edge_pct": -4.7851
+            "mean_magnitude_error": -4.61,
+            "mean_actual_return_pct": -5.74,
+            "mean_predicted_edge_pct": -4.864
           },
           "all_time": {
-            "direction_accuracy_pct": 8.7,
-            "n_scored": 23,
+            "direction_accuracy_pct": 8.3,
+            "n_scored": 24,
             "n_correct": 2,
-            "mean_magnitude_error": -4.58,
-            "mean_actual_return_pct": -5.7,
-            "mean_predicted_edge_pct": -4.7851
+            "mean_magnitude_error": -4.61,
+            "mean_actual_return_pct": -5.74,
+            "mean_predicted_edge_pct": -4.864
           }
         },
         "150h": {
           "last_7d": {
-            "direction_accuracy_pct": 20.0,
-            "n_scored": 5,
-            "n_correct": 1,
-            "mean_magnitude_error": -5.51,
-            "mean_actual_return_pct": -6.21,
-            "mean_predicted_edge_pct": -3.8366
+            "direction_accuracy_pct": 33.3,
+            "n_scored": 6,
+            "n_correct": 2,
+            "mean_magnitude_error": -5.23,
+            "mean_actual_return_pct": -6.07,
+            "mean_predicted_edge_pct": -2.3102
           },
           "last_30d": {
-            "direction_accuracy_pct": 4.5,
-            "n_scored": 22,
-            "n_correct": 1,
-            "mean_magnitude_error": -4.41,
-            "mean_actual_return_pct": -5.55,
-            "mean_predicted_edge_pct": -5.0056
+            "direction_accuracy_pct": 8.7,
+            "n_scored": 23,
+            "n_correct": 2,
+            "mean_magnitude_error": -4.38,
+            "mean_actual_return_pct": -5.54,
+            "mean_predicted_edge_pct": -4.5566
           },
           "all_time": {
-            "direction_accuracy_pct": 4.5,
-            "n_scored": 22,
-            "n_correct": 1,
-            "mean_magnitude_error": -4.41,
-            "mean_actual_return_pct": -5.55,
-            "mean_predicted_edge_pct": -5.0056
+            "direction_accuracy_pct": 8.7,
+            "n_scored": 23,
+            "n_correct": 2,
+            "mean_magnitude_error": -4.38,
+            "mean_actual_return_pct": -5.54,
+            "mean_predicted_edge_pct": -4.5566
           }
         },
         "156h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 2,
+            "n_scored": 3,
             "n_correct": 0,
-            "mean_magnitude_error": -5.94,
-            "mean_actual_return_pct": -6.44,
-            "mean_predicted_edge_pct": -6.439
+            "mean_magnitude_error": -5.97,
+            "mean_actual_return_pct": -6.47,
+            "mean_predicted_edge_pct": -6.4742
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 19,
+            "n_scored": 20,
             "n_correct": 0,
-            "mean_magnitude_error": -4.15,
-            "mean_actual_return_pct": -5.41,
-            "mean_predicted_edge_pct": -5.4066
+            "mean_magnitude_error": -4.25,
+            "mean_actual_return_pct": -5.46,
+            "mean_predicted_edge_pct": -5.4635
           },
           "all_time": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 19,
+            "n_scored": 20,
             "n_correct": 0,
-            "mean_magnitude_error": -4.15,
-            "mean_actual_return_pct": -5.41,
-            "mean_predicted_edge_pct": -5.4066
+            "mean_magnitude_error": -4.25,
+            "mean_actual_return_pct": -5.46,
+            "mean_predicted_edge_pct": -5.4635
           }
         },
         "162h": {
@@ -2360,8 +2360,8 @@
         }
       },
       "calibration": {
-        "n_total": 692,
-        "ece": 0.494,
+        "n_total": 697,
+        "ece": 0.4919,
         "bins": [
           {
             "confidence_lo": 0.0,
@@ -2400,16 +2400,16 @@
             "confidence_hi": 50.0,
             "mean_confidence": 47.5,
             "accuracy_pct": 100.0,
-            "n": 25,
-            "n_correct": 25
+            "n": 26,
+            "n_correct": 26
           },
           {
             "confidence_lo": 50.0,
             "confidence_hi": 60.0,
             "mean_confidence": 55.7,
-            "accuracy_pct": 10.3,
-            "n": 439,
-            "n_correct": 45
+            "accuracy_pct": 10.6,
+            "n": 443,
+            "n_correct": 47
           },
           {
             "confidence_lo": 60.0,
@@ -2445,18 +2445,18 @@
           }
         ]
       },
-      "n_scored": 692
+      "n_scored": 697
     },
     "hybrid (3/29 ML)": {
       "timeframes": {
         "6h": {
           "last_7d": {
-            "direction_accuracy_pct": 33.3,
-            "n_scored": 9,
+            "direction_accuracy_pct": 37.5,
+            "n_scored": 8,
             "n_correct": 3,
-            "mean_magnitude_error": -0.5,
-            "mean_actual_return_pct": 0.27,
-            "mean_predicted_edge_pct": -0.3903
+            "mean_magnitude_error": -0.54,
+            "mean_actual_return_pct": 0.34,
+            "mean_predicted_edge_pct": -0.4079
           },
           "last_30d": {
             "direction_accuracy_pct": 66.7,
@@ -2477,12 +2477,12 @@
         },
         "12h": {
           "last_7d": {
-            "direction_accuracy_pct": 50.0,
-            "n_scored": 8,
+            "direction_accuracy_pct": 57.1,
+            "n_scored": 7,
             "n_correct": 4,
-            "mean_magnitude_error": -0.7,
-            "mean_actual_return_pct": 0.6,
-            "mean_predicted_edge_pct": -0.3169
+            "mean_magnitude_error": -0.8,
+            "mean_actual_return_pct": 0.71,
+            "mean_predicted_edge_pct": -0.345
           },
           "last_30d": {
             "direction_accuracy_pct": 65.4,
@@ -2503,12 +2503,12 @@
         },
         "18h": {
           "last_7d": {
-            "direction_accuracy_pct": 60.0,
-            "n_scored": 5,
+            "direction_accuracy_pct": 75.0,
+            "n_scored": 4,
             "n_correct": 3,
-            "mean_magnitude_error": -0.48,
-            "mean_actual_return_pct": 0.51,
-            "mean_predicted_edge_pct": 0.514
+            "mean_magnitude_error": -0.62,
+            "mean_actual_return_pct": 0.65,
+            "mean_predicted_edge_pct": 0.6522
           },
           "last_30d": {
             "direction_accuracy_pct": 73.9,
@@ -2529,12 +2529,12 @@
         },
         "24h": {
           "last_7d": {
-            "direction_accuracy_pct": 73.3,
-            "n_scored": 15,
+            "direction_accuracy_pct": 78.6,
+            "n_scored": 14,
             "n_correct": 11,
-            "mean_magnitude_error": -3.55,
-            "mean_actual_return_pct": -3.43,
-            "mean_predicted_edge_pct": 2.4054
+            "mean_magnitude_error": -3.82,
+            "mean_actual_return_pct": -3.72,
+            "mean_predicted_edge_pct": 2.6242
           },
           "last_30d": {
             "direction_accuracy_pct": 51.5,
@@ -3299,25 +3299,25 @@
             "direction_accuracy_pct": 51.1,
             "n_scored": 47,
             "n_correct": 24,
-            "mean_magnitude_error": -0.29,
+            "mean_magnitude_error": -0.28,
             "mean_actual_return_pct": 0.08,
-            "mean_predicted_edge_pct": 0.0756
+            "mean_predicted_edge_pct": 0.0782
           },
           "last_30d": {
-            "direction_accuracy_pct": 61.9,
-            "n_scored": 63,
+            "direction_accuracy_pct": 60.9,
+            "n_scored": 64,
             "n_correct": 39,
-            "mean_magnitude_error": -0.21,
+            "mean_magnitude_error": -0.2,
             "mean_actual_return_pct": 0.14,
-            "mean_predicted_edge_pct": 0.1439
+            "mean_predicted_edge_pct": 0.1397
           },
           "all_time": {
-            "direction_accuracy_pct": 61.9,
-            "n_scored": 63,
+            "direction_accuracy_pct": 60.9,
+            "n_scored": 64,
             "n_correct": 39,
-            "mean_magnitude_error": -0.21,
+            "mean_magnitude_error": -0.2,
             "mean_actual_return_pct": 0.14,
-            "mean_predicted_edge_pct": 0.1439
+            "mean_predicted_edge_pct": 0.1397
           }
         },
         "12h": {
@@ -3325,25 +3325,25 @@
             "direction_accuracy_pct": 64.1,
             "n_scored": 39,
             "n_correct": 25,
-            "mean_magnitude_error": -0.43,
-            "mean_actual_return_pct": 0.13,
-            "mean_predicted_edge_pct": 0.1318
+            "mean_magnitude_error": -0.45,
+            "mean_actual_return_pct": 0.11,
+            "mean_predicted_edge_pct": 0.1098
           },
           "last_30d": {
-            "direction_accuracy_pct": 69.1,
-            "n_scored": 55,
+            "direction_accuracy_pct": 67.9,
+            "n_scored": 56,
             "n_correct": 38,
             "mean_magnitude_error": -0.33,
-            "mean_actual_return_pct": 0.24,
-            "mean_predicted_edge_pct": 0.2381
+            "mean_actual_return_pct": 0.22,
+            "mean_predicted_edge_pct": 0.2164
           },
           "all_time": {
-            "direction_accuracy_pct": 69.1,
-            "n_scored": 55,
+            "direction_accuracy_pct": 67.9,
+            "n_scored": 56,
             "n_correct": 38,
             "mean_magnitude_error": -0.33,
-            "mean_actual_return_pct": 0.24,
-            "mean_predicted_edge_pct": 0.2381
+            "mean_actual_return_pct": 0.22,
+            "mean_predicted_edge_pct": 0.2164
           }
         },
         "18h": {
@@ -3351,35 +3351,35 @@
             "direction_accuracy_pct": 67.6,
             "n_scored": 34,
             "n_correct": 23,
-            "mean_magnitude_error": -0.6,
-            "mean_actual_return_pct": 0.04,
-            "mean_predicted_edge_pct": 0.0357
+            "mean_magnitude_error": -0.62,
+            "mean_actual_return_pct": 0.02,
+            "mean_predicted_edge_pct": 0.0167
           },
           "last_30d": {
-            "direction_accuracy_pct": 74.0,
-            "n_scored": 50,
+            "direction_accuracy_pct": 72.5,
+            "n_scored": 51,
             "n_correct": 37,
-            "mean_magnitude_error": -0.42,
-            "mean_actual_return_pct": 0.22,
-            "mean_predicted_edge_pct": 0.219
+            "mean_magnitude_error": -0.41,
+            "mean_actual_return_pct": 0.2,
+            "mean_predicted_edge_pct": 0.2013
           },
           "all_time": {
-            "direction_accuracy_pct": 74.0,
-            "n_scored": 50,
+            "direction_accuracy_pct": 72.5,
+            "n_scored": 51,
             "n_correct": 37,
-            "mean_magnitude_error": -0.42,
-            "mean_actual_return_pct": 0.22,
-            "mean_predicted_edge_pct": 0.219
+            "mean_magnitude_error": -0.41,
+            "mean_actual_return_pct": 0.2,
+            "mean_predicted_edge_pct": 0.2013
           }
         },
         "24h": {
           "last_7d": {
-            "direction_accuracy_pct": 71.9,
-            "n_scored": 32,
-            "n_correct": 23,
-            "mean_magnitude_error": -0.86,
-            "mean_actual_return_pct": -0.28,
-            "mean_predicted_edge_pct": -0.2781
+            "direction_accuracy_pct": 71.0,
+            "n_scored": 31,
+            "n_correct": 22,
+            "mean_magnitude_error": -0.89,
+            "mean_actual_return_pct": -0.31,
+            "mean_predicted_edge_pct": -0.3083
           },
           "last_30d": {
             "direction_accuracy_pct": 75.0,
@@ -3403,25 +3403,25 @@
             "direction_accuracy_pct": 65.5,
             "n_scored": 29,
             "n_correct": 19,
-            "mean_magnitude_error": -1.04,
-            "mean_actual_return_pct": -0.71,
-            "mean_predicted_edge_pct": -0.7126
+            "mean_magnitude_error": -0.92,
+            "mean_actual_return_pct": -0.59,
+            "mean_predicted_edge_pct": -0.5889
           },
           "last_30d": {
-            "direction_accuracy_pct": 73.3,
-            "n_scored": 45,
+            "direction_accuracy_pct": 71.7,
+            "n_scored": 46,
             "n_correct": 33,
-            "mean_magnitude_error": -0.76,
+            "mean_magnitude_error": -0.73,
             "mean_actual_return_pct": -0.14,
-            "mean_predicted_edge_pct": -0.1416
+            "mean_predicted_edge_pct": -0.1432
           },
           "all_time": {
-            "direction_accuracy_pct": 73.3,
-            "n_scored": 45,
+            "direction_accuracy_pct": 71.7,
+            "n_scored": 46,
             "n_correct": 33,
-            "mean_magnitude_error": -0.76,
+            "mean_magnitude_error": -0.73,
             "mean_actual_return_pct": -0.14,
-            "mean_predicted_edge_pct": -0.1416
+            "mean_predicted_edge_pct": -0.1432
           }
         },
         "36h": {
@@ -3429,113 +3429,113 @@
             "direction_accuracy_pct": 54.5,
             "n_scored": 22,
             "n_correct": 12,
-            "mean_magnitude_error": -1.37,
-            "mean_actual_return_pct": -1.13,
-            "mean_predicted_edge_pct": -1.1262
+            "mean_magnitude_error": -1.22,
+            "mean_actual_return_pct": -0.97,
+            "mean_predicted_edge_pct": -0.9709
           },
           "last_30d": {
-            "direction_accuracy_pct": 71.1,
-            "n_scored": 38,
+            "direction_accuracy_pct": 69.2,
+            "n_scored": 39,
             "n_correct": 27,
-            "mean_magnitude_error": -1.02,
+            "mean_magnitude_error": -0.98,
             "mean_actual_return_pct": -0.3,
-            "mean_predicted_edge_pct": -0.297
+            "mean_predicted_edge_pct": -0.2993
           },
           "all_time": {
-            "direction_accuracy_pct": 71.1,
-            "n_scored": 38,
+            "direction_accuracy_pct": 69.2,
+            "n_scored": 39,
             "n_correct": 27,
-            "mean_magnitude_error": -1.02,
+            "mean_magnitude_error": -0.98,
             "mean_actual_return_pct": -0.3,
-            "mean_predicted_edge_pct": -0.297
+            "mean_predicted_edge_pct": -0.2993
           }
         },
         "42h": {
           "last_7d": {
-            "direction_accuracy_pct": 35.3,
+            "direction_accuracy_pct": 41.2,
             "n_scored": 17,
-            "n_correct": 6,
-            "mean_magnitude_error": -1.6,
-            "mean_actual_return_pct": -1.86,
-            "mean_predicted_edge_pct": -1.8647
+            "n_correct": 7,
+            "mean_magnitude_error": -1.43,
+            "mean_actual_return_pct": -1.59,
+            "mean_predicted_edge_pct": -1.5869
           },
           "last_30d": {
-            "direction_accuracy_pct": 54.5,
-            "n_scored": 33,
-            "n_correct": 18,
-            "mean_magnitude_error": -1.36,
-            "mean_actual_return_pct": -0.86,
-            "mean_predicted_edge_pct": -0.8639
+            "direction_accuracy_pct": 55.9,
+            "n_scored": 34,
+            "n_correct": 19,
+            "mean_magnitude_error": -1.32,
+            "mean_actual_return_pct": -0.81,
+            "mean_predicted_edge_pct": -0.8115
           },
           "all_time": {
-            "direction_accuracy_pct": 54.5,
-            "n_scored": 33,
-            "n_correct": 18,
-            "mean_magnitude_error": -1.36,
-            "mean_actual_return_pct": -0.86,
-            "mean_predicted_edge_pct": -0.8639
+            "direction_accuracy_pct": 55.9,
+            "n_scored": 34,
+            "n_correct": 19,
+            "mean_magnitude_error": -1.32,
+            "mean_actual_return_pct": -0.81,
+            "mean_predicted_edge_pct": -0.8115
           }
         },
         "48h": {
           "last_7d": {
-            "direction_accuracy_pct": 28.6,
+            "direction_accuracy_pct": 35.7,
             "n_scored": 14,
-            "n_correct": 4,
-            "mean_magnitude_error": -1.93,
-            "mean_actual_return_pct": -2.37,
-            "mean_predicted_edge_pct": -2.3725
+            "n_correct": 5,
+            "mean_magnitude_error": -1.66,
+            "mean_actual_return_pct": -2.1,
+            "mean_predicted_edge_pct": -2.0995
           },
           "last_30d": {
-            "direction_accuracy_pct": 43.3,
-            "n_scored": 30,
-            "n_correct": 13,
-            "mean_magnitude_error": -1.66,
-            "mean_actual_return_pct": -1.45,
-            "mean_predicted_edge_pct": -1.455
+            "direction_accuracy_pct": 45.2,
+            "n_scored": 31,
+            "n_correct": 14,
+            "mean_magnitude_error": -1.58,
+            "mean_actual_return_pct": -1.41,
+            "mean_predicted_edge_pct": -1.4074
           },
           "all_time": {
-            "direction_accuracy_pct": 43.3,
-            "n_scored": 30,
-            "n_correct": 13,
-            "mean_magnitude_error": -1.66,
-            "mean_actual_return_pct": -1.45,
-            "mean_predicted_edge_pct": -1.455
+            "direction_accuracy_pct": 45.2,
+            "n_scored": 31,
+            "n_correct": 14,
+            "mean_magnitude_error": -1.58,
+            "mean_actual_return_pct": -1.41,
+            "mean_predicted_edge_pct": -1.4074
           }
         },
         "54h": {
           "last_7d": {
-            "direction_accuracy_pct": 0.0,
+            "direction_accuracy_pct": 10.0,
             "n_scored": 10,
-            "n_correct": 0,
-            "mean_magnitude_error": -2.73,
-            "mean_actual_return_pct": -3.61,
-            "mean_predicted_edge_pct": -3.6122
+            "n_correct": 1,
+            "mean_magnitude_error": -2.36,
+            "mean_actual_return_pct": -3.22,
+            "mean_predicted_edge_pct": -3.2214
           },
           "last_30d": {
-            "direction_accuracy_pct": 30.8,
-            "n_scored": 26,
-            "n_correct": 8,
-            "mean_magnitude_error": -2.06,
-            "mean_actual_return_pct": -1.87,
-            "mean_predicted_edge_pct": -1.868
+            "direction_accuracy_pct": 33.3,
+            "n_scored": 27,
+            "n_correct": 9,
+            "mean_magnitude_error": -1.95,
+            "mean_actual_return_pct": -1.79,
+            "mean_predicted_edge_pct": -1.7949
           },
           "all_time": {
-            "direction_accuracy_pct": 30.8,
-            "n_scored": 26,
-            "n_correct": 8,
-            "mean_magnitude_error": -2.06,
-            "mean_actual_return_pct": -1.87,
-            "mean_predicted_edge_pct": -1.868
+            "direction_accuracy_pct": 33.3,
+            "n_scored": 27,
+            "n_correct": 9,
+            "mean_magnitude_error": -1.95,
+            "mean_actual_return_pct": -1.79,
+            "mean_predicted_edge_pct": -1.7949
           }
         },
         "60h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 10,
+            "n_scored": 9,
             "n_correct": 0,
-            "mean_magnitude_error": -2.71,
-            "mean_actual_return_pct": -3.61,
-            "mean_predicted_edge_pct": -3.6122
+            "mean_magnitude_error": -2.69,
+            "mean_actual_return_pct": -3.59,
+            "mean_predicted_edge_pct": -3.5912
           },
           "last_30d": {
             "direction_accuracy_pct": 23.1,
@@ -3557,11 +3557,11 @@
         "66h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 10,
+            "n_scored": 9,
             "n_correct": 0,
-            "mean_magnitude_error": -2.69,
-            "mean_actual_return_pct": -3.61,
-            "mean_predicted_edge_pct": -3.6122
+            "mean_magnitude_error": -2.67,
+            "mean_actual_return_pct": -3.59,
+            "mean_predicted_edge_pct": -3.5912
           },
           "last_30d": {
             "direction_accuracy_pct": 11.5,
@@ -3583,11 +3583,11 @@
         "72h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -3.18,
-            "mean_actual_return_pct": -4.12,
-            "mean_predicted_edge_pct": -4.1198
+            "mean_magnitude_error": -3.21,
+            "mean_actual_return_pct": -4.15,
+            "mean_predicted_edge_pct": -4.1516
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3609,11 +3609,11 @@
         "78h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -3.46,
-            "mean_actual_return_pct": -4.41,
-            "mean_predicted_edge_pct": -4.41
+            "mean_magnitude_error": -3.52,
+            "mean_actual_return_pct": -4.47,
+            "mean_predicted_edge_pct": -4.4708
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3635,11 +3635,11 @@
         "84h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -3.9,
-            "mean_actual_return_pct": -4.86,
-            "mean_predicted_edge_pct": -4.8567
+            "mean_magnitude_error": -4.0,
+            "mean_actual_return_pct": -4.96,
+            "mean_predicted_edge_pct": -4.9622
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3661,11 +3661,11 @@
         "90h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -4.81,
-            "mean_actual_return_pct": -5.78,
-            "mean_predicted_edge_pct": -5.7784
+            "mean_magnitude_error": -5.01,
+            "mean_actual_return_pct": -5.98,
+            "mean_predicted_edge_pct": -5.9761
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3687,11 +3687,11 @@
         "96h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -5.6,
-            "mean_actual_return_pct": -6.58,
-            "mean_predicted_edge_pct": -6.582
+            "mean_magnitude_error": -5.88,
+            "mean_actual_return_pct": -6.86,
+            "mean_predicted_edge_pct": -6.8601
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3713,11 +3713,11 @@
         "102h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -5.74,
-            "mean_actual_return_pct": -6.73,
-            "mean_predicted_edge_pct": -6.7274
+            "mean_magnitude_error": -5.93,
+            "mean_actual_return_pct": -6.92,
+            "mean_predicted_edge_pct": -6.9215
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3739,11 +3739,11 @@
         "108h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -5.71,
-            "mean_actual_return_pct": -6.71,
-            "mean_predicted_edge_pct": -6.7088
+            "mean_magnitude_error": -5.6,
+            "mean_actual_return_pct": -6.6,
+            "mean_predicted_edge_pct": -6.5986
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3765,11 +3765,11 @@
         "114h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -5.69,
-            "mean_actual_return_pct": -6.69,
-            "mean_predicted_edge_pct": -6.6874
+            "mean_magnitude_error": -5.57,
+            "mean_actual_return_pct": -6.57,
+            "mean_predicted_edge_pct": -6.5693
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3791,11 +3791,11 @@
         "120h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -5.44,
-            "mean_actual_return_pct": -6.45,
-            "mean_predicted_edge_pct": -6.4522
+            "mean_magnitude_error": -5.45,
+            "mean_actual_return_pct": -6.46,
+            "mean_predicted_edge_pct": -6.4564
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3817,11 +3817,11 @@
         "126h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -5.4,
-            "mean_actual_return_pct": -6.41,
-            "mean_predicted_edge_pct": -6.4114
+            "mean_magnitude_error": -5.24,
+            "mean_actual_return_pct": -6.25,
+            "mean_predicted_edge_pct": -6.2516
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3843,11 +3843,11 @@
         "132h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 11,
+            "n_scored": 10,
             "n_correct": 0,
-            "mean_magnitude_error": -5.19,
-            "mean_actual_return_pct": -6.2,
-            "mean_predicted_edge_pct": -6.2022
+            "mean_magnitude_error": -5.09,
+            "mean_actual_return_pct": -6.1,
+            "mean_predicted_edge_pct": -6.101
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3869,11 +3869,11 @@
         "138h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 9,
+            "n_scored": 8,
             "n_correct": 0,
-            "mean_magnitude_error": -4.67,
-            "mean_actual_return_pct": -5.69,
-            "mean_predicted_edge_pct": -5.6874
+            "mean_magnitude_error": -4.62,
+            "mean_actual_return_pct": -5.64,
+            "mean_predicted_edge_pct": -5.6416
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -3897,25 +3897,25 @@
             "direction_accuracy_pct": 0.0,
             "n_scored": 8,
             "n_correct": 0,
-            "mean_magnitude_error": -4.72,
-            "mean_actual_return_pct": -5.74,
-            "mean_predicted_edge_pct": -5.7426
+            "mean_magnitude_error": -4.79,
+            "mean_actual_return_pct": -5.81,
+            "mean_predicted_edge_pct": -5.8131
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 23,
+            "n_scored": 24,
             "n_correct": 0,
-            "mean_magnitude_error": -5.03,
-            "mean_actual_return_pct": -6.05,
-            "mean_predicted_edge_pct": -6.047
+            "mean_magnitude_error": -5.05,
+            "mean_actual_return_pct": -6.07,
+            "mean_predicted_edge_pct": -6.0733
           },
           "all_time": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 23,
+            "n_scored": 24,
             "n_correct": 0,
-            "mean_magnitude_error": -5.03,
-            "mean_actual_return_pct": -6.05,
-            "mean_predicted_edge_pct": -6.047
+            "mean_magnitude_error": -5.05,
+            "mean_actual_return_pct": -6.07,
+            "mean_predicted_edge_pct": -6.0733
           }
         },
         "150h": {
@@ -3923,25 +3923,25 @@
             "direction_accuracy_pct": 0.0,
             "n_scored": 7,
             "n_correct": 0,
-            "mean_magnitude_error": -5.14,
-            "mean_actual_return_pct": -6.16,
-            "mean_predicted_edge_pct": -6.1553
+            "mean_magnitude_error": -5.03,
+            "mean_actual_return_pct": -6.05,
+            "mean_predicted_edge_pct": -6.0477
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 22,
+            "n_scored": 23,
             "n_correct": 0,
-            "mean_magnitude_error": -4.85,
-            "mean_actual_return_pct": -5.87,
-            "mean_predicted_edge_pct": -5.8698
+            "mean_magnitude_error": -4.83,
+            "mean_actual_return_pct": -5.85,
+            "mean_predicted_edge_pct": -5.8459
           },
           "all_time": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 22,
+            "n_scored": 23,
             "n_correct": 0,
-            "mean_magnitude_error": -4.85,
-            "mean_actual_return_pct": -5.87,
-            "mean_predicted_edge_pct": -5.8698
+            "mean_magnitude_error": -4.83,
+            "mean_actual_return_pct": -5.85,
+            "mean_predicted_edge_pct": -5.8459
           }
         },
         "156h": {
@@ -3949,35 +3949,35 @@
             "direction_accuracy_pct": 0.0,
             "n_scored": 4,
             "n_correct": 0,
-            "mean_magnitude_error": -5.5,
-            "mean_actual_return_pct": -6.52,
-            "mean_predicted_edge_pct": -6.5183
+            "mean_magnitude_error": -5.52,
+            "mean_actual_return_pct": -6.54,
+            "mean_predicted_edge_pct": -6.5424
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 19,
+            "n_scored": 20,
             "n_correct": 0,
-            "mean_magnitude_error": -4.82,
-            "mean_actual_return_pct": -5.84,
-            "mean_predicted_edge_pct": -5.8384
+            "mean_magnitude_error": -4.85,
+            "mean_actual_return_pct": -5.87,
+            "mean_predicted_edge_pct": -5.8737
           },
           "all_time": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 19,
+            "n_scored": 20,
             "n_correct": 0,
-            "mean_magnitude_error": -4.82,
-            "mean_actual_return_pct": -5.84,
-            "mean_predicted_edge_pct": -5.8384
+            "mean_magnitude_error": -4.85,
+            "mean_actual_return_pct": -5.87,
+            "mean_predicted_edge_pct": -5.8737
           }
         },
         "162h": {
           "last_7d": {
             "direction_accuracy_pct": 0.0,
-            "n_scored": 2,
+            "n_scored": 1,
             "n_correct": 0,
-            "mean_magnitude_error": -5.54,
-            "mean_actual_return_pct": -6.56,
-            "mean_predicted_edge_pct": -6.5601
+            "mean_magnitude_error": -5.74,
+            "mean_actual_return_pct": -6.76,
+            "mean_predicted_edge_pct": -6.7575
           },
           "last_30d": {
             "direction_accuracy_pct": 0.0,
@@ -4050,7 +4050,7 @@
         }
       },
       "calibration": {
-        "n_total": 846,
+        "n_total": 857,
         "ece": 0.247,
         "bins": [
           {
@@ -4098,8 +4098,8 @@
             "confidence_hi": 60.0,
             "mean_confidence": 55.2,
             "accuracy_pct": 30.5,
-            "n": 846,
-            "n_correct": 258
+            "n": 857,
+            "n_correct": 261
           },
           {
             "confidence_lo": 60.0,
@@ -4135,7 +4135,7 @@
           }
         ]
       },
-      "n_scored": 846
+      "n_scored": 857
     }
   }
 }
