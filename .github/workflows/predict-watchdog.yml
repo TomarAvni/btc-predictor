@@ -32,7 +32,8 @@ jobs:
       - name: Check prediction log freshness
         id: freshness
         run: |
-          if python -m src.utils.prediction_freshness --max-age-hours 1; then
+          # Run the script directly so package __init__ does not require PyYAML.
+          if python3 src/utils/prediction_freshness.py --max-age-hours 1; then
             echo "stale=false" >> "$GITHUB_OUTPUT"
           else
             echo "stale=true" >> "$GITHUB_OUTPUT"
