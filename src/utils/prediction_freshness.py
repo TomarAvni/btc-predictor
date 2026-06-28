@@ -197,7 +197,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--max-age-hours",
         type=float,
-        help="Watchdog mode: maximum acceptable age for the latest run",
+        help="Watchdog mode: maximum acceptable age for the latest run (hours)",
+    )
+    parser.add_argument(
+        "--max-age-minutes",
+        type=int,
+        help="Watchdog mode: maximum acceptable age for the latest run (minutes)",
     )
     parser.add_argument(
         "--event-name",
@@ -216,12 +221,22 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _run_watchdog_mode(args: argparse.Namespace) -> int:
+def _resolve_watchdog_max_age(args: argparse.Namespace) -> timedelta:
+    if args.max_age_minutes is not None:
+        return timedelta(minutes=args.max_age_minutes)
     max_age_hours = 3.0 if args.max_age_hours is None else args.max_age_hours
+    return timedelta(hours=max_age_hours)
+
+
+def _run_watchdog_mode(args: argparse.Namespace) -> int:
+    if args.max_age_minutes is not None and args.max_age_hours is not None:
+        print("Use only one of --max-age-minutes or --max-age-hours.", file=sys.stderr)
+        return 2
+
     result = check_prediction_freshness(
         args.log_path,
         jsonl_path=args.jsonl_path,
-        max_age=timedelta(hours=max_age_hours),
+        max_age=_resolve_watchdog_max_age(args),
     )
 
     if result.latest_run_at is None:

@@ -33,14 +33,31 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
         schedules = self.workflow["on"]["schedule"]
         self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
-        step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
-        script = step["with"]["script"]
+    def test_watchdog_checks_committed_log_with_sixty_minute_threshold(self) -> None:
+        steps = self.workflow["jobs"]["predict-freshness"]["steps"]
+        freshness_step = steps[1]
+        run_block = freshness_step["run"]
 
-        self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
-        self.assertIn("listWorkflowRuns", script)
-        self.assertIn("createWorkflowDispatch", script)
+        self.assertEqual(freshness_step["name"], "Check prediction log freshness")
+        self.assertIn("python3 src/utils/prediction_freshness.py --max-age-minutes 60", run_block)
+        self.assertIn("gh workflow run predict.yml", steps[-1]["run"])
+
+
+class TestPredictWatchdogWorkflow(unittest.TestCase):
+    def setUp(self) -> None:
+        self.workflow = load_workflow("predict-watchdog.yml")
+
+    def test_watchdog_runs_every_fifteen_minutes(self) -> None:
+        schedules = self.workflow["on"]["schedule"]
+        self.assertEqual(schedules[0]["cron"], "8,23,38,53 * * * *")
+
+    def test_watchdog_checks_committed_log_with_sixty_minute_threshold(self) -> None:
+        steps = self.workflow["jobs"]["watchdog"]["steps"]
+        freshness_step = steps[1]
+        run_block = freshness_step["run"]
+
+        self.assertIn("python3 src/utils/prediction_freshness.py --max-age-minutes 60", run_block)
+        self.assertNotIn("setup-python", str(self.workflow))
 
 
 if __name__ == "__main__":

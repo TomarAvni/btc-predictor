@@ -91,6 +91,28 @@ class TestPredictionFreshness(unittest.TestCase):
             self.assertFalse(corrupt_result.is_fresh)
             self.assertIsNone(corrupt_result.latest_run_at)
 
+    def test_check_prediction_freshness_honors_sixty_minute_threshold(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "predictions.log"
+            log_path.write_text(
+                "[2026-06-17 04:30 UTC] -- Prediction Run #42",
+                encoding="utf-8",
+            )
+
+            fresh_result = check_prediction_freshness(
+                log_path,
+                max_age=timedelta(minutes=60),
+                now=datetime(2026, 6, 17, 5, 15, tzinfo=timezone.utc),
+            )
+            stale_result = check_prediction_freshness(
+                log_path,
+                max_age=timedelta(minutes=60),
+                now=datetime(2026, 6, 17, 5, 45, tzinfo=timezone.utc),
+            )
+
+            self.assertTrue(fresh_result.is_fresh)
+            self.assertFalse(stale_result.is_fresh)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
