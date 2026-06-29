@@ -4533,3 +4533,52 @@ SIGNAL SUMMARY:
 
 NOTE: Confidence decreases with longer timeframes.
 ================================================================================
+
+================================================================================
+[2026-06-29 05:02 UTC] -- Prediction Run #103
+================================================================================
+
+PREDICTIONS:
+  6h    | DOWN  | -1.9%    | Confidence: 51%
+  12h   | DOWN  | -1.6%    | Confidence: 50%
+  18h   | DOWN  | -3.1%    | Confidence: 52%
+  24h   | DOWN  | -2.3%    | Confidence: 52%
+  30h   | DOWN  | -3.9%    | Confidence: 51%
+  36h   | DOWN  | -3.4%    | Confidence: 52%
+  42h   | DOWN  | -6.4%    | Confidence: 52%
+  48h   | DOWN  | -4.3%    | Confidence: 53%
+  54h   | DOWN  | -7.0%    | Confidence: 53%
+  60h   | DOWN  | -4.8%    | Confidence: 52%
+  66h   | DOWN  | -5.9%    | Confidence: 54%
+  72h   | DOWN  | -6.7%    | Confidence: 53%
+  78h   | DOWN  | -6.3%    | Confidence: 55%
+  84h   | DOWN  | -4.7%    | Confidence: 55%
+  90h   | DOWN  | -6.3%    | Confidence: 53%
+  96h   | DOWN  | -7.0%    | Confidence: 53%
+  102h  | DOWN  | -8.0%    | Confidence: 54%
+  108h  | DOWN  | -11.4%   | Confidence: 51%
+  114h  | DOWN  | -9.6%    | Confidence: 51%
+  120h  | DOWN  | -9.4%    | Confidence: 54%
+  126h  | DOWN  | -8.8%    | Confidence: 52%
+  132h  | DOWN  | -10.4%   | Confidence: 52%
+  138h  | DOWN  | -10.1%   | Confidence: 51%
+  144h  | DOWN  | -8.4%    | Confidence: 52%
+  150h  | DOWN  | -5.9%    | Confidence: 52%
+  156h  | DOWN  | -5.2%    | Confidence: 51%
+  162h  | DOWN  | -5.5%    | Confidence: 54%
+  168h  | DOWN  | -11.7%   | Confidence: 51%
+  30d   | DOWN  | -7.4%    | Confidence: 56%
+
+SIGNAL SUMMARY:
+  Price             : $59,687.00
+  RSI (14)          : 48.6 -- Neutral
+  MACD              : -102.21 -- Bullish crossover
+  ADX               : 26.5 -- Strong trend
+  Volume Ratio      : 0.00 -- Below average
+  EMA 50/200        : Death cross
+  Cycle Phase       : Euphoria Zone -- 55% through cycle
+  On-chain Whale Flow: 0 BTC moved (24h) -- mixed/neutral large flows; net exchange labeled flow +0 BTC
+  On-chain Data Coverage: free public APIs + local labels -- exact exchange/miner labels require address labels or paid entity API
+
+NOTE: Confidence decreases with longer timeframes.
+================================================================================
