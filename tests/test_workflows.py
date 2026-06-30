@@ -20,6 +20,10 @@ def load_workflow(name: str) -> dict:
         return yaml.load(f, Loader=yaml.BaseLoader)
 
 
+def step_script(step: dict) -> str:
+    return step.get("run") or step.get("with", {}).get("script", "")
+
+
 class TestPipelineWatchdogWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         self.workflow = load_workflow("pipeline-watchdog.yml")
@@ -31,16 +35,29 @@ class TestPipelineWatchdogWorkflow(unittest.TestCase):
 
     def test_watchdog_runs_off_peak_every_fifteen_minutes(self) -> None:
         schedules = self.workflow["on"]["schedule"]
-        self.assertEqual(schedules[0]["cron"], "13,28,43,58 * * * *")
+        self.assertEqual(schedules[0]["cron"], "11,26,41,56 * * * *")
 
-    def test_watchdog_dispatches_predict_after_three_hours(self) -> None:
-        step = self.workflow["jobs"]["predict-freshness"]["steps"][0]
-        script = step["with"]["script"]
+    def test_watchdog_checks_prediction_log_freshness(self) -> None:
+        steps = self.workflow["jobs"]["predict-freshness"]["steps"]
+        freshness_step = next(step for step in steps if step.get("id") == "freshness")
+        script = step_script(freshness_step)
 
-        self.assertIn('const workflowId = "predict.yml";', script)
-        self.assertIn("const staleAfterMs = 3 * 60 * 60 * 1000;", script)
-        self.assertIn("listWorkflowRuns", script)
-        self.assertIn("createWorkflowDispatch", script)
+        self.assertIn("python3 src/utils/prediction_freshness.py --max-age-hours 1", script)
+        self.assertIn('echo "stale=false"', script)
+        self.assertIn('echo "stale=true"', script)
+
+    def test_watchdog_dispatches_predict_when_stale(self) -> None:
+        steps = self.workflow["jobs"]["predict-freshness"]["steps"]
+        dispatch_step = next(
+            step for step in steps if step.get("name") == "Dispatch Predict recovery run"
+        )
+        script = step_script(dispatch_step)
+
+        self.assertIn("gh workflow run predict.yml", script)
+        self.assertEqual(
+            dispatch_step["if"],
+            "steps.freshness.outputs.stale == 'true' && steps.active.outputs.count == '0'",
+        )
 
 
 if __name__ == "__main__":
