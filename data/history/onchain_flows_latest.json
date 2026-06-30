@@ -1,24 +1,46 @@
 {
-  "whale_btc_moved_1h": 0,
-  "whale_tx_count_1h": 0,
-  "whale_btc_moved_6h": 0,
-  "whale_tx_count_6h": 0,
-  "whale_btc_moved_24h": 0,
-  "whale_tx_count_24h": 0,
-  "whale_btc_moved_7d": 0,
-  "whale_tx_count_7d": 0,
-  "largest_whale_tx_btc_24h": 0.0,
+  "whale_btc_moved_1h": 544.0455,
+  "whale_tx_count_1h": 3,
+  "whale_btc_moved_6h": 544.0455,
+  "whale_tx_count_6h": 3,
+  "whale_btc_moved_24h": 544.0455,
+  "whale_tx_count_24h": 3,
+  "whale_btc_moved_7d": 544.0455,
+  "whale_tx_count_7d": 3,
+  "largest_whale_tx_btc_24h": 268.852,
   "exchange_inflow_btc_24h": 0.0,
   "exchange_outflow_btc_24h": 0.0,
   "net_exchange_flow_btc_24h": 0.0,
   "miner_outflow_btc_24h": 0.0,
   "miner_to_exchange_btc_24h": 0.0,
-  "unknown_large_flow_btc_24h": 0.0,
-  "cold_storage_like_btc_24h": 0.0,
-  "distribution_like_btc_24h": 0.0,
-  "flow_accumulation_score": 0.0,
+  "unknown_large_flow_btc_24h": 544.0455,
+  "cold_storage_like_btc_24h": 275.1935,
+  "distribution_like_btc_24h": 268.852,
+  "flow_accumulation_score": 0.0117,
   "label_source": "local_address_labels",
   "label_coverage_note": "free_mode_unknown_unless_address_label_exists",
-  "top_transactions": [],
-  "timestamp": "2026-06-30T05:52:00.552999+00:00"
+  "top_transactions": [
+    {
+      "timestamp": "2026-06-30 06:35:22+00:00",
+      "tx_hash": "a8a7c2dd8f1df296714c4504ae3d37b3b597d8e230475add48ecff6e5cf08943",
+      "total_btc": 268.852,
+      "category": "unknown",
+      "heuristic": "distribution_like"
+    },
+    {
+      "timestamp": "2026-06-30 06:35:54+00:00",
+      "tx_hash": "66c567e3faa97df3854214dec86a48d9335162f84152879605867d46c3128e65",
+      "total_btc": 170.2638,
+      "category": "unknown",
+      "heuristic": "cold_storage_like"
+    },
+    {
+      "timestamp": "2026-06-30 06:35:57+00:00",
+      "tx_hash": "cff543525380dd2b38ca8407897d04f7b0f0e91991f7bc3bdf7b54f68f4dff31",
+      "total_btc": 104.9297,
+      "category": "unknown",
+      "heuristic": "cold_storage_like"
+    }
+  ],
+  "timestamp": "2026-06-30T06:35:58.832189+00:00"
 }
