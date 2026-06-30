@@ -1,1 +1,1 @@
-{"identifier": "price:latest", "params": null, "cached_at": "2026-06-30T01:52:34.855658+00:00", "payload": {"timestamp": "2026-06-30 01:00:00+00:00", "open": 59747.28, "high": 59958.07, "low": 59688.08, "close": 59909.81, "volume": 12.9101569}}
+{"identifier": "price:latest", "params": null, "cached_at": "2026-06-30T05:52:01.666287+00:00", "payload": {"timestamp": "2026-06-30 05:00:00+00:00", "open": 59387.15, "high": 59514.59, "low": 59262.41, "close": 59472.6, "volume": 30.29165321}}
