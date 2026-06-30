@@ -3,9 +3,9 @@ name: Predict Watchdog
 on:
   schedule:
     # GitHub scheduled workflows can be delayed or dropped. This watchdog
-    # checks the committed prediction log twice hourly and restarts Predict
-    # when no run has landed in the last hour.
-    - cron: '17,47 * * * *'
+    # checks the committed prediction log four times hourly and restarts
+    # Predict when no run has landed in the last hour.
+    - cron: '3,18,33,48 * * * *'
   workflow_dispatch:
 
 permissions:
