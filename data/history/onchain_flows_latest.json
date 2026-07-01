@@ -1,32 +1,24 @@
 {
-  "whale_btc_moved_1h": 125.4689,
-  "whale_tx_count_1h": 1,
-  "whale_btc_moved_6h": 125.4689,
-  "whale_tx_count_6h": 1,
-  "whale_btc_moved_24h": 125.4689,
-  "whale_tx_count_24h": 1,
-  "whale_btc_moved_7d": 125.4689,
-  "whale_tx_count_7d": 1,
-  "largest_whale_tx_btc_24h": 125.4689,
+  "whale_btc_moved_1h": 0,
+  "whale_tx_count_1h": 0,
+  "whale_btc_moved_6h": 0,
+  "whale_tx_count_6h": 0,
+  "whale_btc_moved_24h": 0,
+  "whale_tx_count_24h": 0,
+  "whale_btc_moved_7d": 0,
+  "whale_tx_count_7d": 0,
+  "largest_whale_tx_btc_24h": 0.0,
   "exchange_inflow_btc_24h": 0.0,
   "exchange_outflow_btc_24h": 0.0,
   "net_exchange_flow_btc_24h": 0.0,
   "miner_outflow_btc_24h": 0.0,
   "miner_to_exchange_btc_24h": 0.0,
-  "unknown_large_flow_btc_24h": 125.4689,
+  "unknown_large_flow_btc_24h": 0.0,
   "cold_storage_like_btc_24h": 0.0,
-  "distribution_like_btc_24h": 125.4689,
-  "flow_accumulation_score": -1.0,
+  "distribution_like_btc_24h": 0.0,
+  "flow_accumulation_score": 0.0,
   "label_source": "local_address_labels",
   "label_coverage_note": "free_mode_unknown_unless_address_label_exists",
-  "top_transactions": [
-    {
-      "timestamp": "2026-07-01 12:16:33+00:00",
-      "tx_hash": "1e1ea9522b0ddb27d09a99419a380f171b860c51051d7a1ccf770e3a04e4fab3",
-      "total_btc": 125.4689,
-      "category": "unknown",
-      "heuristic": "distribution_like"
-    }
-  ],
-  "timestamp": "2026-07-01T12:16:36.601434+00:00"
+  "top_transactions": [],
+  "timestamp": "2026-07-01T13:15:07.266122+00:00"
 }
