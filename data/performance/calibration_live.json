@@ -1,6 +1,6 @@
 {
-  "n_total": 3377,
-  "ece": 0.2007,
+  "n_total": 3406,
+  "ece": 0.2005,
   "bins": [
     {
       "confidence_lo": 0.0,
@@ -47,8 +47,8 @@
       "confidence_hi": 60.0,
       "mean_confidence": 54.5,
       "accuracy_pct": 36.8,
-      "n": 2911,
-      "n_correct": 1071
+      "n": 2940,
+      "n_correct": 1082
     },
     {
       "confidence_lo": 60.0,
@@ -83,5 +83,5 @@
       "n_correct": 0
     }
   ],
-  "updated_at": "2026-07-01T00:18:52.359959+00:00"
+  "updated_at": "2026-07-01T01:35:26.913432+00:00"
 }
